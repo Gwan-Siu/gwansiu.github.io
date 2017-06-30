@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: alexjun134@gmail.com
 description: "在黑暗中前行，在黑暗中摸索，探寻未知的光明"
 keyword: "GwanSiu, 肖均，计算机视觉，机器学习，读书"
-url: ""              # your host, for absolute URL
+url: "http://gwan-siu.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
