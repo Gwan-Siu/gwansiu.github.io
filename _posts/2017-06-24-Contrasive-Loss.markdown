@@ -4,7 +4,6 @@ title: Contrasive Loss(对比损失函数)
 date: 2017-06-24
 author: Gwan Siu
 catalog: True
-header-img: "img/ml.png"
 tags:
     - Machine Learning
 ---

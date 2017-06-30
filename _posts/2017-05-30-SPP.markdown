@@ -3,7 +3,6 @@ layout: post
 title: Note--Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition
 date: 2017-05-27
 catalog: True
-header-img: "img/ml.png"
 tags:
     - Machine Learning
 ---

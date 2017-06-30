@@ -3,7 +3,6 @@ layout: post
 title: Batch Normalization
 date: 2017-06-06
 catalog: True
-header-img: "img/ml.png"
 tags:
     - Machine Learning
 ---
