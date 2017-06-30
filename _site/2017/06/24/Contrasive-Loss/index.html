@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="在黑暗中前行，在黑暗中摸索，探寻未知的光明">
+    <meta name="keywords"  content="GwanSiu, 肖均，计算机视觉，机器学习，读书">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Contrasive Loss(对比损失函数) - 肖均的博客 | GwanSiu Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favi.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2017/06/24/Contrasive-Loss/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">GwanSiu Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ml.png" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ml.png')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Machine Learning" title="Machine Learning">Machine Learning</a>
+                        
+                    </div>
+                    <h1>Contrasive Loss(对比损失函数)</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Gwan Siu on June 24, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="1-whats-the-contrasive-loss-function">1. What’s the Contrasive Loss function?</h2>
+<p>Contrasive Loss function is a dimemsion reduction technique. Constrasive loss function can drive the featurs mapping function to learn a mapping that projects high dimension features into its low dimension manifold. In this low dimension manifold, the sample of the same category would cluster together and part away from the sample of different categories.(对比损失函数是一种降维学习方法，它可以学习一种映射关系，这种映射关系可以使得在高维空间中，相同类别但距离较远的点，通过函数映射到低维空间后，距离变近，不同类别但距离都较近的点，通过映射后再低维空间变得更远。这样的结果就是，在低维空间，同一种类的点会产生聚类的效果，不同种类的mean会隔开。类似fisher降维，但fisher降维不具有out-of-sample extension的效果，不能对new sample进行作用)</p>
+
+<h2 id="2-why-is-contrasive-loss-funtion-needed">2. Why is contrasive loss funtion needed?</h2>
+<p>Conventionally, dimension reduction involves mapping a set of high dimensional input points onto a low dimensional manifold so that “similar” points in input space are mapped to nearby points on the manifold. The classical dimension reduction methods are Principle Component Analysis(PCA) and Multi-Dimensional Scaling(MDS). PCA is to project sample points into a subspace where the variance of sample points is minimized. MDS is to project samples into a subspace that is best to preserve the pairwise distances between input points.
+Another dimension reduction methods are ISOMAP and Local-linear Embedding(LLE). All of above methods presuppose the the existence of a meaningful metric in input space and the computation process usually has three steps: 1.Identify a list of neighborhoods of each points. 2. A gram matrix is computed using this information. 3. the eigenvalue problem is solved for this matrix.</p>
+
+<p><strong>None of these methods attempt to compute a function that could map a new, unknown data point without recomputing the entire embedding and with- out knowing its relationships to the training points.</strong></p>
+
+<h2 id="3-whats-the-advantage-of-conrtasive-loss-function">3. What’s the advantage of conrtasive loss function?</h2>
+
+<ol>
+  <li>
+    <p>It only needs neighborhood relationships between training samples. These relationships could come from prior knowledge, or manual labeling, and be indepen- dent of any distance metric.</p>
+  </li>
+  <li>
+    <p>Itmaylearnfunctionsthatareinvarianttocomplicated non-linear trnasformations of the inputs such as light- ing changes and geometric distortions.</p>
+  </li>
+  <li>
+    <p>The learned function can be used to map new samples not seen during training, with no prior knowledge.</p>
+  </li>
+  <li>
+    <p>The mapping generated by the function is in some sense “smooth” and coherent in the output space.</p>
+  </li>
+</ol>
+
+<h2 id="4-how-does-the-contrasive-loss-work">4. How does the contrasive loss work?</h2>
+
+<p>Let’s consider a pair of sample $\vec{X_{1}},\vec{X_{2}}\in I$ Let $Y$ be a binary label assigned to this pair. $Y = 0$ if $\vec{X_{1}}$ and $\vec{X_{2}}$ are deemd similar, and $Y = 1$ if they are deemed dissimilar. Define the parameterized distance function to be learned DW between $\vec{X_{1}}$, $\vec{X_{2}}$ as the euclidean distance between the outputs of $G_{W}$ . That is:</p>
+
+<script type="math/tex; mode=display">D_{W}(\vec{X_{1}},\vec{X_{2}})=\text{||}G_{W}(\vec{X_{1}})-G_{W}(\vec{X_{2}}\text{||}_{2}</script>
+
+<p>The general form is:</p>
+
+<script type="math/tex; mode=display">L(W)=\sum_{i=1}^{P}L(W,(Y,\vec{X}_{1}, \vec{X}_{2})^{i})</script>
+
+<script type="math/tex; mode=display">L(W,(Y,\vec{X_{1}}, \vec{X_{2}})^{i})=(1-Y)L_{S}(D_{W}^{i})+YL_{D}(D^{i}_{W})</script>
+
+<p>where $(Y,\vec{X}<em>{1}, \vec{X}</em>{2})^{i})$ is the i-th labeled sample pair, $L_{S}$ is the partial loss function for a pair of similar points, $L_{D}$ the partial loss function for a pair of dissimilar points, and P the number of training pairs(which may be as large as the square of the number of samples).</p>
+
+<p>$L_{S}$ and $L_{D}$ must be designed such that minimizing $L$ with respect to $W$ would result in low values of $D_{W}$ for similar pairs and high values of $D_{W}$ for dissimilar pairs.</p>
+
+<p>For example, the exact loss function is:</p>
+
+<script type="math/tex; mode=display">L(W,(Y,\vec{X_{1}}, \vec{X_{2}})^{i})=(1-Y)L_{S}(D_{W}^{i})+Y\frac{1}{2}\{\text{max}(0,m-D_{w})\}^{2}</script>
+
+<p><img src="http://static.zybuluo.com/GwanSiu/fwzo5gzyyun344jbh90v0go8/image_1bjehi3lpq601crmvc5vk51ndd9.png" alt="image_1bjehi3lpq601crmvc5vk51ndd9.png-51.8kB" /></p>
+
+<p>where $m&gt;0$ is margin. The margin define a radius around $G_{W}(\vec{X})$.
+Disimilar pairs contribute to the loss only if their distance is within the his radius.</p>
+
+<h2 id="5-spring-model-explaination">5 Spring model Explaination</h2>
+
+<p><img src="http://static.zybuluo.com/GwanSiu/8ur3ozxwcknsn6r4kedpp2b2/image_1bjehp2jo1n8mvtl1o861fh41iavm.png" alt="image_1bjehp2jo1n8mvtl1o861fh41iavm.png-59.9kB" /></p>
+
+<p>Black points are the same category as the blue point while the while points are different category.</p>
+
+<p>图(a)，当同种类的点距离在$G_{W}(\vec{X})$圆外(即:距离较远)，Contrasive loss算法会将同种类的点往里推，使其都聚集在一个领域内。图(b),当不同种类的点距离在$G_{W}(\vec{X})$圆内(即:距离较近)，Contrasive loss算法会将同种类的点往外推，使其都聚集在一个领域内。这样造成的效果就是，园内和圆外分别就形成了同一种类的cluster。图(e)是指contrasive loss算法的最终形态，是达到不同种类点之间的动态平衡，从而使loss最小。</p>
+
+<h2 id="6-visual-graph">6 Visual Graph</h2>
+
+<p><img src="http://static.zybuluo.com/GwanSiu/ewdd427iz7lnqxq8ospmxlts/image_1bjei9scl9eu3oaf5n9651eqp9.png" alt="image_1bjei9scl9eu3oaf5n9651eqp9.png-301.3kB" /></p>
+
+<p><img src="http://static.zybuluo.com/GwanSiu/fygo87srhmpqwqmhwl18si6s/image_1bjeiart115p1gfp164i1372vokm.png" alt="image_1bjeiart115p1gfp164i1372vokm.png-309.3kB" /></p>
+
+<p><img src="http://static.zybuluo.com/GwanSiu/g3485tg7gkpvz8k43rzyh2f5/image_1bjeibb4o1jj61o5e17fpupr11pt13.png" alt="image_1bjeibb4o1jj61o5e17fpupr11pt13.png-109.3kB" /></p>
+
+
+
+                <hr style="visibility: hidden;">
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/06/06/BN/" data-toggle="tooltip" data-placement="top" title="Batch Normalization">
+                        Previous<br>
+                        <span>Batch Normalization</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Machine Learning" title="Machine Learning" rel="6">
+                                    Machine Learning
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "GwanSiu";
+    var disqus_identifier = "/2017/06/24/Contrasive-Loss";
+    var disqus_url = "http://localhost:4000/2017/06/24/Contrasive-Loss/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/Gwan-siu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/u/6056969706">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Gwan-Siu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; GwanSiu Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

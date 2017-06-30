@@ -1,0 +1,192 @@
+---
+layout: post
+title: SIFT算子
+date: 2017-05-27
+author: GwanSiu
+catalog: True
+tags:
+    - Machine Learning
+---
+
+## 1.Introduction
+SIFT(Scale Invariant Feature Transform) featuers are invariant to image scaling and ratation, and patially invariant to change in illumination and 3D camera viewpoint. The key point of this approach is to generate lots of numbers of features and densely cover the image over all the location and scale. 
+
+The properties of SIFT features:  
+1. SIFT features are invariant to image scaling and roration, and patially invariant to change in illumination and 3D camera viewpoint. The featues are also robust to illuminatin, occlusion and affine transform.  
+2. SIFT features are highly distinctive, which allows a single feature to be correctly matched with high probability against a large database of features, providing a basis for object and scene recognition.  
+3. lots of numbers of features can be generaed from few objects. 
+4. **Real-Time**: For object recognition, SIFT features can be matched quickly in large database.  
+5. SIFT also have the the ability to detect small objects in cluttered backgrounds requires that at least 3 features be correctly matched from each object for reliable identification.
+
+In this blog, we simply summary SIFT featues and its properties. In section 2, the produce of SIFT features caculation is introduced. In section 3, we will analysis SIFT features in depth and try to answer the question: why are SIFT features invariant to image scaling and rotation? why are SIFT featues robust to illumination? In addition, this blog is written in English and Chinese.
+
+## 2.The Process of SIFT calculation(摘抄原文[1])  
+1. **Scale-space extrema detection（尺度空间的极点检测）:**The first stage of computation searches over all scales and image locations. It is implemented efficiently by *using a difference-of-Gaussian function to identify potential interest points that are invariant to scale and orientation.* （所有图像所有尺度和位置，使用difference-of-Gaussian function检测出具有尺度不变性和方向不变性的interst points） 
+2. **Keypoint localization(特征点定位):** At each candidate location, a detailed model is fit to determine location and scale. *Keypoints are selected based on measures of their stability.* (这一步是在所有的特征点中，选择出具有稳定性的特征点)  
+3. **Orientation assignment(赋予方向):** One or more orientations are assigned to each keypoint lo- cation based on local image gradient directions. **All future operations are performed on image data that has been transformed relative to the assigned orientation, scale, and location for each feature, thereby providing invariance to these transformations.**  
+4. **Keypoint descriptor(特征点描述子):** The local image gradients are measured at the selected scale in the region around each keypoint. These are transformed into a representation that allows for significant levels of local shape distortion and change in illumination.  
+
+### 2.1 Scale-space extrema detection
+
+1. Construct image scale space based on Gaussian function:
+
+$$L(x,y,\sigma)=G(x,y,\sigma)*I(x,y)$$  
+
+where, $\text{*}$ is the convolution operation in x and y, and
+
+$$ G(x,y,\sigma) = \frac{1}{2\pi \sigma^{2}}e^{-(x^{2}+y^{2})/2\sigma^{2}}$$
+
+Using scale-space extrema in the difference-of-Guassian function convolved with the image to efficiently detect stable keypoint locations in the scale space.  
+
+$$ \begin{aligned}
+D(x,y,\sigma) &=(G(x,y,k\sigma)-G(x,y,\sigma))* I(x,y) \\  
+
+&= L(x,y,k\sigma)-L(x,y,\sigma)
+\end{aligned}
+$$
+
+![image_1bh7i445eip13np1j0gv52m1e9.png-88.1kB][4]
+
+[4]: http://static.zybuluo.com/GwanSiu/0hz6rz3rpvdq1a39zsfvu5tm/image_1bh7i445eip13np1j0gv52m1e9.png
+
+One octave represents one resolution of an image. In each octave,
+different scale-space of the image are constructed  by the gaussian function. Adjacent Gaussian images are subtracted to produce the difference-of-Gaussian images on the right. After each octave, the Gaussian image is down-sampled by a factor of 2, and the process repeated.
+
+**1. 为什么要使用gaussian function 来构造尺度空间？**  
+
+Koenderink (1984) and Lindeberg (1994)在其论文中表明：Gasussian function 是唯一一个尺度空间核（scale-space kernel), 可以使用Gaussian function来构造图像的尺度空间。
+
+**2.为什么使用difference-of-gaussian function作为scale invariant features detector?**
+
+Difference-of-Gaussian function approximates to the the scale-normalized gaussian, $\sigma^{2}\nabla^{2}G$. Lindeberg (1994)研究显示：scale-normalized Laplacian of Gaussian, $\sigma^{2}\nabla^{2}G$,具有尺度不变性，and the maximum and minimum of the $\sigma^{2}\nabla^{2}G$ can produce the most stable image features compared to a range of other possible image funcitons, such as gradient, Hessian, or Harris corner function.  
+The relationship between $D$ and $\sigma\nabla^{2}G$:  
+
+$$\frac{\partial G}{\partial \sigma} = \sigma \nabla^{2}G$$
+
+而: $\sigma \nabla^{2}G = \frac{\partial G}{\partial \sigma}\approx \frac{G(x,y,k\sigma)-G(x,y,\sigma)}{k\sigma - \sigma}$  
+
+因此: $G(x,y,k\sigma)-G(x,y,\sigma) \approx (k-1)\sigma^{2}\nabla^{2}G$
+
+可见: difference-of-gaussian function 与 scale-normalized gaussian function 相差一个$\sigma^{2}$的尺度因子，而（k-1）是个常数，不影响极值点的位置。
+
+2. local extrema detection
+**how to locate local extrema（including local maxima and  minima）?**
+
+Each sample point is compared to its eight neighbors in the current image and nine neighbors in the sccale above and below.
+
+![image_1bh8un05u16931pklgkl16blho4m.png-18.5kB][5]
+
+[5]: http://static.zybuluo.com/GwanSiu/dpifzu907hxhj0thznbg3mvv/image_1bh8un05u16931pklgkl16blho4m.png
+
+### 2.2 Keypoint localization
+#### 2.2.1 Accurate keypoint localization
+根据选出的candidate keypoints,使用模型进一步准确拟合出Keypoints的位置（即计算出Keypoints的偏移量），在[link]: http://blog.csdn.net/zddblog/article/details/7521424 "zddhub"的博客中提到：图片是离散空间，而离散空间中的极值点并不是真正的极值点，从离散空间中寻找连续空间中极值点的是连续插值直至收敛。
+
+![image_1bh8vbp5u2ib6k3e8v34tq9d13.png-37.3kB][6]
+
+[6]: http://static.zybuluo.com/GwanSiu/x0fzdgysh55ncdwz14ydct05/image_1bh8vbp5u2ib6k3e8v34tq9d13.png
+
+文中采用的是Brown and Lowe,2002提出的泰勒二阶拟合的方法：
+
+$$ D(x) = D + \frac{\partial D^{T}}{\partial x} + \frac{1}{2} x^{T} \frac{\partial^{2} D}{\partial x^{2}}x$$
+
+令$D(x)$的导数为零可以求得sample point $x=(x,y,\sigma)^{T}$的偏移量：
+
+$$\vec x = -\frac{\partial^{2} D}{\partial x^{2}}^{-1}\frac{\partial D}{\partial x}$$
+
+进一步求得keypoints的准确位置：
+$$D(\hat{x}) = D + \frac{1}{2}\frac{\partial D}{\partial x} \vec x$$
+
+**Why is the function value at the extremumm, $D(\hat{x})$ useful for rejecting unstable extrema with low constrast.**
+未填
+
+
+####2.2.2 Eliminating edge responses
+
+what's the stability for the keypoint?
+**文中指出：for stability, it is not sufficient to reject keypoints with low constrast,The difference-of- Gaussian function will have a strong response along edges, even if the location along the edge is poorly determined and therefore unstable to small amounts of noise.**  
+
+并且 **A poorly defined peak in the difference-of-Gaussian function will have a large principal curvature(曲率) across the edge but a small one in the perpendicular direction.**  
+
+The priciple curvatures can be computed by the a $2x2$ Hessian matrix, $H$, is computed at the location and sccale of the keypoint:
+
+$$
+H=\left[
+\begin{array}
+ DD_{xx} & D_{xy} \\  
+ D_{xy} & D_{yy} \\ 
+\end{array}  
+\right]
+$$
+
+**文中指出：The eigenvalues of $H$ are proportional to the principal curvatures of $D$.**  但文中并不直接计算Hessian matrix $H$ 的特征值，而是通过计算最大特征值$\alpha$和次大特征值$\beta$的比值:
+
+$$\begin{aligned}
+Tr(H) &= D_{xx} + D_{yy} = \alpha + \beta \\
+Det(D) &= D_{xx}D_{yy} - (D_{xy})^{2} = \alpha \beta
+\end{aligned}
+$$
+
+虽然某一点的曲率可以取正负，但经过local extrema步骤筛选之后，not extrema is filtered, 因此$Det(H)$ 不太可能取负值。The ratio between the largest magnitude eigenvalue and the smaller one, let‘s $\alpha=r \beta$:
+
+$$ \frac{Tr(H)^{2}}{Det(H)} = \frac{(\alpha+\beta)^2}{\alpha\beta}=\frac{(r\beta+\beta)^{2}}{r\beta^{2}}=\frac{(r+1)^2}{r}$$
+
+which depends only on the ratio of the eigenvalues rather than their individual values. The quantity $(r + 1)^{2}/r$ is at a minimum when the two eigenvalues are equal and it increases with r. Therefore, to check that the ratio of principal curvatures is below some threshold, r, we only need to check
+
+$$ \frac{Tr(H)^{2}}{Det(H)} < \frac{(r+1)^2}{r}$$
+
+通过直接计算最大特征值$\alpha$和次大特征值$\beta$的比值，使得运算非常快捷。下图展示了r=10消除principal curvatures大于10的,效果图（c）-->(d)：
+
+![image_1bh92s2sdh01hdf4hl11p8jl09.png-229.3kB][7]
+
+[7]: http://static.zybuluo.com/GwanSiu/wunk18g93vmoaefk3bn5bgdq/image_1bh92s2sdh01hdf4hl11p8jl09.png
+
+### 2.3 Orientation assignment
+给每个特征点赋予方向信息：**利用关键点邻域像素的梯度方向分布特性为每个关键点指定方向参数，使算子具备旋转不变性[2]。**
+
+$$\begin{aligned}
+m(x,y) &= \sqrt{(L(x+1,y)-L(x-1,y))^{2}+(L(x,y+1)-L(x,y-1))^2} \\
+\theta (x,y) &= \tan^{-1}((L(x,y+1)-L(x,y-1)))/((L(x+1,y)-L(x-1,y)))\\
+\end{aligned}
+$$
+
+For each image, $L(x,y)$ at this scale, the gradient magnitude, m(x,y), and orientation, $\theta$. 
+
+### 2.4 Descriptor representation（梯度方向直方图，128维向量）  
+梯度方向直方图的范围是：0~360度，通常每十度为一个bin, 一共36个bin.也可以每45度为一bin,一共8bin。
+随着距中心点越远的领域其对直方图的贡献也响应减小.Lowe论文中还提到要使用高斯函数对直方图进行平滑，减少突变的影响[2]。直方图的峰值代表着该处领域的主方向，其他bin中超过峰值80%的可以作为辅助方向。以下图为例：
+![image_1bh94cvdr1bgk1j2r9rc1c501tg5l.png-92.4kB][8]
+
+[8]: http://static.zybuluo.com/GwanSiu/gams8f450qse4arlio8ggii5/image_1bh94cvdr1bgk1j2r9rc1c501tg5l.png
+
+![image_1bh94ql0n1ko512052hk1fu38615.png-57.4kB][9]
+
+[9]: http://static.zybuluo.com/GwanSiu/4xywl7hn6igxye8rcb71hu6g/image_1bh94ql0n1ko512052hk1fu38615.png
+
+考虑keypoint为8x8的邻域，将其领域分成2x2的的区域（descriptor），每一个区域为4x4的subimage,在每一个subimage中做梯度方向直方图，每45度为一bin,一共8bin. 那么这个SIFT特征维度为：2x2x8=32. 文中实验考虑的是16x16的邻域，4x4的descriptor,8 bins,因此SIFT特征的维度为：4x4x8 = 128.
+
+**最后一步则是将SIFT特征归一化，进一步消除光照的影响**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

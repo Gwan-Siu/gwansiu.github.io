@@ -1,0 +1,63 @@
+---
+layout: post
+title: Note--Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition
+date: 2017-05-27
+catalog: True
+header-img: "img/ml.png"
+tags:
+    - Machine Learning
+---
+
+## 1. Introduction and background  
+
+Conventionally, deep neural network requires for fixed-size input. In some applications, such as recognition and detection, input images are usually cropped and warped, and then feeded into the deep neural network. Crop operator can't obtain the whole object which means crop may lead to some information loss in some sense, and warp operator would introduce unwanted geometric distortion. These limitations will harm the final performance of neural network. In the paper of <<Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition>>, kaiming He propose a new pooling strategy--Spatial pyramid pooling, which borrow the idea from the spatial pyramid matching model(SPM[2]). The outstanding contribution of this struture is to generate fiex-length output regardless of the input size, while previous networks can't. 
+
+The comparision of SPP-net and conventional net:
+
+![image_1bhbp36ic1lku1s5f1hlbodh15ll9.png-169.6kB][10]
+
+
+[10]: http://static.zybuluo.com/GwanSiu/8x0a4pd8k6z1uj2eqyymuihi/image_1bhbp36ic1lku1s5f1hlbodh15ll9.png
+
+## 2. Spatial pyramid pooling architecture
+
+### 2.1 Why does the CNN requires for fixed-size input?
+
+CNN consists of two parts: convolutional layer and fully-connected layer which is usually at the top of neural network. The convolutional layers operate in a sliding window manner and output feature map which represents the arangement of the activations. In fact, the convolutional layers doesn't require fixed-size input and can generate feature map of any size. Note that ** the size here means the width and height of feature map not the channel number. As we all know, channel number is fixed given the filer number.   
+On the other hand, fully-connected layer need fixed-size input. In detail, fully-connected layers essentially is linear projection operator, dot product.fFrom the above analysis, fully-connected constraint the input size of neural network. Kaiming He deal with this problem by inserting the SPP-net between convolutional layers and fully-connected layers.
+
+### 2.2 What's the SPP-net architecture and how does it work?
+
+The structure of SPP-net is as followed:
+
+![image_1bhbqlv45ad3181t1mgnsj4b6m.png-122.3kB][11]
+
+[11]: http://static.zybuluo.com/GwanSiu/6ky8a9fsgltk6bgf2326h41c/image_1bhbqlv45ad3181t1mgnsj4b6m.png
+
+SPP-net is inserted into between convolutional layers and fully-conneccted layers. In SPP-net, it adopts spatial pyramid structure, in other word, it divided input feature into subimage and extract patch feature in each subimage. Kaiming He adopt max pooling strategy in this paper, it means the maximum value in each subimage would be extrected.  
+
+As we all know, the sliding window manner in convolutional layers densely extrect image patches, which is very effective for feature representation. The spatial pyramid pooling is a local-area operator. Spatial pyramid pooling improves BoW in that it can maintain spatial information by pooling in local spatial bins. **It can genrate fixed-sized output regardless of inout size, which means the the scale of image doesn't affect the final performance, it would extrect scale-invariant feature.** The scales are also important for the accuracy of deep networks.
+
+As we can see from the figure, the coarsest pyramid level has a single bin tha tcovers the ertire image. This essentially is a "global pooling operation". In the paper of "network in network", in[3],a global average pooling is used to reduce the model size and also reduce overfitting; A global average pooling is used on the testing stage after all fc layers to improve accuracy; in [4], a global max pooling is used for weakly supervised object recognition.
+
+The adavantage of SPP-net:
+1. SPP is able to generate a fixed- length output regardless of the input size, while the sliding window pooling used in the previous deep networks cannot.  
+2. SPP uses multi-level spatial bins, while the sliding window pooling uses only a single window size. Multi-level pooling has been shown to be robust to object deformations.  
+3.  SPP can pool features extracted at variable scales thanks to the flexibility of input scales.  
+
+## 3.Multi-view testing used by SPP  
+Thanks to the flexibility of SPP, kaiming he propose a multi-view method used by SPP-net in this paper. SPP-net can easily extract from the windows of the arbitrary size. It's descriped that assume the image is resized to min(h,s)=s where s is predefined scale(like 255). The convolutional feature maps are computed from the entire image through convolutional layers. For the usage of
+flipped views, we also compute the feature maps of the flipped image. Given any view (window) in the image, we map this window to the feature maps (the way of mapping is in Appendix), and then use SPP to pool the features from this window (see Figure 5). The pooled features are then fed into the fc layers to compute the softmax score of this window. These scores are averaged for the final prediction.   
+![image_1bhc39n0frdd1up8fua1qf4bvi13.png-144.7kB][12]
+
+[12]: http://static.zybuluo.com/GwanSiu/j2r33c1s45egd98s819cyhb0/image_1bhc39n0frdd1up8fua1qf4bvi13.png
+
+**Reference**  
+[1] K.He,X.Zhang,S.Ren,andJ.Sun.Spatialpyramidpoolingindeep
+convolutional networks for visual recognition. In ECCV, 2014.  
+[2] S. Lazebnik, C. Schmid, and J. Ponce, “Beyond bags of fea- tures: Spatial pyramid matching for recognizing natural scene categories,” in CVPR, 2006.  
+[3] K. Simonyan and A. Zisserman, “Very deep convolutional networks for large-scale image recognition,” arXiv:1409.1556, 2014  
+[4] M. Oquab, L. Bottou, I. Laptev, J. Sivic et al., “Learning and transferring mid-level image representations using convolu- tional neural networks,” in CVPR, 2014.  
+
+
+
