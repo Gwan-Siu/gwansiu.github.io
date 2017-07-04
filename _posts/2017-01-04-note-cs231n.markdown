@@ -1,0 +1,63 @@
+---
+layout: post
+title: Segmentation,Location and Detection based on Deep neural network
+date: 2017-07-04
+author: Gwan Siu
+catalog: True
+tags:
+    - Machine Learning
+---
+
+## 1.Introduction: 分类，检测和分割三部曲  
+
+**分类，检测和分割是计算机视觉(computer vision)领域中基本三大问题。**其中，分类是基础
+检测是分类的进阶，而是分割是检测的进化版本。这三个任务分别回答三个问题:**是什么？**，**是什么？+在哪里？**和 **图像里有什么+在哪里？**。在给定一幅图像，分类只需要对图像中的物体(object)进行判断，而检测不仅要判断出主要物体，还要回答出这些物体在图像的什么地方。分割的要求则对物体和背景都要区分，这在检测的基础上提出了更加精细的要求。下图是cs231n讲义中的一幅图：
+
+![---][1]
+
+[1]: http://static.zybuluo.com/GwanSiu/58pirxq51vr8ii4vohykj63r/image_1bk6o2bmc1eit205rckt3j79.png
+
+**每个task的特点:**  
+1. Semantic Segmentation(语义分割): No ojects,Just pixels. 在语义分割分钟中，每一个pixel都会被标注，但并不会具体区分标注的pixels具体是什么，这是告诉你
+图像中有几类，如图:
+
+![image_1bk6obracg1elb1u061394212m.png-243.7kB][2]
+
+[2]: http://static.zybuluo.com/GwanSiu/3d919nn7ld6c72hnbdav9ynv/image_1bk6obracg1elb1u061394212m.png
+
+2. 单目标检测: 可以归结为calssification 和 Localization的问题。
+3. 多目标检测和分割: 检测图像中物体数量不确定(一般>=2)，Localization不能简单归结成Regression的问题，在分割上便会要求更加精确的pixel localization(像素级别的定位)。
+
+## 2.Semantic Segmantation(语义分割)
+### 2.1 Sliding Windows(滑动窗口法)
+使用window滑过一整张图片，从而基于每个像素都提取出一个个patch，将提取出的patches都输入到神经网络中做判断。**But sliding window is very inefficient!** 因为sliding windows不能够重复使用overlapping patch的shared features.
+![image_1bk6pe6cla0116oc1sh8ri410i59.png-271.4kB][3]
+
+[3]: http://static.zybuluo.com/GwanSiu/7r3570nbxo83y71bz6459zam/image_1bk6pe6cla0116oc1sh8ri410i59.png
+### 2.2 Fully Convolution
+**Fully Convolution**指的是图像在卷积网络进行卷积操作中，图像的大小不发生变化。Fully Convolution的方法是在最后提取的feature map中使用argmax进行分割操作。但在卷积操作中要保持图片大小这一操作使得Fully Convolution方法十分消耗内存(very expensive)，对于high resolution image的操作性不强。因此，便想到在卷积层中，处理时使用下采样(down sampling)进行处理，在最后进行分割前使用上采样(upsampling)恢复成原来大小。其中upsampling的方式，
+包括unpooling和convoluton transpose(deconvolution)
+![image_1bk6prv6h143u13jggie1u5j9slm.png-166.4kB][4]
+![image_1bk6pu8e6f3c019c4vcfenr16.png-185kB][5]
+
+[4]: http://static.zybuluo.com/GwanSiu/obacwnl0ep2alrpaz396gl0i/image_1bk6prv6h143u13jggie1u5j9slm.png
+[5]: [5]: http://static.zybuluo.com/GwanSiu/5m2ts2ddjleu25fwq7qejuep/image_1bk6pu8e6f3c019c4vcfenr16.png
+
+## 3. 单目标检测(Classification+Localization)
+单目标检测需要解决两个基本问题: 1.图像里面有什么物体？(对objects进行分类)；2.图像里的物体在哪里(定位问题)？其中，第一个问题可以简单归为classificatin的问题，第二问题可以看成是对bounding box的regression problem(回归问题)，即使用回归的方法定位出box的四个坐标(lx,ly,rx,ry,cx,cy)。
+
+![image_1bk71v5v7c2358t3dt16o41vfc1j.png-172.5kB][6]
+
+[6]: http://static.zybuluo.com/GwanSiu/4bxj6j5n8nyzwja1360atsit/image_1bk71v5v7c2358t3dt16o41vfc1j.png
+
+### 3.1 Human Pose Estimation(人体姿势估计)--单目标检测的应用
+假设一个人体的姿势使用14个点去表示，事先在训练集中标识出这14个点坐标，如头部，颈部，左右手(三个部位)，左右脚，左右膝盖以及左右胯部。在训练中，使用神经网络提取特征，使用该特征用regression的方法预测这14个点的坐标，最后将所有$L_{2}$ loss加起来全体优化。如图所示:
+![image_1bk72gh16sdoknv10mqcnfo5h20.png-287kB][7]
+![image_1bk72inbl7f517p8mr9a771lj72d.png-138.7kB][8]
+
+[7]: http://static.zybuluo.com/GwanSiu/832zy49snw3rlhlgdhik17gh/image_1bk72gh16sdoknv10mqcnfo5h20.png
+[8]: http://static.zybuluo.com/GwanSiu/p5onvnhuy67shgn0vzj7qke4/image_1bk72inbl7f517p8mr9a771lj72d.png
+
+
+
+
