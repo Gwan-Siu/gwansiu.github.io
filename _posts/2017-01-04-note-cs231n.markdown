@@ -38,10 +38,11 @@ tags:
 **Fully Convolution**指的是图像在卷积网络进行卷积操作中，图像的大小不发生变化。Fully Convolution的方法是在最后提取的feature map中使用argmax进行分割操作。但在卷积操作中要保持图片大小这一操作使得Fully Convolution方法十分消耗内存(very expensive)，对于high resolution image的操作性不强。因此，便想到在卷积层中，处理时使用下采样(down sampling)进行处理，在最后进行分割前使用上采样(upsampling)恢复成原来大小。其中upsampling的方式，
 包括unpooling和convoluton transpose(deconvolution)
 ![image_1bk6prv6h143u13jggie1u5j9slm.png-166.4kB][4]
+
 ![image_1bk6pu8e6f3c019c4vcfenr16.png-185kB][5]
 
 [4]: http://static.zybuluo.com/GwanSiu/obacwnl0ep2alrpaz396gl0i/image_1bk6prv6h143u13jggie1u5j9slm.png
-[5]: [5]: http://static.zybuluo.com/GwanSiu/5m2ts2ddjleu25fwq7qejuep/image_1bk6pu8e6f3c019c4vcfenr16.png
+[5]: http://static.zybuluo.com/GwanSiu/5m2ts2ddjleu25fwq7qejuep/image_1bk6pu8e6f3c019c4vcfenr16.png
 
 ## 3. 单目标检测(Classification+Localization)
 单目标检测需要解决两个基本问题: 1.图像里面有什么物体？(对objects进行分类)；2.图像里的物体在哪里(定位问题)？其中，第一个问题可以简单归为classificatin的问题，第二问题可以看成是对bounding box的regression problem(回归问题)，即使用回归的方法定位出box的四个坐标(lx,ly,rx,ry,cx,cy)。
@@ -58,6 +59,18 @@ tags:
 [7]: http://static.zybuluo.com/GwanSiu/832zy49snw3rlhlgdhik17gh/image_1bk72gh16sdoknv10mqcnfo5h20.png
 [8]: http://static.zybuluo.com/GwanSiu/p5onvnhuy67shgn0vzj7qke4/image_1bk72inbl7f517p8mr9a771lj72d.png
 
+## 4. Object Detection(目标检测)
+Object dectection 与single object detection不同，object detection是多目标分类检测问题。通常，我们并不知道图像中object的数量，因此无法实现知道要回归预测多少个bounding box。因此，单目标检测中classification+regression的模式并不适用(严谨来说，并不是完全适用，需要对图像进行变动，如YOLO,SSD)。在Object detection研究中，Region proposal 和 regression是主要的两种方法。
+
+## 4.1 Region Proposal
+一开始，我们会想到使用sliding window的方法产生许多patch，并对这些patch进行分类回归。但这存在问题，在不确定物体大小的情况，sliding window的大小该如何定义(即存在muti-scale的问题),并且silding window会产生巨多的patch,使用CNN对patchs进行分类是不高效的(**不快**)，因为很多patch是overlapping。因此，针对silding window存在的问题，region proposals的方法被提出来。简单点说，region proposals就是通过一种方法预选出尽可能存在objtect的区域输入到CNN中，这本质上是一种基于patch的方法。但相对于sliding window的方法来说，patch的数量减少了很多，因此运行相对较快。
+![image_1bk747gtv1tu51jdh31o1i571p8t2q.png-245.8kB][9]
+![image_1bk74im781nfk13co193021k1qsg37.png-357.6kB][10]
+
+[9]: http://static.zybuluo.com/GwanSiu/nlrvadaajvrg2y31l7c4u4io/image_1bk747gtv1tu51jdh31o1i571p8t2q.png
+[10]: http://static.zybuluo.com/GwanSiu/2c42wiqbct1urka04sk2k9bd/image_1bk74im781nfk13co193021k1qsg37.png
+
+未完待续...
 
 
 
