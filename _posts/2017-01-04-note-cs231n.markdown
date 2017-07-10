@@ -62,15 +62,69 @@ tags:
 ## 4. Object Detection(目标检测)
 Object dectection 与single object detection不同，object detection是多目标分类检测问题。通常，我们并不知道图像中object的数量，因此无法实现知道要回归预测多少个bounding box。因此，单目标检测中classification+regression的模式并不适用(严谨来说，并不是完全适用，需要对图像进行变动，如YOLO,SSD)。在Object detection研究中，Region proposal 和 regression是主要的两种方法。
 
-## 4.1 Region Proposal
-一开始，我们会想到使用sliding window的方法产生许多patch，并对这些patch进行分类回归。但这存在问题，在不确定物体大小的情况，sliding window的大小该如何定义(即存在muti-scale的问题),并且silding window会产生巨多的patch,使用CNN对patchs进行分类是不高效的(**不快**)，因为很多patch是overlapping。因此，针对silding window存在的问题，region proposals的方法被提出来。简单点说，region proposals就是通过一种方法预选出尽可能存在objtect的区域输入到CNN中，这本质上是一种基于patch的方法。但相对于sliding window的方法来说，patch的数量减少了很多，因此运行相对较快。
+### 4.1 Region Proposal
+一开始，我们会想到使用sliding window的方法产生许多patch，并对这些patch进行分类回归。但这存在问题，在不确定物体大小的情况，sliding window的大小该如何定义(即存在muti-scale的问题),并且silding window会产生巨多的patch,使用CNN对patchs进行分类是不高效的(**不快**)，因为很多patch是overlapping,这意味着许多information被重复使用。因此，针对silding window存在的问题，region proposals的方法被提出来。简单点说，region proposals就是通过一种方法预选出尽可能存在objtect的区域输入到CNN中，这本质上是一种基于patch的方法。但相对于sliding window的方法来说，patch的数量减少了很多，因此运行相对较快。
 ![image_1bk747gtv1tu51jdh31o1i571p8t2q.png-245.8kB][9]
 ![image_1bk74im781nfk13co193021k1qsg37.png-357.6kB][10]
 
 [9]: http://static.zybuluo.com/GwanSiu/nlrvadaajvrg2y31l7c4u4io/image_1bk747gtv1tu51jdh31o1i571p8t2q.png
 [10]: http://static.zybuluo.com/GwanSiu/2c42wiqbct1urka04sk2k9bd/image_1bk74im781nfk13co193021k1qsg37.png
 
-未完待续...
+#### 4.1.1 R-CNN
+R-CNN的流程图如下:
+
+![image.png-415kB][12]
+
+[12]: http://static.zybuluo.com/GwanSiu/irbj75nycwpo6hxofcrv17co/image.png
+
+R-CNN在处理object detection问题上，首先使用region proposed的方法选择出Region of interest；在把直接提取的部分图片输入神经网络前，需要wrap输入图片，因为Convolutional network对输入图片的尺寸有要求，但选择出的Region of interest尺寸大小并不一样。(在[SPP network](https://arxiv.org/abs/1406.4729)这篇文章中指出，Convolutional neural network之所以要求输入图像大小的尺寸，是因为后面fully-connect layer的影响,并且wrap会对输入图片造成一定程度的形变，这会影响最后的performance。具体可参考[我的SPP network笔记]http://gwansiu.com/2017/05/27/SPP/). 之后将wrap后的图片输入到神经网络中，提取特征，并在最后使用SVMs做分类**(classification)**和对bounding box做回归**(regression)**.
+R-CNN很好地将region proposed method和CNN结合在一起，但主要缺点是训练太慢，消耗许多内存。主要是因为CNN固定输入尺寸，每一次都要对proposed region进行wrap。在这一点上可以用[SPP-net](https://arxiv.org/abs/1406.4729)解决。
+
+#### 4.1.2 Fast R-CNN
+
+![image.png-292.1kB][13]
+
+[13]: http://static.zybuluo.com/GwanSiu/tpzebmy9zj528uvizvgqk2zc/image.png
+
+Fast R-CNN主要是针对RCNN训练慢的缺点提出改进版，R-CNN训练慢，检测时间慢，主要是因为每次要wrap图片进行输入，而在Fast R-CNN中，region proposal并不是在一开始中使用，而是对“conv5”的输出加入“RoI pooling layer”提取region of interest, 其本质也是一种region proposal的方法。这样的好处是可以输入一整张图片到CNN中，省去了十分消耗时间的data preprocessing的步骤。
+
+![image.png-367kB][14]
+
+[14]: http://static.zybuluo.com/GwanSiu/0gi6v6ng66o2k269nu8uqdhp/image.png
+
+#### 4.1.3 Faster R-CNN
+Fast R-CNN的时间主要消耗在region proposal这一块。因此，Faster R-CNN在CNN结构中加入Region Proposal Network(RPN),从而将Classification, regression and region proposal三种任务结合在一个网络上，同时进行训练。Faster R-CNN结构图如下：
+![image.png-567.6kB][15]
+
+[15]: http://static.zybuluo.com/GwanSiu/wfcxsh8732se27v5tkr47361/image.png
+
+### 4.2 Regression Method
+目标检测领域中除了Region proposal的方法，也有单单基于回归的方法，比如YOLO和SDD。其思想比较简单：先将图片分成许多小块，对每一个小块进行regression,预测出在这个小块中每一类别的score.其实, YOLO和SDD并没有选择region proposal的方法，只是很粗暴地将图片分成网格状(这样做就可以知道位置信息，然后就可以用神经网络做预测和回归).显然，这样做会导致位置精度不高，但可以很高效。
+
+![image.png-805kB][16]
+
+[16]: http://static.zybuluo.com/GwanSiu/7atfoincdnwb50fsxcl9mtwr/image.png
+
+## 4.3 Dense Network:Object Dectection + Captioning
+
+![image.png-747.3kB][17]
+
+[17]: http://static.zybuluo.com/GwanSiu/7fso4g0icrk4g71zgyjbponk/image.png
+
+## 4.4 Instance Segmentation-Mask R-CNN
+
+Maks R-CNN 不仅完成了多目标分割还同时完成了姿势估计的任务，传统的network通常是只能学习一项任务，但这个网络却完成了一对二的实现，膜拜一下凯明大神,太厉害。
+
+![image.png-405.6kB][18]
+
+[18]: http://static.zybuluo.com/GwanSiu/2fmvos4039gfft6k64he4wf1/image.png
+
+![image.png-1600.3kB][19]
+
+[19]: http://static.zybuluo.com/GwanSiu/j00p6sg86n3n5pyyece6ldb1/image.png
+
+
+
 
 
 
