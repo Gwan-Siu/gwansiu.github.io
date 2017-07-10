@@ -77,7 +77,7 @@ R-CNN的流程图如下:
 
 [12]: http://static.zybuluo.com/GwanSiu/irbj75nycwpo6hxofcrv17co/image.png
 
-R-CNN在处理object detection问题上，首先使用region proposed的方法选择出Region of interest；在把直接提取的部分图片输入神经网络前，需要wrap输入图片，因为Convolutional network对输入图片的尺寸有要求，但选择出的Region of interest尺寸大小并不一样。(在[SPP network](https://arxiv.org/abs/1406.4729)这篇文章中指出，Convolutional neural network之所以要求输入图像大小的尺寸，是因为后面fully-connect layer的影响,并且wrap会对输入图片造成一定程度的形变，这会影响最后的performance。具体可参考[我的SPP network笔记]http://gwansiu.com/2017/05/27/SPP/). 之后将wrap后的图片输入到神经网络中，提取特征，并在最后使用SVMs做分类**(classification)**和对bounding box做回归**(regression)**.
+R-CNN在处理object detection问题上，首先使用region proposed的方法选择出Region of interest；在把直接提取的部分图片输入神经网络前，需要wrap输入图片，因为Convolutional network对输入图片的尺寸有要求，但选择出的Region of interest尺寸大小并不一样。(在[SPP network](https://arxiv.org/abs/1406.4729)这篇文章中指出，Convolutional neural network之所以要求输入图像大小的尺寸，是因为后面fully-connect layer的影响,并且wrap会对输入图片造成一定程度的形变，这会影响最后的performance。具体可参考[我的SPP network笔记](http://gwansiu.com/2017/05/27/SPP/). 之后将wrap后的图片输入到神经网络中，提取特征，并在最后使用SVMs做分类**(classification)**和对bounding box做回归**(regression)**.
 R-CNN很好地将region proposed method和CNN结合在一起，但主要缺点是训练太慢，消耗许多内存。主要是因为CNN固定输入尺寸，每一次都要对proposed region进行wrap。在这一点上可以用[SPP-net](https://arxiv.org/abs/1406.4729)解决。
 
 #### 4.1.2 Fast R-CNN
