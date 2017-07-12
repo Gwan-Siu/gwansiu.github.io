@@ -19,12 +19,12 @@ tags:
 图像插值(Image Interpoaltion)的过程主要是将LR图像(low resolution)通过上采样恢复成HR图像(High resolution)。图像插值假设原本的HR图像是经过下采样得到LR图像，LR图像的混叠(aliasing)是由下采样导致的。图像插值的数学模型:
 
 $$Y=DX+n \label{1}$$
- 
+
 其中，$Y$是观察到的LR图像，$X$是HR图像，$D$是下采样操作，$n$是噪声。  
 下采样会导致混叠(aliasing)现象的发生，什么混叠？为什么会发生混叠？让我们转到频域去看看发生了什么事？
 ![image.png-181.9kB][1]
 
-黑线代表HR图像的频谱，通过下采样(down sampling)，采样速率降低，当采样速率低于奈奎斯特率的时候，就会发生频谱混叠现象。因此，图像插值(image interpolation)将LR图像恢复成HR图像时，本质问题就是通过上采样(up sampling)将频谱混叠的信号分开还原成未混叠的状态。**普遍使用的是领域插值法，根据已知领域信息去插值未知位置信息，例如：Bicubic, New edge-directed Interpolation 和 Soft Decision Adaptive Interpolation.**
+深蓝代表HR图像的频谱，通过下采样(down sampling)，采样速率降低，当采样速率低于奈奎斯特率的时候，就会发生频谱混叠现象。因此，图像插值(image interpolation)将LR图像恢复成HR图像时，本质问题就是通过上采样(up sampling)将频谱混叠的信号分开还原成未混叠的状态。**普遍使用的是领域插值法，根据已知领域信息去插值未知位置信息，例如：Bicubic, New edge-directed Interpolation 和 Soft Decision Adaptive Interpolation.**
 
 
 ### 1.2 什么是超分辨率？(What's the super resolution?)
@@ -34,6 +34,19 @@ $$Y=DX+n \label{1}$$
 $$Y=DHX+n$$
 
 其中，$D$是下采样操作，$H$是模糊操作(模糊操作是一个高斯滤波的过程，相当于先过滤图像中的高频成分),$n$是噪声。  
-与图像插值(image interpolation)比较，超分辨率假设观察到的图像$Y$先经过了一个高斯滤波的过程，这意味着重构过程是有一个增加高频图像高频信息的过程，即重构的$X$包含$Y$中没有的高频信息。
+与图像插值(image interpolation)比较，超分辨率假设观察到的图像$Y$先经过了一个高斯滤波的过程，这意味着重构过程是有一个增加高频图像高频信息的过程，即重构的$X$包含$Y$中没有的高频信息。超分辨率的频谱变化过程如下:
+![image.png-154.6kB][2]
+
+红色代表HR图像的频谱，蓝色代表LR图像的频谱，通过超分辨率，增加了高频信息。**注意:这里假设LR图像中不存在混叠(aliasing)的情况，实际上，混叠(aliasing)是存在的，当下采样导致图像采样速率低于奈奎斯特率的时候，LR图像的频谱存在混叠，这时要先解决混叠和增加高频信息两个问题**
+
+
+
+
+
+
+
 
 [1]: http://static.zybuluo.com/GwanSiu/42xcl9limpvtkcd5dm5xyjft/image.png
+[2]: http://static.zybuluo.com/GwanSiu/v6p8ecllqghyirll48idq39n/image.png
+
+
