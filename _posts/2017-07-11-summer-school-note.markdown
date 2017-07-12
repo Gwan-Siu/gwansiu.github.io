@@ -18,7 +18,9 @@ tags:
 ### 1.1 什么是图像插值(Image Interpolation)?
 图像插值(Image Interpoaltion)的过程主要是将LR图像(low resolution)通过上采样恢复成HR图像(High resolution)。图像插值假设原本的HR图像是经过下采样得到LR图像，LR图像的混叠(aliasing)是由下采样导致的。图像插值的数学模型:
 $$Y=DX \label{1}$$
-其中，$Y$
+其中，$Y$是观察到的LR图像，$X$是HR图像，$D$是下采样图像。  
+下采样会导致混叠(aliasing)现象的发生，什么混叠？为什么会发生混叠？让我们转到频域去看看发生了什么事？
+
 
 ### 1.2 什么是超分辨率？(What's the super resolution?)
 超分辨率(super resolution)是将图像从一张或者多张低分辨率图像通过上采样，去模糊和去噪技术恢复成高分辨率图像。  
