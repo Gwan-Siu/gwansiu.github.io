@@ -4,7 +4,7 @@ title: DeepID系列
 date: 2017-06-06
 catalog: True
 tags:
-    - Machine Learning
+    - Face Recognition
 ---
 
 ## 1.Introduction

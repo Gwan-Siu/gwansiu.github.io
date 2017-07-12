@@ -4,7 +4,7 @@ title: Batch Normalization
 date: 2017-06-06
 catalog: True
 tags:
-    - Machine Learning
+    - Deep Learning 
 ---
 
 ## **1. Why Batch normalization?**  
