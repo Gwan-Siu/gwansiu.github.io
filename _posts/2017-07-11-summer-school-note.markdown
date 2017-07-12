@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Summer School Note"
-subtitle:   "Super Resolution(1)"
+subtitle:   "Super Resolution(1)--The difference between Interpolation and Super Resolution"
 date:       2017-07-11 12:00:00
 author:     "GwanSiu"
 catalog: true
