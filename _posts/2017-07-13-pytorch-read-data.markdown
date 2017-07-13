@@ -14,9 +14,9 @@ tags:
 ![---][1]
 
 ## 2. 数据的预处理
-数据的预处理主要是三步：<p>torch.transoforms.Compose</p>,<p>torchvision.datasets</p>和<p>torch.utils.data.DataLoader</p>,分别是数据预处理的方法，加载数据集和形成数据生成器。
+数据的预处理主要是三步：*torch.transoforms.Compose*,*torchvision.datasets*和*torch.utils.data.DataLoader*,分别是数据预处理的方法，加载数据集和形成数据生成器。
 
-**<p>torch.transoforms.Compose：</p>** 可以把图像预处理的方法都集中起来，按照编写的顺序方式，按顺序对图像进行预处理。**注意：图像预处理的操作只对于PIL格式图像，在处理完之后需要转化成Tensor:<p>transforms.Tosensor</p>**  
+**torch.transoforms.Compose:** 可以把图像预处理的方法都集中起来，按照编写的顺序方式，按顺序对图像进行预处理。**注意：图像预处理的操作只对于PIL格式图像，在处理完之后需要转化成Tensor:transforms.Tosensor**  
 
 ```python
 import torch
