@@ -18,7 +18,8 @@ tags:
 
 **<p>torch.transoforms.Compose：</p>** 可以把图像预处理的方法都集中起来，按照编写的顺序方式，按顺序对图像进行预处理。**注意：图像预处理的操作只对于PIL格式图像，在处理完之后需要转化成Tensor:<p>transforms.Tosensor</p>**  
 
-'''python
+“”“python
+
 import torch
 import torchvision
 import torchvision.transforms as transform
@@ -27,7 +28,7 @@ transform = {'train': transform.Compose([transform.Scale(224,224),
 transform.ToTensor(),transform.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5))]),
 'test':transform.Compose([[transform.Scale(224,224),
 transform.ToTensor(),transform.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5))])}
-'''
+”“”
 
 
 
