@@ -18,28 +18,34 @@ tags:
 
 **<p>torch.transoforms.Compose：</p>** 可以把图像预处理的方法都集中起来，按照编写的顺序方式，按顺序对图像进行预处理。**注意：图像预处理的操作只对于PIL格式图像，在处理完之后需要转化成Tensor:<p>transforms.Tosensor</p>**  
 
-“”“python
-
-import torch
-import torchvision
-import torchvision.transforms as transform
-
-transform = {'train': transform.Compose([transform.Scale(224,224),
-transform.ToTensor(),transform.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5))]),
-'test':transform.Compose([[transform.Scale(224,224),
-transform.ToTensor(),transform.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5))])}
-”“”
-
 ```python
 import torch
 import torchvision
 import torchvision.transforms as transform
 
+#将图像尺度变成(224,224),接着转化成Tensor，归一化
 transform = {'train': transform.Compose([transform.Scale(224,224),
 transform.ToTensor(),transform.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5))]),
 'test':transform.Compose([[transform.Scale(224,224),
 transform.ToTensor(),transform.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5))])}   
 ```
+
+接着，**加载数据集**：
+
+```python
+train_set = torchvision.datasets.ImageFolder(train_path, transform=transform['train'])
+train_loader = torch.utils.data.DataLoader(train_set,batch_size=32,shuffle=True,num_workers=2)
+
+test_set = torchvision.datasets.ImageFolder(test_path,transform=transform['test'])
+test_loader = torch.utils.data.DataLoader(test_set, batch_size=32, shuffle=True, num_workers=2)
+```
+使用**迭代的方式读取数据集:**
+
+```python
+for batch, data in enumerate(train_loader,0):
+    images, labels = data
+```
+
 
 
 
