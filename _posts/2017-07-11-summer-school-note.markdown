@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Summer School Note"
-subtitle:   "Super Resolution(1)--The difference between Interpolation and Super Resolution"
+subtitle:   "Super Resolution"
 date:       2017-07-11 12:00:00
 author:     "GwanSiu"
 catalog: true
@@ -38,17 +38,23 @@ $$Y=DHX+n$$
 与图像插值(image interpolation)比较，超分辨率假设观察到的图像$Y$先经过了一个高斯滤波的过程，这意味着重构过程是有一个增加高频图像高频信息的过程，即重构的$X$包含$Y$中没有的高频信息。超分辨率的频谱变化过程如下:
 ![image.png-154.6kB][2]
 
-红色代表HR图像的频谱，蓝色代表LR图像的频谱，通过超分辨率，增加了高频信息。**注意:这里假设LR图像中不存在混叠(aliasing)的情况，实际上，混叠(aliasing)是存在的，当下采样导致图像采样速率低于奈奎斯特率的时候，LR图像的频谱存在混叠，这时要先解决混叠和增加高频信息两个问题。**这就解释了虽然图像插值是超分辨率的一个特例，但是超分辨率的方法不一定能够适用于图像插值。
+红色代表HR图像的频谱，蓝色代表LR图像的频谱，通过超分辨率，增加了高频信息。**注意:这里假设LR图像中不存在混叠(aliasing)的情况，实际上，混叠(aliasing)是存在的，当下采样导致图像采样速率低于奈奎斯特率的时候，LR图像的频谱存在混叠，这时就要解决混叠和增加高频信息两个问题。**这就解释了虽然图像插值是超分辨率的一个特例，但是超分辨率的方法不一定能够适用于图像插值。
 超分辨率(SR)主要分成单张LR图像的超分辨率重构问题和多张LR的超分辨率重构问题，在方法上又可以分成reconstruction-based的方法和learning-based的方法，目前深度学习用到的都是单张LR图像的超分辨率重构，具体分类如下：
 ![image.png-70.5kB][4]
 
+### 1.3 图像插值和超分辨率的的比较
+
+![image.png-139.3kB][5]
+
+图像超分辨率(super resolutin)偏向重构图像的高频信息，图像超分辨的发展从基于pixel的方法发展到基于patch的方法发展。
 
 
 
 
-
-
-
+**Reference**
+1.[https://zhuanlan.zhihu.com/p/25532538](https://zhuanlan.zhihu.com/p/25532538)
+2.[Review of Image Interpolation and Super-resolution](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6411957)
+3.[The note of polyu summer school]
 
 
 
@@ -57,3 +63,4 @@ $$Y=DHX+n$$
 [2]: http://static.zybuluo.com/GwanSiu/v6p8ecllqghyirll48idq39n/image.png
 [3]: http://static.zybuluo.com/GwanSiu/1l062x3sxgg8szaazk8cfcxd/image.png
 [4]: http://static.zybuluo.com/GwanSiu/hn7qebuqgz88kvtaybhzl78f/image.png
+[5]: http://static.zybuluo.com/GwanSiu/3uek7zlisi31h9nhk5qv08e5/image.png
