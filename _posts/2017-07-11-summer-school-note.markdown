@@ -53,8 +53,8 @@ $$Y=DHX+n$$
 
 
 **Reference**
-1.[https://zhuanlan.zhihu.com/p/25532538](https://zhuanlan.zhihu.com/p/25532538)
-2.[Review of Image Interpolation and Super-resolution](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6411957)
+1.[https://zhuanlan.zhihu.com/p/25532538](https://zhuanlan.zhihu.com/p/25532538)  
+2.[Review of Image Interpolation and Super-resolution](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6411957)  
 3.[The note of polyu summer school]
 
 
