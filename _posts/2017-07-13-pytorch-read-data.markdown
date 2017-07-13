@@ -42,8 +42,17 @@ test_loader = torch.utils.data.DataLoader(test_set, batch_size=32, shuffle=True,
 使用**迭代的方式读取数据集:**
 
 ```python
-for batch, data in enumerate(train_loader,0):
-    images, labels = data
+import numpy as np
+import matplotlib.pyplot as plt
+
+def imshow(img):
+    img = img/2 + 0.5
+    nimg = img.numpy()
+    plt.imshow(np.transpose(nimg,(1,2,0)))
+
+dataloader = iter(train_loader)
+images, labels = dataloader.next()
+imshow(torchvision.utils.make_grid(images))
 ```
 
 
