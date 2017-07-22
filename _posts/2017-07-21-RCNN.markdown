@@ -13,7 +13,7 @@ tags:
 
 1. 分类问题: 对候选区域判断是否有物体存在
 2. 回归问题: 对于有物体存在的区域进行bounding box regression, 即:预测出bounding box四个点的坐标。
-**目标检测要回答的问题：什么位置有什么物体？**
+**目标检测要回答的问题：什么位置有什么物体？**  
 **目标检测主要思路: 候选区域选择--->对候选区域进行特征提取--->分类--->对选择好的候选区域进行回归**
 
 
@@ -24,7 +24,7 @@ tags:
 
 
 ## 3. R-CNN的结构  
-![image.png-342.9kB][2]
+![image.png-191.2kB][20]
 RCNN主要包括三个部分: Region Proposal, CNN for feature extracture and a set of specific linear CNN。最后将提取好的特征使用bounding box regression算法精准定位。
 
 1. **Region Proposal:** Region Proposal部分是产生category-independent region proposals， 也定义了这个网络可以检测的物体的种类，这就是为什么背景中有些物体不会被检测出来，因为检测的物体是需要被定义的，告诉检测系统，需要检测哪些物体。 **什么是category-independent? 候选区域内只有一个物体，不存在物体之间overlapping的现象，通俗讲，就是候选区域(region proposal)中是狗的，就不会出现一只猫和狗在一起的现象，并且每个region proposals之间相互独立，互不干扰。** 文中列举了许多region proposal的方法，本文使用的是“selective search”的方法,fast mode.[详情可见.](https://arxiv.org/abs/1311.2524)
@@ -40,10 +40,17 @@ RCNN需要训练三个部分: CNN特征提取模型(微调)，分类模型linear
 3. bounding box regression: 输入是提取的特征向量，输出bounding box坐标。  
 **Bounding Box Regression**  
 输入为$(P,G)$,其中$P=(P_{x},P_{y},P_{w},P_{h})$是region proposal的中心坐标以及宽和高。$G=(G_{x},G_{y},G_{w},G_{h})$是ground true的中心坐标以及宽和高。Bounding box regression就是找到四个函数$d_{x}(P),d_{y}(P),d_{w}(P),d_{h}(P)$,将P映射到G，其中前两个是尺度不变拉伸，后两个是log尺度拉伸。
-![image.png-37.3kB][3]
+
+$$\eqalign{
+    \hat{G_{x}} = P_{w}d_{x}(P)+P_{x} \tag{1} \\
+    \hat{G_{y}} = P_{h}d_{y}(P)+P_{y} \tag{2} \\
+    \hat{G_{w}} = P_{w}exp(d_{w}(P)) \tag{3} \\
+    \hat{G_{h}} = P_{h}exp(d_{h}(P)) \tag{3} \\
+}
+$$
 
 在RCNN文章中，输入为pooling5特征，记为$\phi_{5}(P)$。令映射函数$d_{\ast}(P)=w^{T}_{\ast}\phi_{5}(P)$，其中$w_{\ast}$为未知参数，通过ridge regression对bouding box进行预测：
-![image.png-20.9kB][4]
+$$\min_{w_{\ast}}\sum_{i}^{N}(t_{\ast}^{i}-\hat{w}^{T}_{\ast}\phi_{5}(P))^{2}+\lambda||\hat{w}_{\ast}||^{2}$$
 其中$t$为:
 ![image.png-35.4kB][5]
 
@@ -56,7 +63,7 @@ RCNN的优点:
 RCNN的缺点：
 检测时间很长，原因在于，每次一张图片提取2000个region proposal输入到网络，region proposald 操作耗费了主要的时间。
 
-[2]: http://static.zybuluo.com/GwanSiu/yvw5pddfefgwv9sai8syzuue/image.png
+[20]: http://static.zybuluo.com/GwanSiu/ljymbmg5tsmnmgryyflch25i/image.png
 [3]: http://static.zybuluo.com/GwanSiu/fiydocjlu184dcjlj5c75x7a/image.png
 [4]: http://static.zybuluo.com/GwanSiu/cowwy2xcwj3ilzcnc59w9nof/image.png
 [5]: http://static.zybuluo.com/GwanSiu/w0ncvt0r3ndl8vas5vl4zimr/image.png
