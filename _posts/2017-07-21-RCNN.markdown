@@ -42,15 +42,20 @@ RCNN需要训练三个部分: CNN特征提取模型(微调)，分类模型linear
 输入为$(P,G)$,其中$P=(P_{x},P_{y},P_{w},P_{h})$是region proposal的中心坐标以及宽和高。$G=(G_{x},G_{y},G_{w},G_{h})$是ground true的中心坐标以及宽和高。Bounding box regression就是找到四个函数$d_{x}(P),d_{y}(P),d_{w}(P),d_{h}(P)$,将P映射到G，其中前两个是尺度不变拉伸，后两个是log尺度拉伸。
 
 $$
-\begin{equation}
+\begin{array}
     \hat{G_{x}} = P_{w}d_{x}(P)+P_{x} \tag{1} \\
     \hat{G_{y}} = P_{h}d_{y}(P)+P_{y} \tag{2} \\
     \hat{G_{w}} = P_{w}exp(d_{w}(P)) \tag{3} \\
     \hat{G_{h}} = P_{h}exp(d_{h}(P)) \tag{4} \\
-\end{equation}
+\end{array}
 $$
 
-在RCNN文章中，输入为pooling5特征，记为$\phi_{5}(P)$。令映射函数$d_{\ast}(P)=w^{T}_{\ast}\phi_{5}(P)$，其中$w_{\ast}$为未知参数，通过ridge regression对bouding box进行预测  
+$$
+\begin{equation}
+1+1=2
+\end{equation}
+$$
+在RCNN文章中，输入为pooling5特征，记为$\phi_{5}(P)$。令映射函数$d_{\ast}(P)=w_{\ast}^{T}\phi_{5}(P)$，其中$w_{\ast}$为未知参数，通过ridge regression对bouding box进行预测: 
 
 $$\min_{w_{\ast}}\sum_{i}^{N}(t_{\ast}^{i}-\hat{w}^{T}_{\ast}\phi_{5}(P))^{2}+\lambda||\hat{w}_{\ast}||^{2}$$  
 
