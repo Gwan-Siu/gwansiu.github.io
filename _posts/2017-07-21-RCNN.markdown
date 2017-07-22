@@ -44,9 +44,9 @@ RCNN需要训练三个部分: CNN特征提取模型(微调)，分类模型linear
 $$
 \begin{equation}
     \hat{G_{x}} = P_{w}d_{x}(P)+P_{x}  \tag{1}\\
-    \hat{G_{y}} = P_{h}d_{y}(P)+P_{y}  \\
-    \hat{G_{w}} = P_{w}exp(d_{w}(P))  \\
-    \hat{G_{h}} = P_{h}exp(d_{h}(P))  \\
+    \hat{G_{y}} = P_{h}d_{y}(P)+P_{y}  \tag{2}\\
+    \hat{G_{w}} = P_{w}exp(d_{w}(P))  \tag{3}\\
+    \hat{G_{h}} = P_{h}exp(d_{h}(P))  \tag{4}\\
 \end{equation}
 $$
 
