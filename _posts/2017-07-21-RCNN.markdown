@@ -28,8 +28,8 @@ tags:
 RCNN主要包括三个部分: Region Proposal, CNN for feature extracture and a set of specific linear CNN。最后将提取好的特征使用bounding box regression算法精准定位。
 
 1. **Region Proposal:** Region Proposal部分是产生category-independent region proposals， 也定义了这个网络可以检测的物体的种类，这就是为什么背景中有些物体不会被检测出来，因为检测的物体是需要被定义的，告诉检测系统，需要检测哪些物体。 **什么是category-independent? 候选区域内只有一个物体，不存在物体之间overlapping的现象，通俗讲，就是候选区域(region proposal)中是狗的，就不会出现一只猫和狗在一起的现象，并且每个region proposals之间相互独立，互不干扰。** 文中列举了许多region proposal的方法，本文使用的是“selective search”的方法,fast mode.[详情可见.](https://arxiv.org/abs/1311.2524)
-2. 特征提取: 将region proposal统一wrap成固定大小，减去均值后输入CNN网络中提取出4098维特征向量，最后用linear SVM分类。这里的Linear SVM是进行二元分类的，由于分类中负样本比较多，因此采取了“hard negative mining”.**作者在文中提到，不同网络对RCNN最后效果影响是非常大的，作者说VGG会比Krizhevsky 12年提出的网络结构要好，显然是符合逻辑的，因为VGG够深，特征提取的效果更好。**
-3. 测试阶段: 将测试图片使用region proposal的方法产生2000个proposed region, wrap成统一大小输入到神经网络中提取特征，最后使用linear SVM进行分类。在对一张图片的所有regions评分后用greedy non-maximum suppression的方法对scored region进行筛选，去掉具有高重叠率的区域，让包含某一个物体的region proposal最好剩下一个，最后使用bounding box regression精准定位。
+2. **特征提取:** 将region proposal统一wrap成固定大小，减去均值后输入CNN网络中提取出4098维特征向量，最后用linear SVM分类。这里的Linear SVM是进行二元分类的，由于分类中负样本比较多，因此采取了“hard negative mining”.**作者在文中提到，不同网络对RCNN最后效果影响是非常大的，作者说VGG会比Krizhevsky 12年提出的网络结构要好，显然是符合逻辑的，因为VGG够深，特征提取的效果更好。**
+3. **测试阶段:** 将测试图片使用region proposal的方法产生2000个proposed region, wrap成统一大小输入到神经网络中提取特征，最后使用linear SVM进行分类。在对一张图片的所有regions评分后用greedy non-maximum suppression的方法对scored region进行筛选，去掉具有高重叠率的区域，让包含某一个物体的region proposal最好剩下一个，最后使用bounding box regression精准定位。
 4. **为什么使用SVM而不是softmax?**作者在文中附录有所提及，结论是softmax的效果会变得较差。通俗来讲，神经网络对正负样本的数量分布比较敏感，如果要fine tune整个network使其不过拟合, 需要比这大30倍的样本，但这个数据集很小，不满足要求。而SVM则恰恰相反，hard negative mining，在正负样本不平衡的情况下，依然可以学到而不会过拟合，原因是SVM分类的超平面主要是支持向量(support vector)贡献的，非支持向量(support vector)对分类超平面是没有贡献的。
 
 ## 4. 训练RCNN
