@@ -6,7 +6,7 @@ date:       2017-07-21 12:00:00
 author:     "GwanSiu"
 catalog: true
 tags:
-    - Segmentation, Location and Dectection
+    - Segmentation and Dectection
 ---
 
 ## 1. 目标检测的根本问题(Classification+Regression)
