@@ -1,0 +1,58 @@
+---
+layout:     post
+title:      "Fast R-CNN"
+date:       2017-07-22 12:00:00
+author:     "GwanSiu"
+catalog: true
+tags:
+    - Segmentation, Location and Dectection
+---
+
+## 1.Introduction
+Object Detection=Classification+Regression, 大部分的目标检测算法都是multi-stages，我之前的文章[cs231n note](http://gwansiu.com/2017/07/04/note-cs231n/)提到过。检测时间复杂度高会影响实时目标检测的效果。复杂度高来源于两个原因: 1.目标检测需要位置信息，需要处理大量的region proposals，为什么要用region proposals,因为region proposals提供了目标大概的的位置信息。在我写的[RCNN文章](http://gwansiu.com/2017/07/21/RCNN/)提到过，overfeat使用sliding windows产生大量overlapping region proposals, 减慢了检测效率,而RCNN则采用selective research的办法有效减少region proposals的数量。2.需要对region proposals提供的粗糙的位置信息进行精确的定位。  
+
+## 2.RCNN的缺点 
+1. **多阶段训练流程:** RCNN使用预训练网络提取特征，但输入端是先使用selective research选取region proposals, 输出端的特征需要被用于训练分类器linear svm和bounding- box regressors.  
+2. **训练的时间复杂度和空间复杂度很高:**论文里说为了训练linear svm和bounding boxes regressor,每张图片提取的特征都要先写入硬盘。
+3. **检测时间长:**48ms一张图片。
+
+## 3. RCNN + SPPNet 修正网络的缺点
+SPPNet 可以让RCNN随意尺度输入region proposals,这样region proposals就不会因为wrap操作产生一定程度的形变，从而影响检测效果。但是，RCNN + SPPNet依旧无法解决RCNN多阶段训练的问题，并没有从本质上降低时间复杂度和空间复杂度。
+
+## 4. Fast RCNN
+![---][1]
+
+**Fast RCNN的主要贡献是实现图片的批量操作，使用两个loss函数整合特征提取，分类器与bounding-boxes regressors。并且使用实验证明，在同样使用预训练模型的结构下使用softmax函数的并不会比单独训练svm的分类效果要差。**
+
+1. **输入端:**整张图片以及该图片对应的一些列region proposals(Region of interest, 简称RoI).
+2. **CNN特征提取:**将图片和RoI使用神经网络进行特征提取，由于RoI的大小不完全相同，因此，RoI pooling被提出来用于特征提取，思想是将大小为$hxw$的RoI分割成$HxW$的格子(grid)，并对每一个格子内进行max-pooling的操作，与SPPnet相比，RoI pooling layer只能对一个尺度进行变换操作，因此，可以将RoI pooling layer当成一种特殊的SPPnet。
+3. **loss 函数:** sofmax函数用语分类，分类为K+1类，K为目标物体的类别，1是背景等无关物体。而bounding-box regressors用于对region proposals中的物体精确定位。
+
+$$L(p,u,t^{u},v)=L_{cls}(p,u)+\lambda[u\ge 1]L_{loc}(t^{u},u)$$
+
+其中$L_{cls}=-\text{log}(p_{u})$是分类的损失函数，而$L_{loc}$则采用平滑的损失函数:
+
+$$L_{loc}(t^{u},u)=\sum_{i\in {x,y,w,h}}\text{smooth}_{L_{1}}(t^{u},u)$$
+
+而:
+
+$$
+\text{smooth}_{L_{1}}=
+\begin{case}
+0.5x^{2},\text{if}|x|<1\\
+|x|-0.5,\text{otherwise}\\
+\end{case}
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+[1]: http://static.zybuluo.com/GwanSiu/sjfg5efe85bq7lv6tjyxbt01/image.png
