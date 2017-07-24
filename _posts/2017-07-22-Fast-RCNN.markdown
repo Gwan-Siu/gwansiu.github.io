@@ -38,14 +38,24 @@ $$L_{loc}(t^{u},u)=\sum_{i\in {x,y,w,h}}\text{smooth}_{L_{1}}(t^{u},u)$$
 
 $$
 \text{smooth}_{L_{1}}=
-\begin{case}
+\begin{cases}
 0.5x^{2},\text{if}|x|<1\\
 |x|-0.5,\text{otherwise}\\
-\end{case}
+\end{cases}
 $$
 
+## 5.SVD分解降低检测的计算量
+文中指明，对于classification, 卷积层的计算量要比全连接层的计算量要大，但对于detection,情况恰好相反，因为RoI的数量很多，全连接层的计算量便会远远超过卷积层的计算量。全连接层相当于矩阵乘法，大的矩阵乘法可以使用SVD分解来降低计算的复杂度。  
+假设$W\in R^{u\times v}$,SVD分解为:  
 
+$$W=\approx U\sigma_{t}V^{T}$$
 
+$U\in R^{u\times t},V\in R^{t\times u}$是酉矩阵，$\sigma$是奇异值矩阵。从奇异值分解可以看出，一个大的全连接网络$w$可以分解成两个小的全连接层网络，其中，第一层网使用$\sigma_{t}V^{T}$的权重，第二层全连接网络使用$W$的权重，两个全连接层之间没有非线性激活函数。通过SVD分解，原本$W$，$u\times v$的复杂度变成$t(u+v)$的复杂度。理论上证明，当$t$很小的时候，计算量降低越明显。$t$很小，意味着原本的全连接网络$W$是一个低秩矩阵。
+
+## 6. Fast RCNN与RCNN小结
+
+与RCNN相比，Fast RCNN本质上提高检测的速度有两点：1.解决了特征提取，分类器与bounding-box regressors的融合问题，从而提高了检测速度。2.Fast RCNN实现批量处理图片的操作，而RCNN只能一张图片一张图片进行处理。  
+但Fast RCNN并没解决前半部分图像输入与selective search的工作，并没将目标检测彻底实现end-to-end的操作。
 
 
 
