@@ -9,7 +9,7 @@ tags:
 ---
 
 ## 1.Introduction
-Object Detection=Classification+Regression, 大部分的目标检测算法都是multi-stages，我之前的文章[cs231n note](http://gwansiu.com/2017/07/04/note-cs231n/)提到过。检测时间复杂度高会影响实时目标检测的效果。复杂度高来源于两个原因: 1.目标检测需要位置信息，需要处理大量的region proposals，为什么要用region proposals,因为region proposals提供了目标大概的的位置信息。在我写的[RCNN文章](http://gwansiu.com/2017/07/21/RCNN/)提到过，overfeat使用sliding windows产生大量overlapping region proposals, 减慢了检测效率,而RCNN则采用selective research的办法有效减少region proposals的数量。2.需要对region proposals提供的粗糙的位置信息进行精确的定位。  
+Object Detection=Classification+Regression, 我之前的文章[cs231n note](http://gwansiu.com/2017/07/04/note-cs231n/)提到过，大部分的目标检测算法都是multi-stages。检测时间复杂度高会影响实时目标检测的效果。复杂度高来源于两个原因: 1.目标检测需要位置信息，需要处理大量的region proposals，为什么要用region proposals,因为region proposals提供了目标大概的的位置信息。在我写的[RCNN文章](http://gwansiu.com/2017/07/21/RCNN/)提到:overfeat使用sliding windows产生大量overlapping region proposals, 减慢了检测效率,而RCNN则采用selective research的办法有效减少region proposals的数量，可以提高检测速度。2.需要对region proposals提供的粗糙的位置信息进行精确的定位。  
 
 ## 2.RCNN的缺点 
 1. **多阶段训练流程:** RCNN使用预训练网络提取特征，但输入端是先使用selective research选取region proposals, 输出端的特征需要被用于训练分类器linear svm和bounding- box regressors.  
