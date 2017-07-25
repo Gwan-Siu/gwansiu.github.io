@@ -27,7 +27,7 @@ RPN(Region Proposals Network)是一种特殊的[全卷积网络结构](http://gw
 3. Final classification score(object class).
 4. Final box coordinate.
 
-Faster RCNN的流程如上图:思想很简单，就是提出RPN将Region Proposals融合进Fast RCNN中。换做博主，直接将RPN网络插入到卷积层与ROI层之间一起训练就好了。**但是这种想法是不对的，一定程度上，我并没有考虑两种网络结构的兼容性。**原因一:作者一直强调:**shared convolutional feature.** RPN只是提取region proposals, 前提是不管如何提取region proposals，convolutional feature都能提取出有效特征，所有conv features的有效性要share在所有region proposals, 一起训练会造成RPN网络会以不同方式改变conv的参数，DL结构找到的都是local minimum，要谨慎。原因二:Fast RCNN的训练时是取决于固定size的region proposals,这个条件并不能保证党RPN与Fast RCNN同时训练时，网络会收敛。  
+Faster RCNN的流程如上图:思想很简单，就是提出RPN将Region Proposals融合进Fast RCNN中。换做博主，直接将RPN网络插入到卷积层与ROI层之间一起训练就好了。**但是这种想法是不对的，一定程度上，我并没有考虑两种网络结构的兼容性。**原因一:作者一直强调:**shared convolutional feature.** RPN只是提取region proposals, 前提是不管如何提取region proposals，convolutional feature都能提取出有效特征，所有conv features的有效性要share在所有region proposals, 一起训练会造成RPN网络会以不同方式改变conv的参数，需要谨慎考虑的是DL网络结构找到的都是local minimum。原因二:Fast RCNN的训练时是取决于固定size的region proposals,这个条件并不能保证党RPN与Fast RCNN同时训练时，网络会收敛。  
 
 为了保证“shared convolutional feature”,作者采用了四步训练:  
 1. 使用Imagenet的预训练模型，端到端微调训练RPN结构。
