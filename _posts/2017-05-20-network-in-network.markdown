@@ -5,7 +5,7 @@ date: 2017-05-20
 author: GwanSiu
 catalog: True
 tags:
-    - Deep learning
+    - Deep Learning
 ---
 
 ### Content

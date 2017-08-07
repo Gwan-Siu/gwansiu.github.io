@@ -4,7 +4,7 @@ title: Note--Spatial Pyramid Pooling in Deep Convolutional Networks for Visual R
 date: 2017-05-27
 catalog: True
 tags:
-    - Deep learning
+    - Deep Learning
 ---
 
 ## 1. Introduction and background  
