@@ -101,10 +101,10 @@ AlexNet开启了深度学习领域的热潮，并在文章[2]中指出，网络�
 VGGNet使用kernel factorization的方法将大的卷积核分解成小卷积核，并进一步加深网络，使网络达到了更好的效果。其中，kernel factorization的方法为后面GoogleNet的诞生提供了很好的降低参数的思路，但仅仅加深网络而并没有解决梯度消失的问题，使得VGGNet训练起来非常困难。后面，GoogleNet,ResNet便为我们提供了很好的解决思路:如何让深度神经网络稳定性训练?
 
 **Reference**  
-[1] M. D. Zeiler and R. Fergus, "Visualizing and Understanding Convolutional Networks," ArXiv e-prints, vol. 1311, Accessed on: November 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1311.2901Z
-[2] K. Simonyan and A. Zisserman, "Very deep convolutional networks for large-scale image recognition," arXiv preprint arXiv:1409.1556, 2014.
-[3] M. Lin, Q. Chen, and S. Yan, "Network In Network," ArXiv e-prints, vol. 1312, Accessed on: December 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1312.4400L
-[4]http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
+1. M. D. Zeiler and R. Fergus, "Visualizing and Understanding Convolutional Networks," ArXiv e-prints, vol. 1311, Accessed on: November 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1311.2901Z
+2. K. Simonyan and A. Zisserman, "Very deep convolutional networks for large-scale image recognition," arXiv preprint arXiv:1409.1556, 2014.
+3. M. Lin, Q. Chen, and S. Yan, "Network In Network," ArXiv e-prints, vol. 1312, Accessed on: December 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1312.4400L
+4. http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
 
 ## 4. GoogleNet
 ### 4.1 Inception v1
