@@ -14,7 +14,7 @@ tags:
 在这篇博文中，博主将分析几个重要的CNN结构，包括12年的AlexNet，VGG，googleNet家族(inception v1-v4, xception), Resnet和identity mapping以及17年CVPR的最佳论文DenseNet。通过对这些网络结构的了解和分析，会穿插介绍CNN网络训练的难点和要解决的基本问题，回答CNN网络的四大玄学问题:depth, width, kernel size, kernel stride。下面引用中科院计算所刘昕老师的CNN演化结构关系的PPT[1](http://mclab.eic.hust.edu.cn/valse2016/dl/%E5%88%98%E6%98%95.pdf)
 ![---][1]
 
-## 2. AlexNet[2]
+## 2. AlexNet
 ### 2.1 AlexNet的基本结构
 ![image.png-547.4kB][6]
 
@@ -67,11 +67,11 @@ $$\Omega(N,H,\delta)=\sqrt{\frac{8}{N}\text{In}(\frac{4(2N)^{d_{vc}}}{\delta})}$
 ### 2.4 AlexNet小结
 AlexNet开启了深度学习领域的热潮，并在文章[2]中指出，网络的深度和宽度是网络容量的关键。显然，AlexNet大量参数对函数的拟合能力是有冗余的，此后，人们便围绕着网络稳定训练问题(梯度消失和梯度爆炸)对深度神经网络的深度，宽度，kernel的大小，kernel的步长展开了各种CNN的变式。
 
-**Reference**
-[1] http://static.zybuluo.com/GwanSiu/060jkut7852av647kzb9uta9/image.png   
-[2] A. Krizhevsky, I. Sutskever, and G. E. Hinton, "Imagenet classification with deep convolutional neural networks," in Advances in neural information processing systems, 2012, pp. 1097-1105.  
-[3] G. Klambauer, T. Unterthiner, A. Mayr, and S. Hochreiter, "Self-Normalizing Neural Networks," ArXiv e-prints, vol. 1706, Accessed on: June 1, 2017Available: http://adsabs.harvard.edu/abs/2017arXiv170602515K  
-[4] X. Glorot and Y. Bengio, "Understanding the difficulty of training deep feedforward neural networks," in Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, 2010, pp. 249-256.  
+**Reference**  
+1. http://static.zybuluo.com/GwanSiu/060jkut7852av647kzb9uta9/image.png   
+2. A. Krizhevsky, I. Sutskever, and G. E. Hinton, "Imagenet classification with deep convolutional neural networks," in Advances in neural information processing systems, 2012, pp. 1097-1105.  
+3. G. Klambauer, T. Unterthiner, A. Mayr, and S. Hochreiter, "Self-Normalizing Neural Networks," ArXiv e-prints, vol. 1706, Accessed on: June 1, 2017Available: http://adsabs.harvard.edu/abs/2017arXiv170602515K  
+4. X. Glorot and Y. Bengio, "Understanding the difficulty of training deep feedforward neural networks," in Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, 2010, pp. 249-256.  
 
 ## 3 ZFNet与VGGNet
 ### 3.1 ZFNet的基本结构[1,4]  
@@ -170,12 +170,12 @@ Inception v4是将Inception module和residual module结合起来。原因很直�
 为了同时增加网络深度和宽度而又同时需要控制参数，inception v1被提出来;之后通过conv layer与conv layer之间的特性研究，提出BN的方法，形成Inception v2;在Inception v3中，把factorization的方法用到极致，连pooling layer都不曾放过，进一步减少参数总量降低网络的冗余度，从而提高网络性能。搞完网络冗余度之后，便联想到将Inception v3和residual module结合起来看看会怎么样，便有了inception v4。最后，将1x1卷积极致发挥，分离cross-channel correlation和spatial correlation,搞出Xception。一切看似非常自然，真想为Google的工程师们鼠标双击6666。
 
 **Reference**  
-[1] C. Szegedy et al., "Going Deeper with Convolutions," ArXiv e-prints, vol. 1409, Accessed on: September 1, 2014Available: http://adsabs.harvard.edu/abs/2014arXiv1409.4842S  
-[2] S. Ioffe and C. Szegedy, "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift," ArXiv e-prints, vol. 1502, Accessed on: February 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv150203167I  
-[3] C. Szegedy, V. Vanhoucke, S. Ioffe, J. Shlens, and Z. Wojna, "Rethinking the Inception Architecture for Computer Vision," ArXiv e-prints, vol. 1512, Accessed on: December 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv151200567S  
-[4] C. Szegedy, S. Ioffe, V. Vanhoucke, and A. A. Alemi, "Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning," in AAAI, 2017, pp. 4278-4284.  
-[5] F. Chollet, "Xception: Deep Learning with Depthwise Separable Convolutions," arXiv preprint arXiv:1610.02357, 2016.  
-[6] http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
+1. C. Szegedy et al., "Going Deeper with Convolutions," ArXiv e-prints, vol. 1409, Accessed on: September 1, 2014Available: http://adsabs.harvard.edu/abs/2014arXiv1409.4842S  
+2. S. Ioffe and C. Szegedy, "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift," ArXiv e-prints, vol. 1502, Accessed on: February 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv150203167I  
+3. C. Szegedy, V. Vanhoucke, S. Ioffe, J. Shlens, and Z. Wojna, "Rethinking the Inception Architecture for Computer Vision," ArXiv e-prints, vol. 1512, Accessed on: December 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv151200567S  
+4. C. Szegedy, S. Ioffe, V. Vanhoucke, and A. A. Alemi, "Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning," in AAAI, 2017, pp. 4278-4284.  
+5. F. Chollet, "Xception: Deep Learning with Depthwise Separable Convolutions," arXiv preprint arXiv:1610.02357, 2016.  
+6. http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
 
 ## 5. ResNet
 何凯明大神在ResNet的文章指出神经网络的深度训练存在两个问题:  
@@ -229,9 +229,9 @@ ResNet针对梯度消失问题和Network degradation问题提出identity mapping
 ![image.png-571.6kB][28]
 
 **Reference**  
-[1] K. He, X. Zhang, S. Ren, and J. Sun, "Deep residual learning for image recognition," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016, pp. 770-778.  
-[2] K. He, X. Zhang, S. Ren, and J. Sun, "Identity mappings in deep residual networks," in European Conference on Computer Vision, 2016, pp. 630-645: Springer.  
-[3] http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
+1. K. He, X. Zhang, S. Ren, and J. Sun, "Deep residual learning for image recognition," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016, pp. 770-778.  
+2. K. He, X. Zhang, S. Ren, and J. Sun, "Identity mappings in deep residual networks," in European Conference on Computer Vision, 2016, pp. 630-645: Springer.  
+3. http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
 
 ## 6.DenseNet
 
