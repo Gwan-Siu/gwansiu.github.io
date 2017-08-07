@@ -70,7 +70,7 @@ AlexNet开启了深度学习领域的热潮，并在文章[2]中指出，网络�
 [1] http://static.zybuluo.com/GwanSiu/060jkut7852av647kzb9uta9/image.png   
 [2] A. Krizhevsky, I. Sutskever, and G. E. Hinton, "Imagenet classification with deep convolutional neural networks," in Advances in neural information processing systems, 2012, pp. 1097-1105.  
 [3] G. Klambauer, T. Unterthiner, A. Mayr, and S. Hochreiter, "Self-Normalizing Neural Networks," ArXiv e-prints, vol. 1706, Accessed on: June 1, 2017Available: http://adsabs.harvard.edu/abs/2017arXiv170602515K  
-[4] X. Glorot and Y. Bengio, "Understanding the difficulty of training deep feedforward neural networks," in Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, 2010, pp. 249-256.
+[4] X. Glorot and Y. Bengio, "Understanding the difficulty of training deep feedforward neural networks," in Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, 2010, pp. 249-256.  
 
 ## 3 ZFNet与VGGNet
 ### 3.1 ZFNet的基本结构[1,4]  
@@ -92,7 +92,8 @@ AlexNet开启了深度学习领域的热潮，并在文章[2]中指出，网络�
 
 从VGG网络的参数分析:  
 1. 大部分的显存消耗在conv1, conv2层；
-2. 大部分的参数都集中在fc6，fc7,fc8层。  
+2. 大部分的参数都集中在fc6，fc7,fc8层.  
+
 大量参数使得使网络的容量巨大，但这并不代表每一个参数都对最后的结果有贡献。一方面，在后来的研究中，神经网络存在着很大的参数冗余性问题，可以一步压缩参数个数而不降低效果。另一方面，大量参数使得网络容易过拟合，conv层通常是作为特征提取层，而fc层是非线性映射层。从直觉上理解，conv层参数多样化可以使得提取的特征多样化，fc层具有降维和空间变换的能力，但大量参数容易造成过拟合会显得得不偿失。在Network in Networks的论文中便使用了global average pooling替代fc层[3]，由于大量参数的减少，使得网络效果进一步提升。另外，在这篇论文还值得一提的是，1x1卷积核的提出可以实现：1.降维变换在卷积过程中跨通道压缩信息，从而减少计算量。2. 1x1卷积的堆叠，可以在不影响receptive field的情况下进一步提高网络的非线性特性(因为激活函数往往接在卷积层后面使用)。3.分离通道信息，在这xception Net中使用。
 
 ## 3.3 VGGNet小结
