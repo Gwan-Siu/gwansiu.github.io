@@ -67,12 +67,6 @@ $$\Omega(N,H,\delta)=\sqrt{\frac{8}{N}\text{In}(\frac{4(2N)^{d_{vc}}}{\delta})}$
 ### 2.4 AlexNet小结
 AlexNet开启了深度学习领域的热潮，并在文章[2]中指出，网络的深度和宽度是网络容量的关键。显然，AlexNet大量参数对函数的拟合能力是有冗余的，此后，人们便围绕着网络稳定训练问题(梯度消失和梯度爆炸)对深度神经网络的深度，宽度，kernel的大小，kernel的步长展开了各种CNN的变式。
 
-**Reference**  
-1. http://static.zybuluo.com/GwanSiu/060jkut7852av647kzb9uta9/image.png   
-2. A. Krizhevsky, I. Sutskever, and G. E. Hinton, "Imagenet classification with deep convolutional neural networks," in Advances in neural information processing systems, 2012, pp. 1097-1105.  
-3. G. Klambauer, T. Unterthiner, A. Mayr, and S. Hochreiter, "Self-Normalizing Neural Networks," ArXiv e-prints, vol. 1706, Accessed on: June 1, 2017Available: http://adsabs.harvard.edu/abs/2017arXiv170602515K  
-4. X. Glorot and Y. Bengio, "Understanding the difficulty of training deep feedforward neural networks," in Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, 2010, pp. 249-256.  
-
 ## 3 ZFNet与VGGNet
 ### 3.1 ZFNet的基本结构[1,4]  
 ![image.png-587.9kB][7]
@@ -99,12 +93,6 @@ AlexNet开启了深度学习领域的热潮，并在文章[2]中指出，网络�
 
 ## 3.3 VGGNet小结
 VGGNet使用kernel factorization的方法将大的卷积核分解成小卷积核，并进一步加深网络，使网络达到了更好的效果。其中，kernel factorization的方法为后面GoogleNet的诞生提供了很好的降低参数的思路，但仅仅加深网络而并没有解决梯度消失的问题，使得VGGNet训练起来非常困难。后面，GoogleNet,ResNet便为我们提供了很好的解决思路:如何让深度神经网络稳定性训练?
-
-**Reference**  
-1. M. D. Zeiler and R. Fergus, "Visualizing and Understanding Convolutional Networks," ArXiv e-prints, vol. 1311, Accessed on: November 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1311.2901Z
-2. K. Simonyan and A. Zisserman, "Very deep convolutional networks for large-scale image recognition," arXiv preprint arXiv:1409.1556, 2014.
-3. M. Lin, Q. Chen, and S. Yan, "Network In Network," ArXiv e-prints, vol. 1312, Accessed on: December 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1312.4400L
-4. http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
 
 ## 4. GoogleNet
 ### 4.1 Inception v1
@@ -169,14 +157,6 @@ Inception v4是将Inception module和residual module结合起来。原因很直�
 ### 4.6 Summary of Inception Module
 为了同时增加网络深度和宽度而又同时需要控制参数，inception v1被提出来;之后通过conv layer与conv layer之间的特性研究，提出BN的方法，形成Inception v2;在Inception v3中，把factorization的方法用到极致，连pooling layer都不曾放过，进一步减少参数总量降低网络的冗余度，从而提高网络性能。搞完网络冗余度之后，便联想到将Inception v3和residual module结合起来看看会怎么样，便有了inception v4。最后，将1x1卷积极致发挥，分离cross-channel correlation和spatial correlation,搞出Xception。一切看似非常自然，真想为Google的工程师们鼠标双击6666。
 
-**Reference**  
-1. C. Szegedy et al., "Going Deeper with Convolutions," ArXiv e-prints, vol. 1409, Accessed on: September 1, 2014Available: http://adsabs.harvard.edu/abs/2014arXiv1409.4842S  
-2. S. Ioffe and C. Szegedy, "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift," ArXiv e-prints, vol. 1502, Accessed on: February 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv150203167I  
-3. C. Szegedy, V. Vanhoucke, S. Ioffe, J. Shlens, and Z. Wojna, "Rethinking the Inception Architecture for Computer Vision," ArXiv e-prints, vol. 1512, Accessed on: December 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv151200567S  
-4. C. Szegedy, S. Ioffe, V. Vanhoucke, and A. A. Alemi, "Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning," in AAAI, 2017, pp. 4278-4284.  
-5. F. Chollet, "Xception: Deep Learning with Depthwise Separable Convolutions," arXiv preprint arXiv:1610.02357, 2016.  
-6. http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
-
 ## 5. ResNet
 何凯明大神在ResNet的文章指出神经网络的深度训练存在两个问题:  
 1. 梯度消失/梯度爆炸
@@ -228,12 +208,39 @@ ResNet针对梯度消失问题和Network degradation问题提出identity mapping
 ![image.png-324.7kB][27]
 ![image.png-571.6kB][28]
 
-**Reference**  
-1. K. He, X. Zhang, S. Ren, and J. Sun, "Deep residual learning for image recognition," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016, pp. 770-778.  
-2. K. He, X. Zhang, S. Ren, and J. Sun, "Identity mappings in deep residual networks," in European Conference on Computer Vision, 2016, pp. 630-645: Springer.  
-3. http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
-
 ## 6.DenseNet
+
+ResNet,HighwayNet,FractalNets都使用shortcut connection让深层的信息直接回传到浅层而取得了成功，Densenet便把shortcut connections的模式发挥到极致，每一层都互相连接，使得每一层的输入都有前面所有层的输出信息。这样做使得DenseNet可以有效的减缓梯度消失和degradation的行为，让每一层网络的输入特征多样化使得计算更加有效，shortcut connection的使用起到了深度监督式学习的效果。下图为DenseNet的连接方式：
+![image.png-173.6kB][29]
+
+### 6.1 the structure of DenseNet
+![image.png-114.4kB][30]
+DenseNet主要由输入端的卷积层，Dense Block, transition layer, global average pooling之后的classifier所构成。
+1. Concatenation in Dense Block: 每一层输出都会和自己的输出进行简单的合并，传到下一层输入中。这样使得下一层的输入特征多样化，有效的提高计算并且帮助网络整合浅层网络特征学到discriminative feature。同时，同一 Dense bolck里的神经元相互连接达到feature reused的效果,这也就是为什么DenseNet不需要很宽也能达到很好的效果。(注意:深度和宽度都是网络的关键因素，网络的宽度必须在网络达到一定效果之后才能发挥作用）。另外，之所以不选择使用ResNet中加法合并，是因为加法是一种简单的特征融合行为，会造成信息的丢失或者紊乱。
+2. Compression in transition layer: DenseNet有一个特点是:参数使用量远远少于ResNet,除了feature reused减少了网络宽度之外，就是在transition layer使用了1x1卷积进行了信息压缩，这是在GoogLeNet inception v3中使用的手法，使得模型可以更加compact。另外，参数量减少带来另外一个好处就是减少模型的复杂度防止过拟合现象发生。
+3. Deeply supervision:shortcut connections形成了多通路模型，使得信息流从输入到输出畅通无阻，梯度信息也可以直接从loss function直接反馈回网络的各个节点，有一种大脑直接控制身体部位的行为。
+
+### 6.2 DenseNet小结
+ResNet,HighwayNet,FractalNets，DenseNet揭示了多通路模型的成功，clean shortcut connections可以feature resued,提高模型的学习效率(compact,discriminative features)有效的减缓梯度消失和network degradation的现象，并且一定程度上达到deeply supervision learning的效果，transition layer则进一步降维压缩模型参数，减少计算量。
+
+## 7 Reference
+1. http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf
+2. A. Krizhevsky, I. Sutskever, and G. E. Hinton, "Imagenet classification with deep convolutional neural networks," in Advances in neural information processing systems, 2012, pp. 1097-1105.  
+3. G. Klambauer, T. Unterthiner, A. Mayr, and S. Hochreiter, "Self-Normalizing Neural Networks," ArXiv e-prints, vol. 1706, Accessed on: June 1, 2017Available: http://adsabs.harvard.edu/abs/2017arXiv170602515K  
+4. X. Glorot and Y. Bengio, "Understanding the difficulty of training deep feedforward neural networks," in Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, 2010, pp. 249-256.  
+5. M. D. Zeiler and R. Fergus, "Visualizing and Understanding Convolutional Networks," ArXiv e-prints, vol. 1311, Accessed on: November 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1311.2901Z
+6. K. Simonyan and A. Zisserman, "Very deep convolutional networks for large-scale image recognition," arXiv preprint arXiv:1409.1556, 2014.
+7. M. Lin, Q. Chen, and S. Yan, "Network In Network," ArXiv e-prints, vol. 1312, Accessed on: December 1, 2013Available: http://adsabs.harvard.edu/abs/2013arXiv1312.4400L 
+8. C. Szegedy et al., "Going Deeper with Convolutions," ArXiv e-prints, vol. 1409, Accessed on: September 1, 2014Available: http://adsabs.harvard.edu/abs/2014arXiv1409.4842S  
+9. S. Ioffe and C. Szegedy, "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift," ArXiv e-prints, vol. 1502, Accessed on: February 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv150203167I  
+10. C. Szegedy, V. Vanhoucke, S. Ioffe, J. Shlens, and Z. Wojna, "Rethinking the Inception Architecture for Computer Vision," ArXiv e-prints, vol. 1512, Accessed on: December 1, 2015Available: http://adsabs.harvard.edu/abs/2015arXiv151200567S  
+11. C. Szegedy, S. Ioffe, V. Vanhoucke, and A. A. Alemi, "Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning," in AAAI, 2017, pp. 4278-4284.  
+12. F. Chollet, "Xception: Deep Learning with Depthwise Separable Convolutions," arXiv preprint arXiv:1610.02357, 2016.  
+13. K. He, X. Zhang, S. Ren, and J. Sun, "Deep residual learning for image recognition," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016, pp. 770-778.  
+14. K. He, X. Zhang, S. Ren, and J. Sun, "Identity mappings in deep residual networks," in European Conference on Computer Vision, 2016, pp. 630-645: Springer.
+15. G. Huang, Z. Liu, K. Q. Weinberger, and L. van der Maaten, "Densely connected convolutional networks," arXiv preprint arXiv:1608.06993, 2016.
+
+
 
 [1]: http://static.zybuluo.com/GwanSiu/060jkut7852av647kzb9uta9/image.png
 [2]: http://static.zybuluo.com/GwanSiu/wm3hipwf8s1aec2qflu8xxka/image.png
@@ -264,3 +271,5 @@ ResNet针对梯度消失问题和Network degradation问题提出identity mapping
 [26]: http://static.zybuluo.com/GwanSiu/931h7994wbx39t7vyia57j50/image.png
 [27]: http://static.zybuluo.com/GwanSiu/vwbgv9az2jrvuun4q0ghjxvg/image.png
 [28]: http://static.zybuluo.com/GwanSiu/7y3ml4um7molmnswrc7t0p4a/image.png
+[29]: http://static.zybuluo.com/GwanSiu/w283nbyrs0bej3klvdthh094/image.png
+[30]: http://static.zybuluo.com/GwanSiu/kebiuiv8uacw78cc8wa2bfxv/image.png
