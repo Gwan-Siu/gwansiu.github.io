@@ -58,10 +58,11 @@ $$\Omega(N,H,\delta)=\sqrt{\frac{8}{N}\text{In}(\frac{4(2N)^{d_{vc}}}{\delta})}$
 
 #### 2.3.3 什么是梯度爆炸？
 神经网络是一个级联系统，从系统学的角度出发，微小的扰动通过多级级联系统会被放大，从而导致输出值爆炸增长。在电路系统中通常采用反馈的方式控制，而在神经网络中则使用Xavier方差不变准则保持网络节点尺度不变。
-![image.png-346.7kB][5]
+![image.png-346.7kB][31]
 
 #### 2.3.4 梯度爆炸的解决方式？
-![image.png-200.2kB][6]
+![image.png-346.7kB][5]
+
 
 
 ### 2.4 AlexNet小结
@@ -276,3 +277,4 @@ ResNet,HighwayNet,FractalNets，DenseNet揭示了多通路模型的成功，clea
 [28]: http://static.zybuluo.com/GwanSiu/7y3ml4um7molmnswrc7t0p4a/image.png
 [29]: http://static.zybuluo.com/GwanSiu/w283nbyrs0bej3klvdthh094/image.png
 [30]: http://static.zybuluo.com/GwanSiu/kebiuiv8uacw78cc8wa2bfxv/image.png
+[31]: http://static.zybuluo.com/GwanSiu/o4isv928kkq2mtfg4l2moxjm/image.png
