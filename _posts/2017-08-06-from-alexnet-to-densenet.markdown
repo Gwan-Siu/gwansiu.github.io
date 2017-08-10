@@ -58,9 +58,10 @@ $$\Omega(N,H,\delta)=\sqrt{\frac{8}{N}\text{In}(\frac{4(2N)^{d_{vc}}}{\delta})}$
 
 #### 2.3.3 什么是梯度爆炸？
 神经网络是一个级联系统，从系统学的角度出发，微小的扰动通过多级级联系统会被放大，从而导致输出值爆炸增长。在电路系统中通常采用反馈的方式控制，而在神经网络中则使用Xavier方差不变准则保持网络节点尺度不变。
+![image.png-346.7kB][5]
 
 #### 2.3.4 梯度爆炸的解决方式？
-![image.png-200.2kB][5]
+![image.png-200.2kB][6]
 
 
 ### 2.4 AlexNet小结
@@ -247,8 +248,10 @@ ResNet,HighwayNet,FractalNets，DenseNet揭示了多通路模型的成功，clea
 [1]: http://static.zybuluo.com/GwanSiu/060jkut7852av647kzb9uta9/image.png
 [2]: http://static.zybuluo.com/GwanSiu/wm3hipwf8s1aec2qflu8xxka/image.png
 [3]: http://2.bp.blogspot.com/-20IX-B8hzi4/WL0mEr5UNVI/AAAAAAAABXA/SlaQshGBr2QTdzFw-3tzewOWo2jh5G2cgCK4B/s1600/andrewNg_1.PNG
-[4]: http://static.zybuluo.com/GwanSiu/o4isv928kkq2mtfg4l2moxjm/image.png[5]: http://static.zybuluo.com/GwanSiu/o4isv928kkq2mtfg4l2moxjm/image.png
-[5]: http://static.zybuluo.com/GwanSiu/tv8pbj9tcyrjf5mh4vuxx91e/image.png[6]: http://static.zybuluo.com/GwanSiu/bxrj8i3jb7baaq4q8zwgwd0f/image.png
+[4]: http://static.zybuluo.com/GwanSiu/k3dubq01ljxd3ruhi6nzo3qg/image.png
+[5]: http://static.zybuluo.com/GwanSiu/o4isv928kkq2mtfg4l2moxjm/image.png
+[5]: http://static.zybuluo.com/GwanSiu/tv8pbj9tcyrjf5mh4vuxx91e/image.png
+[6]: http://static.zybuluo.com/GwanSiu/bxrj8i3jb7baaq4q8zwgwd0f/image.png
 [7]: http://static.zybuluo.com/GwanSiu/5kwrc4kbhwatczxown9wvt6r/image.png
 [8]: http://static.zybuluo.com/GwanSiu/dgvwl7maa3qmm0mjvzcdopic/image.png
 [9]: http://static.zybuluo.com/GwanSiu/oucizb4g0bw05w0af6pd95tx/image.png
