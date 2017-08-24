@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Scale Space v.s. Image Resolution"
-date:       2017-08-21 12:00:00
+date:       2017-08-24 12:00:00
 author:     "GwanSiu"
 catalog: true
 tags:
@@ -46,10 +46,30 @@ plt.axis('off')
 ```
 ![image.png-223.1kB][1]
 
-## 2. 什么是图像的分辨率？
+## 2. 为什么需要尺度空间？
+研究表明，物体在不同的尺度下能吐信出不同的结构，如:粗尺度图片能够更高的体现物体的轮廓和形态，细尺度图片能更有效表示物体的局部细节特征。尺度对于图片来说，就是一种“measurement",像是一种可调节的放大镜。计算机进行图片分析时，可使用这个放大镜观察图片的宏观与微观世界，从而提取出自己的interesting points.
+
+## 3. 什么是图像的分辨率？
 图像的分辨率(Image Resolution)本质上是图像的在水平和垂直方向的量化程度，直观上理解是指图像能展现的细节程度。量化的过程是模拟信号转变成数字信号的过程，这一过程是**不可逆**的信息损失过程。因此，量化级别的高低决定了该数字信号能否更好的表示原本的模拟信号。图像是二维数组，水平像素和垂直像素的数量便是图像量化的级别，多像素图像更能展示图像的细节。如下图:
-[---][2]
+![---][3]
+![---][2]
+
+## 4. 图像金字塔
+**图像金字塔(image pyramid)**是同一张图片不同分辨率的集合。大尺度原图在底层，越往上，尺度逐渐减小，堆叠起来便形成了金字塔状。
+![--][4]
+在金字塔的每一层图片上可以进行尺度解析，即:用不同sigma的高斯核去处理每一层图片，从而形成一个”octve“,图像的尺度解析和图像金字塔便形成了图片的多尺度多分辨率解析的基础。
+![image_1bh7i445eip13np1j0gv52m1e9.png-88.1kB][5]
+
+图像金字塔又分为**高斯金字塔(低通)**和**拉普拉斯金字塔(带通)**。
+
+**高斯金字塔:**使用一个高斯滤波器对原图进行平滑滤波，并对其进行下采样(下采样因子通常为2)。重复此步骤，可以得到一系列不同尺度，不同分辨率的图像集合。并将此集合按照图像大小从底部开始堆叠，便是高斯金字塔。  
+**拉普拉斯金字塔:**高斯金字塔的相邻两层相互做差运算，由于相邻两层的分辨率不一样，在做差之前，低分辨率图片需要进行插值运算，因此拉普拉斯金字塔便是高斯金字塔相邻两层的差。
+
+图像金字塔和尺度空间的具体应用，可参见[我的博客SIFI算子。](http://gwansiu.com/2017/05/27/SIFT/)
 
 
 [1]: http://static.zybuluo.com/GwanSiu/sha5x9d15ozenfab6zxczy2w/image.png
 [2]: http://4k.com/wp-content/uploads/2014/06/4k-resolution-on-eyes.jpg
+[3]: https://developer.apple.com/ios/human-interface-guidelines/images/ImageResolution-Graphic.png
+[4]: https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Image_pyramid.svg/300px-Image_pyramid.svg.png
+[5]: http://static.zybuluo.com/GwanSiu/0hz6rz3rpvdq1a39zsfvu5tm/image_1bh7i445eip13np1j0gv52m1e9.png
