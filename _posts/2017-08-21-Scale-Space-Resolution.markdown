@@ -67,9 +67,71 @@ plt.axis('off')
 
 图像金字塔和尺度空间的具体应用，可参见[我的博客SIFI算子。](http://gwansiu.com/2017/05/27/SIFT/)
 
+```python
+import matplotlib.pyplot as plt
+
+from skimage import data, transform,io
+from skimage.transform import pyramid_gaussian
+import numpy as np
+
+image = io.imread('/Users/xiaojun/Desktop/Programme/DataSet/mxnet_mtcnn_face_detection-master/anner.jpeg')
+image = transform.resize(image, [512,512])
+rows, cols, dim = image.shape
+print(rows,cols)
+pyramid = tuple(pyramid_gaussian(image, downscale=2,sigma=3))
+
+composite_image = np.zeros((rows, cols + cols // 2, 3), dtype=np.double)
+
+composite_image[:rows, :cols, :] = pyramid[0]
+
+i_row = 0
+for p in pyramid[1:]:
+    n_rows, n_cols = p.shape[:2]
+    composite_image[i_row:i_row + n_rows, cols:cols + n_cols] = p
+    i_row += n_rows
+
+fig, ax = plt.subplots()
+ax.imshow(composite_image)
+plt.axis('off')
+plt.show()
+```
+![image.png-670.3kB][6]
+
+```python
+import matplotlib.pyplot as plt
+
+from skimage import data, transform,io
+from skimage.transform import pyramid_gaussian, pyramid_laplacian
+import numpy as np
+
+image = io.imread('/Users/xiaojun/Desktop/Programme/DataSet/mxnet_mtcnn_face_detection-master/anner.jpeg')
+image = transform.resize(image, [512,512])
+rows, cols, dim = image.shape
+print(rows,cols)
+pyramid = tuple(pyramid_laplacian(image, downscale=2,sigma=3))
+
+composite_image = np.zeros((rows, cols + cols // 2, 3), dtype=np.double)
+
+composite_image[:rows, :cols, :] = pyramid[0]
+
+i_row = 0
+for p in pyramid[1:]:
+    n_rows, n_cols = p.shape[:2]
+    composite_image[i_row:i_row + n_rows, cols:cols + n_cols] = p
+    i_row += n_rows
+
+fig, ax = plt.subplots()
+ax.imshow(composite_image)
+plt.axis('off')
+plt.show()
+```
+![image.png-1046.8kB][7]
+
 
 [1]: http://static.zybuluo.com/GwanSiu/sha5x9d15ozenfab6zxczy2w/image.png
 [2]: http://4k.com/wp-content/uploads/2014/06/4k-resolution-on-eyes.jpg
 [3]: https://developer.apple.com/ios/human-interface-guidelines/images/ImageResolution-Graphic.png
 [4]: https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Image_pyramid.svg/300px-Image_pyramid.svg.png
 [5]: http://static.zybuluo.com/GwanSiu/0hz6rz3rpvdq1a39zsfvu5tm/image_1bh7i445eip13np1j0gv52m1e9.png
+[6]: http://static.zybuluo.com/GwanSiu/dt1quyy089g398900r2wvf3b/image.png
+[7]: http://static.zybuluo.com/GwanSiu/re4rmoc2z2vg6j5jaxg69f0l/image.png
