@@ -75,19 +75,12 @@ $$E_{test}\leqslant E_{train} + \Omega(N,H,\delta) \tag{3}$$
 $$E_{test}[g^{D}(x)] = E_{x}[\lVert g^{D}(x)-f(c)\rVert^{2}] \tag{4}$$
 
 $$ \begin{aligned}
-D(x,y,\sigma) &=(G(x,y,k\sigma)-G(x,y,\sigma))* I(x,y) \\  
-
-&= L(x,y,k\sigma)-L(x,y,\sigma)
-\end{aligned}
-$$
-
-$$ \begin{aligned}
 E_{D}\[E_{test}\[g^{D}\]\] &= E_{D}\[E_{x}\[\lVert g^{D}(x)-f(x) \rVert^2\]\] \\
 &=E_{x}\[E_{D}\[g^{D}(x)-2g^{D}(x)f(x)+f^{2}(x)\]\] \\
 =E_{x}[E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]+(\hat{g^{D}^{2}(x)}-f(x))^{2}]\\
 &=E_{x}[E_{D}[g^{D}^{2}(x)]-2\hat{g}^{D}(x)f(x)+f^{2}(x)] \\
 &=E_{x}[E_{D}[g^{D}^{2}(x)]-\hat{g}^{D}^{2}(x)+\hat{g}^{D}^{2}(x)-2\hat{g}^{D}(x)f(x)+f^{2}(x)] \\
-&=E_{x}[E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]+(\hat{g}^{D}^{2}(x)-f(x))^{2}]
+&=E_{x}[E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]+(\hat{g}^{D}^{2}(x)-f(x))^{2}] \\
 &=E_{x}[E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]]+E_{x}[(\hat{g}^{D}^{2}(x)-f(x))^{2}]
 \end{aligned}
 $$
@@ -99,6 +92,8 @@ $$E_{D}[E_{test}[g^{D}]]=\text{bias(x)}+\text{Var{x}} \tag{6}$$
 其中$\text{bias(x)}$指的是函数空间均值点距离$f(x)$的远近，而$\text{Var(x)}$指的是函数空间的离散程度。如下图所示：
 
 <img src="http://static.zybuluo.com/GwanSiu/u2ojzi31sn76i04wh8t27u21/image.png" width="400" height="400"/>
+
+**bias很大，说明模型欠拟合；Variance很大，说明模型过拟合。**
 
 
 
