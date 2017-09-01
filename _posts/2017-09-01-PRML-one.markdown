@@ -17,10 +17,10 @@ tags:
 
 <img src="http://static.zybuluo.com/GwanSiu/f3sj16wbys8cbhterddb0ghy/image.png" width="400" height="400"/>
 
-**从统计层面上理解，机器学习的过程就是数据拟合的过程，是用观察到的数据(已知)，去求解产生该数据的分布的过程。**已知数据$X=(x_{1},...,x_{n})$是由一个underlying function $f(x)$产生，$f(x)$是未知的，我们便利用数学上的逼近原理，构造一个$g(x;\Theta)$函数，其参数为$\Theta=(\theta_{1},...,\theta_{n})$,希望找到最优的一个$g(x;\Theta^{*})$跟$f(x)$越想近越好
+**从统计层面上理解，机器学习的过程就是数据拟合的过程，是用观察到的数据(已知)，去求解产生该数据的分布的过程。**已知数据$X=(x_{1},...,x_{n})$是由一个underlying function $f(x)$产生，$f(x)$是未知的，我们便利用数学上的逼近原理，构造一个$g(x;\Theta)$函数，其参数为$\Theta=(\theta_{1},...,\theta_{n})$,希望找到最优的一个$g(x;\Theta^{*})$跟$f(x)$越想近越好。即:$\text{min}_{\Theta}\lVert g(x;\Theta)-f(x)\rVert^{2}$。
 
 从贝叶斯分析的角度出发:
 
 $$ P(X|\Theta)=\frac{P(X)P(\Theta|X)}{P{\Theta}} \tag{1}$$
 
-其中,$P(X|\Theta)$是后验概率(posterior), 物理意义:Underlying function $f(x)$产生观测数据$X=(x_{1},...,x_{n})$; $P(X)$是先验(Prior),它代表我们对样本的认知，先验知识；$P(\Theta|X)$是似然(likelyhood),从数据$X=(x_{1},...,x_{n})$推理(inference)参数为$\Theta=(\theta_{1},...,\theta_{n})$，它代表$P(\Theta|X)$与真实$P(X|\Theta)$的相似度，如字面意思：似然。
+其中,$P(X\|\Theta)$是后验概率(posterior), 物理意义:Underlying function $f(x)$产生观测数据$X=(x_{1},...,x_{n})$; $P(X)$是先验(Prior),它代表我们对样本的认知，先验知识；$P(\Theta\|X)$是似然(likelyhood),从数据$X=(x_{1},...,x_{n})$推理(inference)参数为$\Theta=(\theta_{1},...,\theta_{n})$，它代表$P(\Theta\|X)$与真实$P(X|\Theta)$的相似度，如字面意思：似然。
