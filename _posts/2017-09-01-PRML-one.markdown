@@ -75,17 +75,17 @@ $$E_{test}\leqslant E_{train} + \Omega(N,H,\delta) \tag{3}$$
 $$E_{test}[g^{D}(x)] = E_{x}[\lVert g^{D}(x)-f(c)\rVert^{2}] \tag{4}$$
 
 $$ \begin{aligned}
-E_{D}\[E_{test}\[g^{D}\]\] &= E_{D}\[E_{x}\[\lVert g^{D}(x)-f(x) \rVert^2\]\] \\
+E_{D}[E_{test}[g^{D}]] &= E_{D}[E_{x}[\lVert g^{D}(x)-f(x) \rVert^2]] \\
 
-&=E_{x}\[E_{D}\[g^{D}(x)^{2}-\hat{g}^{D}(x)^{2}]+(\hat{g^{D}(x)^{2}}-f(x))^{2}\] \\
-&=E_{x}\[E_{D}[g^{D}(x)^{2}]-2\hat{g}^{D}(x)f(x)+f^{2}(x)\] \\
-&=E_{x}\[E_{D}[g^{D}(x)^{2}]-\hat{g}^{D}(x)^{2}+\hat{g}^{D}(x)^{2}-2\hat{g}^{D}(x)f(x)+f^{2}(x)] \\
-&=E_{x}\[E_{D}\[g^{D}(x)^{2}-\hat{g}^{D}(x)^{2}\]+(\hat{g}^{D}(x)-f(x))^{2}\] \\
-&=E_{x}\[E_{D}\[g^{D}(x)^{2}-\hat{g}^{D}(x)^{2}\]\]+E_{x}\[(\hat{g}^{D}(x)-f(x))^{2}\]
+&=E_{x}[E_{D}[g^{D}(x)^{2}-\hat{g}^{D}(x)^{2}]+(\hat{g^{D}(x)^{2}}-f(x))^{2}] \\
+&=E_{x}[E_{D}[g^{D}(x)^{2}]-2\hat{g}^{D}(x)f(x)+f^{2}(x)] \\
+&=E_{x}[E_{D}[g^{D}(x)^{2}]-\hat{g}^{D}(x)^{2}+\hat{g}^{D}(x)^{2}-2\hat{g}^{D}(x)f(x)+f^{2}(x)] \\
+&=E_{x}[E_{D}[g^{D}(x)^{2}-\hat{g}^{D}(x)^{2}]+(\hat{g}^{D}(x)-f(x))^{2}] \\
+&=E_{x}[E_{D}[g^{D}(x)^{2}-\hat{g}^{D}(x)^{2}]]+E_{x}[(\hat{g}^{D}(x)-f(x))^{2}]
 \end{aligned}
 $$
 
-其中, $\text{bias(x)=E_{x}\[(\hat{g}^{D}(x)-f(x))^{2}}\]$,$\text{Var(x)}=E_{D}[g^{D}(x)^{2}-\hat{g}^{D}^{2}(x)]$. 
+其中, $\text{bias(x)}=E_{x}[(\hat{g}^{D}(x)-f(x))^{2}}]$,$\text{Var(x)}=E_{D}[g^{D}(x)^{2}-\hat{g}^{D}(x)]$. 
 $$E_{D}[E_{test}[g^{D}]]=\text{bias(x)}+\text{Var{x}} \tag{6}$$
 
 其中$\text{bias(x)}$指的是函数空间均值点距离$f(x)$的远近，而$\text{Var(x)}$指的是函数空间的离散程度。如下图所示：
