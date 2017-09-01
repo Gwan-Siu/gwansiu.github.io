@@ -83,8 +83,8 @@ $$
 
 $$
 \begin{aligned}
-E_{D}[E_{test}[g^{D}]] &= E_{D}[E_{test}[\lVert g^{D}(x)-f(x) \rVert^2]]\\\\
-&=E_{test}[E_{D}[g^{D}^{2}(x)-2g^{D}(x)f(x)+f^{2}(x)]]\\\\
+E_{D}\[E_{test}\[g^{D}\]\] &= E_{D}\[E_{test}\[\lVert g^{D}(x)-f(x) \rVert^2\]]\\
+&=E_{test}\[E_{D}\[g^{D}^{2}(x)-2g^{D}(x)f(x)+f^{2}(x)\]\]\\
 \end{aligned}
 $$
 
