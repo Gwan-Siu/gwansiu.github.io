@@ -82,7 +82,9 @@ E_{D}[E_{test}[g^{D}]] &= E_{D}[E_{x}[\lVert g^{D}(x)-f(x) \rVert^2]] \\
 \end{aligned}
 $$
 
-其中, $\text{bias(x)}=E_{x}[(\hat{g}^{D}(x)-f(x))^{2}]$,$\text{Var(x)}=E_{D}[g^{D}(x)^{2}]-\hat{g}^{D}(x)^{2}$. 
+其中, $\text{bias(x)}=E_{x}[(\hat{g}^{D}(x)-f(x))^{2}]$,  
+$\text{Var(x)}=E_{D}[g^{D}(x)^{2}]-\hat{g}^{D}(x)^{2}$.
+ 
 $$E_{D}[E_{test}[g^{D}]]=\text{bias(x)}+\text{Var{x}} \tag{6}$$
 
 其中$\text{bias(x)}$指的是函数空间均值点距离$f(x)$的远近，而$\text{Var(x)}$指的是函数空间的离散程度。如下图所示：
