@@ -47,11 +47,11 @@ $$ P(X|\Theta)=\frac{P(X)P(\Theta|X)}{P{\Theta}} \tag{1}$$
 - 1. **机器学习要解决的根本问题**
     -  机器学习的必要不充分条件:在训练集的数据和测试集的数据需来源同一分布或者两个相近的分布的前提下,且要做到以下两点：
         - (1) 保证训练误差$E_{train}$很小(训练过程)。
-        - (2) 使得测试误差要逼近训练误差的值$E_{test}\appro E_{train}$(测试过程，保证了模型的泛化能力)，这样就保证了测试误差也很小。  
+        - (2) 使得测试误差要逼近训练误差的值$E_{test}\approx E_{train}$(测试过程，保证了模型的泛化能力)，这样就保证了测试误差也很小。  
 
 上面讲到，机器学习是一个数据拟合，发觉数据真实分布的过程。由贝叶斯分析可知:$P(X\arrowvert \Theta)\propto P(X)P(\Theta\arrowvert X)$，训练的过程便是根据训练数据，最大化似然概率$P(\Theta\arrowvert X)$。不同的$\theta_{i}$对应不同的似然概率$P(\theta_{i}\arrowvert X)$，因此，训练过程便是在$P(\Theta\arrowvert X)$函数空间中找到一个函数$P(\theta_{i}\arrowvert X)$与真实分布$P(X\arrowvert \Theta)$最相近，即：使得训练误差最小，$E_{train}\downarrow$。
 
-**如何保证$E_{test}\appro E_{train}$？**这要涉及到VC-dimension的理论，这里直接抛出结论，具体推导亦在[机器学习基石](https://www.coursera.org/learn/ntumlone-mathematicalfoundations)课程中有：
+**如何保证$E_{test}\approx E_{train}$？**这要涉及到VC-dimension的理论，这里直接抛出结论，具体推导亦在[机器学习基石](https://www.coursera.org/learn/ntumlone-mathematicalfoundations)课程中有：
 
 $$E_{test}\leqslant E_{train} + \sqrt(\frac{8}{N}\text{In}\frac{4m_{H}(2N)}{\delta})\leqslant E_{train} + \sqrt(\frac{8}{N}\text{In}\frac{4(2N)^{d_{vc}}}{\delta} \tag{2}$$
 
@@ -64,17 +64,22 @@ $$E_{test}\leqslant E_{train} + \Omega(N,H,\delta) \tag{3}$$
 **VC维度的讨论**  
 1. 当数据样本$N$一定时，若**d_{vc}(H)** 很高，说明学习到的模型复杂度高，这会导致$E_{train}$很小，但$\Omega(N,H,\delta)$很大便导致$E_{test} < E_{train}$, 条件(2)不能满足。这属于**过拟合**现象。从上式可知解决过拟合现象有两种方法，一是增大样本量$N$,二是减少vc维度，$d_{vc}$,即:**Regulization**.
 
-2. 当数据样本$N$一定时，若**d_{vc}(H)**很小，说明学习到的模型复杂度低，这会使得$E_{train}$很高，即使条件(2)可以满足:$E_{test}\appro E_{train}$，但$E_{test}$很大，学习效果很差。这属于欠拟合现象，解决方法是增大vc维度。
+2. 当数据样本$N$一定时，若**d_{vc}(H)**很小，说明学习到的模型复杂度低，这会使得$E_{train}$很高，即使条件(2)可以满足:$E_{test}\approx E_{train}$，但$E_{test}$很大，学习效果很差。这属于欠拟合现象，解决方法是增大vc维度。
 
 可见，当样本数量$N$一定时,**d_{vc}(H)**过大会造成模型过拟合，**d_{vc}(H)**太小会造成模型欠拟合。这说明，机器学习的训练过程是一个VC维度trade-off的过程。一般，validation set便是用来调整模型之用。
 
 **从bias和variance讨论欠拟合和过拟合**
+
 基本思想:通过least square error, 将$E_{test}$分解成bias和covariance。
 
 $$E_{test}[g^{D}(x)] = E_{x}[\lVert g^{D}(x)-f(c)\rVert^{2}] \tag{4}$$
 
-$$\begin{align}
-E_{D}[E_{test}[g^{D}]] = E_{D}[E_{test}[\lVert g^{D}-f(x) \rVert^2]]
-\end{align}
+$$\begin{align*}
+E_{D}[E_{test}[g^{D}]] &= E_{D}[E_{test}[\lVert g^{D}(x)-f(x) \rVert^2]]\\
+&=E_{test}[E_{D}[g^{D}^{2}(x)-2g^{D}(x)f(x)+f^{2}(x)]]\\
+&=E_{test}[E_{D}[g^{D}^{2}(x)]-2\hat{g^{D}(x)}f(x)+f^{2}(x)]\\
+&=E_{test}[E_{D}[g^{D}^{2}(x)]-\hat{g^{D}^{2}(x)}+\hat{g^{D}^{2}(x)}-2\hat{g^{D}(x)}f(x)+f^{2}(x)]\\
+&=E_{test}[E_{D}[g^{D}^{2}(x)-\hat{g^{D}^{2}(x)}]+(\hat{g^{D}^{2}(x)}-f(x))^{2}]
+\end{align*}
 $$
 
