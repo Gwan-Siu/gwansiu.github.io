@@ -85,7 +85,7 @@ E_{D}\[E_{test}\[g^{D}\]\] &= E_{D}\[E_{x}\[\lVert g^{D}(x)-f(x) \rVert^2\]\] \\
 \end{aligned}
 $$
 
-其中, $\text{bias(x)}=E_{x}[(\hat{g}^{D}^{2}(x)-f(x))^{2}]$,$\text{Var(x)}=E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]$.
+其中, $\text{bias(x)}=E_{x}[(\hat{g}^{D}^{2}(x)-f(x))^{2}]$,$\text{Var(x)}=E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]$. $\hat{g}$
 
 $$E_{D}[E_{test}[g^{D}]]=\text{bias(x)}+\text{Var{x}} \tag{6}$$
 
