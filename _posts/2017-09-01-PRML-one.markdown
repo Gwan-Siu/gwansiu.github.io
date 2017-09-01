@@ -74,12 +74,10 @@ $$E_{test}\leqslant E_{train} + \Omega(N,H,\delta) \tag{3}$$
 
 $$E_{test}[g^{D}(x)] = E_{x}[\lVert g^{D}(x)-f(c)\rVert^{2}] \tag{4}$$
 
-$$\begin{equation}
+$$\begin{align}
 E_{D}[E_{test}[g^{D}]] &= E_{D}[E_{test}[\lVert g^{D}(x)-f(x) \rVert^2]]\\
 &=E_{test}[E_{D}[g^{D}^{2}(x)-2g^{D}(x)f(x)+f^{2}(x)]]\\
-&=E_{test}[E_{D}[g^{D}^{2}(x)]-2\hat{g^{D}(x)}f(x)+f^{2}(x)]\\
-&=E_{test}[E_{D}[g^{D}^{2}(x)]-\hat{g^{D}^{2}(x)}+\hat{g^{D}^{2}(x)}-2\hat{g^{D}(x)}f(x)+f^{2}(x)]\\
 &=E_{test}[E_{D}[g^{D}^{2}(x)-\hat{g^{D}^{2}(x)}]+(\hat{g^{D}^{2}(x)}-f(x))^{2}]
-\end{equation}
+\end{align}
 $$
 
