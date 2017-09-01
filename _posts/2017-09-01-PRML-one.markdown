@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Note of PRML(Chapter One)
+title: Note of PRML(Chapter one)
 date: 2017-09-01
 author: GwanSiu
 catalog: True
