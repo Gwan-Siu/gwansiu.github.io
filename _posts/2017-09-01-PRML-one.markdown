@@ -74,9 +74,18 @@ $$E_{test}\leqslant E_{train} + \Omega(N,H,\delta) \tag{3}$$
 
 $$E_{test}[g^{D}(x)] = E_{x}[\lVert g^{D}(x)-f(c)\rVert^{2}] \tag{4}$$
 
-$$\begin{aligned}
-E_{D}[E_{test}[g^{D}]] &= E_{D}[E_{test}[\lVert g^{D}(x)-f(x) \rVert^2]]\\
-&=E_{test}[E_{D}[g^{D}^{2}(x)-2g^{D}(x)f(x)+f^{2}(x)]]\\
+$$ \begin{aligned}
+D(x,y,\sigma) &=(G(x,y,k\sigma)-G(x,y,\sigma))* I(x,y) \\  
+
+&= L(x,y,k\sigma)-L(x,y,\sigma)
 \end{aligned}
 $$
+
+$$
+\begin{aligned}
+E_{D}[E_{test}[g^{D}]] &= E_{D}[E_{test}[\lVert g^{D}(x)-f(x) \rVert^2]]\\\\
+&=E_{test}[E_{D}[g^{D}^{2}(x)-2g^{D}(x)f(x)+f^{2}(x)]]\\\\
+\end{aligned}
+$$
+
 
