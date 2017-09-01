@@ -1,0 +1,18 @@
+---
+layout: post
+title: Note of PRML(Chapter One)
+date: 2017-05-27
+author: GwanSiu
+catalog: True
+tags:
+    - Machine Learning
+---
+# 1. Introduction
+ PMRL第一章简单讲述了三方面的知识:(1).Machine Learning的基本知识,包括基本名词定义，模型选择以及维度灾难；(2).贝叶斯理论和决策理论；(3).信息理论与Machine Learning的联系。  
+ 在本篇博文中，博主将结合自己所学，将书本的知识进行扩展，从而形成这一章note，希望对以后的机器学习学习者有所帮助。
+
+# 2. What's the Machine Learning?
+## 2.1 The definition of machine Learning
+机器学习方法是**计算机利用已有的经验(观测数据)**，解算出某个模型(规律)，并利用该模型来预测未来的一种方法。该定义出发点是让计算机模拟人脑的学习过程，将观察的经验归纳总结出某种规律，并利用该规律观察自然，并改造自然。
+
+<img src="http://static.zybuluo.com/GwanSiu/f3sj16wbys8cbhterddb0ghy/image.png" width="400" height="400"/>
