@@ -91,10 +91,4 @@ E_{D}\[E_{test}\[g^{D}\]\] &= E_{D}\[E_{test}\[\lVert g^{D}(x)-f(x) \rVert^2\]\]
 \end{aligned}
 $$
 
-$$
-\begin{aligned}
-E_{D}\[E_{test}\[g^{D}\]\] &= E_{D}\[E_{test}\[\lVert g^{D}(x)-f(x) \rVert^2\]\] \\
-
-\end{aligned}
-$$
 
