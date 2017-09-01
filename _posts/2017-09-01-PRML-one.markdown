@@ -1,0 +1,99 @@
+---
+layout: post
+title: Note of PRML(Chapter one)
+date: 2017-09-01
+author: GwanSiu
+catalog: True
+tags:
+    - Machine Learning
+---
+# 1. Introduction
+ PMRL第一章简单讲述了三方面的知识:(1).Machine Learning的基本知识,包括基本名词定义，模型选择以及维度灾难；(2).贝叶斯理论和决策理论；(3).信息理论与Machine Learning的联系。  
+ 在本篇博文中，博主将结合自己所学，将书本的知识进行扩展，从而形成这一章note，希望对以后的机器学习学习者有所帮助。注意:本篇博文中，不涉及概率基础以及决策理论，基础感到困难的朋友可以先去补充概率基础，这将对机器学习的学习大有裨益。
+
+# 2. The Background of Machine Learning
+## 2.1 The definition of machine Learning
+机器学习方法是**计算机利用已有的经验(观测数据)**，解算出某个模型(规律)，并利用该模型来预测未来的一种方法。该定义出发点是让计算机模拟人脑的学习过程，将观察的经验归纳总结出某种规律，并利用该规律观察自然，并改造自然。
+
+<img src="http://static.zybuluo.com/GwanSiu/f3sj16wbys8cbhterddb0ghy/image.png" width="400" height="400"/>
+
+**从统计层面上理解，机器学习的过程就是数据拟合的过程，是用观察到的数据(已知)，去求解产生该数据的分布的过程。**已知数据$X=(x_{1},...,x_{n})$是由一个underlying function $f(x)$产生，$f(x)$是未知的，我们便利用数学上的逼近原理，构造一个$g(x;\Theta)$函数，其参数为$\Theta=(\theta_{1},...,\theta_{n})$,希望找到最优的一个$g(x;\Theta^{*})$跟$f(x)$越想近越好。即:$\text{min}_{\Theta}\lVert g(x;\Theta)-f(x)\rVert^{2}$。
+
+<img src="http://static.zybuluo.com/GwanSiu/oznibj01zr53vjx4gwbn6ggc/image.png" width="400" height="400"/>
+
+从贝叶斯分析的角度出发:
+
+$$ P(X|\Theta)=\frac{P(X)P(\Theta|X)}{P{\Theta}} \tag{1}$$
+
+其中,$P(X\arrowvert \Theta)$是后验概率(posterior), 物理意义:Underlying function $f(x)$产生观测数据$X=(x_{1},...,x_{n})$; $P(X)$是先验(Prior),它代表我们对样本的认知，先验知识；$P(\Theta\arrowvert X)$是似然(likelyhood),从数据$X=(x_{1},...,x_{n})$推理(inference)参数为$\Theta=(\theta_{1},...,\theta_{n})$，它代表$P(\Theta\arrowvert X)$与真实$P(X\arrowvert \Theta)$的相似度，如字面意思：似然。
+
+**PRML这一本书，则是从贝叶斯理论的框架下讨论一些列的机器学习问题。**
+
+
+## 2.2 The Type of Machine Learning
+- 1. 从输出空间$y$的类型上分类(即:任务分类)：  
+若$y$是离散空间(Discrete Set)，则该任务为**分类(Classification)**。  
+若$y$是连续空间(Continuous Set)，则该任务为**回归(Regresssion)**。
+- 2. 从学习的目的上分类：
+**监督式学习(Supervised Learning):** 有标签式学习，数据与标签成对$(x_{n},y_{n})$存在。 
+**非监督式学习(Unsupervised Learning):**无标签式学习，只有数据$X=(x_{1},...,x_{n})$,无监督式学习的目的是将相似的数据聚类(Cluster), 本质上是学习潜在的概率分布(dense estimation)。  
+**半监督式学习(Semi-supervised Learning):**有标签的数据和无标签的数据都有，利用有标签数据辅助学习，从而学到无标签数据潜在的概率分布。  
+**强化学习(Reinforcement Learning):**给定已知情景做决策，所做的决策是将最后得到的奖励(TReward)最大化(需要博弈论知识)。奖励(Reward)应该合理地赋予给每一个操作。**强化学习的特点**是在找寻exploration和exploitation的trade-off，其中exploration是系统进行新动作并查看该动作的影响，exploitation是充分利用已知动作获得最高的奖励。
+**在线学习(Online Learning):**Sequential data(序列化数据)，将过去的训练模型当做先验，在线观察新数据为后验，更新参数模型。(类似与环境交互的过程)
+
+## 2.3 The Feasibility of Machine Learning
+为什么机器能够学习？当时台湾大学林轩田教授曾用了好几节课去论证这个问题，感兴趣的同学可以去Cousera看看林轩田教授的[机器学习基石](https://www.coursera.org/learn/ntumlone-mathematicalfoundations)。在本博文中，我便简明扼做一些重点的摘要。
+
+- 1. **机器学习要解决的根本问题**
+    -  机器学习的必要不充分条件:在训练集的数据和测试集的数据需来源同一分布或者两个相近的分布的前提下,且要做到以下两点：
+        - (1) 保证训练误差$E_{train}$很小(训练过程)。
+        - (2) 使得测试误差要逼近训练误差的值$E_{test}\approx E_{train}$(测试过程，保证了模型的泛化能力)，这样就保证了测试误差也很小。  
+
+上面讲到，机器学习是一个数据拟合，发觉数据真实分布的过程。由贝叶斯分析可知:$P(X\arrowvert \Theta)\propto P(X)P(\Theta\arrowvert X)$，训练的过程便是根据训练数据，最大化似然概率$P(\Theta\arrowvert X)$。不同的$\theta_{i}$对应不同的似然概率$P(\theta_{i}\arrowvert X)$，因此，训练过程便是在$P(\Theta\arrowvert X)$函数空间中找到一个函数$P(\theta_{i}\arrowvert X)$与真实分布$P(X\arrowvert \Theta)$最相近，即：使得训练误差最小，$E_{train}\downarrow$。
+
+**如何保证$E_{test}\approx E_{train}$？**这要涉及到VC-dimension的理论，这里直接抛出结论，具体推导亦在[机器学习基石](https://www.coursera.org/learn/ntumlone-mathematicalfoundations)课程中有：
+
+$$E_{test}\leqslant E_{train} + \sqrt(\frac{8}{N}\text{In}\frac{4m_{H}(2N)}{\delta})\leqslant E_{train} + \sqrt(\frac{8}{N}\text{In}\frac{4(2N)^{d_{vc}}}{\delta} \tag{2}$$
+
+$$E_{test}\leqslant E_{train} + \Omega(N,H,\delta) \tag{3}$$
+
+其中，$E_{test}$是测试误差，$E_{train}$是训练误差，$N$为样本数目，$\delta$是置信度，$d_{vc}$是vc维度，物理意义是模型的复杂度。
+
+由(3)式可知，训练误差和测试误差之间在理论上存在一个gap:model penalty, $\Omega(N,H,\delta)$。
+
+**VC维度的讨论**  
+1. 当数据样本$N$一定时，若**d_{vc}(H)** 很高，说明学习到的模型复杂度高，这会导致$E_{train}$很小，但$\Omega(N,H,\delta)$很大便导致$E_{test} < E_{train}$, 条件(2)不能满足。这属于**过拟合**现象。从上式可知解决过拟合现象有两种方法，一是增大样本量$N$,二是减少vc维度，$d_{vc}$,即:**Regulization**.
+
+2. 当数据样本$N$一定时，若**d_{vc}(H)**很小，说明学习到的模型复杂度低，这会使得$E_{train}$很高，即使条件(2)可以满足:$E_{test}\approx E_{train}$，但$E_{test}$很大，学习效果很差。这属于欠拟合现象，解决方法是增大vc维度。
+
+可见，当样本数量$N$一定时,**d_{vc}(H)**过大会造成模型过拟合，**d_{vc}(H)**太小会造成模型欠拟合。这说明，机器学习的训练过程是一个VC维度trade-off的过程。一般，validation set便是用来调整模型之用。
+
+**从bias和variance讨论欠拟合和过拟合**
+
+基本思想:通过least square error, 将$E_{test}$分解成bias和covariance。
+
+$$E_{test}[g^{D}(x)] = E_{x}[\lVert g^{D}(x)-f(c)\rVert^{2}] \tag{4}$$
+
+$$ \begin{aligned}
+E_{D}\[E_{test}\[g^{D}\]\] &= E_{D}\[E_{x}\[\lVert g^{D}(x)-f(x) \rVert^2\]\] \\
+&=E_{x}\[E_{D}\[g^{D}(x)-2g^{D}(x)f(x)+f^{2}(x)\]\] \\
+=E_{x}[E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]+(\hat{g^{D}^{2}(x)}-f(x))^{2}]\\
+&=E_{x}[E_{D}[g^{D}^{2}(x)]-2\hat{g}^{D}(x)f(x)+f^{2}(x)] \\
+&=E_{x}[E_{D}[g^{D}^{2}(x)]-\hat{g}^{D}^{2}(x)+\hat{g}^{D}^{2}(x)-2\hat{g}^{D}(x)f(x)+f^{2}(x)] \\
+&=E_{x}[E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]+(\hat{g}^{D}^{2}(x)-f(x))^{2}] \\
+&=E_{x}[E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]]+E_{x}[(\hat{g}^{D}^{2}(x)-f(x))^{2}]
+\end{aligned}
+$$
+
+其中, $\text{bias(x)}=E_{x}[(\hat{g}^{D}^{2}(x)-f(x))^{2}]$,$\text{Var(x)}=E_{D}[g^{D}^{2}(x)-\hat{g}^{D}^{2}(x)]$.
+
+$$E_{D}[E_{test}[g^{D}]]=\text{bias(x)}+\text{Var{x}} \tag{6}$$
+
+其中$\text{bias(x)}$指的是函数空间均值点距离$f(x)$的远近，而$\text{Var(x)}$指的是函数空间的离散程度。如下图所示：
+
+<img src="http://static.zybuluo.com/GwanSiu/u2ojzi31sn76i04wh8t27u21/image.png" width="400" height="400"/>
+
+**bias很大，说明模型欠拟合；Variance很大，说明模型过拟合。**
+
+
+
