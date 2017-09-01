@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Note of PRML(Chapter One)
-date: 2017-05-27
+date: 2017-09-01
 author: GwanSiu
 catalog: True
 tags:
@@ -16,3 +16,7 @@ tags:
 机器学习方法是**计算机利用已有的经验(观测数据)**，解算出某个模型(规律)，并利用该模型来预测未来的一种方法。该定义出发点是让计算机模拟人脑的学习过程，将观察的经验归纳总结出某种规律，并利用该规律观察自然，并改造自然。
 
 <img src="http://static.zybuluo.com/GwanSiu/f3sj16wbys8cbhterddb0ghy/image.png" width="400" height="400"/>
+
+**从统计层面上理解，机器学习的过程就是数据拟合的过程，是用观察到的数据(已知)，去求解产生该数据的分布的过程**已知数据$X=(x_{1},...,x_{n})$是由一个underlying function $f(x)$产生，$f(x)$是未知的，我们便利用数学上的逼近原理，构造一个$g(x;\Theta)$函数，其参数为$\Theta=(\theta_{1},...,\theta_{n})$,希望找到最优的一个$g(x;\Theta)$跟$f(x)$越想近越好，即:$\text{min}||g(x;\Theta^{*})-f(x)||^{2}$。  
+从贝叶斯分析的角度出发，也可以理解机器学习的过程：
+$$ P(X|\Theta)=\frac{P(X)P(\Theta|X)}{P{\Theta}} \tag{1}$$
