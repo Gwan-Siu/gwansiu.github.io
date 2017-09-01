@@ -23,4 +23,4 @@ tags:
 
 $$ P(X|\Theta)=\frac{P(X)P(\Theta|X)}{P{\Theta}} \tag{1}$$
 
-其中,$P(X\|\Theta)$是后验概率(posterior), 物理意义:Underlying function $f(x)$产生观测数据$X=(x_{1},...,x_{n})$; $P(X)$是先验(Prior),它代表我们对样本的认知，先验知识；$P(\Theta\|X)$是似然(likelyhood),从数据$X=(x_{1},...,x_{n})$推理(inference)参数为$\Theta=(\theta_{1},...,\theta_{n})$，它代表$P(\Theta\|X)$与真实$P(X|\Theta)$的相似度，如字面意思：似然。
+其中,$P(X|\Theta)$是后验概率(posterior), 物理意义:Underlying function $f(x)$产生观测数据$X=(x_{1},...,x_{n})$; $P(X)$是先验(Prior),它代表我们对样本的认知，先验知识；
