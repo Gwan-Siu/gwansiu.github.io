@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Note of PRML(Chapter one)
+title: Note of PRML(1)
+subtitle: The background of machine learning
 date: 2017-09-01
 author: GwanSiu
 catalog: True
@@ -91,7 +92,7 @@ $$E_{D}[E_{test}[g^{D}]]=\text{bias(x)}+\text{Var{x}} \tag{6}$$
 
 <img src="http://static.zybuluo.com/GwanSiu/u2ojzi31sn76i04wh8t27u21/image.png" width="400" height="400"/>
 
-**bias很大，说明所构造的函数空间的均值点$E[g^{D}(x)]离$f(x)$距离远，模型因此欠拟合；Variance很大，说明所构造的函数空间虽然包含$f(x)$，但是空间很大，离散程度高，模型容易过拟合。**
+**bias很大，说明所构造的函数空间的均值点$E[g^{D}(x)]$离&f(x)$距离远，模型因此欠拟合；Variance很大，说明所构造的函数空间虽然包含$f(x)$，但是空间很大，离散程度高，模型容易过拟合。**
 
 
 
