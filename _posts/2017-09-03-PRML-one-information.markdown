@@ -75,26 +75,28 @@ $H[x,y]$为$p(x,y)$的信息熵，$H(x)$是$p(x)$是信息熵，而$H[y\arrowver
 ### 2.1 KL散度
 KL散度(Kullback-Leibler divergence)描述了两个分布$p(x)$与$q(x)$的距离。假设真实的概率分布为$p(x)$，使用非真实分布$q(x)$对该信息进行编码，那么所需要的额外信息(距离)为$d=H(p,q)-H(p)$。因此，KL散度所需额外信息的测度:
 
-$$\begin{aligned*}
+$$
+\begin{aligned}
 \text{KL}(p\Vert q)&=H(p,q)-H(p) \\
 &= -\int p(x)\text{In}(q(x))dx-(-\int p(x)\text{In}p(x)dx) \\
-&= -\int p(x)\text{In}\lgroup \frac{q(x)}{p{x}} \\ 
-\end{aligned*}
+&= -\int p(x)\text{In}(\frac{q(x)}{p{x}})\\ 
+\end{aligned}
 $$
-其中，$\text{KL}(p\Vert q)\gep 0$,只有当$p(x)=q(x)$时，$\text{KL}(p\Vert q)= 0$(使用Jensen不等式可证)。
+
+其中，$\text{KL}(p\Vert q)\geq 0$,只有当$p(x)=q(x)$时，$\text{KL}(p\Vert q)= 0$(使用Jensen不等式可证)。
 
 Jensen不等式:
 $$f(E[x])\leq E[f(x)] \tag{8}$$
 将Jensen不等式用在KL散度上:
 
-$$\text{KL}(p\Vert q)=-\int p(x)\text{In}\lgroup \frac{q(x)}{p(x)} \rgroup \gep -\text{In}\int q(x)dx=0 \tag{9}$$
+$$\text{KL}(p\Vert q)=-\int p(x)\text{In}\lgroup \frac{q(x)}{p(x)} \rgroup \geq -\text{In}\int q(x)dx=0 \tag{9}$$
 
-**注意:KL散度具有不对称性，即:$\text{KL}(p\Vert q) \neq \text{KL}(q\Vert p$。这表明，使用$p(x)$对$q(x)$进行所需要的信息量与使用$q(x)$对$p(x)$进行所需要的信息量不同。**
+**注意:KL散度具有不对称性，即:$\text{KL}(p\Vert q) \neq \text{KL}(q\Vert p)$。这表明，使用$p(x)$对$q(x)$进行所需要的信息量与使用$q(x)$对$p(x)$进行所需要的信息量不同。**
 
 ### 2.2 KL散度与机器学习
 假设数据$X=(x_{1},...,x_{n})$由未知的真实分布$p(x)$产生，我们使用数据$X$，通过贝叶斯法则建立模型:$p(X\arrowvert \Theta)$，其中$\Theta$是模型的参数。我们可以最小化真实分布$p(x)$与模型$p(X\arrowvert \Theta)$的KL散度，找到与真实分布$p(x)$最近的$p(X\arrowvert \theta^{*})$。但由于$p(x)$未知，不能直接使用。于是，便通过数据$X$估计$p(x)$的均值，因此便有:
 
-$$\text{KL}(p\Vert q) \simeq \frac{1}{N}\sum_{n=1}^{N}\{-\text{In}q(x_{n}\arrowvert \theta)+\text{In}p(x_{n})\}$ \tag{10}$
+$$\text{KL}(p\Vert q) \simeq \frac{1}{N}\sum^{N}_{n=1}{-\text{In}q(x_{n}\arrowvert \theta)+\text{In}p(x_{n})}$ \tag{10}$
 
 因此最小化KL散度等效于最大化似然函数。
 
@@ -102,20 +104,23 @@ $$\text{KL}(p\Vert q) \simeq \frac{1}{N}\sum_{n=1}^{N}\{-\text{In}q(x_{n}\arrowv
 如果给定一组不相互独立的随机变量(x,y),问随机变量的mutual information是多少？假设，已知联合概率分布$p(x,y)$, 若使用x,y独立的情况去编码非独立情况，KL散度便可以测得$p(x,y)$与$p(x)p(y)$的距离(multual information).
 
 $$\begin{aligned}
-I(x,y)&=\text{KL}(p(x,y)\Vert p(x)p(y))
-&=-\int \int p(x,y)\text{In}(\frac{p(x)p(y)}{p(x,y)})dxdy $$
+I(x,y)&=\text{KL}(p(x,y)\Vert p(x)p(y)) \\
+&=-\int \int p(x,y)\text{In}(\frac{p(x)p(y)}{p(x,y)})dxdy 
 \end{aligned}
+$$
 
-由KL散度可知，$I(x,y)\gep0$,将KL进一步分解成两个信息的和，multual information则可以表示成:
+由KL散度可知，$I(x,y)\geq 0$,将KL进一步分解成两个信息的和，multual information则可以表示成:
 
 $$ I(x,y)=H(x)-H(x\arrowvert y)=H(y)-H(y\arrowvert x) \tag{11} $$
 
 从贝叶斯理论分析，$p(x)$为先验经验，而$p(x\arrowvert y)$为观察数据y后的后验经验。Multual information则可以表示成观察信息y后，x不确定性的冗余。(原文: The multual information therefore represents the reduction in uncertainty in X as a consequence of the new observation y.)
 
 $$ 3.JS散度
+
 由于KL散度具有不对称性，而JS散度便是进一步完善了这个问题，JS散度将测度映射固定在区间[0,1]。通理可知，若分布$p(x)=q(x)$, JS=0, 若$p(x)$与$q(x)$相距无穷远，则JS$\rightarrow \infinty$。
 
 **JS散度**
-JS(p(x)\Vert q(x))=\frac{1}{2}\text{KL}(p(x)\Vert \frac{p(x)+q(x)}{2})+ \frac{1}{2}\text{KL}(q(x)\Vert \frac{p(x)+q(x)}{2}) \tag{12} $$
+
+$$JS(p(x)\Vert q(x))=\frac{1}{2}\text{KL}(p(x)\Vert \frac{p(x)+q(x)}{2})+ \frac{1}{2}\text{KL}(q(x)\Vert \frac{p(x)+q(x)}{2}) \tag{12} $$
 
 但是JS散度和KL散度依旧有一个严重的问题，当$p(x)$与$q(x)$相距很远，KL散度很大，没有实际意义，而JS散度接近1，此时JS散度的梯度会发生弥散现象。
