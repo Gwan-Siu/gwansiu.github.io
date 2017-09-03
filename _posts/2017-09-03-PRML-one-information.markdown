@@ -62,11 +62,11 @@ $$H[y\arrowvert x]=\int\int p(y,x)\text{In}p(y\arrowvert x)dydx \tag{5}$$
 
 其中，$p(y,x)=p(x)p(y\arrowvert x)$, 带入上式可得:
 
-$$H[x,y]=H[y\arrowvert x]+H[x]$ \tag{6}$
+$$H[x,y]=H[y\arrowvert x]+H[x] \tag{6}$$
 
 $H[x,y]$为$p(x,y)$的信息熵，$H(x)$是$p(x)$是信息熵，而$H[y\arrowvert x]$便是用分布$p(x)$去表示分布$p(y)$所需要的额外信息，这可以看成是分布$p(x)$和分布$p(y)$的距离误差。
 
-交叉熵便是真实分布$p(x)$产生的信息，使用非真实分布$q(y)$进行编码，所需要的最小平均长度: $H(p(x),q(x))$=-\sum_{i}p(x_{i})\text{log}_{2}q(x_{i})$$。
+交叉熵便是真实分布$p(x)$产生的信息，使用非真实分布$q(y)$进行编码，所需要的最小平均长度: $H(p(x),q(x))=-\sum_{i}p(x_{i})\text{log}_{2}q(x_{i})$。
 
 在机器学习中，交叉熵(cross entropy)可以作为机器学习的损失函数，$p(x)$是真实的概率分布，而训练出来的分布为$q(x)$，交叉熵则用来刻画$p(x)$与$q(x)$的相似度，使用梯度下降原则，找到相似度最大的$q(x)$。
 
@@ -115,7 +115,7 @@ $$ I(x,y)=H(x)-H(x\arrowvert y)=H(y)-H(y\arrowvert x) \tag{11} $$
 
 从贝叶斯理论分析，$p(x)$为先验经验，而$p(x\arrowvert y)$为观察数据y后的后验经验。Multual information则可以表示成观察信息y后，x不确定性的冗余。(原文: The multual information therefore represents the reduction in uncertainty in X as a consequence of the new observation y.)
 
-$$ 3.JS散度
+## 3.JS散度
 
 由于KL散度具有不对称性，而JS散度便是进一步完善了这个问题，JS散度将测度映射固定在区间[0,1]。通理可知，若分布$p(x)=q(x)$, JS=0, 若$p(x)$与$q(x)$相距无穷远，则JS$\rightarrow \infty$。
 
