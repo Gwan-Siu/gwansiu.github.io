@@ -69,3 +69,14 @@ $H[x,y]$为$p(x,y)$的信息熵，$H(x)$是$p(x)$是信息熵，而$H[y\arrowver
 交叉熵便是真实分布$p(x)$产生的信息，使用非真实分布$q(y)$进行编码，所需要的最小平均长度: $H(p(x),q(x))$=-\sum_{i}p(x_{i})\text{log}_{2}q(x_{i})$$。
 
 在机器学习中，交叉熵(cross entropy)可以作为机器学习的损失函数，$p(x)$是真实的概率分布，而训练出来的分布为$q(x)$，交叉熵则用来刻画$p(x)$与$q(x)$的相似度，使用梯度下降原则，找到相似度最大的$q(x)$。
+
+## 2.相对熵(KL散度)
+
+KL散度(Kullback-Leibler divergence)描述了两个分布$p(x)$与$q(x)$的距离。假设真实的概率分布为$p(x)$，使用非真实分布$q(x)$对该信息进行编码，那么所需要的额外信息(距离)为$d=H(p,q)-H(p)$。因此，KL散度所需额外信息的测度:
+
+$$begin{aligned*}
+\text{KL}(p\Vert q)&=H(p,q)-H(p) \\
+&= -\int p(x)、text{In}(q(x))dx-(-\int p(x)\text{In}p(x)dx) \\
+&= -\int p(x)\text{In}\lgroup \frac{q(x)}{p{x}} \\ 
+\end{aligned*}
+$$
