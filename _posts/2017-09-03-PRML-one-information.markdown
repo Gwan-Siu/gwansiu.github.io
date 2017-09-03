@@ -96,7 +96,7 @@ $$\text{KL}(p\Vert q)=-\int p(x)\text{In}\lgroup \frac{q(x)}{p(x)} \rgroup \geq 
 ### 2.2 KL散度与机器学习
 假设数据$X=(x_{1},...,x_{n})$由未知的真实分布$p(x)$产生，我们使用数据$X$，通过贝叶斯法则建立模型:$p(X\arrowvert \Theta)$，其中$\Theta$是模型的参数。我们可以最小化真实分布$p(x)$与模型$p(X\arrowvert \Theta)$的KL散度，找到与真实分布$p(x)$最近的$p(X\arrowvert \theta^{*})$。但由于$p(x)$未知，不能直接使用。于是，便通过数据$X$估计$p(x)$的均值，因此便有:
 
-$$\text{KL}(p\Vert q) \simeq \frac{1}{N}\sum^{N}_{n=1}{-\text{In}q(x_{n}\arrowvert \theta)+\text{In}p(x_{n})}$ \tag{10}$
+$$\text{KL}(p\Vert q) \simeq \frac{1}{N} \sum_{n=1}^{N} (-\text{In}q(x_{n}\arrowvert \theta)+\text{In}p(x_{n}))$ \tag{10}$$
 
 因此最小化KL散度等效于最大化似然函数。
 
@@ -117,7 +117,7 @@ $$ I(x,y)=H(x)-H(x\arrowvert y)=H(y)-H(y\arrowvert x) \tag{11} $$
 
 $$ 3.JS散度
 
-由于KL散度具有不对称性，而JS散度便是进一步完善了这个问题，JS散度将测度映射固定在区间[0,1]。通理可知，若分布$p(x)=q(x)$, JS=0, 若$p(x)$与$q(x)$相距无穷远，则JS$\rightarrow \infinty$。
+由于KL散度具有不对称性，而JS散度便是进一步完善了这个问题，JS散度将测度映射固定在区间[0,1]。通理可知，若分布$p(x)=q(x)$, JS=0, 若$p(x)$与$q(x)$相距无穷远，则JS$\rightarrow \infty$。
 
 **JS散度**
 
