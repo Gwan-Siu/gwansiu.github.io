@@ -13,8 +13,7 @@ tags:
 ## 1. What‘s the emsembling learning?
 集成学习(emsembling learning)是通过采样的方法训练多个弱分类器，最后将多个弱分类器组合起来形成强分类器的算法框架(通俗地说:三个臭皮匠赛过诸葛亮)。**为什么可以弱分类器可以形成强分类器(why?)** Emsembling Learning训练的弱分类器是要具有差异性的(差异性可能由不同算法，不同参数所导致)，从而导致弱分类器形成的决策边界不同。最后将所有弱分类结合后能得到更加合理的决策边界，从而减少整体的错误，实现更好的分类效果。**Emsembling Learning主要分成Baggging和boost两类。**
 
-<img src="http://www.datakit.cn/images/machinelearning/EnsembleLearning_Combining_classifiers.jpg" width = "300" height = "200" align=center />
-<img src="http://imgtech.gmw.cn/attachement/jpg/site2/20111223/f04da22d7ba7105e1d7507.jpg" width = "300" height = "120" alt="CSDN图标" />
+<img src="http://www.datakit.cn/images/machinelearning/EnsembleLearning_Combining_classifiers.jpg" width = "300" height = "120" alt="CSDN图标" />
 
 ## 2. The basic concept of bootstrap, bagging and boost.
 
