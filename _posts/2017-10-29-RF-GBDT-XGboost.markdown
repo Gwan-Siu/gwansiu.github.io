@@ -79,21 +79,18 @@ Random Forest的缺点(在此引用[2]):
 引用李航的统计学习中对Boosting tree的描述: 提升方法(boosting)本质是基函数的线性组合与前向分步算法.以决策树为基函数的提升方法称为提升树(Boosting Tree)。
 其中前向分步算法:
 
-<img src="http://upload-images.jianshu.io/upload_images/4155986-bd71d44134d19ee2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "300" height = "200" alt="abc"/>
-
-
 $$
 \begin{align}
-&f_{0}(x) = 0 \\
-&f_{m}(x) = f_{m-1}(x)+T(x;\Sigma_{m}), \text(m=1,2,...,M) \\
-&f_{M}(x) = \sum_{m=1}^{M}T(x;\Sigma_{m}) 
+f_{0}(x) &= 0 \\
+f_{m}(x) &= f_{m-1}(x)+T(x;\Sigma_{m}), \text(m=1,2,...,M) \\
+f_{M}(x) &= \sum_{m=1}^{M}T(x;\Sigma_{m}) 
 \end{align}}
 $$
 
 主要思想为:每一次分类器的生成与前一次的学习的结果有关。给定$f_{m-1}(x)$，当采用平方误差作为损失函数且树为回归树时，每一棵回归树拟合的是之前所有树的集合与真实值的误差。
 
 Boost Tree的算法如下(引用李航统计学习):
-
+<img src="http://upload-images.jianshu.io/upload_images/4155986-bd71d44134d19ee2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "400" height = "200" alt="abc"/>
 
 参考文献
 
