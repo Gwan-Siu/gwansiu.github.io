@@ -125,7 +125,7 @@ GDBT框架下使用的是决策树作为基函数，每一次迭代过程中，�
 ## 6. XGboost 模型
 
 XGboost模型是基于GDBT模型的改进提高版，其算法如下:
-
+img src="http://static.zybuluo.com/GwanSiu/3pldqaxs88fsz3uri5oniq6h/image.png" width = "600" height = "300" alt="abc"/>
 
 XGboost使用的是CART树，对于GBDT提出四方面的修改:
 
@@ -148,9 +148,26 @@ $$
 \end{aligned}
 $$
 
+**2.模型的约束(叶子节点，树的深度等)**
+<img src="http://static.zybuluo.com/GwanSiu/u6yh34oct0r5bvhpn7ka2auf/image.png" width = "600" height = "300" alt="abc"/>
+<img src="http://static.zybuluo.com/GwanSiu/446s89nh0k5ic803k6rqs5xc/image.png" width = "600" height = "300" alt="abc"/>
 
-参考文献
+**3.自动寻出最佳裂项节点**
+<img src="http://static.zybuluo.com/GwanSiu/kh6xyoahwbi8ga9dt0cmxhpz/image.png" width = "600" height = "300" alt="abc"/>
+<img src="http://static.zybuluo.com/GwanSiu/sql4dvri80c4w1iw0qgdffm6/image.png" width = "600" height = "300" alt="abc"/>
+<img src="http://static.zybuluo.com/GwanSiu/m272lfuy9gj6ik62rwgg8f4d/image.png" width = "600" height = "300" alt="abc"/>
+<img src="http://static.zybuluo.com/GwanSiu/7w6zlgsj244bs29rlb3tg5qn/image.png" width = "600" height = "300" alt="abc"/>
+
+**4.类别变量的处理**
+<img src="http://static.zybuluo.com/GwanSiu/z07386l6z9kyiofjntx20ov6/image.png" width = "600" height = "300" alt="abc"/>
+
+**5.Regulization**
+<img src="http://static.zybuluo.com/GwanSiu/p3beki8cvkpwc6opcwv2i2m6/image.png
+" width = "600" height = "300" alt="abc"/>
+
+**参考文献**
 
 [1] http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html(http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html)  
 [2] http://www.jianshu.com/p/005a4e6ac775(http://www.jianshu.com/p/005a4e6ac775)  
 [3] 统计学习方法，李航.
+[4] https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf
