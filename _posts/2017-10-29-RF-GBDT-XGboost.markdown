@@ -24,11 +24,11 @@ tags:
 3. 重复(1)(2)步骤N次，得到N个不同的统计量T。
 4. 计算N个统计量T的方差，得到统计量的方差，进而构造想相对应的置信区间。
 
-<img src="http://static.zybuluo.com/GwanSiu/vye8tevgtehauji37gt3nw8r/image.png" width = "300" height = "200" align=center />
+<img src="http://static.zybuluo.com/GwanSiu/vye8tevgtehauji37gt3nw8r/image.png" width = "300" height = "120" alt="CSDN图标" />
 
  **Bagging(Boostrap aggregation):** 从训练集中使用Bootstrap的方法采样(有放回采样)样本子集合，分别在这些子集合上训练分类器，得到一组函数序列$f_{1},...,f_{n}$, 最后将所有训练好的弱分类器进行组合形成强的分类器：对于分类问题则进行投票，对于回归问题则可以进行简单的平均的方法。Bagging的代表算法是Random Forest。Bagging的主要思想如下图：
 
-<img src="http://static.zybuluo.com/GwanSiu/8naiwi9u9a4quonkmlsqdxp0/image.png" width = "300" height = "200" align=center/>
+<img src="http://static.zybuluo.com/GwanSiu/8naiwi9u9a4quonkmlsqdxp0/image.png" width = "300" height = "120" alt="abc"/>
 
  **Boosting:**Boost同样是构造出一个函数序列(弱分类器)$f_{1},...,f_{n}$,与bagging不同的是，在boost算法框架下，后一个分类器依靠前一个分类器来生成：$f_{n}=F(f_{n-1})$。Boost算法更关注前一次错分的样本，boost算法的代表作是Adaboost，GDBT,xgboost算法。
 
@@ -50,6 +50,30 @@ Bagging算法可以并行训练很多的具有差异性且相互独立的弱分�
 
 ## 4.Random Forest
 
+### 4.1 The Algorithm of Random Forest
+Random Forest算法分成四个部分:**(1).随机选择样本(bootstrap);(2).随机选择特征；(3).构建决策树；(4).随机森林投票**
+
+<img src="http://www.gtzyyg.com/article/2016/1001-070X-28-1-43/img_1.png" width = "300" height = "120" alt="abc"/>
+
+**The Algorithm of Random Forest**
+<img src="https://clyyuanzi.gitbooks.io/julymlnotes/content/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-05-05%20%E4%B8%8B%E5%8D%8810.11.46.png" width = "300" height = "120" alt="abc"/>
+
+**Random Forest的随机性在于:样本的随机性，特征的随机性。从矩阵的角度上理解，假设行代表样本，列代表特征。Random Forest的随机性就随机抽样几行，在抽取的样本上在随机抽取几列特征。**
+
+### 4.2 Pros and Cons of Random Forest.
+
+Random Forest的优点(在此引用[2]):
+
+1. 不容易出现过拟合，因为选择训练样本的时候就不是全部样本。
+2. 可以既可以处理属性为离散值的量，比如ID3算法来构造树，也可以处理属性为连续值的量，比如C4.5算法来构造树。
+3. 对于高维数据集的处理能力令人兴奋，它可以处理成千上万的输入变量，并确定最重要的变量，因此被认为是一个不错的降维方法。此外，该模型能够输出变量的重要性程度，这是一个非常便利的功能。
+4. 分类不平衡的情况时，随机森林能够提供平衡数据集误差的有效方法
+
+Random Forest的缺点(在此引用[2]):
+
+1. 随机森林在解决回归问题时并没有像它在分类中表现的那么好，这是因为它并不能给出一个连续型的输出。当进行回归时，随机森林不能够作出超越训练集数据范围的预测，这可能导致在对某些还有特定噪声的数据进行建模时出现过度拟合。
+2. 对于许多统计建模者来说，随机森林给人的感觉像是一个黑盒子——你几乎无法控制模型内部的运行，只能在不同的参数和随机种子之间进行尝试。
+ 
 
 参考文献
 
