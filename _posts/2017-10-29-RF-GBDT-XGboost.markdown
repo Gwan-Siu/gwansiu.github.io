@@ -13,7 +13,7 @@ tags:
 ## 1. What‘s the emsembling learning?
 集成学习(emsembling learning)是通过采样的方法训练多个弱分类器，最后将多个弱分类器组合起来形成强分类器的算法框架(通俗地说:三个臭皮匠赛过诸葛亮)。**为什么可以弱分类器可以形成强分类器(why?)** Emsembling Learning训练的弱分类器是要具有差异性的(差异性可能由不同算法，不同参数所导致)，从而导致弱分类器形成的决策边界不同。最后将所有弱分类结合后能得到更加合理的决策边界，从而减少整体的错误，实现更好的分类效果。**Emsembling Learning主要分成Baggging和boost两类。**
 
-<img src="http://www.datakit.cn/images/machinelearning/EnsembleLearning_Combining_classifiers.jpg" width = "300" height = "200" alt="CSDN图标" />
+<img src="http://www.datakit.cn/images/machinelearning/EnsembleLearning_Combining_classifiers.jpg" width = "600" height = "300" alt="CSDN图标" />
 
 ## 2. The basic concept of bootstrap, bagging and boost.
 
@@ -24,11 +24,11 @@ tags:
 3. 重复(1)(2)步骤N次，得到N个不同的统计量T。
 4. 计算N个统计量T的方差，得到统计量的方差，进而构造想相对应的置信区间。
 
-<img src="http://static.zybuluo.com/GwanSiu/vye8tevgtehauji37gt3nw8r/image.png" width = "300" height = "200" alt="CSDN图标" />
+<img src="http://static.zybuluo.com/GwanSiu/vye8tevgtehauji37gt3nw8r/image.png" width = "600" height = "300" alt="CSDN图标" />
 
  **Bagging(Boostrap aggregation):** 从训练集中使用Bootstrap的方法采样(有放回采样)样本子集合，分别在这些子集合上训练分类器，得到一组函数序列$f_{1},...,f_{n}$, 最后将所有训练好的弱分类器进行组合形成强的分类器：对于分类问题则进行投票，对于回归问题则可以进行简单的平均的方法。Bagging的代表算法是Random Forest。Bagging的主要思想如下图：
 
-<img src="http://static.zybuluo.com/GwanSiu/8naiwi9u9a4quonkmlsqdxp0/image.png" width = "300" height = "200" alt="abc"/>
+<img src="http://static.zybuluo.com/GwanSiu/8naiwi9u9a4quonkmlsqdxp0/image.png" width = "600" height = "300" alt="abc"/>
 
  **Boosting:**Boost同样是构造出一个函数序列(弱分类器)$f_{1},...,f_{n}$,与bagging不同的是，在boost算法框架下，后一个分类器依靠前一个分类器来生成：$f_{n}=F(f_{n-1})$。Boost算法更关注前一次错分的样本，boost算法的代表作是Adaboost，GDBT,xgboost算法。
 
@@ -53,10 +53,10 @@ Bagging算法可以并行训练很多的具有差异性且相互独立的弱分�
 ### 4.1 The Algorithm of Random Forest
 Random Forest算法分成四个部分:**(1).随机选择样本(bootstrap);(2).随机选择特征；(3).构建决策树；(4).随机森林投票**
 
-<img src="http://www.gtzyyg.com/article/2016/1001-070X-28-1-43/img_1.png" width = "300" height = "200" alt="abc"/>
+<img src="http://www.gtzyyg.com/article/2016/1001-070X-28-1-43/img_1.png" width = "600" height = "300" alt="abc"/>
 
 **The Algorithm of Random Forest**
-<img src="https://clyyuanzi.gitbooks.io/julymlnotes/content/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-05-05%20%E4%B8%8B%E5%8D%8810.11.46.png" width = "300" height = "200" alt="abc"/>
+<img src="https://clyyuanzi.gitbooks.io/julymlnotes/content/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-05-05%20%E4%B8%8B%E5%8D%8810.11.46.png" width = "600" height = "300" alt="abc"/>
 
 **Random Forest的随机性在于:样本的随机性，特征的随机性。从矩阵的角度上理解，假设行代表样本，列代表特征。Random Forest的随机性就随机抽样几行，在抽取的样本上在随机抽取几列特征。**
 
@@ -77,20 +77,39 @@ Random Forest的缺点(在此引用[2]):
 ## 5. Gradient Boost Decision Tree(GDBT)
 ### 5.1 Boosting Tree
 引用李航的统计学习中对Boosting tree的描述: 提升方法(boosting)本质是基函数的线性组合与前向分步算法.以决策树为基函数的提升方法称为提升树(Boosting Tree)。
+
 其中前向分步算法:
 
 $$
 \begin{aligned}
 f_{0}(x) &= 0 \\
-f_{m}(x) &= f_{m-1}(x)+T(x;\Sigma_{m}), \text(m=1,2,...,M) \\
-f_{M}(x) &= \sum_{m=1}^{M}T(x;\Sigma_{m}) 
+f_{m}(x) &= f_{m-1}(x)+T(x;\Theta_{m}), \text(m=1,2,...,M) \\
+f_{M}(x) &= \sum_{m=1}^{M}T(x;\Theta_{m}) 
 \end{aligned}
 $$
 
 主要思想为:每一次分类器的生成与前一次的学习的结果有关。给定$f_{m-1}(x)$，当采用平方误差作为损失函数且树为回归树时，每一棵回归树拟合的是之前所有树的集合与真实值的误差。
 
 Boost Tree的算法如下(引用李航统计学习):
-<img src="http://upload-images.jianshu.io/upload_images/4155986-bd71d44134d19ee2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "400" height = "200" alt="abc"/>
+<img src="http://upload-images.jianshu.io/upload_images/4155986-bd71d44134d19ee2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "600" height = "300" alt="abc"/>
+
+### 5.2 Gradient Boosting Decision Tree(GDBT)
+
+Gradient Boosting方法是是梯度下降(Gradient descent)的想法应用在提升方法(Boosting)中，因为前向分步算法是一个残差逼近的过程，新学习的函数$\Theta_{m}$需要让残差进一步下降。Freid便提出梯度提升(Gradient Boosting)算法框架, 使用损失函数的负梯度作为残差的近似值。具体的算法如下：
+
+<img src="https://json0071.gitbooks.io/svm/content/GBDT.jpg" width = "600" height = "300" alt="abc"/>
+
+### 5.2 Gradient Boosting Decision Tree(GDBT)
+
+具体的，GBDT算法包括三部分：
+
+>1. A loss function to be optimized.
+>2. A week learner to make predictions.
+>3. An addictive model to add weak learners to minimize the loss function.
+
+
+在boosting算法的框架下，前向分步算法的是一个残差逼近的过程，
+
 
 参考文献
 
