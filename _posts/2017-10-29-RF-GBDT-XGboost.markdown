@@ -24,15 +24,15 @@ tags:
 3. 重复(1)(2)步骤N次，得到N个不同的统计量T。
 4. 计算N个统计量T的方差，得到统计量的方差，进而构造想相对应的置信区间。
 
- <img src="http://static.zybuluo.com/GwanSiu/vye8tevgtehauji37gt3nw8r/image.png" width = "300" height = "200" align=center />
+<img src="http://static.zybuluo.com/GwanSiu/vye8tevgtehauji37gt3nw8r/image.png" width = "300" height = "200" align=center />
 
  **Bagging(Boostrap aggregation):** 从训练集中使用Bootstrap的方法采样(有放回采样)样本子集合，分别在这些子集合上训练分类器，得到一组函数序列$f_{1},...,f_{n}$, 最后将所有训练好的弱分类器进行组合形成强的分类器：对于分类问题则进行投票，对于回归问题则可以进行简单的平均的方法。Bagging的代表算法是Random Forest。Bagging的主要思想如下图：
 
- <img src="http://static.zybuluo.com/GwanSiu/8naiwi9u9a4quonkmlsqdxp0/image.png" width = "300" height = "200" align=center/>
+<img src="http://static.zybuluo.com/GwanSiu/8naiwi9u9a4quonkmlsqdxp0/image.png" width = "300" height = "200" align=center/>
 
  **Boosting:**Boost同样是构造出一个函数序列(弱分类器)$f_{1},...,f_{n}$,与bagging不同的是，在boost算法框架下，后一个分类器依靠前一个分类器来生成：$f_{n}=F(f_{n-1})$。Boost算法更关注前一次错分的样本，boost算法的代表作是Adaboost，GDBT,xgboost算法。
 
- ## 3.Summary about bagging and boosting.
+## 3.Summary about bagging and boosting.
  
 **Bagging和boosting的区别主要在四个方面:**
 
@@ -50,5 +50,6 @@ Bagging算法可以并行训练很多的具有差异性且相互独立的弱分�
 
 
 参考文献
-[1] http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html(http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html)
 
+[1] http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html(http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html)  
+[2] http://www.jianshu.com/p/005a4e6ac775(http://www.jianshu.com/p/005a4e6ac775)
