@@ -80,11 +80,11 @@ Random Forest的缺点(在此引用[2]):
 其中前向分步算法:
 
 $$
-\begin{align}
+\begin{aligned}
 f_{0}(x) &= 0 \\
 f_{m}(x) &= f_{m-1}(x)+T(x;\Sigma_{m}), \text(m=1,2,...,M) \\
 f_{M}(x) &= \sum_{m=1}^{M}T(x;\Sigma_{m}) 
-\end{align}}
+\end{aligned}
 $$
 
 主要思想为:每一次分类器的生成与前一次的学习的结果有关。给定$f_{m-1}(x)$，当采用平方误差作为损失函数且树为回归树时，每一棵回归树拟合的是之前所有树的集合与真实值的误差。
@@ -95,5 +95,5 @@ Boost Tree的算法如下(引用李航统计学习):
 参考文献
 
 [1] http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html(http://blog.sina.com.cn/s/blog_4a0824490102vb2c.html)  
-[2] http://www.jianshu.com/p/005a4e6ac775(http://www.jianshu.com/p/005a4e6ac775)
+[2] http://www.jianshu.com/p/005a4e6ac775(http://www.jianshu.com/p/005a4e6ac775)  
 [3] 统计学习方法，李航.
