@@ -107,8 +107,20 @@ Gradient Boosting方法是是梯度下降(Gradient descent)的想法应用在提
 >2. A week learner to make predictions.
 >3. An addictive model to add weak learners to minimize the loss function.
 
+**1. 损失函数**
+从GDBT算法中可以看出，GDBT算法要求损失函数必须是一阶可导的，而且GDBT框架下，任何一阶可导的损失函数都可以使用，不必再为其推导一个新的boosting算法。
 
-在boosting算法的框架下，前向分步算法的是一个残差逼近的过程，
+**2. 弱分类器**
+GDBT框架下使用的是决策树作为基函数，每一次迭代过程中，当前函数的构建是在前一次学习结果的基础上使用贪心算法，即：基于当前情况(Gini系数或者纯度)，选择最佳分裂点. 在学习弱分类器的过程中，可以对弱分类器加入约束，如:决策树可以约束深度和叶子的数量。
+
+**3.Addictive Model**
+在GDBT框架下，梯度下降的过程是每一步迭代学习新的树来最小化损失函数(A gradient descent procedure is used to minimize the loss when adding trees.)
+
+>Traditionally, gradient descent is used to minimize a set of parameters, such as the coefficients in a regression equation or weights in a neural network. After calculating error or loss, the weights are updated to minimize that error.
+
+>Instead of parameters, we have weak learner sub-models or more specifically decision trees. After calculating the loss, to perform the gradient descent procedure, we must add a tree to the model that reduces the loss (i.e. follow the gradient). We do this by parameterizing the tree, then modify the parameters of the tree and move in the right direction by (reducing the residual loss.
+
+>Generally this approach is called functional gradient descent or gradient descent with functions
 
 
 参考文献
