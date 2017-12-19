@@ -125,6 +125,7 @@ GDBT框架下使用的是决策树作为基函数，每一次迭代过程中，�
 ## 6. XGboost 模型
 
 XGboost模型是基于GDBT模型的改进提高版，其算法如下:
+
 img src="http://static.zybuluo.com/GwanSiu/3pldqaxs88fsz3uri5oniq6h/image.png" width = "600" height = "300" alt="abc"/>
 
 XGboost使用的是CART树，对于GBDT提出四方面的修改:
@@ -141,10 +142,10 @@ $$
 $$
 \begin{aligned}
   L^{t} &= \sum_{i=1}^{n} l(y_{i},\hat{y}_{i-1}^{t}+f_{t}(x_{i}))+\Omega(f_{t})\\
-  L^{t} &\appro \sum_{i=1}^{n}[l(y_{i}, \hat{y}^{(t-1)})+g_{i}f_{t}(x_{i})+\frac{1}{2}h_{i}f^{2}_{t}(x_{i})]+\Omega(f_{t}) \\
+  L^{t} &\approx \sum_{i=1}^{n}[l(y_{i}, \hat{y}^{(t-1)})+g_{i}f_{t}(x_{i})+\frac{1}{2}h_{i}f^{2}_{t}(x_{i})]+\Omega(f_{t}) \\
   \text{where } g_{i} &= \partial_{\hat{y}^{(t-1)}}l(y_{i},\hat{y}^{(t-1)})\\
    h_{i} &= \partial_{\hat{y}^{(t-1)}}^{2}l(y_{i},\hat{y}^{(t-1)})\\
-   \Rightarrow   L^{t} &\appro \sum_{i=1}^{n}[g_{i}f_{t}(x_{i})+\frac{1}{2}h_{i}f^{2}_{t}(x_{i})]+\Omega(f_{t}) \\
+   \Rightarrow   L^{t} &\approx \sum_{i=1}^{n}[g_{i}f_{t}(x_{i})+\frac{1}{2}h_{i}f^{2}_{t}(x_{i})]+\Omega(f_{t}) \\
 \end{aligned}
 $$
 
