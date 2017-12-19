@@ -50,7 +50,7 @@ This is an example of histogram equalization:
 ### 2.3 Spatial filter----Box average(local mean average)
 **Image are not smooth because adjacent pixels are different.** Smoothing is equivalent to make adjacent pixels look more similar with each other. Conventionally, average of its neighborhoods is adopted. 
 
-**Why average is effective?**  what we want is to make adjacent pixels look more similar with each other. In other words, the variations of adjacent pixels should be minimized. The objective funcion:
+**Why average is effective?**  what we want is to make adjacent pixels look more similar with each other. In other words, the variations of adjacent pixels should be minimized. Therefore, The objective funcion of smooth operator is:
 
 $$
 \begin{equation}
@@ -59,7 +59,11 @@ $$
 \end{equation}
 $$
 
-where $x$ is the center pixel and $N_{x}$ is the neighborhood of $x$. Indutively, the optimal solution of objective function \eqref{eq:equation1} is the mean: $x^{\*}=\sum_{x_{i}=N_{x}}x_{i}$.
+where $x$ is the center pixel and $N_{x}$ is the neighborhood of $x$. Indutively, the optimal solution of objective function \eqref{eq:equation1} is the mean: $x^{\*}=\sum_{x_{i}\in N_{x}}x_{i}$. The center pixel is replaced by the average of its neighborhood.
+
+From this perspective, We can conclude that **how to define its neighborhood** and **how to define the weight of average** are very important. When the neighborhood is a square region, this spatial filter become a local mean filter or box average. There are two disadvantage of box average: (1). Axis-aligned streaks; (2).Blocky results. And how to solve this problem？ Usually, we adopted two strategy: (1). use an isotropic window; (2). use a window with a smooth falloff--gaussian kernel.
+
+### 2.4 Spatial filter---gaussian kernel
 
 
 
