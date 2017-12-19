@@ -55,8 +55,11 @@ This is an example of histogram equalization:
 $$
 \begin{equation}
 \min_{x_{i}\in N_{x}} \Vert x-x_{i} \Vert^{2}
+\label{eq:euqation1}
 \end{equation}
 $$
+
+Indutively, the optimal solution of objective function \eqref{eq:equation1}, we can find the value of 
 
 
 
