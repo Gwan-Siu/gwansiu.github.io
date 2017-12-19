@@ -55,11 +55,11 @@ This is an example of histogram equalization:
 $$
 \begin{equation}
 \min_{x_{i}\in N_{x}} \Vert x-x_{i} \Vert^{2}
-\label{eq:euqation1}
+\label{eq:equation1}
 \end{equation}
 $$
 
-Indutively, the optimal solution of objective function \eqref{eq:equation1}, we can find the value of 
+where $x$ is the center pixel and $N_{x}$ is the neighborhood of $x$. Indutively, the optimal solution of objective function \eqref{eq:equation1} is the mean: $x^{\*}=\sum_{x_{i}=N_{x}}x_{i}$.
 
 
 
