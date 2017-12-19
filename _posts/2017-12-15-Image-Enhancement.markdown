@@ -7,18 +7,18 @@ catalog: true
 tags:
     - Image Processing
 ---
->>In this chapter, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average, gaussian kernel, local mean filter, bilateral filter, and non-local filter.
+>In this chapter, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average, gaussian kernel, local mean filter, bilateral filter, and non-local filter.
 
 ## 1. Image Quantization
 Image is an high dimensional array. Conventionally, sensors in the camera convert continuous signals to discrete signals and stroe them in 2 or 3 dimensional array. This process usually contains **spatial sampling** and **quantization**, as shown in the figure.
  
-<img src="http://static.zybuluo.com/GwanSiu/8fsscwc7t44zw0isny8beezv/image.png" width = "300" height = "200" alt="Fig 1: Left:Sampling, Right: Quantization" align=center />
+<img src="http://static.zybuluo.com/GwanSiu/8fsscwc7t44zw0isny8beezv/image.png" width = "300" height = "200" alt="Fig 1: Left:Sampling, Right: Quantization"/>
 
 Resolution represents total numbers of sensor in the camera. In other words, it measures how many sensors are used to represent an object. Fixed quantization level, the high resolution is, the clearer the image is.
  
-<img src="http://static.zybuluo.com/GwanSiu/rgxvz5p6tyrgv9nx1emhfqr2/QuantizationAndSampling.png" width = "300" height = "200" alt="Quantization" align=center />
+<img src="http://static.zybuluo.com/GwanSiu/rgxvz5p6tyrgv9nx1emhfqr2/QuantizationAndSampling.png" width = "300" height = "200" alt="Quantization"/>
 
-<img src="http://static.zybuluo.com/GwanSiu/mjje01g4ygd11ea12txyaqym/Sampling.png" width = "300" height = "200" alt="Sampling" align=center />
+<img src="http://static.zybuluo.com/GwanSiu/mjje01g4ygd11ea12txyaqym/Sampling.png" width = "300" height = "200" alt="Sampling" align=center/>
 
 ## 2. Image Enhancement
 **Image enhancement is to improve the quality of an image or accentuate particular features.** Techniques are more general purpose, for example, how to imporve contrast? How to sharpen edges? How to reduce noise? Image enhancement is different from image restoration. **In term of image restoration, a strong model of degradation process is not assumed.**
