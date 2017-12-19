@@ -53,9 +53,9 @@ This is an example of histogram equalization:
 **Why average is effective?**  what we want is to make adjacent pixels look more similar with each other. In other words, the variations of adjacent pixels should be minimized. The objective funcion:
 
 $$
-\begin{align}
-}\min_{x_{i}\in N_{x}} \Vert x-x_{i} \Vert^{2}
-\end{align}
+\begin{equation}
+\min_{x_{i}\in N_{x}} \Vert x-x_{i} \Vert^{2}
+\end{equation}
 $$
 
 

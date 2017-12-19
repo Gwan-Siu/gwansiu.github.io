@@ -2,15 +2,40 @@
 <html lang="en">
 
 {% include head.html %}
-  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
   });
 </script>
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    TeX: {equationNumbers: {autoNumber: "AMS"} }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    TeX: {formatNumber: function (n) {return n}}
+});
+</script>
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    tex2jax: {processRefs: true} 
+});
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
