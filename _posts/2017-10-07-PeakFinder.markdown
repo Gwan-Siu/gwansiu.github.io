@@ -12,4 +12,3 @@ tags:
 ## 1. One-dimensional Version
 
 <img src="http://static.zybuluo.com/GwanSiu/1l4hzovprhbsr93t1ge6sglb/image.png" width = "400" height = "300"/>
-
