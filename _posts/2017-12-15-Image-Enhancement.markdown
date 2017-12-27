@@ -7,7 +7,7 @@ catalog: true
 tags:
     - Image Processing
 ---
->In this chapter, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average, gaussian kernel, local mean filter, bilateral filter, and non-local filter.
+>In this chapter, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average, gaussian kernel, local mean filter, bilateral filter, and guided filter.
 
 ## 1. Image Quantization
 Image is an high dimensional array. Conventionally, sensors in the camera convert continuous signals to discrete signals and stroe them in 2 or 3 dimensional array. This process usually contains **spatial sampling** and **quantization**, as shown in the figure.
@@ -61,12 +61,61 @@ $$
 
 where $x$ is the center pixel and $N_{x}$ is the neighborhood of $x$. Indutively, the optimal solution of objective function \eqref{eq:equation1} is the mean: $x^{\*}=\sum_{x_{i}\in N_{x}}x_{i}$. The center pixel is replaced by the average of its neighborhood.
 
-From this perspective, We can conclude that **how to define its neighborhood** and **how to define the weight of average** are very important. When the neighborhood is a square region, this spatial filter become a local mean filter or box average. There are two disadvantage of box average: (1). Axis-aligned streaks; (2).Blocky results. And how to solve this problem？ Usually, we adopted two strategy: (1). use an isotropic window; (2). use a window with a smooth falloff--gaussian kernel.
+From this perspective, We can conclude that **how to define its neighborhood** and **how to define the weight of average** are very important. When the neighborhood is a square region, this spatial filter become a local mean filter or box average. There are two disadvantage of box average: **(1). Axis-aligned streaks; (2).Blocky results.** And how to solve this problem？ Usually, we adopted two strategy: *(1). use an isotropic window; (2). use a window with a smooth falloff--gaussian kernel.*
 
 ### 2.4 Spatial filter---gaussian kernel
+Compared with local mean filter, a gaussian filter is an isotropic filter with a smooth falloff. Intuitively, gaussian filter is **weighted average filter with circle size.** Gaussian filter consider the relationship of distances and weights. For those pixels which is close to center pixel, they will has large weights, and vice versa. 
 
+$$
+\begin{equation}
+G_{\sigma} = \frac{1}{2\pi\sigma^{2}}e^{-\frac{x^{2}+y^{2}}{2\sigma^{2}}}
+\end{equation}
+$$
 
+<img src="http://static.zybuluo.com/GwanSiu/kv2pdw9v2xpxf4emk2zmmgj9/image.png" width = "600" height = "400" alt="Histogram equalization"/>
 
+$$
+G=\sum_{q\in S}G_{\sigma}(\Vert p-q \Vert)I_{q}
+$$
+Properties of gaussian filter:
+1. weights are independent of spatial locations
+2. Does smooth images, but smoothes too much--edges are blurred. Only spatial distance matters and no edges terms.
+
+### 2.5 Spatial filter----Bilateral filter
+A bilateral filter is a non-linear, edge-preserving, and noise-reduction smoothing filter for images. It replaces the intensity of each pixel with a weighted average of intensity values from nearby pixels. Crutially, the  weights depend not only on Euclidean distance of pixels, but also on the radiometric difference(e.g., range differences, such as color, intensity, depth distance, etc.) Bilateral filter can preserve sharp edges.
+
+The definition of bilateral filter is:
+$$
+\begin{equation}
+I^{filtered}(x)=\frac{1}{W_{p}}\sum_{x_{i}\in \Omega}I(x_{i})f_{r}(\Vert I(x_{i})-I(x)\Vert)g_{s}(\Vert x_{i}-x\Vert)
+\end{equation}
+$$
+where $W_{p}$ is the normalization term: $W_{p}=\sum_{x_{i}\in \Omega} f_{r}(\vert I(x_{i})-I(x)\Vert)g_{s}(\Vert x_{i}-x\Vert)$, whihc ensures that the filter preserves image energy and: $I^{filter}$ is the filtered image; $I$ is the original input image; $x$ are the coordinates of the current pixel to be filtered; $\Omega$ is the window centered in $x$; $f_{r}$ is the range kernel for smoothing differences in intensity(this function can be a Gaussian filter);$g_{s}$ is the spatial kernel for smoothing differences in coordinates(this function can be a Gaussian function).
+
+As mention before, the weight $w_{p}$ consider spatial closeness and intensity difference. For example, consider a pixel located at $(i,j)$ is needed to be denoised by using its neighborhood pixels and one of its neighborhood pixel located at $(k,l)$. Then the weight assigned for pixel $(k,l)$ to denoise the pixel $(i,j)$ is given by:
+
+$$
+\begin{equation}
+w(i,j,k,l) = \text(exp)(-\frac{(i-k)^{2}+(j-l)^{2}}{2\sigma_{d}^{2}}-\frac{\Vert I(i,j)-I(k,l)\Vert^{2}}{2\sigma^{2}_{r}})
+\end{equation}
+$$
+where $\sigma_{d}$ and $\sigma_{r}$ are smoothing parameters, and $I(i,j)$ are the intensity of pixels $(i,j)$ and $(k,l)$ repsectively.
+
+After normalization, the new pixel value is given by:
+
+$$
+\begin{equation}
+I_{D}=\frac{\sum_{k,l}I(k,l)w(i,j,k,l)}{\sum_{k,l}w(i,j,k,l)}
+\end{equation}
+$$
+
+The property of bilateral filter is:
+1. As the range parameter $\sigma_{r}$ increases, the  ilateral filter gradually approaches Gaussian filter more closely because the range Gaussian  widens and flattens, which means that it becoms nearly constant over the intensity interval of the image.
+2. As the spatial parameter $\sigma_{d}$ increases, the larger features get smoothed.
+
+**The limitation of bilateral filter:**
+1. staircase effect----intenstiy plateatus that lead to images appearing like cartoons.
+2. Gradient reversal---introduction of false edges in the image.
 
 
 
