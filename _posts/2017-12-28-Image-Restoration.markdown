@@ -147,7 +147,7 @@ since $f(x,y)$ and $\eta$ are uncorrelated. Note:integrand is sum of two squares
 take a derivative to minimize the least square error:
 
 $$
-\frac{\partial}{\partial z}2(-(1-W^{\*}H^{\*})H|F|^{2}+W^{\*}|N|^{2})=0
+\frac{\partial}{\partial z}2(-(1-W^{\ast}H^{\ast})H|F|^{2}+W^{\ast}|N|^{2})=0
 $$
 
 $$
