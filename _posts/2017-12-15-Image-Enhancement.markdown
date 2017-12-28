@@ -7,7 +7,7 @@ catalog: true
 tags:
     - Image Processing
 ---
->In this chapter, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average, gaussian kernel, local mean filter, bilateral filter, and guided filter.
+>In this chapter, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average(local mean filter), gaussian kernel, bilateral filter, and guided filter.
 
 ## 1. Image Quantization
 Image is an high dimensional array. Conventionally, sensors in the camera convert continuous signals to discrete signals and stroe them in 2 or 3 dimensional array. This process usually contains **spatial sampling** and **quantization**, as shown in the figure.
@@ -77,6 +77,7 @@ $$
 $$
 G=\sum_{q\in S}G_{\sigma}(\Vert p-q \Vert)I_{q}
 $$
+
 Properties of gaussian filter:
 1. weights are independent of spatial locations
 2. Does smooth images, but smoothes too much--edges are blurred. Only spatial distance matters and no edges terms.
@@ -90,6 +91,7 @@ $$
 I^{filtered}(x)=\frac{1}{W_{p}}\sum_{x_{i}\in \Omega}I(x_{i})f_{r}(\Vert I(x_{i})-I(x)\Vert)g_{s}(\Vert x_{i}-x\Vert)
 \end{equation}
 $$
+
 where $W_{p}$ is the normalization term: $W_{p}=\sum_{x_{i}\in \Omega} f_{r}(\vert I(x_{i})-I(x)\Vert)g_{s}(\Vert x_{i}-x\Vert)$, whihc ensures that the filter preserves image energy and: $I^{filter}$ is the filtered image; $I$ is the original input image; $x$ are the coordinates of the current pixel to be filtered; $\Omega$ is the window centered in $x$; $f_{r}$ is the range kernel for smoothing differences in intensity(this function can be a Gaussian filter);$g_{s}$ is the spatial kernel for smoothing differences in coordinates(this function can be a Gaussian function).
 
 As mention before, the weight $w_{p}$ consider spatial closeness and intensity difference. For example, consider a pixel located at $(i,j)$ is needed to be denoised by using its neighborhood pixels and one of its neighborhood pixel located at $(k,l)$. Then the weight assigned for pixel $(k,l)$ to denoise the pixel $(i,j)$ is given by:
@@ -117,5 +119,7 @@ The property of bilateral filter is:
 1. staircase effect----intenstiy plateatus that lead to images appearing like cartoons.
 2. Gradient reversal---introduction of false edges in the image.
 
+### 2.6 Spatial filter----Guided filter
+continue.....
 
 
