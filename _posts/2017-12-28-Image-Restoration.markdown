@@ -18,7 +18,7 @@ In contrast to image enhancement, **in image restoration the degradation is mode
 
 $$
 \begin{equation}
-\text{spatial domain: }g(x,y) = h(x,y)\*f(x,y)+n(x,y)\\
+\text{spatial domain: }g(x,y) = h(x,y)\ast f(x,y)+n(x,y)\\
 \text{Frequency domain: }G(\mu,\upsilon) = H(\mu,\upsilon)F(\mu,\upsilon)+N(\mu,\upsilon)
 \end{equation}
 $$
@@ -49,7 +49,7 @@ The work flow of inverse filter:
 $$
 \begin{equation}
 G(\mu,\upsilon) = H(\mu,\upsilon)F(\mu,\upsilon)+N(\mu,\upsilon)\\
-\hat{F}(\mu,\upsilon)=\frac{G(\mu,\upsilon)}{H(\mu,\upsilon)} = F(\mu,\upsilon)+\frac{N(\mu,\upsilon)}{H(\mu,\upsilon)}
+F(\mu,\upsilon)=\frac{G(\mu,\upsilon)}{H(\mu,\upsilon)} = F(\mu,\upsilon)+\frac{N(\mu,\upsilon)}{H(\mu,\upsilon)}
 \end{equation}
 $$
 
