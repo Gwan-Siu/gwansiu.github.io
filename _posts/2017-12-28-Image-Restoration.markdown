@@ -120,13 +120,13 @@ $$
 \begin{align}
 \varepsilon &= \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}(f(x,y)-\hat{f}(x,y))^{2} dxdy \\
 \varepsilon &= \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}(F(\mu,\upsilon)-\hat{F}(\mu,\upsilon))^{2} d\mu d\upsilon \\
-&\text{where} \\
+\text{where} \\
 \hat{F}&=WG=WHF+WN \\
-F-\hat{F} = (1-WH)F-WH \\
-&\text{Therefore}
+F-\hat{F} &= (1-WH)F-WH \\
+\text{Therefore}
 \varepsilon &= \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}|(1-WH)F-WN|^{2} d\mu d\upsilon \\
 &= \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}|(1-WH)F|^{2}-|WN|^{2} d\mu d\upsilon \\
-&\text{since } f(x,y) \text{ and } \eta \text{ are uncorrelated. Note:integrand is sum of two squares} 
+\text{since } f(x,y) \text{ and } \eta \text{ are uncorrelated. Note:integrand is sum of two squares} 
 \end{align}
 $$
 
