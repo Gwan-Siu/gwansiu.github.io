@@ -49,7 +49,7 @@ The work flow of inverse filter:
 $$
 \begin{equation}
 G(\mu,\upsilon) = H(\mu,\upsilon)F(\mu,\upsilon)+N(\mu,\upsilon)\\
-F(\mu,\upsilon)=\frac{G(\mu,\upsilon)}{H(\mu,\upsilon)} = F(\mu,\upsilon)+\frac{N(\mu,\upsilon)}{H(\mu,\upsilon)}
+\hat{F}(\mu,\upsilon)=\frac{G(\mu,\upsilon)}{H(\mu,\upsilon)} = F(\mu,\upsilon)+\frac{N(\mu,\upsilon)}{H(\mu,\upsilon)}
 \end{equation}
 $$
 
@@ -64,21 +64,21 @@ A Wiener filter minimizes the least square error $\int_{-\infty}^{+\infty}\int_{
 $$
 \begin{equation}
 G(\mu,\upsilon) = H(\mu,\upsilon)F(\mu,\upsilon)+N(\mu,\upsilon) \\
-\hat{F}(\mu,\upsilon)=W(\mu,\upsilon)G(\mu,\upsilon)
+\hat{F}(\mu,\upsilon)=W(\mu,\upsilon)G(\mu,\upsilon) \\
 \label{eq:equation1}
 \end{equaition}
 $$
 
 where $W(\mu,\upsilon)=\frac{H^{\*}(\mu,\upsilon)}{|H(\mu,\upsilon)|^{2}+K(\mu,\upsilon)}$.
 - $K(\mu,\upsilon)=\frac{S_{\eta}(\mu,\upsilon)}{S_{f}(\mu,\upsilon)}$, signal-noise-ratio.
-- $S_{f}(\mu,\upsilon)=|F(\mu,\upsilon)|^{2}$ power spectral density of $f(x,y)$.
-- $S_{\eta}(\mu,\upsilon)=|N(\mu,\upsilon)|^{2}$ power spectral density of $\eta(x,y)$.
+- $S_{f}(\mu,\upsilon)=\|F(\mu,\upsilon)\|^{2}$ power spectral density of $f(x,y)$.
+- $S_{\eta}(\mu,\upsilon)=\|N(\mu,\upsilon)\|^{2}$ power spectral density of $\eta(x,y)$.
 
 **Analysis of frequency behaviour:**
 From the equation \eqref{eq:equation1}, we can conclude that:
 - If $K=0$, then $W(\mu,\upsilon)=\frac{1}{H(\mu,\upsilon)}$, i.e. an inverse filter.
-- If $K>>|H(\mu,\upsilon)|$ for large $\mu,\upsilon$, then high frequency are attenuated.
-- $|F(\mu,\upsilon)|$ and $N(\mu,\upsilon)$ are often known approximately and $K$ is set to a constant scalar which is determined empirically.
+- If $K>>\|H(\mu,\upsilon)\|$ for large $\mu,\upsilon$, then high frequency are attenuated.
+- $\|F(\mu,\upsilon)\|$ and $N(\mu,\upsilon)$ are often known approximately and $K$ is set to a constant scalar which is determined empirically.
 
 <img src="http://static.zybuluo.com/GwanSiu/31lemtyempkfnkznpy9pmnf2/image.png" width = "600" height = "400" alt="The frequency behavior of Wiener filter"/>
 
