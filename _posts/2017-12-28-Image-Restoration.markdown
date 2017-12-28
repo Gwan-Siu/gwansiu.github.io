@@ -133,6 +133,7 @@ F-\hat{F} &= (1-WH)F-WH \\
 $$
 
 Therefore
+
 $$
 \begin{align}
 \varepsilon &= \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}|(1-WH)F-WN|^{2} d\mu d\upsilon \\
