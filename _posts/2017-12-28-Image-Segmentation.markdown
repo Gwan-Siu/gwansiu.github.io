@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Image Processing-Image Restoration"
+title:      "Image Processing-Image Segmentation"
 date:       2017-12-27 12:00:00
 author:     "GwanSiu"
 catalog: true
