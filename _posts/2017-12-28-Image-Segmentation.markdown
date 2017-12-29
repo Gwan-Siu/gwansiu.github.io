@@ -73,6 +73,15 @@ $$
 \end{align}
 $$
 
+**Algorithm**
+1. Compute the histogram and probabilities of each intensity level
+2. Set up initial $\omega_{i}(0)$ and $\mu_{i}(0)$
+3. Step through all possible threshold $t=1,...,$ maximum intensity
+    1. Update $\omega_{i}$ and $\mu_{i}$
+    2. Compute $\sigma_{b}^{2}(t)$
+4. Desired threshold corresponds to the maximum $\sigma_{b}^{2}(t)$
+
+
 ## 3. Interactive Image Segmentation
 
 ## 4. Graph Cuts
