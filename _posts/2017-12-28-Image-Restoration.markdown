@@ -75,7 +75,7 @@ where $W(\mu,\upsilon)=\frac{H^{\*}(\mu,\upsilon)}{|H(\mu,\upsilon)|^{2}+K(\mu,\
 - $S_{\eta}(\mu,\upsilon)=\|N(\mu,\upsilon)\|^{2}$ power spectral density of $\eta(x,y)$.
 
 **Analysis of frequency behaviour:**
-From the equation \eqref{eq:equation1}, we can conclude that:
+From the equation(4), we can conclude that:
 - If $K=0$, then $W(\mu,\upsilon)=\frac{1}{H(\mu,\upsilon)}$, i.e. an inverse filter.
 - If $K>>\|H(\mu,\upsilon)\|$ for large $\mu,\upsilon$, then high frequency are attenuated.
 - $\|F(\mu,\upsilon)\|$ and $N(\mu,\upsilon)$ are often known approximately and $K$ is set to a constant scalar which is determined empirically.
@@ -155,7 +155,7 @@ $$
 $$
 \begin{align}
 W^{\ast} &=\frac{H|F|^{2}}{|H|^{2}|F|^{2}+|N|^{2}} \\
-W^{\ast} &=\frac{H|F|^{2}}{|H|^{2}+\frac{|N|^{2}}{|F|^{2}}}
+W^{\ast} &=\frac{H}{|H|^{2}+\frac{|N|^{2}}{|F|^{2}}}
 \end{align}
 $$
 
