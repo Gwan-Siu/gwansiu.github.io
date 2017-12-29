@@ -14,7 +14,7 @@ tags:
 
 Hough transform is a widely used shape detection techniques in computer vision and image processing. Hough transform aims to find imperfect instances of objects of within a certain class of shapes by a voting procedure. Essentially, hough transform transform points in the original space to parametric sapce, in which there is a accumulator to calculate the intersection of line, and the maximum points in the parametric space is the shape represented in the original space by multicollinearity. 
 
-<img src="https://en.wikipedia.org/wiki/Hough_transform#/media/File:R_theta_line.GIF" width = "600" height = "400" alt="Hough Transform "/>
+<img src="http://static.zybuluo.com/GwanSiu/wvakr7ze6imwxrqzpdp2zhmy/image.png" width = "600" height = "400" alt="Hough Transform "/>
 
 For example, hough transform transform points of a line in cartesian coordinate system to polar coordinate system. **Why polar coordinate system?** The line is represented in cartesian coordinate system: $y=kx+b$, and the parameters are $k$ and $b$, where $k\in \[-\infty,+\infty\],b\in\[-\infty,+\infty\]$, it means that when the line with $k\approx \infty$ cannot be represented in the cartesian coordinate system. For each point in the original space, we draw all line across the point in the parametric sapce. We can see that each $\theta$ in parametric space represent a line in the original space. Therefore, the intersection in the parametric space is the line across all points in the original spacel.
 
@@ -48,7 +48,7 @@ Otsu shows that minimizing the intra-class variance is equivalent to maximize in
 $$
 \begin{align}
 \sigma_{b}^{2}(t) &= \sigma^{2}-\sigma_{w}^{2}(t)=\omega_{0}(\mu_{0}-\mu_{T})^{2}+\omega_{1}(\mu_{1}-\mu_{T})^{2} \\
-&=\omega_{0}(t)\[\mu_{0}(t)-\mu_{1}(t)\]^{2}
+&=\omega_{0}(t)[\mu_{0}(t)-\mu_{1}(t)]^{2}
 \end{align}
 $$
 
@@ -83,8 +83,12 @@ $$
 
 
 ## 3. Interactive Image Segmentation
+**懒癌发作，没写**
 
 ## 4. Graph Cuts
 
+**数学理解ing**
+
 ## 5. Active Contours Algorithm
 
+**微分几何很困扰我**
