@@ -241,9 +241,6 @@ ResNet,HighwayNet,FractalNets，DenseNet揭示了多通路模型的成功，clea
 14. K. He, X. Zhang, S. Ren, and J. Sun, "Identity mappings in deep residual networks," in European Conference on Computer Vision, 2016, pp. 630-645: Springer.
 15. G. Huang, Z. Liu, K. Q. Weinberger, and L. van der Maaten, "Densely connected convolutional networks," arXiv preprint arXiv:1608.06993, 2016.
 
-如果你喜欢这篇文章，可以给我一些鼓励或者在这篇文章下面点个赞,谢谢。
-<img src="http://static.zybuluo.com/GwanSiu/908ff37t1pz2eclzhy99g47s/image.png" width="200" height="200"/>
-
 
 
 [1]: http://static.zybuluo.com/GwanSiu/060jkut7852av647kzb9uta9/image.png

@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "Image Processing-image enhancement"
+title:      "Image Processing-Image Enhancement"
 date:       2017-12-15 12:00:00
 author:     "GwanSiu"
 catalog: true
 tags:
     - Image Processing
 ---
->In this chapter, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average(local mean filter), gaussian kernel, bilateral filter, and guided filter.
+>In this article, image enhancement techology is introduced. It mainly contains: (1) Quantization and smapling; (2) Point operation: histogram equalization; (3) Spatial filter: box average(local mean filter), gaussian kernel, bilateral filter, and guided filter.
 
 ## 1. Image Quantization
 Image is an high dimensional array. Conventionally, sensors in the camera convert continuous signals to discrete signals and stroe them in 2 or 3 dimensional array. This process usually contains **spatial sampling** and **quantization**, as shown in the figure.
@@ -120,6 +120,6 @@ The property of bilateral filter is:
 2. Gradient reversal---introduction of false edges in the image.
 
 ### 2.6 Spatial filter----Guided filter
-continue.....
+continue..... **在看资料，在准备代码**
 
 
