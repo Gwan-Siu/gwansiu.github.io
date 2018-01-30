@@ -87,12 +87,12 @@ $$
 
 Properties of expected value:
 - 1. **Linearity of Expectation:** $\mathbb{E}(\sum_{j=1}^{k}c_{j}g_{j}(X))=\sum_{j=1}^{k}c_{j}\mathbb{E}(g_{j}(X))$.
-- 2. If $X_{1},...,X_{n}$ are independent then $\prod$
+- 2. If $X_{1},...,X_{n}$ are independent then
 - 
 $$
 \begin{align}
 \mathbb{E}(\prod_{i=1}^{n}X_{i})=\prod_{i=1}^{n}\mathbb{E}(X_{i})
-\emnd{align}
+\end{align}
 $$
 
 - 3. $\mu$ is often used to denote $\mathbb{E}(X)$.
@@ -120,24 +120,26 @@ $$
 $$
 and the correlation is $\rho_{X,Y} =\text{Cov}(X,Y)/\sigma_{x}\sigma_{y}$. Recall that $-1\leq\rho \geq 1$.
 
-Proof: $\Cov(X,Y)=\math{E}(XY)-\mu_{X}\mu_{Y}$.
+Proof: $\text{Cov}(X,Y)=\mathbb{E}(XY)-\mu_{X}\mu_{Y}$.
 
 $$
 \begin{align}
-    Cov(X,Y) &= \mathbb{E}\[(X-\mu_{X})(Y-\mu_{Y})\] \\
-    &= \mathbb{E}\[XY-X\mu_{Y}-Y\mu_{X}-\mu_{X}\mu_{Y}\] \\
-    &=\mathbb{E}\[XY\]-\mu_{X}\mu_{Y}
+    Cov(X,Y) &= \mathbb{E}[(X-\mu_{X})(Y-\mu_{Y})] \\
+    &= \mathbb{E}[XY-X\mu_{Y}-Y\mu_{X}-\mu_{X}\mu_{Y}] \\
+    &=\mathbb{E}[XY]-\mu_{X}\mu_{Y}
 \end{align}
 $$
 
 Proof: $-1\leq \rho_{X,Y} \leq 1$.(Cauchy-Schwarz Inequality)
 
 $$
-|\rho_{X,Y}| &= \arrowvert \frac{\text{Cov}(X,Y)}{\sigma_{X}\sigma_{Y}}\arrowvert \\
-&=\arrowvert \frac{E\[(X-\mu_{X})(Y-\mu_{Y})\]}{\sigma_{X}\sigma_{Y}} \arrowvert\\
-&\leq \arrowvert \frac{E\[(X-\mu_{X})\]}{\sgima_{X}} \arrowvert \arrowvert \frac{E\[(Y-\mu_{Y})\]}{\sigma_{Y}}\arrowvert
-&\leq \arrowvert \frac{E\[(X-\mu_{X})^{2}\]}{\sgima_{X}^{2}} \arrowvert \arrowvert \frac{E\[(Y-\mu_{Y})^{2}\]}{\sigma_{Y}^{2}}\arrowvert \text{,Convex}\\
+\begin{align}
+\arrowvert \rho_{X,Y}\arrowvert &= \arrowvert \frac{\text{Cov}(X,Y)}{\sigma_{X}\sigma_{Y}}\arrowvert \\
+&=\arrowvert \frac{E[(X-\mu_{X})(Y-\mu_{Y})]}{\sigma_{X}\sigma_{Y}} \arrowvert\\
+&\leq \arrowvert \frac{E[(X-\mu_{X})]}{\sgima_{X}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})]}{\sigma_{Y}}\arrowvert
+&\leq \arrowvert \frac{E[(X-\mu_{X})^{2}]}{\sgima_{X}^{2}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})^{2}]}{\sigma_{Y}^{2}}\arrowvert \text{,Convex}\\
 &= 1
+\end{align}
 $$
 
 ##### 3.3 Conditional Expectation and Variance
@@ -149,13 +151,14 @@ $$
 \mathbb{E}(Y|X=x)=\int yp(y|x)dy
 \end{align}
 $$
+
 where $p(y|x)=p(x,y)/p(x)$.
 
 The *Law of Total Expectation or Law of Iterated Expectation:*
 
 $$
 \begin{align}
-\mathbb{E}(Y)\mathbb{E}\[\mathbb{E}\[Y|X\]\]=\int \mathbb{E}(Y|X=x)p_{X}(x)dx
+\mathbb{E}(Y)\mathbb{E}[\mathbb{E}[Y|X]]=\int \mathbb{E}(Y|X=x)p_{X}(x)dx
 \end{align}
 $$
 
