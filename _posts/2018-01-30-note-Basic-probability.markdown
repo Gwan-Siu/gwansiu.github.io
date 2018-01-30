@@ -87,8 +87,8 @@ $$
 
 Properties of expected value:
 - 1. **Linearity of Expectation:** $\mathbb{E}(\sum_{j=1}^{k}c_{j}g_{j}(X))=\sum_{j=1}^{k}c_{j}\mathbb{E}(g_{j}(X))$.
-- 2. If $X_{1},...,X_{n}$ are independent then
-
+- 2. If $X_{1},...,X_{n}$ are independent then $\prod$
+- 
 $$
 \begin{align}
 \mathbb{E}(\prod_{i=1}^{n}X_{i})=\prod_{i=1}^{n}\mathbb{E}(X_{i})
@@ -115,7 +115,7 @@ The covariance is
 
 $$
 \begin{align}
-\text{Cov}(X,Y)=\mathbb{E}\[(X-\mu_{x})(Y-\mu_{y})\]=\mathbb{E}(XY)-\mu_{X}\mu_{Y}
+\text{Cov}(X,Y)=\mathbb{E}[(X-\mu_{x})(Y-\mu_{y})]=\mathbb{E}(XY)-\mu_{X}\mu_{Y}
 \end{align}
 $$
 and the correlation is $\rho_{X,Y} =\text{Cov}(X,Y)/\sigma_{x}\sigma_{y}$. Recall that $-1\leq\rho \geq 1$.
