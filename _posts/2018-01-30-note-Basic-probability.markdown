@@ -24,7 +24,7 @@ tags:
 Let $\Omega$ be a smaple space(a set of posible events) with a probability distribution(also called a probability measure $\mathbb{P}$). A `random variable` is a mapping function: $X:\Omega \rightarrow \mathbb{R}$. We wirte:
 
 $$
-\begin{algn}
+\begin{align}
 \mathbb{P}(X\in A)=\mathbb{P}({\omega \in \Omega: X(\omega)\in A})
 \edn{align}
 $$
@@ -67,7 +67,7 @@ X\sim P,X\sim F, X\sim p
 $$
 
 $$
-\fbox{Suppose that $X\sim P$}
+\fbox{Suppose that $X\sim P$ and $Y\sim Q$. We say that $X$ and $Y$ have the same distribution if $\mathbb{P}(X\in A)=Q(Y\in A)$ for all $A$. In that case we say that $X$ and $Y$ are $\mathit{equal in distribution}$ and we write $X=^{d}Y$}
 $$
 
 
