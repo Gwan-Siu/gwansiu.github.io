@@ -136,19 +136,19 @@ $$
 \begin{align}
 \arrowvert \rho_{X,Y}\arrowvert &= \arrowvert \frac{\text{Cov}(X,Y)}{\sigma_{X}\sigma_{Y}}\arrowvert \\
 &=\arrowvert \frac{E[(X-\mu_{X})(Y-\mu_{Y})]}{\sigma_{X}\sigma_{Y}} \arrowvert\\
-&\leq \arrowvert \frac{E[(X-\mu_{X})]}{\sgima_{X}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})]}{\sigma_{Y}}\arrowvert
-&\leq \arrowvert \frac{E[(X-\mu_{X})^{2}]}{\sgima_{X}^{2}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})^{2}]}{\sigma_{Y}^{2}}\arrowvert \text{,Convex}\\
+&\leq \arrowvert \frac{E[(X-\mu_{X})]}{\sigma_{X}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})]}{\sigma_{Y}}\arrowvert
+&\leq \arrowvert \frac{E[(X-\mu_{X})^{2}]}{\sigma_{X}^{2}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})^{2}]}{\sigma_{Y}^{2}}\arrowvert \text{,Convex}\\
 &= 1
 \end{align}
 $$
 
 ##### 3.3 Conditional Expectation and Variance
 
-The **conditional expectation** of $Y$ given $X$ is the random variable $\mathbb{E}(Y|X)$ whose value, when $X=x$ is
+The **conditional expectation** of $Y$ given $X$ is the random variable $\mathbb{E}(Y\arrowvert X)$ whose value, when $X=x$ is
 
 $$
 \begin{align}
-\mathbb{E}(Y|X=x)=\int yp(y|x)dy
+\mathbb{E}(Y\arrowvert X=x)=\int_{y}p(y\arrowvert x)dy
 \end{align}
 $$
 
@@ -166,7 +166,7 @@ The *Law of Total Variance* is
 
 $$
 \begin{align}
-\text{Var}(Y)=\text{Var}\[E\[Y|X\]\]+\mathbb{E}\[\text{Var}(Y|X)\]
+\text{Var}(Y)=\text{Var}[E[Y|X]]+\mathbb{E}[\text{Var}(Y|X)]
 \end{align}
 $$
 
@@ -176,7 +176,7 @@ The *mement generated function*(mgf) is
 
 $$
 \begin{align}
-    M_{X}(t)=\mathbb{E}\[E^{tX}\]
+    M_{X}(t)=\mathbb{E}[E^{tX}]
 \end{align}
 $$
 
@@ -211,6 +211,7 @@ $$
 \mathbb{P}(X_{1}\in A_{1},..., X_{n}\in A_{n}) =\prod_{i=1}^{n}\mathbb{P}(X_{i}\in A_{i})
 \end{align}
 $$
+
 Thus, $p_{x_{1},...,x_{n}}=\prod_{i=1}^{n}p_{X_{i}}(x_{i})$.
 
 If $X_{1},...,X_{n}$ are independent and identically distributed we say they are `iid` and we write
@@ -219,12 +220,12 @@ $$
 X_{1},...,X_{n}\sim P \text{ or }X_{1},...,X_{n}\sim F \text{ or } X_{1},...,X_{n} \sim p
 $$
 
-`Independence and condition: A and B are independent events then `$P(A|B)=P(A)$`Also, for any pair of events A and B`
+`Independence and condition: A and B are independent events then ` $P(A|B)=P(A)$ `Also, for any pair of events A and B`.
 
 $$
 \begin{align}
 P(AB)=P(A|B)P(B)=P(B|A)P(A)
-\end{align}icassp 
+\end{align} 
 $$   
 
 Independece means that knowing `B` does not change the probability of `A`.
@@ -385,19 +386,27 @@ $$
 (c). $(Y-\mu)^{T}\Sigma^{-1}(Y-\mu)\sim \chi_{n}^{2}(0)$.
 
 #### 7. Sample Mean and Variance
-Let $X_{1},...,X_{n}\sim P$. The sample mean is 
+
+Let $X_{1},...,X_{n}\sim P$. The sample mean is
+
 $$
 \hat{\mu_{n}}=\frac{1}{n}\sum_{i}X_{i}
 $$
-and the sample variance is 
+
+and the sample variance is
+
 $$
 \hat{\sigma_{n}^{2}}=\frac{1}{n-1}\sum_{i}(X_{i}-\hat{\mu}_{n})^{2}.
 $$
+
 The *sampling distribution* of $\hat{\mu}_{n}$ is
+
 $$
 G_{n}(t)=\mathbb{P}(\hat{\mu}_{n}\leq t)
 $$
+
 **Pratics Problem.** Let $X_{1},..,X_{n}$ be `iid` with $\mu=\mathbb{E}(X_{i})=\mu$ and $\sigma^{2}=\text{Var}(X_{i})=\sigma^{2}$. Then
+
 $$
 \mathbb{E}(\hat{\mu})=\mu,\text{Var}(\hat{\mu})=\frac{\sigma^{2}}{n},\mathbb{E}(\hat{\sigma}^{2}_{n})=\sigma^{2}
 $$
@@ -407,25 +416,25 @@ $$
 (b). $\frac{(n-1)\hat{\sigma}^{2}_{n}}{\sigma^{2}}\sim \chi^{2}_{n-1}$
 (c). $\hat{\mu}_{n}$ and $\hat{\sigma}_{n}^{2}$ are independent.
 
-**Proof:** $\mathbb{E}\[\hat{\mu}\]=\mu$\\
+**Proof:** $\mathbb{E}[\hat{\mu}]=\mu$\\
 
 $$
 \begin{align}
-\mathbb{E}\[\hat{\mu}_{n}\] &=\frac{1}{n}\sum_{i}\mathbb{E}\[X_{i}\] \\
+\mathbb{E}[\hat{\mu}_{n}] &=\frac{1}{n}\sum_{i}\mathbb{E}[X_{i}] \\
 &=\frac{1}{n}n\mu \\
 &=\mu
 \end{align}
 $$
 
-**Proof:** $\mathbb{E}\[\hat{\sigma}^{2}\]=\sigma^{2}$.\\
+**Proof:** $\mathbb{E}[\hat{\sigma}^{2}]=\sigma^{2}$.\\
 
 $$
 \begin{align}
-    \mathbb{E}\[\hat{\sigma}^{2}\] &=\frac{1}{n}\sum_{i=1}^{n}\mathbb{E}\[(X_{i}-\hat{\mu})^{2}\] \\
-    &= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}\[(X_{i}-\mu+\mu-\hat{\mu})^{2}\] \\
-    &= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}\[(X_{i}-\mu)^{2}+2(X_{i}-\mu)(\mu-\hat{\mu})+(\mu-\hat{\mu})^{2}\] \\
-    &= \frac{1}{n}\mathbb{E}\[\sum_{i=1}^{n}(X_{i}-\mu)^{2}\]+2n(\hat{\mu}-\mu)^{2}+n(\mu-\hat{\mu})^{2} \\
-    &=\frac{1}{n}\[\text{Var}(X)-n\text{\hat{\mu}}\] \\
+    \mathbb{E}[\hat{\sigma}^{2}] &=\frac{1}{n}\sum_{i=1}^{n}\mathbb{E}[(X_{i}-\hat{\mu})^{2}] \\
+    &= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}[(X_{i}-\mu+\mu-\hat{\mu})^{2}] \\
+    &= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}[(X_{i}-\mu)^{2}+2(X_{i}-\mu)(\mu-\hat{\mu})+(\mu-\hat{\mu})^{2}] \\
+    &= \frac{1}{n}\mathbb{E}[\sum_{i=1}^{n}(X_{i}-\mu)^{2}]+2n(\hat{\mu}-\mu)^{2}+n(\mu-\hat{\mu})^{2} \\
+    &=\frac{1}{n}[\text{Var}(X)-n\text{\hat{\mu}}] \\
     & = \sigma^{2}-\frac{\sigma^{2}}{n} \\
     & = \frac{n-1}{n}\sigma^{2}
 \end{align}
