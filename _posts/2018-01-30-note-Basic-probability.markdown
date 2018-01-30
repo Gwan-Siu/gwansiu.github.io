@@ -136,7 +136,7 @@ $$
 \begin{align}
 \arrowvert \rho_{X,Y}\arrowvert &= \arrowvert \frac{\text{Cov}(X,Y)}{\sigma_{X}\sigma_{Y}}\arrowvert \\
 &=\arrowvert \frac{E[(X-\mu_{X})(Y-\mu_{Y})]}{\sigma_{X}\sigma_{Y}} \arrowvert\\
-&\leq \arrowvert \frac{E[(X-\mu_{X})]}{\sigma_{X}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})]}{\sigma_{Y}}\arrowvert
+&\leq \arrowvert \frac{E[(X-\mu_{X})]}{\sigma_{X}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})]}{\sigma_{Y}}\arrowvert \\
 &\leq \arrowvert \frac{E[(X-\mu_{X})^{2}]}{\sigma_{X}^{2}} \arrowvert \arrowvert \frac{E[(Y-\mu_{Y})^{2}]}{\sigma_{Y}^{2}}\arrowvert \text{,Convex}\\
 &= 1
 \end{align}
@@ -152,7 +152,7 @@ $$
 \end{align}
 $$
 
-where $p(y|x)=p(x,y)/p(x)$.
+where $p(y\arrowvert x)=p(x,y)/p(x)$.
 
 The *Law of Total Expectation or Law of Iterated Expectation:*
 
@@ -186,7 +186,7 @@ The moment generated function can be used to "generate" all the moments of a dis
 
 $$
 \begin{align}
-    M_{X}^{n}(t)|_{t=0}=\mathbb{E}(X^{n})
+    M_{X}^{n}(t)\arrowvert_{t=0}=\mathbb{E}(X^{n})
 \end{align}
 $$
 
@@ -224,7 +224,7 @@ $$
 
 $$
 \begin{align}
-P(AB)=P(A|B)P(B)=P(B|A)P(A)
+P(AB)=P(A\arrowvert B)P(B)=P(B\arrowvert A)P(A)
 \end{align} 
 $$   
 
@@ -321,7 +321,17 @@ $$
 
 **Non-centeral chi-squared(More on this below).** $X\sim \chi_{1}^{2}(\mu^{2})$ if $X=Z^{2}$ where $Z\sim N(\mu,1)$.
 
-##### 6.5 Gaussian Distribution(Normal Distribution)
+##### 6.5 Gamma Distribution
+
+$X\sim \Gamma(\alpha, \beta)$ if
+
+$$
+p_{X}(x) = \frac{1}{\Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}e^{-x/\beta}
+$$
+
+for $x>0$ where $\Gamma(\alpha)=\int_{0}^{\infty}\frac{1}{\beta^{\alpha}}x^{\alpha-1}e^{-x/\beta}$.
+
+##### 6.6 Gaussian Distribution(Normal Distribution)
 
 $X\sim N(\mu,\sigma^{2})$ if
 
@@ -426,7 +436,7 @@ $$
 \end{align}
 $$
 
-**Proof:** $\mathbb{E}[\hat{\sigma}^{2}]=\sigma^{2}$.\\
+**Proof:** $\mathbb{E}[\hat{\sigma}^{2}]=\sigma^{2}$. 
 
 $$
 \begin{align}
@@ -434,8 +444,25 @@ $$
     &= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}[(X_{i}-\mu+\mu-\hat{\mu})^{2}] \\
     &= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}[(X_{i}-\mu)^{2}+2(X_{i}-\mu)(\mu-\hat{\mu})+(\mu-\hat{\mu})^{2}] \\
     &= \frac{1}{n}\mathbb{E}[\sum_{i=1}^{n}(X_{i}-\mu)^{2}]+2n(\hat{\mu}-\mu)^{2}+n(\mu-\hat{\mu})^{2} \\
-    &=\frac{1}{n}[\text{Var}(X)-n\text{\hat{\mu}}] \\
+    &=\frac{1}{n}[\text{Var}(X)-n\text{Var}(\hat{\mu})] \\
     & = \sigma^{2}-\frac{\sigma^{2}}{n} \\
     & = \frac{n-1}{n}\sigma^{2}
 \end{align}
 $$
+
+#### 7. Bayesian Theorem
+
+Let $A_{1},...,A_{k}$ be a partition of $\Omega$ such that $P(A_{i})>0$ for all $i$. If $P(B)>0$, then for each $i=1,...,k$:
+
+$$
+\begin{align}
+P(A_{i}\arrowvert B)=\frac{P(B\arrowvert A_{i})P(A_{i})}{\sum_{j}P(B\arrowvert A_{j})P(A_{j})}
+\end{align}
+$$
+
+**Total Probability**
+Let $A_{1},...,A_{k}$ be a partition of $\Omega$. Then, for any evernt $B$,
+
+$$
+P(B)=\sum_{i=1}^{k}P(B\arrowvert A_{i})P(A_{i})
+$$ 
