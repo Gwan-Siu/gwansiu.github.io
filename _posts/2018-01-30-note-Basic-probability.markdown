@@ -65,10 +65,8 @@ and the $p_{X}(x)=p(x)=F^{'}(x)$. The following are all equivalent:
 $$
 X\sim P,X\sim F, X\sim p
 $$
-
-$$
-\fbox[8em]{Suppose that $X\sim P$ and $Y\sim Q$. We say that $X$ and $Y$ have the same distribution \\ if $\mathbb{P}(X\in A)=Q(Y\in A)$ for all $A$. In that case we say that $X$ and $Y$ are \\ $\mathit{equal in distribution}$ and we write $X=^{d}Y$}
-$$
-
+----------------------------------------------------------------------------
+Suppose that $X\sim P$ and $Y\sim Q$. We say that $X$ and $Y$ have the same distribution if $\mathbb{P}(X\in A)=Q(Y\in A)$ for all $A$. In that case we say that $X$ and $Y$ are $\mathit{equal in distribution}$ and we write $X=^{d}Y$}
+----------------------------------------------------------------------------
 
 
