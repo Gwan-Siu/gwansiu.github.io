@@ -70,7 +70,7 @@ In the typical case of the CLT, we need to know the variance $\sigma$. In practi
 
 $$
 \begin{equation}
-\widtilde{\sigma}_{n}^{2} = \frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\widetilde{\mu})^{2}
+\widetilde{\sigma}_{n}^{2} = \frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\widetilde{\mu})^{2}
 \end{equation}
 $$
 
@@ -179,7 +179,7 @@ Suppose random vector $X_{1},...,X_{n}\in \mathbb{R}^{d}$, and $g:\mathbb{R}^{d}
 
 $$
 \begin{equation}
-\sqrt{n}(g(\widetilde{\mu}_{n})-g(\mu))\overset{d}{\rgihtarrrow}N(0,\bigtriangleup_{\mu}(g)^{T}\Sigma\bigtriangle_{\mu}(g))
+\sqrt{n}(g(\widetilde{\mu}_{n})-g(\mu))\overset{d}{\rightarrrow}N(0,\bigtriangleup_{\mu}(g)^{T}\Sigma\bigtriangleup_{\mu}(g))
 \end{equation}
 $$
 
