@@ -423,7 +423,7 @@ $$
 
 **Theorem** If $X_{1},...,X_{n}\sim N(\mu,\sigma^{2})$ then \\
 (a). $\hat{\mu}_{n}\sim N(\mu,\frac{\sigma^{2}}{n})$.\\
-(b). $\frac{(n-1)\hat{\sigma}^{2}_{n}}{\sigma^{2}}\sim \chi^{2}_{n-1}$
+(b). $\frac{(n-1)\hat{\sigma}^{2}_{n}}{\sigma^{2}}\sim \chi^{2}_{n-1}$ \\
 (c). $\hat{\mu}_{n}$ and $\hat{\sigma}_{n}^{2}$ are independent.
 
 **Proof:** $\mathbb{E}[\hat{\mu}]=\mu$\\
@@ -450,7 +450,7 @@ $$
 \end{align}
 $$
 
-#### 7. Bayesian Theorem
+#### 8. Bayesian Theorem
 
 Let $A_{1},...,A_{k}$ be a partition of $\Omega$ such that $P(A_{i})>0$ for all $i$. If $P(B)>0$, then for each $i=1,...,k$:
 
