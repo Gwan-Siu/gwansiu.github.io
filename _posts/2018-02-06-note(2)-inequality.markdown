@@ -26,14 +26,14 @@ Intuitively, if the mean of a random variable is very small then the random vari
 
 **Proof:** Fix an arbitrary  $t>0$. Define the indicator function:
 
-##
+$$
 \begin{equation}
 \mathbb{I}=\begin{cases}
 1, \text{ if } X\geq t \\
 0, \text{ if } X<t
 \end{cases}
 \end{equation}
-##
+$$
 
 We have that
 
