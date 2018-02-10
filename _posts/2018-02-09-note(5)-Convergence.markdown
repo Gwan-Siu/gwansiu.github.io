@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Note(5)-Convergence
+title: Note(5)--Convergence
 date: 2018-02-09
 author: Gwan Siu
 catalog: True
 tags:
-	- Statisctics and Bayesian Analysis
+	- Statistics and Bayesian Analysis
 ---
 
 >  In this blog, we will talk about Slutsky's theorem and center limit theorem.

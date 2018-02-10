@@ -136,7 +136,7 @@ $$
 **Proof:** The basic idea is simply to use Taylor's approximation. We know that
 
 $$
-\begin{eqaution}
+\begin{equation}
 g(X_{n})\approx g(\mu) + g^{`}(\mu)(X_{n}-\mu)
 \end{equation}
 $$

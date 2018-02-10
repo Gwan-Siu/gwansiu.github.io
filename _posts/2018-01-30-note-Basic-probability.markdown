@@ -5,7 +5,7 @@ date: 2018-01-30
 author: Gwan Siu
 catalog: True
 tags:
-    - Statisctics and Bayesian Analysis
+    - Statistics and Bayesian Analysis
 ---
 
 >The reference materials are based on cmu 10-705,[2016](http://www.stat.cmu.edu/~larry/=stat705/) and [2017](http://www.stat.cmu.edu/~siva/705/main.html).

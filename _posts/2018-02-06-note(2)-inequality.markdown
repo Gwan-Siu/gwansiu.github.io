@@ -5,7 +5,7 @@ date: 2018-01-30
 author: Gwan Siu
 catalog: True
 tags:
-    - Statisctics and Bayesian Analysis
+    - Statistics and Bayesian Analysis
 ---
 
 > In the early stage of statistics community, researchers paid their attention to investigate *Averages of independent random variables concentrate around their expectation.*  Researchers try to answer this question from the asymptotic(i.e. the number of random variables we average $\rightarrow \infty$), and the non-symptotic viewpoint(i.e. the number of random variables is fixed finite number). The asymptotic viewpoint is typically characterized by the the Laws of Large Numbers and Center Limit Theorems while the non-asymptotic viewpoint is focus on concentration  inequality.
