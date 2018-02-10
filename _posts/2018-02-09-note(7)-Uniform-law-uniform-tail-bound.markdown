@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Note(7)--Uniform laws or uniform tail bounds
-date: 2018-02-09
+title: Note(7)--Uniform Laws or Uniform Tail Bounds
+date: 2018-02-10
 author: Gwan Siu
 catalog: True
 tags:
@@ -126,7 +126,7 @@ Then observe that since the distribution is continuous we have that, $\mathbb{P}
 
 $$
 \begin{equation}
-\bigtriangleup(\mathcal{A})=\sup_{A\in\mathcal{A}}\arrowvert \mathbb{P}_{n}(A)-\mathbb{A}\arrowvert =1
+\bigtriangleup(\mathcal{A})=\sup_{A\in\mathcal{A}}\arrowvert \mathbb{P}_{n}(A)-\mathbb{P}(A)\arrowvert =1
 \end{equation}
 $$
 
@@ -147,7 +147,7 @@ $$
 $$
 \begin{equation}
 Q_{\alpha}(F)=\inf{t\in\mathbb{R}\arrowvert F(t)\geq \alpha}
-\edn{equation}
+\end{equation}
 $$
 
 Taking $\alpha=0.5$ gives the median. A natural plug-in estimator of $Q_{\alpha}(F)$ is to simply take $Q_{\alpha}(\widetilde{F}_{n})$.

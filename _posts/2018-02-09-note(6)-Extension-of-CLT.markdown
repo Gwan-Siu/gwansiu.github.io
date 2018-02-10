@@ -5,7 +5,7 @@ date: 2018-02-09
 author: Gwan Siu
 catalog: True
 tags:
-    - Statisctics and Bayesian Analysis
+    - Statistics and Bayesian Analysis
 ---
 
 > In this blog, we just talk about some extension of CLT.
