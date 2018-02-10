@@ -5,7 +5,7 @@ date: 2018-02-10
 author: Gwan Siu
 catalog: True
 tags:
-	- Statistics and Bayesian Analysis
+    - Statistics and Bayesian Analysis
 ---
 
 > Previously, we discussed LLNs and tail bounds that apply to a collection of random variables taken together. In this blog, we mainly focus on uniform laws or uniform tail bounds.
