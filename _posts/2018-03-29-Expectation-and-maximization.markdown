@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Expectation and Maximization
-date: 2018-02-28
+date: 2018-03-29
 author: Gwan Siu
 catalog: True
 tags:
