@@ -39,7 +39,7 @@ $$
 
 The figure below shows the core idea of VI: to approximate posterior $p(z\vert x)$ with $q(z)$. We optimize $q(z)$ for minimal value of KL divergence.
 
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/VI.png" width = "600" height = "400" alt="图片名称" align=center />
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/VI.png" width = "600" height = "400"/>
 
 **Comparision of MCMC and VI**
 
@@ -75,7 +75,7 @@ where $\mathrm{ELBO}(q)= \mathbb{E}_{q(z)}[\log p(x,z)] -\mathbb{E}_{q(z)}[\log 
 
 The figure is like the one in EM, but the difference with EM is the likelihood $\ln p(X\vert\theta)$ is fixed. The goal of VI is to minimize the KL divergence of $q$ and $p$, thus it's equivalent to maximize the ELBO $\mathcal{L}(q,\theta)$.
 
-<img src="https://am207.github.io/2017/wiki/images/klsplitup.png" width = "600" height = "400" alt="图片名称" align=center />
+<img src="https://am207.github.io/2017/wiki/images/klsplitup.png" width = "600" height = "400"/>
 
 
 Therefore, we can turn our goal to an optimization problem: maximize $\mathrm{ELBO}$ is equivalent to minimize the DL divergence. Our objective function is $\mathrm{ELBO}$:
@@ -109,7 +109,7 @@ $$
 
 the latent variable in mean-field theory is mutually independent, so it cannot capture the correlation in the original space. Once the latent variable of the posterior is dependent, the mean-field approximate will be affected. The example is below:
 
-<img src="http://7xpqrs.com1.z0.glb.clouddn.com/Fu9ZVDbU07MHvRwdhShbD7NisdZ4" width = "600" height = "400" alt="图片名称" align=center />
+<img src="http://7xpqrs.com1.z0.glb.clouddn.com/Fu9ZVDbU07MHvRwdhShbD7NisdZ4" width = "600" height = "400"/>
 
 **Notice that we are not making any comment about the conditional independence or lack thereof of posterior parameters. We are merely saying we will find new functions of these parameters such that we can multiply these functions to construct an approximate posterior.**
 
@@ -119,7 +119,7 @@ Now, we have goal(maximize $\mathrm{ELBO}$) and choose mean-field family of dist
 
 The figure below is the process of CAVI algorithm:
 
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/CAVI.png" width = "600" height = "400" alt="图片名称" align=center />
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/CAVI.png" width = "600" height = "400"/>
 
 First of all, we compute the optimal distribution $q_{i}$:
     
@@ -267,7 +267,7 @@ $$
 
 The algorithm of GMM and CAVI is below:
 
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/GMMCAVI.png" width = "600" height = "400" alt="图片名称" align=center />
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/GMMCAVI.png" width = "600" height = "400"/>
 
 Reference
 

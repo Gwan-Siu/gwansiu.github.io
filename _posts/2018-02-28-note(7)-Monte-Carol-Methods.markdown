@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Monte Carol Methods
-date: 2018-02-28
+date: 2018-03-29
 author: Gwan Siu
 catalog: True
 tags:
@@ -17,9 +17,79 @@ tags:
 
 #### 1.1 Esitmate $\pi$.
 
-**(Example:)** Assume that we don't know the value of $\pi$, 
+**(Example:)** Assume that we don't know the value of $\pi$, but we still want to know the area of an circle. How to do that? The basic idea is that we repeatedly toss a coin in the unit square up to 100000 times and calculate how many coins fall inside the circle.
+
+```python
+
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+## The bounding box area
+bounding_area = 2
+
+## Total number of samples
+N_total = 100000
+
+# Drawing random point points uniform between -1 and 1
+X  = np.random.uniform(low=-1, high=1, size=N_total)
+Y  = np.random.uniform(low=-1, high=1, size=N_total)
+
+# check if point is inside the circle
+distance = np.sqrt(X**2+Y**2)
+is_point_inside = distance < 1
+
+# sum up the hits inside the circle
+N_insize = np.sum(is_point_inside)
+
+# estimate the circle area 
+circle_area = bounding_area * N_insize/N_total
+
+# some nice visualization
+plt.figure(figsize=(10,8))
+plt.scatter(X,Y, c=is_point_inside, s=5.0, edgecolors='none', cmap=plt.cm.Paired)  
+plt.axis('equal')
+plt.xlabel('x')
+plt.ylabel('y')
+# text output
+print("Area of the circle = ", circle_area)
+print("pi = ", np.pi)
+
+```
+
+
+
 
 #### 1.2 Estimate the erea of the curve.
+
+```python
+
+## the target function is y=x^2
+
+X = np.random.uniform(low=-1, high=1, size=N_total)
+Y = np.random.uniform(low=-1, high=1, size=N_total)
+
+## if the point under the curve
+is_point_under = Y>X**2
+
+## summation
+N_size = np.sum(is_point_inside)
+
+## the area under the curve
+area = 2*N_size/N_total
+
+##plot the figure
+plt.figure(figsize=(10,8))
+#plt.plot(X,X**2,'r-')
+plt.scatter(X, Y, c=is_point_under,s=5.0, edgecolors='none', cmap=plt.cm.Paired)  
+plt.ylim([0,1])
+plt.xlabel('x')
+plt.ylabel('y')
+
+## The area under the curve
+print('The area under the curve is:',area)
+
+```
 
 
 ### 2. Why can random sampling obtain numerical results we expect?
@@ -99,7 +169,7 @@ One examble we have mentioned above is that we can calculate the population mean
 Here. I just show one example: assume $0\leq x,y,z\geq 1$, the constraint is: $x+y+z\leq 1$, to compute the volume of cube $\int\int\int_{V} dv$.
 
 
-In detail, there are some summary[2](http://www.cs.princeton.edu/courses/archive/spr06/cos598C/papers/AndrieuFreitasDoucetJordan2003.pdf) about what Monte Carol Methods can do:
+In detail, there are some [summary](http://www.cs.princeton.edu/courses/archive/spr06/cos598C/papers/AndrieuFreitasDoucetJordan2003.pdf) about what Monte Carol Methods(MCMC) can do:
 
 1. *Bayesian inference and learning.* Given some unknown variables $x\in X$ and data $y\in Y$, the following typically intractable integration problems are central to Bayesian statistics:
  - *Normalisation.* To obtain the posterior $p(x\vert y)$ given the prior $p(x)$ and likelihood $p(y\vert x)$, the normalising factor in Bayes’ theorem needs to be computed:
@@ -126,7 +196,7 @@ In detail, there are some summary[2](http://www.cs.princeton.edu/courses/archive
  \end{equation}
  $$
 
- for some function of interest $f : X \rightarrow R^{n_{f}}$ integrable with respect to $p(x | y)$. Examples of appropriate functions include the conditional mean, in which case $f(x) = x$, or the conditional covariance of $x$ where $f (x) = xx^{'} − \mathbb{E}_{p(x\vert y)}[x]\mathbb{E}^{'}_{p(x\vert y)}[x]$.
+for some function of interest $f : X \rightarrow R^{n_{f}}$ integrable with respect to $p(x \vert y)$. Examples of appropriate functions include the conditional mean, in which case $f(x) = x$, or the conditional covariance of $x$ where $f (x) = xx^{'} − \mathbb{E}_{p(x\vert y)}[x]\mathbb{E}^{'}_{p(x\vert y)}[x]$.
 
 2. *Statistical mechanics.* Here, one needs to compute the partition function $Z$ of a system with states s and Hamiltonian $E(s)$:
  

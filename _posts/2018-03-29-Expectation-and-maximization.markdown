@@ -33,7 +33,7 @@ The expectation maximization algorithm is a refinement on this basic idea that t
 
 The figure below show the procedure of maximum likelihood estimator and expectation maximization algorithm. The figure is from the paper:[ what is the expectation maximization algorithm?](https://www.nature.com/articles/nbt1406)
 
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/MlE_EM.png" width = "600" height = "400" alt="图片名称" align=center />
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/MlE_EM.png" width = "600" height = "400"/>
 
 **Summary**
 
@@ -129,7 +129,7 @@ $$
 
 Therefore, as we maximize the objective function, we are also maximizing the log likelihood function.
 
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/EMAlgorithm_19_0.png" width = "600" height = "400" alt="图片名称" align=center />
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/EMAlgorithm_19_0.png" width = "600" height = "400" alt="图片名称"/>
 
 ## 6. Code for <EM>
 
