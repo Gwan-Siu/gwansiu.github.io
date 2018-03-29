@@ -526,9 +526,9 @@ It is the neighborhood between these extremes, called the typical set which our 
 **MH Algorithm**
 
 1. initialize $x^{(0)}$.
-2. Draw $\mu\sim U(0,1)$.
-3. Draw propose $x^{\ast}\sim q(x^{\ast}\vert x)$.
-4. If $\mu<\min(1, \frac{s(x^{\ast})q(x\vert x^{\ast})}{s(x)q(x^{\ast}\vert x)})$, $x^{(i+1)}=x^{\ast}$. Else, $x^{(i+1)}=x$
+2. Draw $\mu \sim U(0,1)$.
+3. Draw propose $x^{(\ast)} \sim q(x^{(\ast)}\vert x)$.
+4. If $\mu<\min(1, \frac{s(x^{(\ast)})q(x\vert x^{(\ast)})}{s(x)q(x^{(\ast)}\vert x)})$, $x^{(i+1)}=x^{(\ast)}$. Else, $x^{(i+1)}=x$
 5. back step 2 for loop.
 
 **Why does MH algorithm work?**
@@ -537,8 +537,8 @@ To prove if MH algorithm work is to prove MH algorithm satisfied detail balance 
 
 Transition Kernel $K(x\rightarrow x^{\ast})$ includes the joint density of the following:
 
-  1. Propose $x^{\ast}$ from the $q(x^{\ast}\vert x)$.
-  2. the accept $x^{\ast}$ with the ratio $\alpha(x^{\ast}, x)=\min(1,\frac{s(x^{\ast})q(x\vert x^{\ast})}{s(x)q(x^{\ast}\vert x)})$
+  1. Propose $x^{(\ast)}$ from the $q(x^{(\ast)} \vert x)$.
+  2. the accept $x^{(\ast)}$ with the ratio $\alpha(x^{(\ast)}, x)=\min(1,\frac{s(x^{(\ast)})q(x\vert x^{(\ast)})}{s(x)q(x^{(\ast)}\vert x)})$
 
 To verify the detail balance condition:
 
