@@ -67,7 +67,7 @@ $$
 
 The physical meaning is shown as below:
 
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/jenson's_inequality.png" width = "600" height = "400" alt="图片名称" align=center />
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/jenson's_inequality.png" width = "600" height = "400"/>
 
 ## 4 EM Algorithm and Jensen's inequality
 
@@ -129,7 +129,7 @@ $$
 
 Therefore, as we maximize the objective function, we are also maximizing the log likelihood function.
 
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/EMAlgorithm_19_0.png" width = "600" height = "400" alt="图片名称"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/EMAlgorithm_19_0.png" width = "600" height = "400"/>
 
 ## 6. Code for <EM>
 
