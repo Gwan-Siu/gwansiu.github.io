@@ -58,6 +58,7 @@ print("pi = ", np.pi)
 ```
 
 
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/circle.png" width = "600" height = "400"/>
 
 
 #### 1.2 Estimate the erea of the curve.
@@ -91,6 +92,7 @@ print('The area under the curve is:',area)
 
 ```
 
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/area.png" width = "600" height = "400"/>
 
 ### 2. Why can random sampling obtain numerical results we expect?
 

@@ -506,13 +506,13 @@ In generally, we want to calculate the expectation of distribution as sample ave
 
 In multiple dimensions, volumns get smaller and smaller, that's the curse of dimension. This concept can be shown as:
 
-<img src="https://am207.github.io/2017/wiki/images/cod.png" width = "600" height = "400" alt="Important Sampling" />
+<img src="https://am207.github.io/2017/wiki/images/cod.png" width = "600" height = "400" alt="Important Sampling"/>
 
 where the centre-partitions combination to an integral goes from 1/3rd to 1/27th. Now suppose the mode of the distibution is contained in this partition: then its contribution to the integral is going down with dimensions.
 
 As the centre volume decreases, the outer volume increases, but this is in distribution tails, so we dont get much of a contribution from there either:
 
-<img src="https://am207.github.io/2017/wiki/images/cod2.png" width = "600" height = "400" alt="Important Sampling" />
+<img src="https://am207.github.io/2017/wiki/images/cod2.png" width = "600" height = "400" alt="Important Sampling"/>
 
 It is the neighborhood between these extremes, called the typical set which our sampler must explore well. And to get a good rejection sampling majorizer for this becomes hard.
 
@@ -523,7 +523,7 @@ It is the neighborhood between these extremes, called the typical set which our 
 3. If the probability increased we accept. If the probability decreased, we accept the some of time, based on the ratio of the new probability to the old one.
 4. We accumulate our samplees, as we now trying to sample a distribution.
 
-** MH Algorithm**
+**MH Algorithm**
 
 1. initialize $x^{(0)}$.
 2. Draw $\mu\sim U(0,1)$.
