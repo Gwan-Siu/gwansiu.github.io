@@ -141,5 +141,3 @@ In detail, there are some summary[2](http://www.cs.princeton.edu/courses/archive
 3. *Optimisation.* The goal of optimisation is to extract the solution that minimises some objective function from a large set of feasible solutions. In fact, this set can be continuous and unbounded. In general, it is too computationally expensive to compare all the solutions to find out which one is optimal.
  
 4. *Penalised likelihood model selection.* This task typically involves two steps. First, one finds the maximum likelihood (ML) estimates for each model separately. Then one uses a penalisation term (for example MDL, BIC or AIC) to select one of the models. The problem with this approach is that the initial set of models can be very large. Moreover, many of those models are of not interest and, therefore, computing resources are wasted.
-
-lc.chan@polyu.edu.hk
