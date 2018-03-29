@@ -131,7 +131,7 @@ Therefore, as we maximize the objective function, we are also maximizing the log
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/EMAlgorithm_19_0.png" width = "600" height = "400"/>
 
-## 6. Code for <EM>
+## 6. Code for EM
 
 Please visit [my github](http://localhost:8888/notebooks/Documents/BlogCode/EM_and_VI/EM_Algrithm.ipynb#EM-Algorithm-and-Jensen's-inequality) 
 
