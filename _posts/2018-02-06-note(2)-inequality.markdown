@@ -58,16 +58,16 @@ If we just know about the mean of a random variable, we can derive markov inequa
 `Chebyshev inequality` states that for a random variance $X$, with $\text{Var}(X)=\sigma^{2}$:
 
 $$
-\mathbb{P}(\arrowvert X-\mathbb{E}[X]\arrowvert \geq k\sigma)\leq \frac{1}{k^{2}}, \forall k\geq 0.
+\mathbb{P}(\vert X-\mathbb{E}[X]\vert \geq k\sigma)\leq \frac{1}{k^{2}}, \forall k\geq 0.
 $$ 
 
 **Proof:** We can derive Chebyshev inequality from markov inequality. For a random variable $X$, with a variance $\text{Var}(X)$, then we have:
 
 $$
 \begin{align}
-\mathbb{P}(\arrowvert X-\mathbb{E}[X]\arrowvert\geq k\sigma ) &= \mathbb{P}(\arrowvert X-\mathbb{E}[X]\arrowvert^{2}\geq k^{2}\sigma^{2}) \\
-&\leq \frac{\mathbb{E}[\arrowcvert X-\mathbb{X}\arrowvert^{2}]}{k^{2}\sigma^{2}} \\
-&=\farc{1}{k^{2}}
+\mathbb{P}(\vert X-\mathbb{E}[X]\vert\geq k\sigma ) &= \mathbb{P}(\vert X-\mathbb{E}[X]\vert^{2}\geq k^{2}\sigma^{2}) \\
+&\leq \frac{\mathbb{E}[\vert X-\mathbb{X}\vert^{2}]}{k^{2}\sigma^{2}} \\
+&=\frac{1}{k^{2}}
 \end{align}
 $$
 
@@ -75,15 +75,15 @@ $$
 
 $$
 \begin{equation}
-\wildtidle{\mu}_{n}=\frac{1}{n}\sum_{i=1}^{n}X_{i}
+\tilde{\mu}_{n}=\frac{1}{n}\sum_{i=1}^{n}X_{i}
 \end{equation}
 $$
 
-We apply Chebyshev ineqality to investigate how $\wildtidle{\mu}_{n}$ convergent to $\mu$:
+We apply Chebyshev ineqality to investigate how $\tilde{\mu}_{n}$ convergent to $\mu$:
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert \wildtidle{\mu}_{n}-\mu \arrowvert \geq \frac{k\sigma}{\sqrt{n}})\leq \frac{1}{k^{2}}
+\mathbb{P}(\vert \tilde{\mu}_{n}-\mu \vert \geq \frac{k\sigma}{\sqrt{n}})\leq \frac{1}{k^{2}}
 \end{equation}
 $$
 
@@ -93,15 +93,15 @@ From Chebyshev inequality, we can observe that if the random variable $X$ has a 
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert X-\mathbb{E}\arrowvert \geq t)\leq \frac{\mathbb{E}[\arrowvert X-\mathbb{E}\arrowvert^{k}]}{t^{k}}
+\mathbb{P}(\vert X-\mathbb{E}\vert \geq t)\leq \frac{\mathbb{E}[\vert X-\mathbb{E}\vert^{k}]}{t^{k}}
 \end{equation}
 $$
 
-For many random variables, the moment generating function will exist in a neighborhood around 0, i.e. the mgf is finite for all $\arrowvert t\arrowvert \leq b$ where $b>0$ is some constant. In these case, we can use the mgf to produce a tail bound.
+For many random variables, the moment generating function will exist in a neighborhood around 0, i.e. the mgf is finite for all $\vert t\vert \leq b$ where $b>0$ is some constant. In these case, we can use the mgf to produce a tail bound.
 
 $$
 \begin{equation}
-\mathbb{E}((X-\mu)>\epsilon)=\mathbb{P}(\text{exp}(t(X-\mu))>\text{exp}(t\epsilon))\leq \frac{\mathbb{E}[\text{exp(t(X-\mu))}]}{\text{exp}(t\epsilon)}
+\mathbb{E}((X-\mu)>\epsilon)=\mathbb{P}(\text{exp}(t(X-\mu))>\text{exp}(t\epsilon))\leq \frac{\mathbb{E}[\text{exp}(t(X-\mu))]}{\text{exp}(t\epsilon)}
 \end{equation}
 $$
 
@@ -109,7 +109,7 @@ In euqation, $t$ is a parameter and we can choose specific $t$ to obtain tight b
 
 $$
 \begin{equation}
-\mathbb{E}((X-\mu)>\epsilon)\leq \inf_{0\leq t \leq b} \text{exp}(-t(\mu+\delta))\mathbb{E}[\text{exp}(tX)]
+\mathbb{E}((X-\mu)>\epsilon)\leq \inf_{0\leq t \leq b} \text{exp}(-t(\mu+\epsilon))\mathbb{E}[\text{exp}(tX)]
 \end{equation}
 $$
 
@@ -117,7 +117,7 @@ where $\mathbb{E}[\text{exp}(tX)]$ is moment generated function, and this bound 
 
 ##### 2.3.1 Gaussian Tail Bounds via Chernoff
 
-Suppose that $X\sim N(\mu, \sgima^{2})$, then the mgf of $X$ is:
+Suppose that $X\sim N(\mu, \sigma^{2})$, then the mgf of $X$ is:
 
 $$
 \begin{equation}
@@ -125,11 +125,27 @@ M_{X}(t)=\mathbb{E}[\text{exp}(tX)]=\text{exp}(t\mu+t^{2}\sigma^{2}/2)
 \end{equation}
 $$
 
+Talor seriers:
+
+$$
+\begin{equation}
+e^{tX} = 1 + tX + \frac{t^{2}X^{2}}{2!}+\frac{t^{3}X^{3}}{3!}+...+\frac{t^{n}X^{n}}{n!}+...+...
+\end{equation}
+$$
+
+Hence,
+
+$$
+\begin{equation}
+M_{X}(t)= \mathbb{E}[\text{exp}(tX)] = 1 + t\mathbb{E}[X] + \frac{t^{2}\mathbb{E}[X^{2}]}{2!}+\frac{t^{3}\mathbb{E}[X^{3}]}{3!}+...+\frac{t^{n}\mathbb{E}[X^{n}]}{n!}+...+...
+\end{equation}
+$$
+
 The mgf is defined for all $t$. To apply the Chernoff bound we then need to compute:
 
 $$
 \begin{equation}
-\inf_{t\geq 0} \text{exp}(-t(\mu+\epsilon))\text{exp}(t\mu+t^{2}\sigma^{2}/2)=\inf_{t\geq 0}\text{exp}(-t\delta + t^{2}\sigma^{2}/2)
+\inf_{t\geq 0} \text{exp}(-t(\mu+\epsilon))\text{exp}(t\mu+t^{2}\sigma^{2}/2)=\inf_{t\geq 0}\text{exp}(-t\epsilon + t^{2}\sigma^{2}/2)
 \end{equation}
 $$
 
@@ -137,7 +153,7 @@ which is minimized when $t=\mu/\sigma^{2}$ which in turn yields the tail bound,
 
 $$
 \begin{equation}
-\mathbb{P}(X-\mu>\delta)\leq \text{exp}(\delta/(2\sigma^{2}))
+\mathbb{P}(X-\mu>\epsilon)\leq \text{exp}(\epsilon/(2\sigma^{2}))
 \end{equation}
 $$
 
@@ -153,15 +169,15 @@ $$
 
 $$
 \begin{equation}
-\wildtild{\mu}=\frac{1}{n}\sum_{i=1}^{n} X_{i}
+\tilde{\mu}=\frac{1}{n}\sum_{i=1}^{n} X_{i}
 \end{equation}
 $$
 
-Using the fact that the average of Gaussian random variables is still Guassian that $\wildtild{\mu}\sim N(\mu, \sigma^{2}/n)$. In this case, we can obtain that:
+Using the fact that the average of Gaussian random variables is still Guassian that $\tilde{\mu}\sim N(\mu, \sigma^{2}/n)$. In this case, we can obtain that:
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert \wildtild{\mu}-\mu \arrowvert \geq k\sigma/\sqrt{n})\leq 2\text{exp}(-k^{2})
+\mathbb{P}(\vert \tilde{\mu}-\mu \vert \geq k\sigma/\sqrt{n})\leq 2\text{exp}(-k^{2})
 \end{equation}
 $$
 
@@ -174,44 +190,45 @@ More generally, Chebyshev tells us that with probability at least $1-\delta$:
 
 $$
 \begin{equation}
-\arrowvert \wildtild{\mu}-\mu\arrowvert \leq \frac{\sigma}{\sqrt{n\delta}}
+\vert \tilde{\mu}-\mu\vert \leq \frac{\sigma}{\sqrt{n\delta}}
 \end{equation}
 $$
 
 while the exponential tail bound tells us that:
 
 $$
-\arrowvert \wildtild{\mu}-\mu \arrowvert \leq \sigma\sqrt{\frac{\text{ln}(2/\sigma)}{n}}
+\vert \tilde{\mu}-\mu \vert \leq \sigma\sqrt{\frac{\text{ln}(2/\sigma)}{n}}
 $$
 
 The first term goes up polynomially as $\delta \rightarrow 0$, while the second term refined bound goes up only logarithmically.
 
-#### 2.3.2
+#### 2.3.2 sub-Gaussian
 
 Fomally, a random variable $X$ with mean $\mu$ is `sub-Gaussian` if there exists a positive number $\sigma$ such that
 
 $$
 \begin{equation}
-\mathbb{E}[\text{exp(t(X-\mu))}]\leq \text{exp}(\sigma^{2}t^{2}/2)
+\mathbb{E}[\text{exp}(t(X-\mu))]\leq \text{exp}(\sigma^{2}t^{2}/2)
 \end{equation}
 $$
 
-for all $t\in \mathbb{R}$. Gaussian random variables with variance $\sigma^{2}$ satisfy the above condition with equality, so a $\sigma$-sub-Gaussian random variable basically just has an mgf that is dominated by a Gaussian with variance $\sgima$. Roughly, `sub-Gaussian` random variables whose tails decay faster thatn Gaussian.
+for all $t\in \mathbb{R}$. Gaussian random variables with variance $\sigma^{2}$ satisfy the above condition with equality, so a $\sigma$-sub-Gaussian random variable basically just has an mgf that is dominated by a Gaussian with variance $\sigma$. Roughly, `sub-Gaussian` random variables whose tails decay faster thatn Gaussian.
 
 It is straightforward to go through the above Chernoff bound to conclude that for a sub-Gaussian random variable we have the same two-side exponential tail bound:
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert X-\mu \arrowvert >\epsilon) \leq 2\text{exp}(-\epsilon^{2}/(2\sigma^{2}))
+\mathbb{P}(\vert X-\mu \vert >\epsilon) \leq 2\text{exp}(-\epsilon^{2}/(2\sigma^{2}))
 \end{equation}
+$$
 
 Suppose we have n i.i.d random variable $\sigma$ sub-Gaussian random variables $X_{1},...,X_{n}$, then by independent we obtain that:
 
 $$
 \begin{align}
-\mathbb{E}[\text{exp}(t(\wildtild{\mu}-\mu))] &= \mathbb{E}[\text{exp}(t/n\sum_{i=1}^{n}(X_{i}-\mu))] \\
+\mathbb{E}[\text{exp}(t(\tilde{\mu}-\mu))] &= \mathbb{E}[\text{exp}(t/n\sum_{i=1}^{n}(X_{i}-\mu))] \\
 &= \prod_{i=1}^{n}\mathbb{E}[\text{exp}(t(X_{i}-\mu)/n)] \\
-&\leq \text{exp}(t^{2}\sgima^{2}/(2n))
+&\leq \text{exp}(t^{2}\sigma^{2}/(2n))
 \end{align}
 $$
 
@@ -219,11 +236,11 @@ Alternatively, the average of $n$ independent $\sigma-$sub Gaussian random varia
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert \wildtild{\mu}-\mu \arrowvert \geq k\sigma/\sqrt{n})\leq 2\text{exp}(-k^{2})
+\mathbb{P}(\vert \tilde{\mu}-\mu \arrowvert \geq k\sigma/\sqrt{n})\leq 2\text{exp}(-k^{2})
 \end{equation}
 $$
 
-##### 2.3.3 HOeffding's Inequality
+##### 2.3.3 Hoeffding's Inequality
 
 **Lemma:** Suppose that $a\leq X \leq b$. Then
 
@@ -251,7 +268,7 @@ $$
 \end{equation}
 $$
 
-where $\mu=t(b-a), g(\mu)=-\gamma\mu+\text{log}(1-\gamma+\gamma\text{exp}(\mu))$ and $\gamma=-a/(b-a)$. Note that $g(0)=g^{`}(0)=0$. Also, $g^{``}\leq 1/4$ for all $\mu>0$. By Taylor's theorem, there is a $\xi\in (0,\mu)$ such that 
+where $\mu=t(b-a), g(\mu)=-\gamma\mu+\text{log}(1-\gamma+\gamma\text{exp}(\mu))$ and $\gamma=-a/(b-a)$. Note that $g(0)=g^{\cdot}(0)=0$. Also, $g^{\cdot}\leq 1/4$ for all $\mu>0$. By Taylor's theorem, there is a $\xi\in (0,\mu)$ such that 
 
 $$
 \begin{equation}
@@ -275,7 +292,7 @@ $$
 
 $$
 \begin{equation}
-\mathbb{P}(X>\epsilon) = \mathbb{P}(\text{exp}(X)>\text{\epsilon})=\mathbb{P}(\text{exp}(tX)>\text{t\epsilon})\leq\text{exp}(-t\epsilon)\mathbb{E}[\text{exp}(tX)]
+\mathbb{P}(X>\epsilon) = \mathbb{P}(\text{exp}(X)>\epsilon)=\mathbb{P}(\text{exp}(tX)>\t\epsilon)\leq\text{exp}(-t\epsilon)\mathbb{E}[\text{exp}(tX)]
 \end{equation}
 $$
 
@@ -283,13 +300,13 @@ $$
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert \wildtild{Y}_{n}-\mu\arrowvert \geq \epsilon)\leq 2\text{exp}(-2n\epsilon^{2}/(b-a))
+\mathbb{P}(\vert \tilde{Y}_{n}-\mu\vert \geq \epsilon)\leq 2\text{exp}(-2n\epsilon^{2}/(b-a))
 \end{equation}
 $$
 
 ##### 2.3.4 Generalization to sub-Gaussian distribution.
 
-Suppose $X_{1},...,X_{n}$ with variance $\sigma_{1},...,\sigma_{n}$ are sub-Gaussian. Then we using iid principle you can verify that their average $\wildtild{\mu}$ is $\sigma-$sub gaussian, where:
+Suppose $X_{1},...,X_{n}$ with variance $\sigma_{1},...,\sigma_{n}$ are sub-Gaussian. Then we using iid principle you can verify that their average $\tilde{\mu}$ is $\sigma-$sub gaussian, where:
 
 $$
 \begin{equation}
@@ -301,7 +318,7 @@ Then we have exponential tail inequality,
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert \frac{1}{n}\sum_{i=1}^{n}(X_{i}-\mathbb{E}[X_{i}])\arrowvert\geqt)\leq \text{exp}(-t^{2}/(2\sigma)^{2})
+\mathbb{P}(\arrowvert \frac{1}{n}\sum_{i=1}^{n}(X_{i}-\mathbb{E}[X_{i}])\arrowvert\geq)\leq \text{exp}(-t^{2}/(2\sigma)^{2})
 \end{equation}
 $$
 
