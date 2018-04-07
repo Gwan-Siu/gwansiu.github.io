@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Note(4)--Convergence 
+title: Note(3)--Convergence 
 date: 2018-02-08
 author: Gwan Siu
 catalog: True
 tags:
-    - Statisctics and Bayesian Analysis
+    - Statistics and Bayesian Analysis
 ---
 
 > In this blog, the convergence of random variable is discussed. At a high level, the last several lectures focus on non-asymptotic properties of averge of i.i.d random variabls. For symptotic property, we just want to ask the question: what happens to the average of $n$ i.i.d random variables as $n\rightarrow \infty$.
