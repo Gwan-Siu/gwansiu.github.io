@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Note(6)--Extension of CLT
+title: Note(5)--Extension of CLT
 date: 2018-02-09
 author: Gwan Siu
 catalog: True

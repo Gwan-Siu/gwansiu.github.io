@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Note(5)--Convergence
+title: Note(4)--Convergence
 date: 2018-02-09
 author: Gwan Siu
 catalog: True

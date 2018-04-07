@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Note(7)--Uniform Laws or Uniform Tail Bounds
+title: Note(6)--Uniform Laws or Uniform Tail Bounds
 date: 2018-02-10
 author: Gwan Siu
 catalog: True
@@ -90,7 +90,7 @@ To generalize the CDF question to more generally about other interesting collect
 
 $$
 \begin{equation}
-\bigtriangleup(\mathcal{A})=\sup_{A\mathcal{A}}\arrowvert \mathbb{P}_{n}(A)-\mathbb{P}(A)\arrowvert
+\bigtriangleup(\mathcal{A})=\sup_{A\in\mathcal{A}}\arrowvert \mathbb{P}_{n}(A)-\mathbb{P}(A)\arrowvert
 \end{equation}
 $$
 
@@ -146,7 +146,7 @@ $$
 
 $$
 \begin{equation}
-Q_{\alpha}(F)=\inf{t\in\mathbb{R}\arrowvert F(t)\geq \alpha}
+Q_{\alpha}(F)=\inf{\{t\in\mathbb{R}\arrowvert F(t)\geq \alpha}\}
 \end{equation}
 $$
 
