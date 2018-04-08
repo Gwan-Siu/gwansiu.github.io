@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Note(3)--Convergence 01 
-date: 2018-04-08
+date: 2018-03-10
 author: Gwan Siu
 catalog: True
 tags:
