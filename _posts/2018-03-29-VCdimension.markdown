@@ -8,7 +8,7 @@ tags:
     - Statistics and Bayesian Analysis
 ---
 
-## 1. Uniform Convergence and Empirical Risk Minimization
+### 1. Uniform Convergence and Empirical Risk Minimization
 
 Empirical risk minimization is core topic in machine learning. Let's take a binary classification as example.
 
@@ -89,7 +89,7 @@ $$
 
 where $x_{1},...,X_{n}$ are an i.i.d sample from some distribution $P$.
 
-## 2. Finite collections and Hopythesis Set Complexity
+### 2. Finite collections and Hopythesis Set Complexity
 
 How do we estimate $\Delta(\mathcal{A})$. We turn our view back to the collections of set $\mathcal{A}$ has finite cardinality $\vert \mathcal{A}\vert$. In this case, for a fixed $A$ we have by the Hoeffding's inequality:
 
@@ -127,11 +127,11 @@ $$
 
 To obtain unifrom convergence over $\mathcal{A}$ we pay a price which is logarithmic in the size of the collection.
 
-## 3. VC dimension
+### 3. VC dimension
 
 VC dimension measure the complexity of $\vert \mathcal{A}\vert$, which is highly related to uniform convergence.
 
-### 3.1 Shattering
+#### 3.1 Shattering
 Let's ${z_{1},...,z_{n}}$ be a finite set of $n$ points. We let $N_{A}(z_{1},...,z_{n})$ be the number of distinct sets in the collection of sets
 
 $$
@@ -152,7 +152,7 @@ $$
 
 The shatter coefficient is the maximal number of different subsets of $n$ points that can be picked out by the collection $\mathcal{A}$
 
-### 3.2 VC Theory and Glivenko-Cantelli Therory
+#### 3.2 VC Theory and Glivenko-Cantelli Therory
 
 **VC Theorem:** For any distribution $\mathcal{P}, and class of sets $\mathcal{A}$ we have that:
 
@@ -179,7 +179,7 @@ Now verifying convergence in probability is straightforwward, for any $t> 0, \li
 
 **VC dimension:** VC dimension define the complexity of a set system $\mathcal{A}$, the VC dimension $d$ is the largest integer $d$ for which $s(\mathcal{A}, d)=2^{d}$. Once we have for any $n>d$, we have that $s(\mathcal{A}, n)<2^{n}$. There is a phase transition of shattering coefficients: once it is no longer exponential the shattering coefficients become polynomial in $n$. That n is the VC dimension of a set system $\mathcal{A}$.
 
-### 3.3 Sauer's Lemma
+#### 3.3 Sauer's Lemma
 
 If $\mathcal{A}$ has finite VC dimension $d$, then for $n>d$ we have that,
 
@@ -217,7 +217,7 @@ $$
 \end{equation}
 $$
 
-### 3.4 VC Theory, Empirical Risk Minimization and Uniform Convergence
+#### 3.4 VC Theory, Empirical Risk Minimization and Uniform Convergence
 
 If $\mathcal{A}$ has VC dimension $d$ then we can use the VC theorem in a straightforwward way to conclude that with probability $1-\delta$:
 
