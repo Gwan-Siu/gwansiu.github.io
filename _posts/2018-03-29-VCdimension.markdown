@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Note(7)--Uniform Laws or Uniform Tail Boundsad
-date: 2018-04-08
+date: 2018-04-06
 author: Gwan Siu
 catalog: True
 tags:
