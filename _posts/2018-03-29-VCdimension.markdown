@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Note(7)--Uniform Laws, Empirical Process Theory and VC dimension
+title: Note(7)--Uniform Laws or Uniform Tail Boundsad
 date: 2018-04-08
 author: Gwan Siu
 catalog: True
