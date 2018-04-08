@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Note(7)--Uniform Laws or Uniform Tail Boundsad
+title: Note(7)--Uniform Laws, Empirical Risk Minimization and VC Dimension
 date: 2018-04-06
 author: Gwan Siu
 catalog: True
