@@ -36,7 +36,7 @@ The indicator are bounded random random variables so we could just use Hoffding'
 
 $$
 \begin{equation}
-\mathbb{P}(\arrowvert \widetilde{F}_{n}(x)-F(x)\arrowvert\geq \epsilon)\leq 2\text{exp}(-2n\epsilon^{2})
+\mathbb{P}(\arrowvert \widetilde{F}_{n}(x)-F(x)\arrowvert\geq \epsilon)\leq 2\,\text{exp}(-2n\epsilon^{2})
 \end{equation}
 $$
 
