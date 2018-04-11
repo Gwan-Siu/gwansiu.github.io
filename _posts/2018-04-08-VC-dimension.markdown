@@ -132,7 +132,7 @@ To obtain unifrom convergence over $\mathcal{A}$ we pay a price which is logarit
 VC dimension measure the complexity of $\vert \mathcal{A}\vert$, which is highly related to uniform convergence.
 
 ### 3.1 Shattering
-Let's ${z_{1},...,z_{n}}$ be a finite set of $n$ points. We let $N_{A}(z_{1},...,z_{n})$ be the number of distinct sets in the collection of sets
+Let's $\{z_{1},...,z_{n}\}$ be a finite set of $n$ points. We let $N_{A}(z_{1},...,z_{n})$ be the number of distinct sets in the collection of sets
 
 $$
 \begin{equation}
