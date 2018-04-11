@@ -1,9 +1,9 @@
 ---
-layout: post
-title: Note(7)--Uniform Laws, empirical process theory and VC dimension
-date: 2018-04-08
-author: Gwan Siu
-catalog: True
+layout:     post
+title:      "Note(7)--Uniform Laws, empirical process theory and VC dimension"
+date:       2018-04-08 12:00:00
+author:     "GwanSiu"
+catalog: true
 tags:
     - Statistics and Bayesian Analysis
 ---
