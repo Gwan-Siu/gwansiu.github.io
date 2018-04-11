@@ -135,9 +135,7 @@ VC dimension measure the complexity of $\vert \mathcal{A}\vert$, which is highly
 Let's $\{z_{1},...,z_{n}\}$ be a finite set of $n$ points. We let $N_{A}(z_{1},...,z_{n})$ be the number of distinct sets in the collection of sets
 
 $$
-\begin{equation}
-{{z_{1},...,z_{n}}\cap A: A\in \mathcal{A}}
-\end{equation}
+\{\{z_{1},...,z_{n}\}\cap A: A\in \mathcal{A}\}
 $$
 
 $N_{A}(z_{1},...,z_{n})$ is counting the *number of subsets of* ${z_{1},...,z_{n}}$ that the collection of sets $\mathcal{A}$ picks out. Note that, $N_{A}(z_{1},...,z_{n})\leq 2^{2}$(each one have chance to be selected.)
