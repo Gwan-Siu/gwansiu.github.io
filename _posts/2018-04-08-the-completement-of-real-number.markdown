@@ -18,7 +18,7 @@ tags:
 1. ${a_{n}}$ 单调递增，则:$a_{n}\leq a_{n+1}\forall n.$
 2. ${a_{n}}$上方有界，即:$\exists k$ 使得$a_{n}\leq k\forall n$.
 
-则$\lim_{n\right\infty}\in \mathbb{R}$, or $\exists l\in \mathbb{R}$,使得$\lim_{n\rightarrow}l$.
+则$\dispalystyle\lim_{n\rightarrow\infty}\in \mathbb{R}$, or $\exists l\in \mathbb{R}$,使得$\lim_{n\rightarrow}l$.
 
 ### 1.2 完备性(2).
 设$S\subseteq \mathbb{R}$, 且存在$k\in\mathbb{R}$使得$x\leq k\forall x\in S$, 则$\exists x_{o}\in R$使:
@@ -36,6 +36,7 @@ $$
 b-a=\lim_{n\rightarrow\infty}b_{n}-\lim_{n\rightarrow\infty}a_{n}=b_{n}-a_{n}=0
 \end{equation*}
 $$
+
 令$x_{0}=b-a$,则$\cap_{n=1}^{\infty}I_{n}={x_{o}}$.
 
 ## 3. Bolzano-Weierstrass 定理: 任意有界数列必定包含收敛子序列
