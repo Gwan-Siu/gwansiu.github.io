@@ -29,7 +29,7 @@ tags:
 ## 2. 区间套定理
 设$I_{n}=[a_{n}, b_{n}]$, $I_{1}\supset I_{2}\supset I_{3}\supset ...$且$\vert I_{n}\vert =b_{n}-a_{n}\rightarrow 0$当$n\rightarrow 0$, 则存在唯一一个点$x_{0}\in R$使得$\cap_{n=1}^{\infty}I_{n}={x_{0}}$.
 
-\textbf{证明:}因$I_{1}\supset I_{2}\supset I_{3}\supset ...$，则${a_{n}}$为递增数列，${b_{n}}$为递减数列，且$a_{n}\leq b_{1}$,$b_{n}\geq a_{1}\forall n$，依照实数的完备性，$\exists a\in\mathbb{R},\lim_{n\rightarrow\infty}a_{n}=a,\exists b\in\mathbb{R}, \lim_{n\rightarrow\infty}b_{n}=b$.
+**证明:** 因$I_{1}\supset I_{2}\supset I_{3}\supset ...$，则${a_{n}}$为递增数列，${b_{n}}$为递减数列，且$a_{n}\leq b_{1}$,$b_{n}\geq a_{1}\forall n$，依照实数的完备性，$\exists a\in\mathbb{R},\lim_{n\rightarrow\infty}a_{n}=a,\exists b\in\mathbb{R}, \lim_{n\rightarrow\infty}b_{n}=b$.
 
 $$
 \begin{equation*}
