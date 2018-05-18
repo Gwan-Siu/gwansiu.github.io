@@ -4,6 +4,7 @@ title:      "Analysis: Interger and Rational Number"
 date:       2018-04-08 12:00:00
 author:     "GwanSiu"
 catalog: true
+password: 123456
 tags:
     - Analysis
 ---
