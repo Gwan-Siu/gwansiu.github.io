@@ -84,11 +84,11 @@ Givening a set of training examples D, the MLE for $\theta_{ijk}$ are given by:
 
 $$
 \begin{equation}
-\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\#D{X_{i}=x_{ij}\wedge Y=y_{k}}}{#D{Y=y_{k}}}
+\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\text{#}D{X_{i}=x_{ij}\wedge Y=y_{k}}}{\text{#}D{Y=y_{k}}}
 \end{equation}
 $$
 
-where the $\#D{x}$ operator returns the number of elements in the set $D$ that satisfy property $x$.
+where the $\text{#}D{x}$ operator returns the number of elements in the set $D$ that satisfy property $x$.
 
 One danger of this maximum likelihood estimate is that it can sometimes result
 in θ estimates of zero, if the data does not happen to contain any training
@@ -118,7 +118,7 @@ Alternatively, we can obtain a smoothed estimate, or equivalently a MAP estimate
 
 $$
 \begin{equation}
-\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{#D{Y=y_{k}}+l}{\arrowvert D\arrowvert +lK}
+\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{\text{#}D{Y=y_{k}}+l}{\arrowvert D\arrowvert +lK}
 \end{equation}
 $$
 
@@ -130,8 +130,8 @@ In the case of continuous inputs $X$, we use Gaussian distribution to represent 
 
 $$
 \begin{align}
-\mu_{ik} &=\mathcal{E}\[X_{i}\arrowvert Y=y_{k}\] \\
-\sigma_{ik}^{2} &= \mathcal{E}\[(X_{i}-\mu_{ik})^{2}\arrowvert Y=y_{k}\]
+\mu_{ik} &=\mathbb{E}[X_{i}\arrowvert Y=y_{k}] \\
+\sigma_{ik}^{2} &= \mathbb{E}[(X_{i}-\mu_{ik})^{2}\arrowvert Y=y_{k}]
 \end{align}
 $$
 
