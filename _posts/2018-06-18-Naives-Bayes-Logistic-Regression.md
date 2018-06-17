@@ -96,7 +96,7 @@ examples satisfying the condition in the numerator. To avoid this, it is common 
 
 $$
 \begin{equation}
-\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{#D{X_{i}=x_{ij}\wedge Y=y_{k}}+l}{#D{Y=y_{k}}+lJ}
+\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\text{#}D{X_{i}=x_{ij}\wedge Y=y_{k}}+l}{\text{#}D{Y=y_{k}}+lJ}
 \end{equation}
 $$
 
@@ -108,7 +108,7 @@ Maximum likelihood for $\pi_{k}$ are:
 
 $$
 \begin{equation}
-\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{#D{Y=y_{k}}}{\arrowvert D\arrowvert}
+\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{\text{#}D{Y=y_{k}}}{\arrowvert D\arrowvert}
 \end{equation}
 $$
 
