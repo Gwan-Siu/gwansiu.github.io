@@ -84,11 +84,11 @@ Givening a set of training examples D, the MLE for $\theta_{ijk}$ are given by:
 
 $$
 \begin{equation}
-\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{#D{X_{i}=x_{ij}\wedge Y=y_{k}}}{#D{Y=y_{k}}}
+\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\#D{X_{i}=x_{ij}\wedge Y=y_{k}}}{#D{Y=y_{k}}}
 \end{equation}
 $$
 
-where the $#D{x}$ operator returns the number of elements in the set $D$ that satisfy property $x$.
+where the $\#D{x}$ operator returns the number of elements in the set $D$ that satisfy property $x$.
 
 One danger of this maximum likelihood estimate is that it can sometimes result
 in θ estimates of zero, if the data does not happen to contain any training
