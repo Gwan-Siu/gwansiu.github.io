@@ -20,9 +20,8 @@ $$
 \end{equation}
 $$
 
-Now, let we see more detail about naives bayes. 
+Now, let we see more detail about naives bayes classifier. 
 
-### 1.1 Naive Bayes for Discrete-Valued Inputs
 In general, we assume that Y is any discrete-valued variable, and attributes $X_{1},...,X_{n}$ are any discrete or realvalued attributes. Our goal is to train a classifier that will output the probability
 distribution over possible values of Y, for each new instance X that we ask it to classify. 
 
@@ -30,21 +29,35 @@ The expression for the probability that Y will take on its kth possible
 value, according to Bayes rule, is：
 
 $$
-\begin{equation*}
+\begin{equation}
 P(Y=y_{k}\arrowvert X_{1},...,X_{n})=\frac{P(X_{1},...,X_{n}\arrowvert Y=y_{k})}{\sum_{j}P(Y=y_{j})P(X_{1},...,X_{n}\arrowvert Y=y_{j})}
-\end{equation*}
+\end{equation}
 $$
 
 where the sum is taken over all possible values y j of Y. Now, we hold the assumption of conditional independence. The formulation can be rewrite as:
 
 $$
-\begin{equation*}
-P(Y=y_{k}\arrowvert X_{1},...,X_{n})=\frac{\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})}{\sum_{j}P(Y=y_{j})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{j})}
-\end{equation*}
+\begin{equation}
+P(Y=y_{k}\arrowvert X_{1},...,X_{n})=\frac{\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})P(Y=y_{k})}{\sum_{j}P(Y=y_{j})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{j})}
+\end{equation}
 $$
 
+Equation(3) is the fundamental formulation of naive bayes algorithm for naives bayes algorithm.  Given a
+new instance $X_{new} = X_{1},...,X_{n}$, this equation shows how to calculate the probability that $Y$ will take on any given value, given the observed attribute values of $X$ new and given the distributions $P(Y)$ and $P(X_{i}\arrowvert Y)$ estimated from the training data. If we are interested only in the most probable value of Y, then we have the Naive Bayes classification rule(MAP):
 
+$$\begin{equation}
+Y\leftarrow \arg\max_{y_{k}} \frac{\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})}{\sum_{j}P(Y=y_{j})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{j})}
+\end{equation}
+$$
 
+usually, we consider denominator as constant, and equation above can be simplified as:
+
+$$\begin{equation}
+Y\leftarrow \arg\max_{y_{k}} P(Y=y_{k})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})
+\end{equation}
+$$
+
+### 1.1 Naive Bayes for Discrete-Valued Inputs
 ### 1.2 Naive Bayes for Continuous-Valued Inputs
 ### 1.3 Regularization
 #### 1.3.1 Added- 1 Smooth
