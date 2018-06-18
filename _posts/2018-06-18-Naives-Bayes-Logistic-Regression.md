@@ -210,6 +210,102 @@ $$
 \end{equation}
 $$
 
+substituting from equation(17) and equation(18), we can get:
+
+$$
+\begin{equation}
+1<exp(\omega_{0}+\sum_{i=1}^{n}\omega_{i}X_{i})
+\end{equation}
+$$
+
+and taking the natural log of both sides we have a linear classification rule that assigns label $Y = 0$ if $X$ satisfies:
+
+$$
+\begin{equation}
+1 < \omega_{0}+\sum_{i=1}^{n}\omega_{i}X_{i}
+\end{equation}
+$$
+
+and assigns Y = 1 otherwise.
+
+Interestingly, the parametric form of $P(Y\arrowvert X)$ used by Logistic Regression is precisely the form implied by the assumptions of a Gaussian Naive Bayes classifier. Therefore, we can view Logistic Regression as a closely related alternative to GNB, though the two can produce different results in many cases.
+
+#### 2.2.2 Gaussian Naive Bayes
+Here we can derive the form of $P(Y\arrowvert X)$ entailed by the assumptions of a Gaussian Naive Bayes (GNB) classifier, showing that it is precisely the form used by Logistic Regression.  In particular, consider a GNB based on the following modeling assumptions:
+
+1. $Y$ is boolean, governed by a Bernoulli distribution, with parameter $\pi=P(Y = 1)$.
+2. $X = (X_{1},...,X_{n})$, where each $X_{i}$ is a continuous random variable.
+3. For each $X_{i}$, $P(X_{i}\arrowvert Y = y_{k})$ is a Gaussian distribution of the form $N(\mu_{ik},\sigma_{i})$.
+4. For all $i$ and $j\neq i$, $X_{i}$ and $X_{j}$ are conditionally independent given $Y$.
+
+**Note here we are assuming the standard deviations σi vary from attribute to attribute, but do not depend on** $Y$.
+
+In general, Bayes rules allow us to write:
+
+$$
+\begin{equation}
+P(Y=1\arrowvert X)=\frac{P(Y=1)P(X\arrowvert Y=1)}{P(Y=1)P(X\arrowvert Y=1)+P(Y=0)P(X\arrowvert Y=0)}
+\end{equation}
+$$
+
+Dividing both the numerator and denominator by the numerator yields:
+
+$$
+\begin{equation}
+P(Y=1\arrowvert X) = \frac{1}{1+\frac{P(Y=0)P(X\arrowvert Y=0)}{P(Y=1)P(X\arrowvert Y=1}}
+\end{equation}
+$$
+
+or equivalently,
+
+$$
+\begin{equation}
+P(Y=1\arrowvert X) = \frac{1}{1+exp(\ln\frac{P(Y=0)P(X\arrowvert Y=0)}{P(Y=1)P(X\arrowvert Y=1}})
+\end{equation}
+$$
+
+Due to our conditional independence assumption we can write this:
+
+$$
+\begin{align}
+P(Y=1\arrowvert X) &= \frac{1}{1+exp(\ln\frac{P(Y=0)}{P(Y=1)}+\sum_{i}\ln\frac{P(X_{i}\arrowvert Y=0)}{P(X_{i}\arrowvert Y=1)})} \\
+&= \frac{1}{1+exp(\ln\frac{1-\pi}{\pi}+\sum_{i}\ln\frac{P(X_{i}\arrowvert Y=0)}{P(X_{i}\arrowvert Y=1)})}
+\end{align}
+$$
+
+Note the final step express $P(Y=0)$ and $P(Y=1)$ in terms of the binomial parameter $\pi$.
+
+Now consider just the summation in the denominator. Given our assumption that $P(X_{i}\arrowvert Y=y_{k})$ is Gaussian, we can expand this term as follows:
+
+$$
+\begin{align}
+\sum_{i}\ln\frac{P(X_{i}\arrowvert Y=0)}{P(X_{i}\arrowvert Y=1)} &= \sum_{i}\ln\frac{\frac{1}{\sqrt{2\pi\sigma_{i}^{2}}}exp(\frac{-(X_{i}-\mu_{i0})^{2}}{2\sigma_{i}^{2}})}{\frac{1}{\sqrt{2\pi\sigma_{i}^{2}}}exp(\frac{-(X_{i}-\mu_{i1})^{2}}{2\sigma_{i}^{2}})} \\
+&=\sum_{i}\ln exp(\frac{(X_{i}-\mu_{i1})^{2}-(X_{i}-\mu_{i0})^{2}}{2\sigma_{i}^{2}}) \\
+&=\sum_{i}(\frac{(X_{i}-\mu_{i1})^{2}-(X_{i}-\mu_{i0})^{2}}{2\sigma_{i}^{2}}) \\
+&=\sum_{i}(\frac{(X_{i}^{2}-2X_{i}\mu_{i1}+\mu_{i1}^{2})-(X_{i}-2X_{i}\mu_{i0}+\mu_{i0}^{2}}{2\sigma_{i}^{2}}) \\
+&=\sum_{i}(\frac{2X_{i}(\mu_{i0}-\mu_{i1})+\mu_{i1}^{2}-\mu_{i0}^{2}}{2\sigma_{i}^{2}}) \\
+&=\sum_{i}(\frac{\mu_{i0}-\mu_{i1}}{\sigma_{i}^{2}}X_{i}+\frac{\mu_{i1}^{2}-\mu_{i0}^{2}}{2\sigma_{i}^{2}})
+\end{align}
+$$
+
+we can write the form, which is the same as the form of Logistic Regression:
+
+$$
+\begin{equation}
+P(Y=1\arrowvert X) = \frac{1}{1+exp(\ln\frac{1-\pi}{\pi}+\sum_{i}(\frac{\mu_{i0}-\mu_{i1}}{\sigma_{i}^{2}}X_{i}+\frac{\mu_{i1}^{2}-\mu_{i0}^{2}}{2\sigma_{i}^{2}}))}
+\end{equation}
+$$
+
+where $\omega_{0}=\ln\frac{1-\pi}{\pi}+\sum_{i}\frac{\mu_{i1}^{2}-\mu_{i0}^{2}}{2\sigma_{i}^{2}}$ and $\omega_{i}=\frac{\mu_{i0}-\mu_{i1}}{\sigma_{i}^{2}}$ for i=1,...,n.
+
+Hnece, we have:
+
+$$
+\begin{equation}
+P(Y=0\arrowvert X) = \frac{exp(\ln\frac{1-\pi}{\pi}+\sum_{i}(\frac{\mu_{i0}-\mu_{i1}}{\sigma_{i}^{2}}X_{i}+\frac{\mu_{i1}^{2}-\mu_{i0}^{2}}{2\sigma_{i}^{2}}))}{1+exp(\ln\frac{1-\pi}{\pi}+\sum_{i}(\frac{\mu_{i0}-\mu_{i1}}{\sigma_{i}^{2}}X_{i}+\frac{\mu_{i1}^{2}-\mu_{i0}^{2}}{2\sigma_{i}^{2}}))}
+\end{equation}
+$$
+
 ### 2.3 Learning Process
 #### 2.3.1 Two Classes
 #### 2.3.2 Multi Classes
