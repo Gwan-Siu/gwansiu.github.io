@@ -190,6 +190,26 @@ $$
 ## 2. Logistic Regression and Naive Gaussian Bayes
 ### 2.1 Discriminative Model and Generative Model
 ### 2.2 Logistic Regression and Gaussian Naive Bayes
+#### 2.2.1 Logistic Regression
+Logistic regression is discriminative algorithm, which learns functions of the form $f:X\rightarrow Y$, or $P(Y\arrowvert X)$ in the case where $Y$ is discrete-valued, and $X=(X_{1},...,X_{n})$ is any vector containing dicrete or continuous variables.
+
+Logistic Regression assumes a parametric form for the distribution $P(Y\arrowvert X)$, then directly estimates its parameters from the training data. The parametric model assumed by Logistic Regression in the case where $Y$ is boolean is:
+
+$$
+\begin{align}
+P(Y=1\arrowvert X) &=\frac{1}{1+exp(\omega_{0}+\sum_{i=1}^{n}\omega_{i}X_{i})} \\
+P(Y=0\arrowvert X) &=\frac{exp(\omega_{0}+\sum_{i=1}^{n}\omega_{i}X_{i})}{1+exp(\omega_{0}+\sum_{i=1}^{n}\omega_{i}X_{i})} 
+\end{align}
+$$
+
+One highly convenient property of this form for $P(Y\arrowvert X)$ is that it leads to a simple linear expression for classification. To classify any given $X$ we generally want to assign the value yk that maximizes $P(Y = y_{k}\arrowvert X)$. Put another way, we assign the label $Y = 0$ if the following condition holds:
+
+$$
+\begin{equation}
+1<\frac{P(Y=0\arrowvert X)}{P(Y=1\arrowvert X)}
+\end{equation}
+$$
+
 ### 2.3 Learning Process
 #### 2.3.1 Two Classes
 #### 2.3.2 Multi Classes
