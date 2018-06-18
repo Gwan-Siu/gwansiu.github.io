@@ -97,7 +97,7 @@ $$
 \end{align}
 $$
 
-#### 1.1.2 Multinomial Naive Bayes
+#### 1.1.2 Model 2: Multinomial Naive Bayes
 
 **Support:** Option 1: integer vector(word Ids),$x=[x_{1},...,x_{M}],\text{where } x_{m}\in{1,...,K}$ a word id.
 
@@ -116,7 +116,7 @@ p_{\phi,\theta} &= p_{\phi}(y)\prod_{k=1}^{K}p_{\theta_{k}}(x_{k}\arrowvert y) \
 \end{align}
 $$
 
-#### 1.1.3 Gaussian Naive Bayes
+#### 1.1.3 Model 3: Gaussian Naive Bayes
 
 **Support:** $X\in \mathbb{R}^{K}$
 
@@ -151,7 +151,7 @@ p(x_{n},y_{n}^{k}=1\arrowvert \mu,\sigma) &= p(y_{n}^{k}=1)\times \prod_{j}p(x_{
 $$
 
 - More generally:
- - where $p(\dot\arrowvert\dot)$ is an arbitrary conditional(discrete or continuous) 1-D density:
+ - where $p(\bullet \arrowvert \bullet)$ is an arbitrary conditional(discrete or continuous) 1-D density:
  
  $$
  \begin{equation}
@@ -159,9 +159,24 @@ $$
  \end{equation}
  $$
 
+#### 1.1.4 Model 4: Multiclass Naive Bayes
 
+**Model:** The only change is that we permit $y$ to range over $C$ classes.
 
-### 1.1 Naive Bayes for Discrete-Valued Inputs
+$$
+\begin{align}
+p(x,y) &= p(x_{1},...,x_{k}, y) \\
+&= p(y)\prod_{k=1}^{K}p(x_{k}\arrowvert y)
+\end{align}
+$$
+
+Now, $y\sim \text{Multinomial}(\Phi,1)$ and we have a seperate conditional distribution $p(x_{k}\arrowvert y)$ for each of the $C$ classes.
+
+### 1.2 Regularization
+#### 1.2.1 Added- 1 Smooth
+#### 1.2.2 Added- $\lambda$ Smooth
+
+### 1.3 Naive Bayes for Discrete-Valued Inputs
 
 Assume the $n$ input attributes $X_{i}$ each take on $J$ possible discrete values, and $Y$ is a discrete variable taking on $K$ possible discrete values, then our learning task is to estimage two sets of parameters. The first is:
 
@@ -228,7 +243,8 @@ $$
 
 where $K$ is the number of distinct values $Y$ can take on, and $l$ again determines the strength of the prior assumptions relative to the observed data $D$.
 
-### 1.2 Naive Bayes for Continuous-Valued Inputs
+
+### 1.4 Naive Bayes for Continuous-Valued Inputs
 
 In the case of continuous inputs $X$, we use Gaussian distribution to represent $P(X_{i}\arrowvert Y)$. Specifically, for each possible discrete value $y_{k}$ of $Y$, the distribution of each continuous $X_{i}$ is Gassuain, and is defined by a mean and standard deviation specific to $X_{i}$ and $y_{k}$. In order to train such a Naive Bayes classifier we must therefore estimate the mean and standard deviation of each of these Gaussians:
 
@@ -283,13 +299,6 @@ $$
 \end{equation}
 $$
 
-### 1.3 Regularization
-#### 1.3.1 Added- 1 Smooth
-#### 1.3.2 Added- $\lambda$ Smooth
-### 1.4 Appendix of Naive Bayes
-#### 1.4.1 Bernoulli Naive Bayes
-#### 1.4.2 Multinomial Naive Bayes
-#### 1.4.3 Gaussian Naive Bayes
 
 ## 2. Logistic Regression and Naive Gaussian Bayes
 ### 2.1 Discriminative Model and Generative Model
