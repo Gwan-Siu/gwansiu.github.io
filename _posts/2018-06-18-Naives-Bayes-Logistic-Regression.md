@@ -56,7 +56,8 @@ Y\leftarrow \arg\max_{y_{k}} P(Y=y_{k})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})
 $$
 
 
-### 1.1 Model of Naive Bayes
+### 1.1 Models of Naive Bayes
+
 #### 1.1.1 Model 1: Bernoulli Naive Bayes
 
 **Support:** Binary vectors of length $K$: $x\in {0,1}^{K}$.
@@ -90,11 +91,74 @@ $P(Y)$ is independent with the class, and is used in all the data. For each $P(X
 $$
 \begin{align}
 \Phi &= \frac{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1)}{N} \\
-\theta_{k,0}=\frac{\sum_{i}^{N}\mathbb{I}(y^{(i)}=0\wedge x_{k}^{(i)}=1)}{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=0)} \\
-\theta_{k,1} = \frac{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1\wedge x^{(i)}_{k}=1)}{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1)}\\
+\theta_{k,0}&=\frac{\sum_{i}^{N}\mathbb{I}(y^{(i)}=0\wedge x_{k}^{(i)}=1)}{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=0)} \\
+\theta_{k,1} &= \frac{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1\wedge x^{(i)}_{k}=1)}{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1)}\\
 &\forall k\in {1,...,K}
 \end{align}
-$$ 
+$$
+
+#### 1.1.2 Multinomial Naive Bayes
+
+**Support:** Option 1: integer vector(word Ids),$x=[x_{1},...,x_{M}],\text{where } x_{m}\in{1,...,K}$ a word id.
+
+**Generative story:**
+
+For $i\in {1,...,N}$: $y^{(i)}\sim \text{Bernoulli}(\Phi)$.
+
+For $j\in {1,...,M_{i}}$: $x_{j}^{(i)}\sim \text{Multinomial}(\theta_{y^{(i)}},1)$
+
+**Model**:
+
+$$
+\begin{align}
+p_{\phi,\theta} &= p_{\phi}(y)\prod_{k=1}^{K}p_{\theta_{k}}(x_{k}\arrowvert y) \\
+&= (\phi)^{y}(1-\phi)^{(1-y)}\prod_{j=1}^{M_{i}}\theta_{y,x_{j}}
+\end{align}
+$$
+
+#### 1.1.3 Gaussian Naive Bayes
+
+**Support:** $X\in \mathbb{R}^{K}$
+
+**Model:** Product of **prior** and the event model:
+
+$$
+\begin{align}
+p(x,y) &= p(x_{1},...,x_{k},y)\\
+&= p(y)\prod_{k=1}^{K}p(x_{k}\arrowvert y)
+\end{align}
+$$
+
+Gaussian Naive Bayes assumes that $p(x_{k}\arrowvert y)$ is given by a Normal distribution.
+
+- When $X$ is multivariate-Gaussian vector:
+ - The joint probability of a data and it label is:
+ 
+ $$
+ \begin{align}
+ p(x_{n},y_{n}^{k}=1\arrowvert \tilde{\mu},\Sigma) &= p(y_{n}^{k}=1)\times p(x_{n}\arrowvert y_{n}^{k}=1, \tilde{\mu},\Sigma) \\
+ &= \pi_{k}\frac{1}{(2\pi\arrowvert \Sigma\arrowvert)^{1/2}}exp(-\frac{1}{2}(x_{n}-\tilde{\mu}_{k})^{T}\Sigma^{-1}(x_{n}-\tilde{\mu}_{k}))
+ \end{align}
+ $$
+
+- The **naive Bayes** simplification:
+
+$$
+\begin{align}
+p(x_{n},y_{n}^{k}=1\arrowvert \mu,\sigma) &= p(y_{n}^{k}=1)\times \prod_{j}p(x_{n}^{j}\arrowvert y_{n}^{k}=1, \mu_{k}^{j}, \sigma_{k}^{j}) \\
+&= \pi_{k}\prod_{j}\frac{1}{\sqrt{2\pi}\sigma_{k}^{j}}exp(-\frac{1}{2}(\frac{x_{n}^{j}-\mu_{k}^{j}}{\sigma_{k}^{j}})^{2})
+\end{align}
+$$
+
+- More generally:
+ - where $p(\dot\arrowvert\dot)$ is an arbitrary conditional(discrete or continuous) 1-D density:
+ 
+ $$
+ \begin{equation}
+ p(x_{n},y_{n}\arrowvert \eta, \pi) = p(y_{n}\arrowvert \pi)\times \prod_{j=1}^{m}p(x_{n}^{j}\arrowvert y_{n}, \eta)
+ \end{equation}
+ $$
+
 
 
 ### 1.1 Naive Bayes for Discrete-Valued Inputs
