@@ -203,11 +203,11 @@ Givening a set of training examples D, the MLE for $\theta_{ijk}$ are given by:
 
 $$
 \begin{equation}
-\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\text{#}D{X_{i}=x_{ij}\wedge Y=y_{k}}}{\text{#}D{Y=y_{k}}}
+\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\text{#}D\{X_{i}=x_{ij}\wedge Y=y_{k}}\}{\text{#}D\{Y=y_{k}\}}
 \end{equation}
 $$
 
-where the $\text{#}D{x}$ operator returns the number of elements in the set $D$ that satisfy property $x$.
+where the $\text{#}D\{x\}$ operator returns the number of elements in the set $D$ that satisfy property $x$.
 
 One danger of this maximum likelihood estimate is that it can sometimes result
 in θ estimates of zero, if the data does not happen to contain any training
@@ -215,7 +215,7 @@ examples satisfying the condition in the numerator. To avoid this, it is common 
 
 $$
 \begin{equation}
-\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\text{#}D{X_{i}=x_{ij}\wedge Y=y_{k}}+l}{\text{#}D{Y=y_{k}}+lJ}
+\tilde{\theta}_{ijk} = \tilde{P}(X_{i}=x_{ij}\arrowvert Y=y_{k}) = \frac{\text{#}D\{X_{i}=x_{ij}\wedge Y=y_{k}\}+l}{\text{#}D\{Y=y_{k}}+lJ\}
 \end{equation}
 $$
 
@@ -227,7 +227,7 @@ Maximum likelihood for $\pi_{k}$ are:
 
 $$
 \begin{equation}
-\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{\text{#}D{Y=y_{k}}}{\arrowvert D\arrowvert}
+\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{\text{#} D\{Y=y_{k}\}}{\arrowvert D\arrowvert}
 \end{equation}
 $$
 
@@ -237,7 +237,7 @@ Alternatively, we can obtain a smoothed estimate, or equivalently a MAP estimate
 
 $$
 \begin{equation}
-\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{\text{#}D{Y=y_{k}}+l}{\arrowvert D\arrowvert +lK}
+\tilde{\pi}=\tilde{P}(Y=y_{k})=\frac{\text{#}D\{Y=y_{k}\}+l}{\arrowvert D\arrowvert +lK}
 \end{equation}
 $$
 
@@ -302,6 +302,13 @@ $$
 
 ## 2. Logistic Regression and Naive Gaussian Bayes
 ### 2.1 Discriminative Model and Generative Model
+
+Generative classifiers learn a model of the joint probability, $p(x,y)$, of the inputs $x$ and the label $y$, and make their predictive by using Bayes rules to calculate $p(y\arrowvert x)$, and then picking the most likely label $y$. 
+
+Discriminative classifiers model the posterior $p(y\arrowvert x)$ directly, or the a mapping function from input data $x$ to the class labels.
+
+we can see more deep insight that generative model requires more parameters than discriminative model, because it model generated process of data. Therefore, generative model can **handle missing data, and detect abnormal data**. However, leaving aside computational issues and matters such as handling missing data, discreiminative model are almost always to be preferred to generative ones. 
+
 ### 2.2 Logistic Regression and Gaussian Naive Bayes
 #### 2.2.1 Logistic Regression
 Logistic regression is discriminative algorithm, which learns functions of the form $f:X\rightarrow Y$, or $P(Y\arrowvert X)$ in the case where $Y$ is discrete-valued, and $X=(X_{1},...,X_{n})$ is any vector containing dicrete or continuous variables.
@@ -373,7 +380,7 @@ or equivalently,
 
 $$
 \begin{equation}
-P(Y=1\arrowvert X) = \frac{1}{1+exp(\ln\frac{P(Y=0)P(X\arrowvert Y=0)}{P(Y=1)P(X\arrowvert Y=1}})
+P(Y=1\arrowvert X) = \frac{1}{1+exp(\ln\frac{P(Y=0)P(X\arrowvert Y=0)}{P(Y=1)P(X\arrowvert Y=1})}
 \end{equation}
 $$
 
@@ -425,7 +432,7 @@ $$
 #### 2.3.1 Two Classes
 #### 2.3.2 Multi Classes
 
-## 3.Summation of Relation Between Naives Classifier and Logistic Regression
+## 3. Summation of Relation Between Naives Classifier and Logistic Regression
 
 Logistic Regression is discriminative learning algorithm, which directly estimates the parameters of $P(Y\arrowvert X)$, whereas Naive Bayes is genertive learning algortihm, which models posterior distribution $P(Y\arrowvert X)$ by the Bayes rule, in other words, it directly estimates parameters for $P(Y)$ and $P(X\arrowvert Y)$.
 
