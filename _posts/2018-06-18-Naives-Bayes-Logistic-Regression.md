@@ -339,13 +339,13 @@ when training data is scarce.
 1. We can use Bayes rule as the basis for designing learning algorithms (function approximators), as follows: Given that we wish to learn some target
 function $f : X \rightarrow Y$, or equivalently, $P(Y\arrowvert X)$, we use the training data to learn estimates of $P(X\arrowvert Y)$ and $P(Y)$. New X examples can then be classified using these estimated probability distributions, plus Bayes rule. This type of classifier is called a *generative classifier*, because we can view the distribution $P(X\arrowvert Y)$ as describing how to generate random instances $X$ conditioned on the target attribute $Y$.
 
-2. Learning Bayes classifiers typically requires an unrealistic number of training examples (i.e., more than $\arrowvert X\arrowvert$ training examples where $X$ is the instance space) unless some form of prior assumption is made about the form of $P(X\arrowvertY)$. The Naive Bayes classifier assumes all attributes describing $X$ are conditionally independent given Y. This assumption dramatically reduces the number of parameters that must be estimated to learn the classifier. Naive Bayes is a widely used learning algorithm, for both discrete and continuous $X$.
+2. Learning Bayes classifiers typically requires an unrealistic number of training examples (i.e., more than $\arrowvert X\arrowvert$ training examples where $X$ is the instance space) unless some form of prior assumption is made about the form of $P(X\arrowvert Y)$. The Naive Bayes classifier assumes all attributes describing $X$ are conditionally independent given Y. This assumption dramatically reduces the number of parameters that must be estimated to learn the classifier. Naive Bayes is a widely used learning algorithm, for both discrete and continuous $X$.
 
 3. When $X$ is a vector of discrete-valued attributes, Naive Bayes learning algorithms can be viewed as linear classifiers; that is, every such Naive Bayes
 classifier corresponds to a hyperplane decision surface in $X$. The same statement holds for Gaussian Naive Bayes classifiers if the variance of each feature is assumed to be independent of the class (i.e., if $\sigma_{ik} = \sigma_{i}$).
 
 4. Logistic Regression is a function approximation algorithm that uses training
-data to directly estimate $P(Y\arrowvet X)$, in contrast to Naive Bayes. In this sense, Logistic Regression is often referred to as a discriminative classifier because we can view the distribution $P(Y\arrowvert X)$ as directly discriminating the value of the target value $Y$ for any given instance $X$.
+data to directly estimate $P(Y\arrowvert X)$, in contrast to Naive Bayes. In this sense, Logistic Regression is often referred to as a discriminative classifier because we can view the distribution $P(Y\arrowvert X)$ as directly discriminating the value of the target value $Y$ for any given instance $X$.
 
 5. Logistic Regression is a linear classifier over $X$. The linear classifiers produced by Logistic Regression and Gaussian Naive Bayes are identical in
 the limit as the number of training examples approaches infinity, provided
