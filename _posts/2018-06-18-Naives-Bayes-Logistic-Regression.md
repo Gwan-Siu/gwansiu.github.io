@@ -10,9 +10,9 @@ tags:
 
 ## 1. Naive Bayes Algorithm
 
-Naive bayes algorithm is supervised learning algorithm, it has two formulations for different inputs, such as **discrete-valued inputs** and **continuous-valued inputs.** MAP is usually used in parameters estimation of naive bayes. 
+First, we see the whole picture of Naive Bayes. Naive bayes algorithm is supervised learning algorithm, it has two formulations for different inputs, such as **discrete-valued inputs** and **continuous-valued inputs.** Maximum likellihood principle is usually used in parameters estimation of naive bayes. 
 
-In statistics machine learning, our goal is to inference class for new sample, and the posterior distribution is proportional to the likelihood multiplied by prior. $P(Y\arrowvert X_{new}, X_{train})=\frac{P(X_{new}\arrowvert X_{train} Y)P(Y)}{P(X)}$. In Naives Bayes, the assumption is conditional independence: 
+Then, we see the the assumption of Naive Bayes is conditional independence: 
 
 $$
 \begin{equation}
@@ -20,13 +20,10 @@ $$
 \end{equation}
 $$
 
-Now, let we see more detail about naives bayes classifier. 
-
-In general, we assume that Y is any discrete-valued variable, and attributes $X_{1},...,X_{n}$ are any discrete or realvalued attributes. Our goal is to train a classifier that will output the probability
+In general, we assume that Y is any discrete-valued variable, and attributes $X_{1},...,X_{n}$ are any discrete or realvalued attributes. The goal of Naive Bayes is to train a classifier that will output the probability
 distribution over possible values of Y, for each new instance X that we ask it to classify. 
 
-The expression for the probability that Y will take on its kth possible
-value, according to Bayes rule, is：
+The expression for the probability that Y will take on its $k\text{th}$ possible value, according to Bayes rule, is：
 
 $$
 \begin{equation}
@@ -34,7 +31,7 @@ P(Y=y_{k}\arrowvert X_{1},...,X_{n})=\frac{P(X_{1},...,X_{n}\arrowvert Y=y_{k})}
 \end{equation}
 $$
 
-where the sum is taken over all possible values y j of Y. Now, we hold the assumption of conditional independence. The formulation can be rewrite as:
+where the sum is taken over all possible values y j of Y, the arributes of $X$ is independent given $Y$. Now, the formulation can be rewrite as:
 
 $$
 \begin{equation}
@@ -42,24 +39,67 @@ P(Y=y_{k}\arrowvert X_{1},...,X_{n})=\frac{\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k
 \end{equation}
 $$
 
-Equation(3) is the fundamental formulation of naive bayes algorithm for naives bayes algorithm.  Given a
-new instance $X_{new} = X_{1},...,X_{n}$, this equation shows how to calculate the probability that $Y$ will take on any given value, given the observed attribute values of $X$ new and given the distributions $P(Y)$ and $P(X_{i}\arrowvert Y)$ estimated from the training data. If we are interested only in the most probable value of Y, then we have the Naive Bayes classification rule(MAP):
+**Equation(3) is the fundamental formulation of naive bayes algorithm for naives bayes algorithm.**  
+
+For example, given a new instance $X_{new} =(X_{1},...,X_{n})$, this equation shows how to calculate the probability that $Y$ will take on any given value, given the observed attribute values of $X$ new and given the distributions $P(Y)$ and $P(X_{i}\arrowvert Y)$ estimated from the training data. If we are interested only in the most probable value of Y, then we have the Naive Bayes classification rule(MAP):
 
 $$\begin{equation}
-Y\leftarrow \arg\max_{y_{k}} \frac{\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})}{\sum_{j}P(Y=y_{j})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{j})}
+Y\leftarrow \arg\max_{y_{k}} \frac{P(Y=y_{k})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})}{\sum_{j}P(Y=y_{j})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{j})}
 \end{equation}
 $$
 
-usually, we consider denominator as constant, and equation above can be simplified as:
+usually, we consider denominator as a constant term, and equation above can be simplified as, equivalent to MLE:
 
 $$\begin{equation}
 Y\leftarrow \arg\max_{y_{k}} P(Y=y_{k})\prod_{i}^{n}P(X_{i}\arrowvert Y=y_{k})
 \end{equation}
 $$
 
+
+### 1.1 Model of Naive Bayes
+#### 1.1.1 Model 1: Bernoulli Naive Bayes
+
+**Support:** Binary vectors of length $K$: $x\in {0,1}^{K}$.
+
+**Generative story:**
+1. $Y\sim \text{Bernoulli}(\Phi)$.
+2. $X_{K}\sim \text{Bernoulli}(\theta_{k,Y}),\forall k\in{1,...,K}$.
+
+**Model:**
+
+$$
+\begin{align}
+p_{\phi,\theta}(x,y) &= p_{\phi,\theta}(x_{1},...,x_{K},y)\\
+&=p_{\phi}(y)\prod_{k=1}^{K}p_{\theta_{k}}(x_{k}\arrowvert y) \\
+&=(\Phi)^{y}(1-\Phi)^{(1-y)}\prod_{k=1}^{K}(\theta_{k,y})^{x_{k}}(1-\theta_{k,y})^{(1-x_{k})}
+\end{align}
+$$
+
+**Classification:** Find the class that maximizes the posterior:
+
+$$
+\begin{equation}
+\tilde{y}=\arg\max_{y}p(y\arrowvert x)
+\end{equation}
+$$
+
+**Training:** Find the **class-conditional** MLE parameters
+
+$P(Y)$ is independent with the class, and is used in all the data. For each $P(X_{k}\arrowvert Y)$, we condition on the data with the corresponding class.
+
+$$
+\begin{align}
+\Phi &= \frac{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1)}{N} \\
+\theta_{k,0}=\frac{\sum_{i}^{N}\mathbb{I}(y^{(i)}=0\wedge x_{k}^{(i)}=1)}{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=0)} \\
+\theta_{k,1} = \frac{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1\wedge x^{(i)}_{k}=1)}{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=1)}\\
+&\forall k\in {1,...,K}
+\end{align}
+$$ 
+
+
 ### 1.1 Naive Bayes for Discrete-Valued Inputs
 
-Assume the n input attributes $X_{i}$ each take on $J$ possible discrete values, and $Y$ is a discrete variable taking on $K$ possible discrete values, then our learning task is to estimage two sets of parameters. The first is:
+Assume the $n$ input attributes $X_{i}$ each take on $J$ possible discrete values, and $Y$ is a discrete variable taking on $K$ possible discrete values, then our learning task is to estimage two sets of parameters. The first is:
 
 $$
 \begin{equation}
