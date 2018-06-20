@@ -131,6 +131,7 @@ J(\omega) = \frac{1}{2}\sum_{i=1}^{n}(x_{i}^{T}\theta-y_{i})^{2}
 $$
 
 Thus the form is equivalent to the form of MLE.
+
 ### 1.4 Analysis of Linear Regression
 
 ## 1.2 Learning of Linear Regression(Optimization)
@@ -162,7 +163,7 @@ Linear regression with L2 norm penalty is called **Ridge Regression**. The form 
 $$
 \begin{align}
 J_{RR}(\omega) &= J(\omega)+\lambda\Arrowvert W\Arrowvert^{2}_{2} \\
-&= \frac{1}{2}\sum_{i=1}^{N}(\omega^{T}x_{i}-y_{i})^{2}+\lambd\sum_{k=1}^{K}\omega^{2}_{k}
+&= \frac{1}{2}\sum_{i=1}^{N}(\omega^{T}x_{i}-y_{i})^{2}+\lambda\sum_{k=1}^{K}\omega^{2}_{k}
 \end{align}
 $$
 
@@ -209,6 +210,13 @@ $$
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/4E612965-AF67-4BC0-8E5F-6E16CF48BE4E.png" width = "600" height = "400"/>
 
+Many optimization algorithm exist to handle this issue:
+
+1. Coordinate Descent.
+2. Othant-Wise Limited memory Quasi-Newton(OWLQN)(Andrew & Gao, 2007) and provably convergent variants.
+3. Block coordinate descent(Tseng & Yun, 2009)
+4. Sparse Reconstruction by separable approximation(SpaRSA)
+5. Fast Iterative Shrinkage Thresholding Algorithm.
 
 ### 1.3.3 Ridge Regression vs LASSO
 
@@ -219,4 +227,82 @@ In this part, I directly cite the content of the course 10701, CMU, 2016. The in
 ## 1.4 Advanced Topic on Linear Regression
 
 ### 1.4.1 Locally-Weighted Linear Regression
+
+The plain form of linear regression do not consider spatial relation between training data and query data. In order to coorperate with spatial information, we reformulate the form of linear regression:
+
+$$
+\begin{equation}
+J(\theta) = \frac{1}{2}\sum_{i=1}^{n}\omega_{i}(x_{i}^{T}\theta-y_{i})^{2}
+\end{equation}
+$$
+
+here, $\omega$ is the parameterm, and $\omega$ is the weight, $\omega=exp\left(-\frac{(x_{i}-\x)^{2}}{2\tau}\right)$, where $x$ is the query point for which we'd like to know its corresponding $y$.
+
+**Eseentially, we put higher weights on(errors on) training examples that are close to thequery point(than those that are further away from the query). In addition, locally weighted linear regression is the second kind of non-parametric algorithm.**
+
+<img src="https://i.stack.imgur.com/efEaJ.png" width = "600" height = "400"/>
+
 ### 1.4.2 Robust Regression
+
+Locally weighted linear regression algorithm is to score the importance for each point. **Robust Rgression** is to score each point according to its "fittness".
+
+The weight $\omega_{k}$ on robust regression is:
+
+$$
+\begin{equation}
+\omega_{k} = \phi\left((y_{k}-y_{k}^{est})^{2}\right)
+\end{equation}
+$$
+
+The weight $\omega_{k}$ for data point $k$ is large if the data point fits well and small if it fits badly.
+
+Algorithm:
+- For k=1:R
+ - Let $(x_{k},y_{k})$ be the kth datapoint.
+ - Let $y^{est}_{k}$ be predicted value of $y_{k}$.
+ - Let $\omega_{k}$ be a weight for data point $k$ that is large if the data point fits well and small if it fits badly.
+ - Repeat whole thing until converged.
+
+**Robust Regression-Probabilistic Interpretation**
+
+- What regular regression does:
+
+Assume $y_{k}$ is the linear combination of input variables with noise:
+
+$$
+\begin{equation}
+y_{k} = \theta^{T}\mathbf{x}_{k}+\mathbb{N}(0,\sigma^{2})
+\end{equation}
+$$
+
+Learning: find the maximum likelihood estimator of $\theta$.
+
+- What robust regression does:
+
+Assume $y_{k}$ was generated using the followed schedule:
+
+with probability $p$:
+
+$$
+\begin{equation}
+y_{k} = \theta^{T}x_{k} + \mathbb{N}(0,\sigma^{2})
+\end{equation}
+$$
+
+but otherwise
+
+$$
+\begin{equation}
+y_{k}\sim \mathbb{N}(\mu, \sigma_{huge}^{2})
+\end{equation}
+$$
+
+learning: computational task is to find the maximum likelihood estimator of $\theta, p,\mu \text{ and } \sigma_{huge}$.
+
+**Iterative reweighting algorithm does this leanring task. EM** algorithm is one of famous instance of this algorithm.
+
+
+
+
+
+
