@@ -259,7 +259,7 @@ The weight $\omega_{k}$ for data point $k$ is large if the data point fits well 
 Algorithm:
 - For k=1:R
  - Let $(x_{k},y_{k})$ be the kth datapoint.
- - Let $y^{est}_{k}$ be predicted value of $y_{k}$.
+ - Let $y^{est}_{k}\text{ be predicted value of }y_{k}$.
  - Let $\omega_{k}$ be a weight for data point $k$ that is large if the data point fits well and small if it fits badly.
  - Repeat whole thing until converged.
 
