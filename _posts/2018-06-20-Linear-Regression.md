@@ -16,10 +16,12 @@ Originally, Linear Regression is a linear combination of input variables, the go
 
 $$
 \begin{align}
-y(\omege, x) &= \omega_{0} + \omega_{1}x_{1}+...+\omega_{n}x_{n} \\
-&= \omega^{T}\mathbb{x}
+y(\omega, x) &= \omega_{0} + \omega_{1}x_{1}+...+\omega_{n}x_{n} \\
+&= \bm{\omgega}^{T}\bm{x}
 \end{align}
 $$
+
+
 ### 1.2 Geometric Interpretation
 ### 1.3 Probabilistic Interpretation
 ### 1.4 Analysis of Linear Regression
