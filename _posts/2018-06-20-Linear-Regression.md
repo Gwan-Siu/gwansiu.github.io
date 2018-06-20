@@ -17,7 +17,7 @@ Originally, Linear Regression is a linear combination of input variables, the go
 $$
 \begin{align}
 y(\omega, x) &= \omega_{0} + \omega_{1}x_{1}+...+\omega_{n}x_{n} \\
-&= \mathbf{\omega}^{T}\mathbf{x}
+&= \mathbf{W}^{T}\mathbf{X}
 \end{align}
 $$
 
@@ -28,8 +28,8 @@ In general, linear regression can be considered as linear combinations of a fixe
 $$
 \begin{align}
 y(\omega, x) &= \omega_{0} + \omega_{1}\phi{x}_{1}+...+\omega_{n}\phi{x}_{n} \\
-&= \mathbf{\omega}^{T}\mathbf{\phi{x}}
-\begin{align}
+&= \mathbf{\W}^{T}\mathbf{\phi{X}}
+\end{align}
 $$
 
 ### 1.2 Geometric Interpretation
