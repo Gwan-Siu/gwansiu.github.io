@@ -31,6 +31,7 @@ y(\omega, x) &= \omega_{0} + \omega_{1}\phi{x}_{1}+...+\omega_{n}\phi{x}_{n} \\
 &= \vec{\omega}^{T}\vec{\phi{x}}
 \begin{align}
 $$
+
 ### 1.2 Geometric Interpretation
 ### 1.3 Probabilistic Interpretation
 ### 1.4 Analysis of Linear Regression
