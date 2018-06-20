@@ -17,11 +17,20 @@ Originally, Linear Regression is a linear combination of input variables, the go
 $$
 \begin{align}
 y(\omega, x) &= \omega_{0} + \omega_{1}x_{1}+...+\omega_{n}x_{n} \\
-&= \boldsymol{\omega}^{T}\boldymbol{x}
+&= \vec{\omega}^{T}\vec{x}
 \end{align}
 $$
 
+where $\omega$ is parameters, and $x$ is input variable, $x\in \mathbb{R}^{M}$, $n$ is the input number.
 
+In general, linear regression can be considered as linear combinations of a fixed set of nonlinear function of input variables, which is known as basis function. The general form is:
+
+$$
+\begin{align}
+y(\omega, x) &= \omega_{0} + \omega_{1}\phi{x}_{1}+...+\omega_{n}\phi{x}_{n} \\
+&= \vec{\omega}^{T}\vec{\phi{x}}
+\begin{align}
+$$
 ### 1.2 Geometric Interpretation
 ### 1.3 Probabilistic Interpretation
 ### 1.4 Analysis of Linear Regression
