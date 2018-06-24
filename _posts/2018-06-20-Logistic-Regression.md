@@ -95,7 +95,7 @@ The **2nd-order Taylor series approximation** cuts off the expansion after the q
 
 $$
 \begin{equation}
-f(x) \appro f(\nu)+\frac{(x-\nu)^{T}\nabla f(x)}{1!}+\frac{(x-v)^{T}\nabla^{2} f(x)(x-v)}{2!}
+f(x) \approx f(\nu)+\frac{(x-\nu)^{T}\nabla f(x)}{1!}+\frac{(x-v)^{T}\nabla^{2} f(x)(x-v)}{2!}
 \end{equation}
 $$
 
@@ -114,7 +114,7 @@ Goal: $x^{\ast}=\arg\min_{x}f(x)$
 1. Approximate the function with the 2nd order Taylor series:
 
 $$
-f(x) \appro f(\nu)+\frac{(x-\nu)^{T}\nabla f(x)}{1!}+\frac{(x-v)^{T}\nabla^{2} f(x)(x-v)}{2!}
+f(x) \approx f(\nu)+\frac{(x-\nu)^{T}\nabla f(x)}{1!}+\frac{(x-v)^{T}\nabla^{2} f(x)(x-v)}{2!}
 $$
 
 2. Compute its minimizer
@@ -133,9 +133,7 @@ $$x = -(\nabla^{2}f(x))^{-1}\nabla f(x)$$
 
 As we know, linear regression has closed-form solution, but there are no longer closed-form solution for logistic regression due to nonlinearity of the logistic sigmoid function. In fact, the lost function of logistic regression is convex, and it is guaranteed to find a global optimal solution. Furthermore, the error funciton can be solved by an efficient iterative optimization algorithm based on Newton-Rashon iterative optimization scheme.
 
-
 <img src="hhttps://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/196E58C3-B424-4977-806C-DFE0E6E8905E.png" width = "600" height = "400"/>
-
 
 For **Logistic Regression:**
 
