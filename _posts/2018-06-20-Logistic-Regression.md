@@ -49,7 +49,7 @@ $$
 
 $$
 \begin{equation}
-\tilde{y} &= \arg\max p_{\theta}(y\vert x),y\in \{0,1\}
+\tilde{y} = \arg\max p_{\theta}(y\vert x),y\in \{0,1\}
 \end{equation}
 $$
 
