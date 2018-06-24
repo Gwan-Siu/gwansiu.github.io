@@ -49,7 +49,7 @@ $$
 
 $$
 \begin{equation}
-\tilde{y} &= \arg\max p_{\theta}(y\vert x),y\in{0,1}
+\tilde{y} &= \arg\max p_{\theta}(y\vert x),y\in \{0,1\}
 \end{equation}
 $$
 
@@ -68,9 +68,9 @@ The motivation behind **Newton's method** is to use a **quadreatic approximation
 The **Taylor series expansion** for an infinitely differentiable function $f(x),x\in\mathbb{R},$ about a pint $\nu\in\mathbb{R}$ is:
 
 $$
-\begin{eqaution}
+\begin{equation}
 f(x) = f(\nu)+\frac{(x-\nu)f^{'}(x)}{1!}+\frac{(x-v)^{2}f^{''}(x)}{2!}+\frac{(x-v)^{3}f^{'''}(x)}{3!}+...
-\end{eqaution}
+\end{equation}
 $$
 
 
@@ -79,24 +79,24 @@ The **2nd-order Taylor series approximation** cuts off the expansion after the q
 $$
 \begin{equation}
 
-f(x)\appro f(v)+\frac{(x-v)f^{'}(x)}{1!}+\frac{(x-v)^{2}f^{''}(x)}{2!}
+f(x)\approx f(v)+\frac{(x-v)f^{'}(x)}{1!}+\frac{(x-v)^{2}f^{''}(x)}{2!}
 \end{equation}
 $$
 
 The vector version of Taylor series expansion for an infinitely differentiable function $f(x),\mathbf{x}\in \mathbb{R}^{K}$, about a point $\mathbf{v}\in\mathbb{R}^{K}$ is:
 
 $$
-\begin{eqaution}
+\begin{equation}
 f(x) = f(\nu)+\frac{(x-\nu)^{T}\nabla f(x)}{1!}+\frac{(x-v)^{T}\nabla^{2} f(x)(x-v)}{2!}+...
-\end{eqaution}
+\end{equation}
 $$
 
 The **2nd-order Taylor series approximation** cuts off the expansion after the quadratic term:
 
 $$
-\begin{eqaution}
+\begin{equation}
 f(x) \appro f(\nu)+\frac{(x-\nu)^{T}\nabla f(x)}{1!}+\frac{(x-v)^{T}\nabla^{2} f(x)(x-v)}{2!}
-\end{eqaution}
+\end{equation}
 $$
 
 Taking the derivative of $\tilde{f}(v)$ and setting to 0 gives us the closed form minimizer of this(convex) quadratic function:
@@ -114,9 +114,7 @@ Goal: $x^{\ast}=\arg\min_{x}f(x)$
 1. Approximate the function with the 2nd order Taylor series:
 
 $$
-\begin{eqaution}
 f(x) \appro f(\nu)+\frac{(x-\nu)^{T}\nabla f(x)}{1!}+\frac{(x-v)^{T}\nabla^{2} f(x)(x-v)}{2!}
-\end{eqaution}
 $$
 
 2. Compute its minimizer
@@ -127,7 +125,7 @@ $$
 
 3. Step to that minimizer:
 
-$x = -(\nabla^{2}f(x))^{-1}\nabla f(x)$
+$$x = -(\nabla^{2}f(x))^{-1}\nabla f(x)$$
 
 4. Repeat
 
@@ -135,14 +133,16 @@ $x = -(\nabla^{2}f(x))^{-1}\nabla f(x)$
 
 As we know, linear regression has closed-form solution, but there are no longer closed-form solution for logistic regression due to nonlinearity of the logistic sigmoid function. In fact, the lost function of logistic regression is convex, and it is guaranteed to find a global optimal solution. Furthermore, the error funciton can be solved by an efficient iterative optimization algorithm based on Newton-Rashon iterative optimization scheme.
 
+
 <img src="hhttps://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/196E58C3-B424-4977-806C-DFE0E6E8905E.png" width = "600" height = "400"/>
+
 
 For **Logistic Regression:**
 
 $$
-\begin{eqaution}
+\begin{equation}
 -H^{-1}g = -(X^{T}SX)^{-1}(X^{T}(\mu-y))
-\end{eqaution}
+\end{equation}
 $$
 
 take $-H^{-1}g$ back to $\theta\leftarrow \theta - H^{-1}g$, we obtain:
@@ -178,7 +178,7 @@ The explaination in [wiki](https://en.wikipedia.org/wiki/Iteratively_reweighted_
 The method of iteratively reweighted least squares (IRLS) is used to solve certain optimization problems with objective functions of the form:
 
 $$
-\begin{eqaution}
+\begin{equation}
 \arg\min_{\beta}sum_{i=1}^{n}(y_{i}-f_{i}(\beta))^{p}
 \end{equation}
 $$
