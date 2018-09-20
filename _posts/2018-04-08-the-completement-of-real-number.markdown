@@ -1,24 +1,30 @@
 ---
 layout:     post
-title:      "The completement of real number"
-date:       2018-04-14 12:00:00
+title:      "数学分析笔记系列(1)-实数的完备性"
+date:       2018-09-20 12:00:00
 author:     "GwanSiu"
 catalog: true
 tags:
     - Analysis
 ---
 
->本节主要讲述实数的完备性
+>九月，便开始了PhD的征途，在我面前的将是知识的星辰大海。我从事的是low-level image processing以及machine learning领域，强有力的数学工具将有助于问题的思考以及让我对繁杂数学符号少一些恐惧。九月中旬，我开始旁听香港城市大学Ciarlet教授的泛函分析课程，弱鸡的实数分析让我很难follow他的进度。因此，我才打算在科研空闲之余重新捡起数学分析相关知识。
+>本次笔记系列主要参考书目:
+>[1]. “Analysis I&II”, 3rd edition, Terence Tao
+>[2]. "Understanding Analysis", 2nd edition, Stephen Abbott
+
+
+大部分数学分析的课堂都是从一个经典的问题开始:为什么我们需要具有完备性的实数系？且我们指出一个事实: `There is no rational number whose square is 2`. 而在Tao的书中，他使用Peano Axioms构造自然数系，使得自然数加法封闭和乘法封闭。通过引入减法，将自然数系拓展到整数系，这意味着整数系减法是封闭。同样，通过引入除法，将整数系拓展到有理数系。因此，有理数是加减乘除法都封闭的数系。不过，我们依旧不能找到$\r\in\mathbb{Q}$,such that $r^{2}=2$. 这意味着有理数系是有“洞”的，我们需要构造一个更“强”的数系去填补有理数系的“洞”。
 
 ## 1. 实数完备性主要体现在两个等价的叙述：
 
 ### 1.1 完备性(1)
 
-假设实数列${a_{n}}$具有如下性质：
-1. ${a_{n}}$ 单调递增，则:$a_{n}\leq a_{n+1}\forall n.$
-2. ${a_{n}}$上方有界，即:$\exists k$ 使得$a_{n}\leq k\forall n$.
+假设实数列$\{a_{n}\}_{n=1}^{\infty}$具有如下性质：
+1. $\{a_{n}\}_{n=1}^{\infty}$ 单调递增，则:$a_{n}\leq a_{n+1}\forall n.$
+2. $\{a_{n}\}_{n=1}^{\infty}$上方有界，即:$\exists k$ 使得$a_{n}\leq k\forall n$.
 
-则$\displaystyle\lim_{n\rightarrow\infty}\in \mathbb{R}$, or $\exists l\in \mathbb{R}$,使得$\displaystyle\lim_{n\rightarrow\infty}l$.
+则$\displaystyle\lim_{n\rightarrow\infty} a_{n}\in \mathbb{R}$, or $\exists l\in \mathbb{R}$,使得$\displaystyle\lim_{n\rightarrow\infty}a_{n}=l$.
 
 ### 1.2 完备性(2).
 设$S\subseteq \mathbb{R}$, 且存在$k\in\mathbb{R}$使得$x\leq k\forall x\in S$, 则$\exists x_{o}\in R$使:
