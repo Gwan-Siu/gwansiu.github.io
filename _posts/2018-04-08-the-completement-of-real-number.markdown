@@ -21,10 +21,10 @@ tags:
 ### 1.1 完备性(1)
 
 假设实数列$(a_{n})_{n=1}^{\infty}$具有如下性质：
-1. $(a_{n})^{\infty}_{n=1}$ 单调递增，则:$a_{n}\leq a_{n+1} \forall n$
-2. $(a_{n})^{\infty}_{n=1}$ 上方有界，即:$\exists k$ 使得$a_{n}\leq k\forall n$.
+1. $(a_{n})_{n=1}^{\infty}$ 单调递增，则:$a_{n}\leq a_{n+1} \forall n$
+2. $(a_{n})_{n=1}^{\infty}$ 上方有界，即:$\exists k$ 使得$a_{n}\leq k\forall n$.
 
-则$\displaystyle\lim_{n\rightarrow\infty} a_{n}\in \mathbb{R}$, or $\exists l\in \mathbb{R}$,使得$\displaystyle\lim_{n\rightarrow\infty}a_{n}=l$.
+则$\displaystyle\lim_{n\rightarrow\infty} a_{n}\in \mathbb{R}$, or $\exists l\in \mathbb{R}$, 使得$\displaystyle\lim_{n\rightarrow\infty}a_{n}=l$.
 
 ### 1.2 完备性(2).
 设$S\subseteq \mathbb{R}$, 且存在$k\in\mathbb{R}$使得$x\leq k\forall x\in S$, 则$\exists x_{o}\in R$使:
