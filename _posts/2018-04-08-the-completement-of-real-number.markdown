@@ -14,15 +14,15 @@ tags:
 >[2]. "Understanding Analysis", 2nd edition, Stephen Abbott
 
 
-大部分数学分析的课堂都是从一个经典的问题开始:为什么我们需要具有完备性的实数系？且我们指出一个事实: `There is no rational number whose square is 2`. 而在Tao的书中，他使用Peano Axioms构造自然数系，使得自然数加法封闭和乘法封闭。通过引入减法，将自然数系拓展到整数系，这意味着整数系减法是封闭。同样，通过引入除法，将整数系拓展到有理数系。因此，有理数是加减乘除法都封闭的数系。不过，我们依旧不能找到$\r\in\mathbb{Q}$,such that $r^{2}=2$. 这意味着有理数系是有“洞”的，我们需要构造一个更“强”的数系去填补有理数系的“洞”。
+大部分数学分析的课堂都是从一个经典的问题开始:为什么我们需要具有完备性的实数系？且我们指出一个事实: `There is no rational number whose square is 2`. 而在Tao的书中，他使用Peano Axioms构造自然数系，使得自然数加法封闭和乘法封闭。通过引入减法，将自然数系拓展到整数系，这意味着整数系减法是封闭。同样，通过引入除法，将整数系拓展到有理数系。因此，有理数是加减乘除法都封闭的数系。不过，我们依旧不能找到$r\in\mathbb{Q}$, such that $r^{2}=2$. 这意味着有理数系是有“洞”的，我们需要构造一个更“强”的数系去填补有理数系的“洞”。
 
 ## 1. 实数完备性主要体现在两个等价的叙述：
 
 ### 1.1 完备性(1)
 
-假设实数列$\{a_{n}\}_{n=1}^{\infty}$具有如下性质：
-1. $\{a_{n}\}_{n=1}^{\infty}$ 单调递增，则:$a_{n}\leq a_{n+1}\forall n.$
-2. $\{a_{n}\}_{n=1}^{\infty}$上方有界，即:$\exists k$ 使得$a_{n}\leq k\forall n$.
+假设实数列$(a_{n})_{n=1}^{\infty}$具有如下性质：
+1. $(a_{n})_{n=1}^{\infty}$ 单调递增，则:$a_{n}\leq a_{n+1}\forall n.$
+2. $(a_{n})_{n=1}^{\infty}$上方有界，即:$\exists k$ 使得$a_{n}\leq k\forall n$.
 
 则$\displaystyle\lim_{n\rightarrow\infty} a_{n}\in \mathbb{R}$, or $\exists l\in \mathbb{R}$,使得$\displaystyle\lim_{n\rightarrow\infty}a_{n}=l$.
 
