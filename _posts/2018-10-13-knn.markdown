@@ -1,0 +1,153 @@
+---
+layout: post
+title: KNN Algorithms
+date: 2018-03-29
+author: Gwan Siu
+catalog: True
+tags:
+    - Machine Learning
+---
+
+## 1. Introduction
+
+Neareset neighborhood algorithm is one kind of instance-learning algorithm, which has been attracted attention by researchers because the error-rate of 1-nearest-neighbor classification is less than twice the Bayes rate. However, the efficiency of nearest neighborhood search is not satisfied in large-scale data. Over the last two decades, many significant research effort has been spent to improve its efficiency. In this article, I will introduce KNN algorithms and asymptotic analysis in Section II. In Section II, local sensitive hash algorithm is introduced to try to improve the efficiency of knn. In Section III, I will focus on tree algorithms, and improve knn efficiency in the view of data structure.
+
+## 2. KNN Algorithm
+### 2.1 KNN Algorithm
+Assumed training data $D=((x_{1},y_{1}),(x_{2},y_{2}),...,(x_{n},y_{n}),...,x_{N},y_{N})$, where $x_{i}\in\mathcal{R}^{n}$ is $n$ dimensional feature, $y_{i}\in \mathbb{Y}={c_{1},c_{2},...,c_{K}}$ and $N$ and $K$ are the number of data and the number of classes respectively.
+1. given a query data $(x,y)$ and distance metric $d$, distance between query point and each training data point is obtained by computing $d(x,x_{i})$ for $i=1,...,N$, and find the $k-th$ neighborhoods based on the calculated distance. Let $N_{k}(x)$ denote the neighbor containing these $k$ closest points.
+2. In the neighbor $N_{k}(x)$, the class $y$ is decided according to the decision rule(e.g. voting rule):
+$$
+\begin{equation}
+y=\arg\max_{c_{j}}\sum_{x_{i}\N_{k}(x)}w_{i}I(y_{i}=c_{j}),\quad i=1,2,...,k;\quad j=1,2,...,K
+\end{equation}
+$$
+
+where $w_{i}$ is weight assigned to each point in $N_{k}(x)$, and it means the weighted voting rule, but in naive KNN algorithm $w_{i}=1$.
+
+### 2.2 Where does KNN comes from?
+KNN algorithm is one kind of non-parametric density estimation method. It comes from parzen density estimation:
+$$
+\begin{equation}
+\tild{p}(X)=\frac{1}{N}\sum_{i=1}^{N}\kappa(X-x_{i})
+\end{equation}
+$$
+where $\kappa$ is a kernel, e.g. block kernel or radius basis function kernel.
+
+The above formulation can be written as more generally:
+
+$$
+\begin{equation}
+\tild{p}(X)=\frac{1}{N}\frac{\kappa(X)}{V}
+\end{equation}
+$$
+
+where $V$ denote volumn of data.
+
+Furthermore, KNN algorithm can be shown as:
+$$
+\begin{equation}
+\tild{p}(X)=\frac{1}{N}\frac{(k-1)}{V(X)}
+\end{equation}
+$$
+
+where $k-1$ means it don't take itself into consideration, and $V(X)$ is the neighbor of $X$.
+
+From the above analysis, the decision boundary function on KNN classifier based on bayes rule can be derived:
+
+$$
+\begin{equation}
+f(x)=-\ln\frac{p_{1}(X)}{p_{2}(X)}=-\ln\frac{(k_{1}-1)N_{2}V_{2}(X)}{(k_{2}-1)N_{1}V_{1}(X)}\frac{>}{<}\ln\frac{\pi_{1}}{\pi_{2}}
+\end{equation}
+$$
+
+where $\pi_{1}=\pi_{2}$(the prior term) so that $\ln\frac{\pi_{1}}{\pi_{2}}=0$. In voting KNN classifier, pick $K_{1}$ and $K_{2}$ implicitly by picking $K_{1}+K_{2}=K,V_{1}=V_{2}$, and $N_{1}=N_{2}$.``need to know more, why voting knn, k_1 + K_{2}=K, v_1=v_2``
+
+### 2.3 Asymptotic Analysis on KNN
+Assumed test sample $X$, NN sample is denotes as $X_{NN}$ and $X\leftrightarrow I$ represents the event $X$ is class $I$. The case of nearest neighbor($k=1$) is only considered, the condition risk $r_{1}(X,X_{NN})$ can be formulated as:
+
+$$
+\begin{align}
+r_{1}(X,X_{NN}) &= P_{r}\lbrace \lbrace X\leftrightarrow 1 \& X_{NN} \leftrightarrow 2\rbrace \text{ or }\lbrace X\leftrightarrow 2 \& X_{NN}\leftright 1 \rbrace \vert X, X_{NN}\rbrace \\
+&= P_{r}\lbrace \lbrace X\leftrightarrow 1 \& X_{NN} \leftrightarrow 2\rbrace\rbrace + P_{r}\lbrace\lbrace X\leftrightarrow 2 \& X_{NN}\leftright 1 \rbrace \vert X, X_{NN}\rbrace \\
+&= q_{1}(X)q_{2}(X_{NN}) + q_{2}(X)q_{1}(X_{NN})
+\end{align}
+$$
+
+when infinite samples are available, $X_{NN}$ will be so close to $X$.
+
+$$
+\begin{equation}
+r^{\ast}_{1}(X) = 2q_{1}(X)q_{2}(X)=2\xi(X)
+\end{equation}
+$$
+
+The condition bayes risk:
+$$
+\begin{align}
+r^{\ast} &= \min\[q_{1}(X), q_{2}(X)\] \\
+&=\frac{1}{2}-\frac{1}{2}\sqrt{1-4\xi(X)}\\
+&= \sum_{i=1}^{\infty}\frac{1}{i}\binom{2i-2}{i-1}\xi^{i}(X)\quad\textbf{MacLaurin series expansion}
+\end{align}
+$$
+
+``the procedure does not consider any information about underlying distribution and only the class of the single nearest neighbor determines the outcomes of the decision.``
+
+Thus, the asymptotic condition risk is obtained:
+$$
+\begin{equation}
+r_{1}^{\ast}(X) = 2\xi(X) \leq 2r^{\ast}(X)
+\end{equation}
+$$
+
+it can be shown that $\epsilon_{1}^{\ast}\leq 2\epsilon^{\ast}$. In fact, the error rate of neighbor classifier is less than twice bayes error rate.
+
+$$
+\begin{equation}
+\frac{1}{2}\epsilon^{\ast}\leq \epislon^{\ast}_{2NN}\leq \epsilon^{\ast}_{4NN}\leq ...\leq \epsilon^{\ast}\leq ...\leq \epsilon^{\ast}_{3NN}\leq \epsilon_{NN}^{\ast}\leq 2\epsilon^{\ast}
+\end{equation}
+$$
+
+### 2.4 The optimal K.
+
+From the analysis above, we can see that the performance of KNN classifier is very sensitive to the choice of K. When K is decreases to 1, the decision boundary becomes more complex, which means the KNN classifier tend to overfitting, and test error becomes large because KNN classifier is sensitive to instance around its neighbor. When K tend to large, the decision boundary will become more smooth.
+
+### 2.5 Distance Metric
+The choice of distance is also importance for KNN algorithm. The commonly used distance metric is listed as below:
+- Euclidean distance:
+$$
+\begin{equation}
+D(x,x^{'})=\sqrt{\sum_{i}\sigma_{i}^{2}(x_{i}-x_{i}^{'})^{2}}
+\end{equation}
+$$
+- Or equivalantly,
+$$
+\begin{equation}
+D(x,x^{'})=\sqrt{(x-x^{'})^{T}\Sigma(x-x^{'})}
+\end{equation}
+$$
+-Other metric:
+  - $L_{1}$ norm: $\vert x-x^{'}\vert$
+  - $L_{\infty}$ norm: $\max\vert x-x^{'}\vert$(elementwise)
+  - Mahalanobis: where $\Sigma$ is full, and symmetric
+  - Correlation
+  - Angle
+  - Hamming distance, Manhattan distance
+  - ...
+
+### 2.6 KNN via intance-learning algorithm
+
+- A distance metric
+- How many nearby neighbors to look at?
+- A weighting function
+- How to relate to the local points?
+
+## 3. Local Sensitive hash
+
+## 4. KV-Tree
+
+## 5. Ball-Tree
+
+## 6. Spill-Tree
+
+## 7. NV-Tree
