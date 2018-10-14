@@ -183,10 +183,85 @@ In the implementation of LSH, we firstly construct a hash table of all possible 
 5. Group observations with same hash values together to create a LSH table.
 
 
-## 4. KV-Tree
+## 4. KD-Tree
+Besides hash-based methods, tree-based method is another popular method to improve efficiency of KNN. K-Dimensional tree(KD tree) is a classical tree structure, which is a binary search tree where data in each node is a  K-dimensional point. KD-tree is space partition data structure for organizing points in a K-dimensional space.
+
+### 4.1 The Construction of KD-Tree
+Given dataset $D=\{x_{1},x_{2},...,x_{N}\}$, where $x_{i}\in\mathbb{R}^{K}=\{x_{i}^{1},x_{i}^{2},...,x_{i}^{K}\}]$ for $i=1,...,N$, and $K$ is the dimension of data point.
+
+1. **Create root point:** Selct axis of $x^{1}$, the median value $\tao^{1}$ along axis of $x^{1}$ is chosed as the threshold. Root point split $x^{1}$ dimensional space into 2 hyper-rectangle, each of which represents left child and right child of root point. The hyper-rectangle is perpandicular to the axis of $x^{1}$.
+2. Recursively construct k-d tree for two subsets and split until all samples have been assigned to all nodes.
+
+First sort the points in each dimension: $O(dn\log(n))$ time and $dn$ storage.
+All samples are stored in an array $A=\[1,...,d,1,...,n\]$.
+
+Finding the widest spread and equally dividing into two subsets can be done in $O(dn)$ time.
+
+Constructing the k-d tree can be done in $O(dn\log(n))$ and $dn$ storage.
+
+A node has 5 fields:
+
+- axis(splitting axis)
+- value(splitting value)
+- left(left structure)
+- right(right structure)
+- point(holds a point if left and right children are NULL)
+
+### 4.2 The Search of KD-tree
+We take $k=1$ as our example to find the nearest neighbor based k-d tree structure. $x$ denotes testing sample. 
+
+1. From the root point, recursively visit nodes of k-d tree(if the dimension $x^{i}$ is less than threshold, then move to left node; Otherwise, move to right node.) unitl the test sample arrives to leaf node.
+
+2. the points in the leaf node is as closest point.
+3. Recursively backtrack, in each node, 3 operations should be done:
+(a). If the point in the node is more closer to test sample, then the point in the node is as the closest point.
+(b). The cloest point must exist area corresponding to its child node, and check whether the closest point in the area of its child node. We set $B_{r}(x)$ as the ball with $r$ radius, and to check if intersection with area of node. If they has intersection, then closest point possibly exist. Otherwise, keep backtracking.
+(c). Until backtracking to rootpoint, the search is end, and return the closest point. 
 
 ## 5. Ball-Tree
 
+Ball tree is another variance of k-d tree. Ball tree is different from k-d tree, ball seperate hyper-space into several hper-sphere while k-d tree seperate hyper-space into several hyper-plane. Similar with k-d tree, ball tree has 2 chariteristics:
+
+1. Ball tree is a binary tree, it means: nodes=sets of points, root = all points.
+2. at each internal nodes, all points are partitioned into 2 disjoint sets. Each subset is disjoint with each other.
+
+Assume $N(\nu)$ be all samples at node $\nu$, $\text{left}(\nu),\text{right}(\nu)$ are left or right child of node $\nu$.
+
+### 5.1 Construction of Ball Tree
+Find the median value is very expensive, thus construct ball tree by applying heuristic method, i.e. find the mean value.
+
+1. Randomly pick $p\in \mathbt{N}(\nu)$, then let $p_{l}$ and $p_{r}$ be the point farthest from $p$ at left or right side.
+2. Find mean value $\mu_{i}=\frac{p_{l}+p_{r}}{2}$ to split all points, then all points are smaller than $\mu_{i}$ go to $\text{left}(\nu)$, and all points are larger than $\mu_{i}$ go to $\text{right}(\nu)$
+3. Recursively step 2 to construct ball tree until all points are assigned.
+
+### 5.2 The search of Ball tree
+After metric tree is constructed at each node we have:
+
+- the decision boundary $L$, which is a $d-1$ dimensional plane orthogonal to $\mu$ that goes through $\mu$.
+- a sphere ball $\mathbb{B}$ s.t. all points $\mathbt{N}(\nu)$ are in this plane. In other words, let $\text{center}(\nu)$ be the center point of $\mathbt{B}$ and $r(\nu)$ is the radius, and $\mathbt{N}(\nu)\subset \mathbt{B}(\text{center}(\nu), r(\nu))$.
+
+1. Given a  query point $q$, search in Ball tree guided by `depth-fisrt search`.
+2. The decision boundary $L$ is used to decide the query point should be go to $\text{left}(\nu)$ or $\text{right}(\nu)$, until it arrives to left node.
+3. Assume $x$ is maintained: nearest neighbor, let $d=\lVert x-q\rVert$(distance from best $x$ to the query)。
+4. We can use $d$ to prune nodes: we can check if a node is good or not better than $x$. `No point better than `$x$ if $\lVert \text{center}(r)-q\rVert-r(r)\req d$.
+
+This algorithm is very efficient when the dimensionality is $\leq 30$, but it slow down when the dimensionality is $\req 30$. In fact, ball tree can find NN very fast, and spend 95% time to construct tree. Thus, spill tree is proposed to overcome this issue.
+
 ## 6. Spill-Tree
+Spill tree is a variant of ball tree(or metric tree). Different from ball tree(or metric tree), set of points $\text{left}(\nu)$ and $\text{right}(\nu)$ no longer require disjoint.
+
+**Partition strategy:**
+
+1. In ball tree, the decision boundary $L$ go through the mean value $\mu$. In spill tree, we define additionally hyperplane $L_{L}$ and $L_{R}$, where $L_{L}=L-\epsilon$ and $L_{R}=L-\epsilon$, $\epsilon$ is shared area.
+2. It means that the $\text{left}(\nu)$ contains all points on the left of $\text{right}(\nu)$ and the $\text{right}(\nu)$ contains all points on the right of $\text{right}(\nu)$.
+
+**Why allowing overlap?**
+- Find the neighbor approximately, not exactly.
+
+### 6.1 The Search of Spill Tree
+- Don't trackback at all-just do a tree descent, not depth-fisrt
+- Consider a case when $q$ is close to $L$: it's true that the true NN might be on the other side of $L$
+- the true NN on the over side van be catched by allowing overlap
+- by varying $\tao$ we can reduce the probability of a mistake.
 
 ## 7. NV-Tree
