@@ -1,7 +1,7 @@
 ---
 layout: post
 title: KNN Algorithms
-date: 2018-03-29
+date: 2018-10-14
 author: Gwan Siu
 catalog: True
 tags:
@@ -14,12 +14,12 @@ Neareset neighborhood algorithm is one kind of instance-learning algorithm, whic
 
 ## 2. KNN Algorithm
 ### 2.1 KNN Algorithm
-Assumed training data $D=((x_{1},y_{1}),(x_{2},y_{2}),...,(x_{n},y_{n}),...,x_{N},y_{N})$, where $x_{i}\in\mathcal{R}^{n}$ is $n$ dimensional feature, $y_{i}\in \mathbb{Y}={c_{1},c_{2},...,c_{K}}$ and $N$ and $K$ are the number of data and the number of classes respectively.
+Assumed training data $D=((x_{1},y_{1}),(x_{2},y_{2}),...,(x_{n},y_{n}),...,x_{N},y_{N})$, where $x_{i}\in\mathcal{R}^{n}$ is $n$ dimensional feature, $y_{i}\in \mathbb{Y}=\{c_{1},c_{2},...,c_{K}\}$ and $N$ and $K$ are the number of data and the number of classes respectively.
 1. given a query data $(x,y)$ and distance metric $d$, distance between query point and each training data point is obtained by computing $d(x,x_{i})$ for $i=1,...,N$, and find the $k-th$ neighborhoods based on the calculated distance. Let $N_{k}(x)$ denote the neighbor containing these $k$ closest points.
 2. In the neighbor $N_{k}(x)$, the class $y$ is decided according to the decision rule(e.g. voting rule):
 $$
 \begin{equation}
-y=\arg\max_{c_{j}}\sum_{x_{i}\in N_{k}(x)}w_{i}I(y_{i}=c_{j}),\quad i=1,2,...,k;\quad j=1,2,...,K
+y=\dispalystyle{\arg\max_{c_{j}}\sum_{x_{i}\in N_{k}(x)}w_{i}I(y_{i}=c_{j})},\quad \text{for }i=1,2,...,k;\quad j=1,2,...,K
 \end{equation}
 $$
 
@@ -29,7 +29,7 @@ where $w_{i}$ is weight assigned to each point in $N_{k}(x)$, and it means the w
 KNN algorithm is one kind of non-parametric density estimation method. It comes from parzen density estimation:
 $$
 \begin{equation}
-\hat{p}(X)=\frac{1}{N}\sum_{i=1}^{N}\kappa(X-x_{i})
+\hat{p}(X)=\frac{1}{N}\displaysty{\sum_{i=1}^{N}\kappa(X-x_{i})}
 \end{equation}
 $$
 where $\kappa$ is a kernel, e.g. block kernel or radius basis function kernel.
@@ -45,6 +45,7 @@ $$
 where $V$ denote volumn of data.
 
 Furthermore, KNN algorithm can be shown as:
+
 $$
 \begin{equation}
 \hat{p}(X)=\frac{1}{N}\frac{(k-1)}{V(X)}
@@ -64,12 +65,13 @@ $$
 where $\pi_{1}=\pi_{2}$(the prior term) so that $\ln\frac{\pi_{1}}{\pi_{2}}=0$. In voting KNN classifier, pick $K_{1}$ and $K_{2}$ implicitly by picking $K_{1}+K_{2}=K,V_{1}=V_{2}$, and $N_{1}=N_{2}$.``need to know more, why voting knn, k_1 + K_{2}=K, v_1=v_2``
 
 ### 2.3 Asymptotic Analysis on KNN
+
 Assumed test sample $X$, NN sample is denotes as $X_{NN}$ and $X\leftrightarrow I$ represents the event $X$ is class $I$. The case of nearest neighbor($k=1$) is only considered, the condition risk $r_{1}(X,X_{NN})$ can be formulated as:
 
 $$
 \begin{align}
-r_{1}(X,X_{NN}) &= P_{r}\lbrace \lbrace X\leftrightarrow 1 \& X_{NN} \leftrightarrow 2\rbrace \text{ or }\lbrace X\leftrightarrow 2 \& X_{NN}\leftright 1 \rbrace \vert X, X_{NN}\rbrace \\
-&= P_{r}\lbrace \lbrace X\leftrightarrow 1 \& X_{NN} \leftrightarrow 2\rbrace\rbrace + P_{r}\lbrace\lbrace X\leftrightarrow 2 \& X_{NN}\leftright 1 \rbrace \vert X, X_{NN}\rbrace \\
+r_{1}(X,X_{NN}) &= P_{r}\lbrace \lbrace X\leftrightarrow 1 \& X_{NN} \leftrightarrow 2\rbrace \text{ or }\lbrace X\leftrightarrow 2 \& X_{NN}\leftrightarrow 1 \rbrace \vert X, X_{NN}\rbrace \\
+&= P_{r}\lbrace \lbrace X\leftrightarrow 1 \& X_{NN} \leftrightarrow 2\rbrace\rbrace + P_{r}\lbrace\lbrace X\leftrightarrow 2 \& X_{NN}\leftrightarrow 1 \rbrace \vert X, X_{NN}\rbrace \\
 &= q_{1}(X)q_{2}(X_{NN}) + q_{2}(X)q_{1}(X_{NN})
 \end{align}
 $$
@@ -85,7 +87,7 @@ $$
 The condition bayes risk:
 $$
 \begin{align}
-r^{\ast} &= \min\[q_{1}(X), q_{2}(X)\] \\
+r^{\ast} &= \min[q_{1}(X), q_{2}(X)] \\
 &=\frac{1}{2}-\frac{1}{2}\sqrt{1-4\xi(X)}\\
 &= \sum_{i=1}^{\infty}\frac{1}{i}\binom{2i-2}{i-1}\xi^{i}(X)\quad\textbf{MacLaurin series expansion}
 \end{align}
@@ -94,6 +96,7 @@ $$
 ``the procedure does not consider any information about underlying distribution and only the class of the single nearest neighbor determines the outcomes of the decision.``
 
 Thus, the asymptotic condition risk is obtained:
+
 $$
 \begin{equation}
 r_{1}^{\ast}(X) = 2\xi(X) \leq 2r^{\ast}(X)
@@ -104,7 +107,7 @@ it can be shown that $\epsilon_{1}^{\ast}\leq 2\epsilon^{\ast}$. In fact, the er
 
 $$
 \begin{equation}
-\frac{1}{2}\epsilon^{\ast}\leq \epislon^{\ast}_{2NN}\leq \epsilon^{\ast}_{4NN}\leq ...\leq \epsilon^{\ast}\leq ...\leq \epsilon^{\ast}_{3NN}\leq \epsilon_{NN}^{\ast}\leq 2\epsilon^{\ast}
+\frac{1}{2}\epsilon^{\ast}\leq \epsilon^{\ast}_{2NN}\leq \epsilon^{\ast}_{4NN}\leq ...\leq \epsilon^{\ast}\leq ...\leq \epsilon^{\ast}_{3NN}\leq \epsilon_{NN}^{\ast}\leq 2\epsilon^{\ast}
 \end{equation}
 $$
 
@@ -113,19 +116,24 @@ $$
 From the analysis above, we can see that the performance of KNN classifier is very sensitive to the choice of K. When K is decreases to 1, the decision boundary becomes more complex, which means the KNN classifier tend to overfitting, and test error becomes large because KNN classifier is sensitive to instance around its neighbor. When K tend to large, the decision boundary will become more smooth.
 
 ### 2.5 Distance Metric
+
 The choice of distance is also importance for KNN algorithm. The commonly used distance metric is listed as below:
 - Euclidean distance:
+- 
 $$
 \begin{equation}
 D(x,x^{'})=\sqrt{\sum_{i}\sigma_{i}^{2}(x_{i}-x_{i}^{'})^{2}}
 \end{equation}
 $$
+
 - Or equivalantly,
+
 $$
 \begin{equation}
 D(x,x^{'})=\sqrt{(x-x^{'})^{T}\Sigma(x-x^{'})}
 \end{equation}
 $$
+
 -Other metric:
   - $L_{1}$ norm: $\vert x-x^{'}\vert$
   - $L_{\infty}$ norm: $\max\vert x-x^{'}\vert$(elementwise)
@@ -143,16 +151,21 @@ $$
 - How to relate to the local points?
 
 ## 3. Local Sensitive hash
+
 ### 3.1 Random Projection
+
 **Johnson-Lindenstrauss Lemma:** The lemma states that a set of points in high-dimensional space can be embedded intto a space of much lower dimension in such a way that the distances between points are nearly preserved. This lemma is widely used in compress sensing, manifold learning, dimension reduction, and graph embedding.
 
-Given $0<\epsilon<1$, a set of $X$ of $m$ points in $\mathbb{R}^{N}$, and a number $n>\frac{8\ln(m)}{\epsilon^{2}}$, there is a linear map $f:\mathbb{R}^{N}\rightarrow \amthbb{R}^{n}$ such that:
+Given $0<\epsilon<1$, a set of $X$ of $m$ points in $\mathbb{R}^{N}$, and a number $n>\frac{8\ln(m)}{\epsilon^{2}}$, there is a linear map $f:\mathbb{R}^{N}\rightarrow \mathbb{R}^{n}$ such that:
+
 $$
 \begin{equation}
 (1-\epsilon)\lVert \mu-\nu\rVert \leq \lVert f(\mu)-f(\nu)\rVert\leq (1+\epsilon)\lVert \mu-\nu\rVert,\quad\text{ for all }\mu,\nu\in X
 \end{equation}
 $$
+
 The formula ca be rearranged:
+
 $$
 \begin{equation}
 (1+\epsilon)^{-1}\lVert f(\mu)-f(\nu)\rVert^{2}\leq \lVert \mu-\nu\rVert^{2}\leq (1-\epsilon)^{-1}\lVert f(\mu)-f(\nu)\rVert^{2}
@@ -178,7 +191,7 @@ In the implementation of LSH, we firstly construct a hash table of all possible 
 
 1. Create unit random vectors $r_{i}\in$ with $d$ length, for $i=1,...,k$,  where $k$ denotes the number bits of binary code and $d$ is the dimension of the feature vector.
 2. Given a sample $x$, we compute the dot product of unit random vector $r_{i}$ and $x$, and then assign a binary value $c_{i}$ by $h(x)=\text{sgn}(x\cdot v_{i})$.
-3. Repeat step `2` k times, concatenate all binary value $c_{i}$ for $i=1,...,k$.
+3. Repeat `step 2` k times, concatenate all binary value $c_{i}$ for $i=1,...,k$.
 4. Encode all samples into hash values by repeat step `2` and step `3`.
 5. Group observations with same hash values together to create a LSH table.
 
@@ -189,7 +202,7 @@ Besides hash-based methods, tree-based method is another popular method to impro
 ### 4.1 The Construction of KD-Tree
 Given dataset $D=\{x_{1},x_{2},...,x_{N}\}$, where $x_{i}\in\mathbb{R}^{K}=\{x_{i}^{1},x_{i}^{2},...,x_{i}^{K}\}]$ for $i=1,...,N$, and $K$ is the dimension of data point.
 
-1. **Create root point:** Selct axis of $x^{1}$, the median value $\tao^{1}$ along axis of $x^{1}$ is chosed as the threshold. Root point split $x^{1}$ dimensional space into 2 hyper-rectangle, each of which represents left child and right child of root point. The hyper-rectangle is perpandicular to the axis of $x^{1}$.
+1. Selct axis of $x^{1}$, the median value $\tau^{1}$ along axis of $x^{1}$ is chosed as the threshold. Root point split $x^{1}$ dimensional space into 2 hyper-rectangle, each of which represents left child and right child of root point. The hyper-rectangle is perpandicular to the axis of $x^{1}$.
 2. Recursively construct k-d tree for two subsets and split until all samples have been assigned to all nodes.
 
 First sort the points in each dimension: $O(dn\log(n))$ time and $dn$ storage.
@@ -197,7 +210,7 @@ All samples are stored in an array $A=\[1,...,d,1,...,n\]$.
 
 Finding the widest spread and equally dividing into two subsets can be done in $O(dn)$ time.
 
-Constructing the k-d tree can be done in $O(dn\log(n))$ and $dn$ storage.
+Constructing the k-d tree can be done in $O(dn\log(n))$ and $(dn)$ storage.
 
 A node has 5 fields:
 
@@ -230,7 +243,7 @@ Assume $N(\nu)$ be all samples at node $\nu$, $\text{left}(\nu),\text{right}(\nu
 ### 5.1 Construction of Ball Tree
 Find the median value is very expensive, thus construct ball tree by applying heuristic method, i.e. find the mean value.
 
-1. Randomly pick $p\in \mathbt{N}(\nu)$, then let $p_{l}$ and $p_{r}$ be the point farthest from $p$ at left or right side.
+1. Randomly pick $p\in \mathrm{N}(\nu)$, then let $p_{l}$ and $p_{r}$ be the point farthest from $p$ at left or right side.
 2. Find mean value $\mu_{i}=\frac{p_{l}+p_{r}}{2}$ to split all points, then all points are smaller than $\mu_{i}$ go to $\text{left}(\nu)$, and all points are larger than $\mu_{i}$ go to $\text{right}(\nu)$
 3. Recursively step 2 to construct ball tree until all points are assigned.
 
@@ -238,17 +251,17 @@ Find the median value is very expensive, thus construct ball tree by applying he
 After metric tree is constructed at each node we have:
 
 - the decision boundary $L$, which is a $d-1$ dimensional plane orthogonal to $\mu$ that goes through $\mu$.
-- a sphere ball $\mathbb{B}$ s.t. all points $\mathbt{N}(\nu)$ are in this plane. In other words, let $\text{center}(\nu)$ be the center point of $\mathbt{B}$ and $r(\nu)$ is the radius, and $\mathbt{N}(\nu)\subset \mathbt{B}(\text{center}(\nu), r(\nu))$.
+- a sphere ball $\mathbb{B}$ s.t. all points $\mathrm{N}(\nu)$ are in this plane. In other words, let $\text{center}(\nu)$ be the center point of $\mathrm{B}$ and $r(\nu)$ is the radius, and $\mathrm{N}(\nu)\subset \mathrm{B}(\text{center}(\nu), r(\nu))$.
 
 1. Given a  query point $q$, search in Ball tree guided by `depth-fisrt search`.
 2. The decision boundary $L$ is used to decide the query point should be go to $\text{left}(\nu)$ or $\text{right}(\nu)$, until it arrives to left node.
 3. Assume $x$ is maintained: nearest neighbor, let $d=\lVert x-q\rVert$(distance from best $x$ to the query)。
-4. We can use $d$ to prune nodes: we can check if a node is good or not better than $x$. `No point better than `$x$ if $\lVert \text{center}(r)-q\rVert-r(r)\req d$.
+4. We can use $d$ to prune nodes: we can check if a node is good or not better than $x$. `No point better than `$x$ if $\lVert \text{center}(r)-q\rVert-r(r)\geq d$.
 
-This algorithm is very efficient when the dimensionality is $\leq 30$, but it slow down when the dimensionality is $\req 30$. In fact, ball tree can find NN very fast, and spend 95% time to construct tree. Thus, spill tree is proposed to overcome this issue.
+This algorithm is very efficient when the dimensionality is $\leq 30$, but it slow down when the dimensionality is $\geq 30$. In fact, ball tree can find NN very fast, and spend 95% time to construct tree. Thus, spill tree is proposed to overcome this issue.
 
 ## 6. Spill-Tree
-Spill tree is a variant of ball tree(or metric tree). Different from ball tree(or metric tree), set of points $\text{left}(\nu)$ and $\text{right}(\nu)$ no longer require disjoint.
+Spill tree is a variant of ball tree(or metric tree). Different from ball tree(or metric tree), set of points $\text{left}(\nu)$ and $\text{right}(\nu)$ no longer gequire disjoint.
 
 **Partition strategy:**
 
@@ -262,6 +275,6 @@ Spill tree is a variant of ball tree(or metric tree). Different from ball tree(o
 - Don't trackback at all-just do a tree descent, not depth-fisrt
 - Consider a case when $q$ is close to $L$: it's true that the true NN might be on the other side of $L$
 - the true NN on the over side van be catched by allowing overlap
-- by varying $\tao$ we can reduce the probability of a mistake.
+- by varying $\tau$ we can reduce the probability of a mistake.
 
 ## 7. NV-Tree
