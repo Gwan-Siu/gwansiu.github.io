@@ -19,7 +19,7 @@ Assumed training data $D=((x_{1},y_{1}),(x_{2},y_{2}),...,(x_{n},y_{n}),...,x_{N
 2. In the neighbor $N_{k}(x)$, the class $y$ is decided according to the decision rule(e.g. voting rule):
 $$
 \begin{equation}
-y=\arg\max_{c_{j}}\sum_{x_{i}\N_{k}(x)}w_{i}I(y_{i}=c_{j}),\quad i=1,2,...,k;\quad j=1,2,...,K
+y=\arg\max_{c_{j}}\sum_{x_{i}\in N_{k}(x)}w_{i}I(y_{i}=c_{j}),\quad i=1,2,...,k;\quad j=1,2,...,K
 \end{equation}
 $$
 
@@ -29,7 +29,7 @@ where $w_{i}$ is weight assigned to each point in $N_{k}(x)$, and it means the w
 KNN algorithm is one kind of non-parametric density estimation method. It comes from parzen density estimation:
 $$
 \begin{equation}
-\tild{p}(X)=\frac{1}{N}\sum_{i=1}^{N}\kappa(X-x_{i})
+\hat{p}(X)=\frac{1}{N}\sum_{i=1}^{N}\kappa(X-x_{i})
 \end{equation}
 $$
 where $\kappa$ is a kernel, e.g. block kernel or radius basis function kernel.
@@ -38,7 +38,7 @@ The above formulation can be written as more generally:
 
 $$
 \begin{equation}
-\tild{p}(X)=\frac{1}{N}\frac{\kappa(X)}{V}
+\hat{p}(X)=\frac{1}{N}\frac{\kappa(X)}{V}
 \end{equation}
 $$
 
@@ -47,7 +47,7 @@ where $V$ denote volumn of data.
 Furthermore, KNN algorithm can be shown as:
 $$
 \begin{equation}
-\tild{p}(X)=\frac{1}{N}\frac{(k-1)}{V(X)}
+\hat{p}(X)=\frac{1}{N}\frac{(k-1)}{V(X)}
 \end{equation}
 $$
 
@@ -143,6 +143,45 @@ $$
 - How to relate to the local points?
 
 ## 3. Local Sensitive hash
+### 3.1 Random Projection
+**Johnson-Lindenstrauss Lemma:** The lemma states that a set of points in high-dimensional space can be embedded intto a space of much lower dimension in such a way that the distances between points are nearly preserved. This lemma is widely used in compress sensing, manifold learning, dimension reduction, and graph embedding.
+
+Given $0<\epsilon<1$, a set of $X$ of $m$ points in $\mathbb{R}^{N}$, and a number $n>\frac{8\ln(m)}{\epsilon^{2}}$, there is a linear map $f:\mathbb{R}^{N}\rightarrow \amthbb{R}^{n}$ such that:
+$$
+\begin{equation}
+(1-\epsilon)\lVert \mu-\nu\rVert \leq \lVert f(\mu)-f(\nu)\rVert\leq (1+\epsilon)\lVert \mu-\nu\rVert,\quad\text{ for all }\mu,\nu\in X
+\end{equation}
+$$
+The formula ca be rearranged:
+$$
+\begin{equation}
+(1+\epsilon)^{-1}\lVert f(\mu)-f(\nu)\rVert^{2}\leq \lVert \mu-\nu\rVert^{2}\leq (1-\epsilon)^{-1}\lVert f(\mu)-f(\nu)\rVert^{2}
+\end{equation}
+$$
+
+One proof of the lemma takes $f$ to be a suitable multiply of the orthogonal projection onto a random subspace of dimension $n$ in $\mathbb{R}^{N}$, and exploits the phenomenon of concentration of measure.
+
+### 3.2 Local Sensitive Hashing in Large-scale Data
+
+The time complexity of naive KNN algorithm is liner, $O(N)$, which is not effective in large-scale dataset. Local sensitive hashing is a hashing based algorithm to identify approximate nearest neighbors.
+
+Local sensitive hash algorithm is a family of hash function, which can hash data points into the slots such that data points near with each other are located in the same slots with high probability, while data points far from each other are likely to be in different slots with low probability. 
+
+Assume $x_{1}$ and $x_{2}$ are two data points, $H$ is a hash function, and metric function is $d$,  then
+
+- If $d(x_{1},x_{2})$ is high when $P(H(x_{1})==H(x_{2}))$ is high.
+- If $d(x_{1},x_{2})$ is low when $P(H(x_{1})==H(x_{2}))$ is low.
+
+**LSH using random projection method:**
+
+In the implementation of LSH, we firstly construct a hash table of all possible bin, which represents similary item. Each bin is a binary code(e.g. 001,101,...), such that two similar sample are likely represented by the same bin. The procedure of LSH is:
+
+1. Create unit random vectors $r_{i}\in$ with $d$ length, for $i=1,...,k$,  where $k$ denotes the number bits of binary code and $d$ is the dimension of the feature vector.
+2. Given a sample $x$, we compute the dot product of unit random vector $r_{i}$ and $x$, and then assign a binary value $c_{i}$ by $h(x)=\text{sgn}(x\cdot v_{i})$.
+3. Repeat step `2` k times, concatenate all binary value $c_{i}$ for $i=1,...,k$.
+4. Encode all samples into hash values by repeat step `2` and step `3`.
+5. Group observations with same hash values together to create a LSH table.
+
 
 ## 4. KV-Tree
 
