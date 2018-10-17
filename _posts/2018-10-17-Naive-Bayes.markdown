@@ -22,7 +22,7 @@ $$
 
 $$
 \begin{equation}
-\mathbf{\theta}^{\text{MAP}}=\arg\max_{\anthbf{\theta}}\prod_{i=1}^{N}p(x_{i}\vert \mathbf{\theta})p(\theta)
+\mathbf{\theta}^{\text{MAP}}=\arg\max_{\mathbf{\theta}}\prod_{i=1}^{N}p(x_{i}\vert \mathbf{\theta})p(\theta)
 \end{equation}
 $$
 
@@ -57,8 +57,9 @@ In the next Seesion, variant models of naive bayes are introduced.
 1. $Y\sim \text{Bernoulli}(\Phi)$, binary classification.
  
 $$\begin{equation}
-p(y)=\left\begin{aligned} \Phi\quad y=1\\
+p(y)=\left\begin{cases} \Phi\quad y=1\\
 1-\Phi \quad y=0
+\end{cases}
 \end{equation}
 $$
 
@@ -178,7 +179,7 @@ In this case, we take bernoulli naive bayes model as an example for spam and non
 $$
 \begin{equation}
 \displaystyle{\theta_{k,0} = \frac{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=0\land x_{k}^{(i)}=1)}{\sum_{i=1}^{N}\mathbb{I}(y^{(i)}=0)}}
-\end{eqaution}
+\end{equation}
 $$
 
 the result is that $\theta_{k,0}^{\text{MLE}}=0$.
