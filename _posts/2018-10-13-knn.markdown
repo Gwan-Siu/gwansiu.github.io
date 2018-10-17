@@ -19,7 +19,7 @@ Assumed training data $D=((x_{1},y_{1}),(x_{2},y_{2}),...,(x_{n},y_{n}),...,x_{N
 2. In the neighbor $N_{k}(x)$, the class $y$ is decided according to the decision rule(e.g. voting rule):
 $$
 \begin{equation}
-y=\dispalystyle{\arg\max_{c_{j}}\sum_{x_{i}\in N_{k}(x)}w_{i}I(y_{i}=c_{j})},\quad \text{for }i=1,2,...,k;\quad j=1,2,...,K
+y=\displaystyle{\arg\max_{c_{j}}\sum_{x_{i}\in N_{k}(x)}w_{i}I(y_{i}=c_{j})},\quad \text{for }i=1,2,...,k;\quad j=1,2,...,K
 \end{equation}
 $$
 
@@ -29,7 +29,7 @@ where $w_{i}$ is weight assigned to each point in $N_{k}(x)$, and it means the w
 KNN algorithm is one kind of non-parametric density estimation method. It comes from parzen density estimation:
 $$
 \begin{equation}
-\hat{p}(X)=\frac{1}{N}\displaysty{\sum_{i=1}^{N}\kappa(X-x_{i})}
+\hat{p}(X)=\frac{1}{N}\displaystyle{\sum_{i=1}^{N}\kappa(X-x_{i})}
 \end{equation}
 $$
 where $\kappa$ is a kernel, e.g. block kernel or radius basis function kernel.
@@ -269,9 +269,11 @@ Spill tree is a variant of ball tree(or metric tree). Different from ball tree(o
 2. It means that the $\text{left}(\nu)$ contains all points on the left of $\text{right}(\nu)$ and the $\text{right}(\nu)$ contains all points on the right of $\text{right}(\nu)$.
 
 **Why allowing overlap?**
+
 - Find the neighbor approximately, not exactly.
 
 ### 6.1 The Search of Spill Tree
+
 - Don't trackback at all-just do a tree descent, not depth-fisrt
 - Consider a case when $q$ is close to $L$: it's true that the true NN might be on the other side of $L$
 - the true NN on the over side van be catched by allowing overlap
