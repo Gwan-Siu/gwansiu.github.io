@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Naive Bayes and Logistics Regression"
+title:      "Naive Bayes"
 date:       2018-06-17 12:00:00
 author:     "GwanSiu"
 catalog: true
