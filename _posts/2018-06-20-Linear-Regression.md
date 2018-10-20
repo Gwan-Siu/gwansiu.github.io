@@ -21,7 +21,7 @@ $$
 \end{align}
 $$
 
-where $\mathbf{W}= \{\omega_{0},...,\omega_{K}\} \in\mathbb{R}^{K}$ is parameters.
+where $\mathbf{W}=(\omega_{0},...,\omega_{K) \in\mathbb{R}^{K}$ is parameters.
 
 Our goal is to find minimize the objective function, in this case, we minimize the least square error:
 
@@ -40,7 +40,7 @@ The general optimization form is:
 
 $$
 \begin{equation}
-\omega^{\ast}=\arg\min_{\omega}J(\omega)
+\mathbf{W}^{\ast}=\arg\min_{\mathbf{W}}J(\mathbf{W})
 \end{equation}
 $$
 
@@ -52,7 +52,7 @@ Updated rule:
 
 $$
 \begin{equation}
-\mathbf{W}_{t+1} = \mathbf{W}_{t} + \lambda\nabla J(\amthbf{W}) 
+\mathbf{W}_{t+1} = \mathbf{W}_{t} + \lambda\nabla J(\mathbf{W}) 
 \end{equation}
 $$
 
@@ -65,7 +65,7 @@ $$
 \frac{\mathrm{d}}{\mathrm{d}\omega_{k}}J_{i}(\mathbf{W}) &= \frac{\mathrm{d}}{\mathrm{d}\omega_{k}} \frac{1}{2}(\mathbf{W}x_{i}-y_{i})^{2} \\
 &= \frac{1}{2}\frac{\mathrm{d}}{\mathrm{d}\omega_{k}}(\mathbf{W}x_{i}-y_{i})^{2} \\
 &= (\mathbf{W}x_{i}-y_{i}) \frac{\mathrm{d}}{\mathrm{d}\omega_{k}} (\mathbf{W}x_{i}-y_{i}) \\
-&= (\mathbf{W}x_{i}-y_{i}) \frac{\mathrm{d}}{\mathrm{d}\omega_{k}} (sum_{k=1}^{K}\omega_{k}x_{i}^{k}-y_{i}) \\
+&= (\mathbf{W}x_{i}-y_{i}) \frac{\mathrm{d}}{\mathrm{d}\omega_{k}} (\sum_{k=1}^{K}\omega_{k}x_{i}^{k}-y_{i}) \\
 &= \mathbf{W}x_{i}-y_{i})x_{i}^{k}
 \end{align}
 $$
@@ -76,7 +76,7 @@ $$
 \begin{align}
 
 \frac{\mathrm{d}}{\mathrm{d}\omega_{k}}J(\mathbf{W}) &= \frac{\mathrm{d}}{\mathrm{d}\omega_{k}}\sum_{i=1}^{N}J_{i}(\mathbf{W}) \\
-&= sum_{i=1}^{N} \mathbf{W}x_{i}-y_{i})x_{i}^{k}
+&= \sum_{i=1}^{N} \mathbf{W}x_{i}-y_{i})x_{i}^{k}
 \end{align}
 $$
 
@@ -98,7 +98,7 @@ To minimize $J(\mathbf{W})$, take the derivative and set to zero:
 
 $$
 \begin{align}
-\nbala_{\mathbf{}/W}J &=\frac{1}{2}\nbala_{\mathbf{W}}\text{tr}(\mathbf{W}^{T}X^{T}X\mathbf{W}-\mathbf{W}^{T}X^{T}y-y^{T}X\mathbf{W}+y^{T}y) \\
+\nabla_{\mathbf{}/W}J &=\frac{1}{2}\nabla_{\mathbf{W}}\text{tr}(\mathbf{W}^{T}X^{T}X\mathbf{W}-\mathbf{W}^{T}X^{T}y-y^{T}X\mathbf{W}+y^{T}y) \\
 &= \frac{1}{2}(X^{T}X\mathbf{W}+X^{T}X\mathbf{W}-2X^{T}y) \\
 &=X^{T}X\mathbf{W}-X^{T}y = 0
 \end{align}
@@ -265,7 +265,7 @@ We can give another intuitive story. In high dimensional space, not every attibu
 
 **Ridge regression** and **Lasso** are most commom variant regression model in high-dimensional space.
 
-### 1.3.1 L2 Regularization
+### 4.1 L2 Regularization
 
 Linear regression with L2 norm penalty is called **Ridge Regression**. The form of ridge regression is:
 
@@ -287,7 +287,7 @@ $$
 
 where $p(\omega)\sim \mathbb{N}(0,\frac{1}{\lambda})$.
 
-### 1.3.2 L1 Regularization
+### 4.2 L1 Regularization
 
 Linear Regression with L1 regularizer is called **LASSO**. The form of LASSO is:
 
@@ -327,15 +327,15 @@ Many optimization algorithm exist to handle this issue:
 4. Sparse Reconstruction by separable approximation(SpaRSA)
 5. Fast Iterative Shrinkage Thresholding Algorithm.
 
-### 1.3.3 Ridge Regression vs LASSO
+### 4.3 Ridge Regression vs LASSO
 
 In this part, I directly cite the content of the course 10701, CMU, 2016. The instructor is Prof.Eric Xing.
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/A57E4FDF-5332-40B2-BCBC-580F9F37D355.png" width = "600" height = "400"/>
 
-## 1.4 Advanced Topic on Linear Regression
+## 5 Advanced Topic on Linear Regression
 
-### 1.4.1 Locally-Weighted Linear Regression
+### 5.1 Locally-Weighted Linear Regression
 
 The plain form of linear regression do not consider spatial relation between training data and query data. In order to coorperate with spatial information, we reformulate the form of linear regression:
 
@@ -351,7 +351,7 @@ here, $\omega$ is the parameterm, and $\omega$ is the weight, $\omega=exp\left(-
 
 <img src="https://i.stack.imgur.com/efEaJ.png" width = "600" height = "400"/>
 
-### 1.4.2 Robust Regression
+### 5.2 Robust Regression
 
 Locally weighted linear regression algorithm is to score the importance for each point. **Robust Rgression** is to score each point according to its "fittness".
 
