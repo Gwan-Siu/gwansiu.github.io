@@ -21,7 +21,7 @@ $$
 \end{align}
 $$
 
-where $\mathbf{W}=(\omega_{0},...,\omega_{K) \in\mathbb{R}^{K}$ is parameters.
+where $\mathbf{W}=(\omega_{0},...,\omega_{K}) \in\mathbb{R}^{K}$ is parameters.
 
 Our goal is to find minimize the objective function, in this case, we minimize the least square error:
 
