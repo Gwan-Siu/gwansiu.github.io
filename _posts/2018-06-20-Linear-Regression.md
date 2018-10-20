@@ -12,7 +12,7 @@ tags:
 
 ### 1.1 Linear Regression
 
-Originally, `linear regression` is a linear combination of input variables, the goal of linear regression is find a polynomial funciton to approximate the target function. Given dataset $D=\{(x_{1},y_{1}),...,(x_{N}, y_{N})\}$, where $x_{i}\in \mathbb{R}^{K}, y\in\mtahbb{R}$ for $i=1,...,N$, $N$ is the number of data. The simplest form of linear regression is:
+Originally, `linear regression` is a linear combination of input variables, the goal of linear regression is find a polynomial funciton to approximate the target function. Given dataset $D=\{(x_{1},y_{1}),...,(x_{N}, y_{N})\}$, where $x_{i}\in \mathbb{R}^{K}, y\in\mathbb{R}$ for $i=1,...,N$, $N$ is the number of sample points. The simplest form of linear regression is:
 
 $$
 \begin{align}
@@ -21,13 +21,13 @@ $$
 \end{align}
 $$
 
-where $\mathbf{W}=\{\omega_{0},...,\omega_{K}\}\in\mathbb{R}^{K}$ is parameters.
+where $\mathbf{W}= \{\omega_{0},...,\omega_{K}\} \in\mathbb{R}^{K}$ is parameters.
 
 Our goal is to find minimize the objective function, in this case, we minimize the least square error:
 
 $$
 \begin{equation}
-\omega^{\ast}=\arg\min_{\omega}J(\omega)=\arg\min_{\omega}\frac{1}{2}\sum_{i=1}^{N}(\mathbf{W}^{T}x_{i}-y_{i})^{2}
+\mathbf{W}^{\ast}=\arg\min_{\mathbf{W}}J(\mathbf{W})=\arg\min_{\mathbf{W}}\frac{1}{2}\sum_{i=1}^{N}(\mathbf{W}^{T}x_{i}-y_{i})^{2}
 \end{equation}
 $$
 
@@ -41,7 +41,7 @@ The general optimization form is:
 $$
 \begin{equation}
 \omega^{\ast}=\arg\min_{\omega}J(\omega)
-\end{eqaution}
+\end{equation}
 $$
 
 Iterative method and direct method( or close form) can be used to solve to linear regression problem Iterative method includes gradient descent(GD) and stochastic gradient descent(SGD).
@@ -53,7 +53,7 @@ Updated rule:
 $$
 \begin{equation}
 \mathbf{W}_{t+1} = \mathbf{W}_{t} + \lambda\nabla J(\amthbf{W}) 
-\end{eqaution}
+\end{equation}
 $$
 
 where $\lambda$ is step size, a hyperparameter.  $\displaystyle{J(\mathbf{W})=\sum_{i}^{N}J_{i}(\mathbf{W})}$, and $J_{i}(\mathbf{W})=\frac{1}{2}(\mathbf{W}x_{i}-y_{i})^{2}$.
@@ -62,12 +62,11 @@ The derivative of $J(\mathbf{W})$ is:
 
 $$
 \begin{align}
-\displaystyle{
 \frac{\mathrm{d}}{\mathrm{d}\omega_{k}}J_{i}(\mathbf{W}) &= \frac{\mathrm{d}}{\mathrm{d}\omega_{k}} \frac{1}{2}(\mathbf{W}x_{i}-y_{i})^{2} \\
 &= \frac{1}{2}\frac{\mathrm{d}}{\mathrm{d}\omega_{k}}(\mathbf{W}x_{i}-y_{i})^{2} \\
 &= (\mathbf{W}x_{i}-y_{i}) \frac{\mathrm{d}}{\mathrm{d}\omega_{k}} (\mathbf{W}x_{i}-y_{i}) \\
 &= (\mathbf{W}x_{i}-y_{i}) \frac{\mathrm{d}}{\mathrm{d}\omega_{k}} (sum_{k=1}^{K}\omega_{k}x_{i}^{k}-y_{i}) \\
-&= \mathbf{W}x_{i}-y_{i})x_{i}^{k}}
+&= \mathbf{W}x_{i}-y_{i})x_{i}^{k}
 \end{align}
 $$
 
@@ -75,10 +74,9 @@ thus we have:
 
 $$
 \begin{align}
-\displaystyle{
+
 \frac{\mathrm{d}}{\mathrm{d}\omega_{k}}J(\mathbf{W}) &= \frac{\mathrm{d}}{\mathrm{d}\omega_{k}}\sum_{i=1}^{N}J_{i}(\mathbf{W}) \\
-&= sum_{i=1}^{N} \mathbf{W}x_{i}-y_{i})x_{i}^{k}}
-}
+&= sum_{i=1}^{N} \mathbf{W}x_{i}-y_{i})x_{i}^{k}
 \end{align}
 $$
 
@@ -89,12 +87,10 @@ From obove analysis, gradient decent algorithm is requires to compute the grdien
 the objective function is:
 
 $$
-\displaystyle{
 \begin{align}
 J(\mathbf{W}) &= \frac{1}{2}\sum_{i=1}^{N}(x_{i}^{T}\mathbf{W}-y_{i})^{2} \\
 &= \frac{1}{2}(X\mathbf{W}-y)^{T}(X\mathbf{W}-y) \\
 &= \frac{1}{2}(\mathbf{W}^{T}X^{T}X\mathbf{W}-\mathbf{W}^{T}X^{T}y-y^{T}X\mathbf{W}+y^{T}y)
-}
 \end{align}
 $$
 
