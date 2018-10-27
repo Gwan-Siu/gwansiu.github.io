@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Fater Iterative Shrinking Threshold Algorithm"
-date:       2018-06-17 12:00:00
+date:       2018-10-27 12:00:00
 author:     "GwanSiu"
 catalog: true
 tags:
@@ -14,7 +14,7 @@ The definition of proximal mapping of convex function $h$ is:
 
 $$
 \begin{equation}
-\textbf{prox}_{h}(x)=\arg\mix_{\mu}(h(\mu)+\frac{1}{2}\Arrowvert\mu-x\Arrowvert^{2})
+\textbf{prox}_{h}(x)=\arg\min_{\mu}(h(\mu)+\frac{1}{2}\Arrowvert\mu-x\Arrowvert^{2})
 \end{equation}
 $$
 
@@ -51,7 +51,7 @@ thus, we can use proximal gradient method  to compute the minimum value of $Q(x,
 
 $$
 \begin{equation}
-\bm{p}_{L}(y)=\arg\min_{x}g(x)+\frac{L}{2}\Arrowvert x -(y-\frac{1}{L}\nablaf(y))\Arrowvert^{2}
+\boldsymbol{p}_{L}(y)=\arg\min_{x}g(x)+\frac{L}{2}\Arrowvert x -(y-\frac{1}{L}\nabla(y))\Arrowvert^{2}
 \end{equation}
 $$
 
@@ -59,7 +59,7 @@ In bothe ISTA and FISTA, update point $x_{k}$ is computed by proximal gradient m
 
 $$
 \begin{equation}
-x_{k}=\bm{p}_{L}(x_{k-1})
+x_{k}=\boldsymbol{p}_{L}(x_{k-1})
 \end{equation}
 $$
 
