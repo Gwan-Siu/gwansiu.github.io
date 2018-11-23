@@ -230,10 +230,12 @@ E-step usually construct the upper bound of loglikelihood, and M-step updates mo
 The difference between the log likelihood and the bound:
 
 $$
-\begin{equation}
+\begin{align}
 \mathcal{L}(\theta)-\mathcal{F}(q(z), \theta) &= \log p(x\vert \theta) - \int q(z)\log \frac{p(x, z\vert \theta)}{q(z)}\mathrm{d}z \\
 &= \log p(x\vert \theta) - \int q(z)\log \frac{p(z\vert x, \theta)p(x\vert \theta)}{q(z)}\mathrm{d}z \\
-\end{equation}
+&= -\int q(z)\log \frac{p(z\vert x, \theta)}{q(x)} \\
+&= \text{KL}(q(z), p(z\vert x, \theta))
+\end{align}
 $$
 
 Thus, the likelihood of variable can be decomposed into evidence bound and KL divergence between $q(z)$ and $p(z\vert x,\theta)$.
