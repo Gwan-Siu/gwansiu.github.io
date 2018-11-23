@@ -12,7 +12,7 @@ tags:
 
 In this article, I will introduce Expectation Maximization(EM) algorithm. EM algorithm is introduced as early as 1950 by Ceppellini etal, and then it widely applied for parameters estiamtion of **incomplete data(known X, unkown Y)**. Our story begin with maximimum lieklihood of **complete data(known X, known Y)**.
 
-Conventional problem of machine learning is parameters estimation problem. We take an exmaple of fipping coins. Suppose we have two coins A and B with unknown biases, $\theta_{A}$ and $\theta_{B}$ respectively. We set an experiment that we fip the coin repeatly. During the experiment, we fip the coin followed the i.i.d principle and keep track the record of the $X=\{x_{1},...,x_{N}\}$ and $Y=\{y_{1},...,y_{N}\}$, where $N$ is the number of samples, $x_{i}$ denotes the number of head we observed and y is an indicator of identity of coins. we assume these data comes from an underlying distribution $P(X,Y\vert \Theta)$, at this time, we assume bernoulli distribution. Thanks to the bayes'rule: $\displaystyle{p(\Theta\vert X, Y)\frac{p(X,Y\vert\Theta)p(\Theta)}{p(X,Y)}}$,  Our goal is estimate the parameters $\Theta$. We can adopt maximize log-likelihood estiamtion(MLE): $\log p(\Theta\vert X, Y)=\logp(X,Y\vert\Theta)$
+Conventional problem of machine learning is parameters estimation problem. We take an exmaple of fipping coins. Suppose we have two coins A and B with unknown biases, $\theta_{A}$ and $\theta_{B}$ respectively. We set an experiment that we fip the coin repeatly. During the experiment, we fip the coin followed the i.i.d principle and keep track the record of the $X=\{x_{1},...,x_{N}\}$ and $Y=\{y_{1},...,y_{N}\}$, where $N$ is the number of samples, $x_{i}$ denotes the number of head we observed and y is an indicator of identity of coins. we assume these data comes from an underlying distribution $P(X,Y\vert \Theta)$, at this time, we assume bernoulli distribution. Thanks to the bayes'rule: $\displaystyle{p(\Theta\vert X, Y)\frac{p(X,Y\vert\Theta)p(\Theta)}{p(X,Y)}}$,  Our goal is estimate the parameters $\Theta$. We can adopt maximize log-likelihood estiamtion(MLE): $\log p(\Theta\vert X, Y)=\log p(X,Y\vert\Theta)$
 
 $$
 \begin{align}
@@ -74,7 +74,7 @@ Q(\Theta,\Theta^{(t)}) &= \sum_{Y\in\gamma}\log(p(\Theta\vert X,Y))p(Y\vert X,\T
 &= \sum_{Y\in\gamma}\log(\prod_{i=1}^{N}p(x_{i},\vert y_{i},\theta_{y_{i}})p(y_{i} \vert \theta_{y_{i}}))\prod_{i=1}^{N}p(y_{i}\vert x_{i},\Theta^{(t)}) \\
 &= \sum_{Y\in\gamma}\sum_{i=1}^{N}\log(p(x_{i}\vert y_{i},\theta_{y_{i}})p(y_{i}\vert \theta_{y_{i}}))\prod_{i=1}^{N}p(y_{i}\vert x_{i},\Theta^{(t)}) \\
 &= \sum_{y_{1}=1}^{N}...\sum_{y_{N}=1}^{K}\sum_{i=1}^{N}\log(p(x_{i}\vert y_{i}\Theta^{(t)})p(y_{i}\vert \theta_{y_{i}}))\prod_{j=1}^{N}p(y_{j}\vert x_{j},\Theta^{(t)}) \\
-&= \sum_{y_{1}=1}^{N}...\sum_{y_{N}=1}^{K}\sum_{i=1}^{N}\log(\alpha_{y_{i}}p(x_{i}\vert y_{i}, \theta_{y_{i}}))p(y_{1},...,y_{N}\vert x_{i},\Theta^{(t)})
+&= \sum_{y_{1}=1}^{N}...\sum_{y_{N}=1}^{K}\sum_{i=1}^{N}\log(\alpha_{y_{i}}p(x_{i}\vert y_{i}, \theta_{y_{i}}))p(y_{1},...,y_{N}\vert x_{i},\Theta^{(t)}) \\
 &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(\alpha_{l}) + \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y_{i}, \theta_{y_{i}})) \\
 \end{align}
 $$
@@ -100,7 +100,7 @@ Given $N$ samples $X$ and we assume all data samples come from $K$ underlyding g
 
 $$
 \begin{equation}
-\mathcal{N}(\mu,\Sigma)=\frac{1}{(2\pi)^{d/2}\vert\Sigam\vert^{1/2}}\text{exp}(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu))
+\mathcal{N}(\mu,\Sigma)=\frac{1}{(2\pi)^{d/2}\vert\Sigma\vert^{1/2}}\text{exp}(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu))
 \end{equation}
 $$
 
@@ -125,7 +125,7 @@ to abtain the $\mu$, we only focus on the second part:
 $$
 \begin{align}
 L &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y_{i}, \theta_{y_{i}})) \\
-&= \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\[\frac{1}{2}\log((2\pi)^{-d}\vert\Sigma\vert^{-1})+(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l}))\]
+&= \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})[\frac{1}{2}\log((2\pi)^{-d}\vert\Sigma\vert^{-1})+(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l}))]
 \end{align}
 $$
 
@@ -136,7 +136,7 @@ To obtain $\Sigma_{l}^{new}$:
 $$
 \begin{align}
 L &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y_{i}, \theta_{y_{i}})) \\
-&= \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\[\frac{1}{2}\log((2\pi)^{d}\vert\Sigma\vert^{-1})+(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l}))\]
+&= \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})[\frac{1}{2}\log((2\pi)^{d}\vert\Sigma\vert^{-1})+(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l}))] \\
 &=\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log((2\pi)^{d}) +\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log\vert\Sigma\vert^{-1} - \frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l})
 \end{align}
 $$
@@ -165,31 +165,13 @@ $$
 \begin{align}
 \alpha_{l}^{(t+1)} &= \frac{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})}{N} \\
 \mu_{l}^{(t+1)} &= \frac{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})x_{i}}{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})} \\
-\Sigma_{l}^{(t+1)} = \frac{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})^{T}(x_{i}-\mu_{l})}{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})}
+\Sigma_{l}^{(t+1)} &= \frac{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})^{T}(x_{i}-\mu_{l})}{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})}
 \end{align}
 $$
 
 
 
-
-### 2.4 The Convergence of EM algorithm
-
-EM algortihm contains 2 steps: E-step and M-step. E-step construct upper bound for likelihood function of complete dataset. M-step maximize the lower bound and update latent factors, model parameters.
-
-$$
-\begin{align}
-\mathcal{L}(\theta^{(t+1)}) &= \log p(x\vert \theta^{(t+1)}) \\
-&= \log \sum_{y}p(x,y\vert \theta^{(t+1)})  \\
-&= \log \sum_{y}q(y\vert \theta^{(t)})\frac{p(x,y\vert \theta^{(t+1)})}{q(y\vert \theta^{(t)})} \\
-&\geq \sum_{y}q(y\vert \theta^{(t)}) \log \frac{p(x,y\vert \theta^{(t+1)})}{q(y\vert \theta^{(t)})} \\
-&\geq \sum_{y}q(y\vert \theta^{(t-1)}) \log \frac{p(x,y\vert \theta^{(t)})}{q(y\vert \theta^{(t-1)})} \\
-&= \mathcal{L}(\theta^{(t)})
-\end{align}
-$$ 
-
-
-
-### 4. Another View of EM Algorithm
+### 2.4 Another View of EM Algorithm
 
 
 Given observed variable $x$, unobserved variable(latent variable) $z$ and model paramters $\theta$, what we want is maximize likelihood w.r.t $\theta$:
@@ -251,8 +233,6 @@ $$
 \begin{equation}
 \mathcal{L}(\theta)-\mathcal{F}(q(z), \theta) &= \log p(x\vert \theta) - \int q(z)\log \frac{p(x, z\vert \theta)}{q(z)}\mathrm{d}z \\
 &= \log p(x\vert \theta) - \int q(z)\log \frac{p(z\vert x, \theta)p(x\vert \theta)}{q(z)}\mathrm{d}z \\
-&= -\int q(z)\log \frac{p(z\vert x, \theta)}{q(x)} \\
-&= \text{KL}(q(z), p(z\vert x, \theta))
 \end{equation}
 $$
 
