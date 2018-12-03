@@ -139,7 +139,7 @@ L &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y
 \end{align}
 $$
 
-and set the detivative with respect with $\mu$ to 0, and we have $\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})=0$. Thus, $\mu_{l}^{new}=\frac{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})x_{i}}{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})}$.
+and set the detivative with respect with $\mu$ to 0, and we have $\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})=0$. Thus, $\diaplaystyle{\mu_{l}^{new}=\frac{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})x_{i}}{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})}}$.
 
 To obtain $\Sigma_{l}^{new}$:
 
@@ -147,7 +147,8 @@ $$
 \begin{align}
 L &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y_{i}, \theta_{y_{i}})) \\
 &= \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})[\frac{1}{2}\log((2\pi)^{d}\vert\Sigma\vert^{-1})+(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l}))] \\
-&=\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log((2\pi)^{d}) +\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log\vert\Sigma\vert^{-1} - \frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l})
+&=\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log((2\pi)^{d}) +\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log\vert\Sigma\vert^{-1} \\
+&- \frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l})
 \end{align}
 $$
 
@@ -167,7 +168,7 @@ $$
 \sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(\Sigma_{l}-N_{l,i})=0
 $$
 
-and we obtain: $\Sigma_{l}^{new}=\frac{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})^{T}(x_{i}-\mu_{l})}{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})}$.
+and we obtain: $\displaystyle{\Sigma_{l}^{new}=\frac{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})^{T}(x_{i}-\mu_{l})}{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})}}$.
 
 Finally, we have:
 
