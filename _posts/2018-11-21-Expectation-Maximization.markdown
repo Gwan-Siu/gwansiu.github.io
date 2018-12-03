@@ -71,10 +71,10 @@ we can see that $\log(p(X\vert \Theta))$ is a probability distribution due to $\
 $$
 \begin{align}
 Q(\Theta,\Theta^{(t)}) &= \sum_{Y\in\gamma}\log(p(\Theta\vert X,Y))p(Y\vert X,\Theta) \\
-&= \sum_{Y\in\gamma}\log(\prod_{i=1}^{N}p(x_{i},\vert y_{i},\theta_{y_{i}})p(y_{i} \vert \theta_{y_{i}}))\prod_{i=1}^{N}p(y_{i}\vert x_{i},\Theta^{(t)}) \\
+&= \sum_{Y\in\gamma}\log(\prod_{i=1}^{N}p(x_{i}\vert y_{i},\theta_{y_{i}})p(y_{i} \vert \theta_{y_{i}}))\prod_{i=1}^{N}p(y_{i}\vert x_{i},\Theta^{(t)}) \\
 &= \sum_{Y\in\gamma}\sum_{i=1}^{N}\log(p(x_{i}\vert y_{i},\theta_{y_{i}})p(y_{i}\vert \theta_{y_{i}}))\prod_{i=1}^{N}p(y_{i}\vert x_{i},\Theta^{(t)}) \\
-&= \sum_{y_{1}=1}^{N}...\sum_{y_{N}=1}^{K}\sum_{i=1}^{N}\log(p(x_{i}\vert y_{i}\Theta^{(t)})p(y_{i}\vert \theta_{y_{i}}))\prod_{j=1}^{N}p(y_{j}\vert x_{j},\Theta^{(t)}) \\
-&= \sum_{y_{1}=1}^{N}...\sum_{y_{N}=1}^{K}\sum_{i=1}^{N}\log(\alpha_{y_{i}}p(x_{i}\vert y_{i}, \theta_{y_{i}}))p(y_{1},...,y_{N}\vert x_{i},\Theta^{(t)}) \\
+&= \sum_{y_{1}=1}^{K}...\sum_{y_{N}=1}^{K}\sum_{i=1}^{N}\log(p(x_{i}\vert y_{i}\theta)p(y_{i}\vert \theta_{y_{i}}))\prod_{j=1}^{N}p(y_{j}\vert x_{j},\Theta^{(t)}) \\
+&= \sum_{y_{1}=1}^{K}...\sum_{y_{N}=1}^{K}\sum_{i=1}^{N}\log(\alpha_{y_{i}}p(x_{i}\vert y_{i}, \theta_{y_{i}}))p(y_{1},...,y_{N}\vert x_{i},\Theta^{(t)}) \\
 &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(\alpha_{l}) + \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y_{i}, \theta_{y_{i}})) \\
 \end{align}
 $$
@@ -83,7 +83,7 @@ $$
 
 M-step is to re-estimate the hidden parameter and model parameters using complete data likelihood.
 
-Firstly, to obtain the $\alpha_{l}$, we should take the derivative respect to $\alpha_{l}$, with the constraint is $\sum_{l=1}^{K}\alpha_{l}=1$. Thus, lagrange function is:
+Firstly, to obtain the $\alpha_{l}$, we should take the derivative respect to $\alpha_{l}$, with the constraint is $\displaystyle{\sum_{l=1}^{K}\alpha_{l}=1}$. Thus, lagrange function is:
 
 $$
 \begin{equation}
@@ -91,7 +91,7 @@ $$
 \end{equation}
 $$
 
-thus, the $\frac{\partial L}{\partial \alpha_{l}}= \frac{1}{\alpha_{l}}\sum_{i=1}^{N} p(l\vert x_{i}, \Theta^{(t)})=0$, and we obtain $\alpha_{l}=\frac{\sum_{i=1}^{N} p(l\vert x_{i}, \Theta^{(t)})}{-\lambda}$. Due to $\sum_{l=1}^{K}\alpha_{l}=1$, we can easily get $\lambda=-N$.
+thus, the $\frac{\partial L}{\partial \alpha_{l}}= \frac{1}{\alpha_{l}}\displaystyle{\sum_{i=1}^{N}} p(l\vert x_{i}, \Theta^{(t)})=0$, and we obtain $\alpha_{l}=\displaystyle{\frac{\sum_{i=1}^{N} p(l\vert x_{i}, \Theta^{(t)})}{-\lambda}}$. Due to $\displaystyle{\sum_{l=1}^{K}\alpha_{l}=1}$, we can easily get $\lambda=-N$.
 
 
 ### 2.4 Gaussian Mixture Model
@@ -197,6 +197,7 @@ $$
 \mathcal{F}(q,\theta) = \int q(z)\log \frac{p(x,z\vert\theta)}{q(z)} = \int q(z)\log p(x, z\vert\theta)\mathrm{d}z + \mathcal{H}(q)
 \end{equation} 
 $$
+
 where $\mathcal{H}(q)=-\int q(z)\log q(z)\mathrm{d}z$ is entropy of $q$. Thus, we can iteratively update:
 
 **E-step:** maximize $\mathcal{F}(q,\theta)$ w.r.t distribution over hidden variables given the parameters:
@@ -208,6 +209,9 @@ q^{(t+1)} =\arg\max_{q(z)} \mathcal{F}(q(z), \theta^{(t)})
 $$
 
 **M-step:** maximize $\mathcal{F}(q,\theta)$ w.r.t the parameters given the hidden distribution:
+
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/52AAF55B-C0F9-437E-B0C7-C56606E383D7.png" width = "600" height = "400"/>
 
 $$
 \begin{equation}
@@ -226,6 +230,10 @@ $$
 $$
 
 E-step usually construct the upper bound of loglikelihood, and M-step updates model parameters $\theta$. Usually, EM algorithm converges to a local minimum. Thus, **please try more times when you implement EM algorithm.**
+
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/EMAlgorithm_19_0.png" width = "600" height = "400"/>
+
 
 The difference between the log likelihood and the bound:
 
