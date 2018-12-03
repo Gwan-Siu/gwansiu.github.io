@@ -101,7 +101,7 @@ $$
 \end{equation}
 $$
 
-where $p(l\vert x_{i}, \Theta_{l}^{(t)})=\frac{p(y_{i}=l)p(x_{i}\vert y_{i}=l)}{\sum_{l}^{K}p(y_{i}=l)p(x_{i}\vert y_{i}=l)}=\frac{\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}{\sum_{l=1}^{K}\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}$
+where $p(l\vert x_{i}, \Theta_{l}^{(t)})=\displaystyle{\frac{p(y_{i}=l)p(x_{i}\vert y_{i}=l)}{\sum_{l}^{K}p(y_{i}=l)p(x_{i}\vert y_{i}=l)}=\frac{\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}{\sum_{l=1}^{K}\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}}$
 
 
 ### 2.4 Gaussian Mixture Model
@@ -128,7 +128,7 @@ $$
 \end{equation}
 $$
 
-where $p(l^{(t)}\vert x_{i}, \Theta^{(t)}_{l^{(t)}})=\frac{p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l^{(t)}})}{\sum_{l}^{K}}p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l})=$
+where $p(l^{(t)}\vert x_{i}, \Theta^{(t)}_{l^{(t)}})=p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l})=\frac{\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}{\sum_{k=1}^{K}\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}$
 
 to abtain the $\mu$, we only focus on the second part:
 
@@ -139,7 +139,7 @@ L &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y
 \end{align}
 $$
 
-and set the detivative with respect with $\mu$ to 0, and we have $\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})=0$. Thus, $\diaplaystyle{\mu_{l}^{new}=\frac{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})x_{i}}{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})}}$.
+and set the detivative with respect with $\mu$ to 0, and we have $\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})=0$. Thus, $\displaystyle{\mu_{l}^{new}=\frac{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})x_{i}}{\sum_{i}^{N}p(l\vert x_{i}, \Theta^{(t)})}}$.
 
 To obtain $\Sigma_{l}^{new}$:
 
