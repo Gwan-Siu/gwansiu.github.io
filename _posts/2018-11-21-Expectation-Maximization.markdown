@@ -93,6 +93,16 @@ $$
 
 thus, the $\frac{\partial L}{\partial \alpha_{l}}= \frac{1}{\alpha_{l}}\displaystyle{\sum_{i=1}^{N}} p(l\vert x_{i}, \Theta^{(t)})=0$, and we obtain $\alpha_{l}=\displaystyle{\frac{\sum_{i=1}^{N} p(l\vert x_{i}, \Theta^{(t)})}{-\lambda}}$. Due to $\displaystyle{\sum_{l=1}^{K}\alpha_{l}=1}$, we can easily get $\lambda=-N$.
 
+Thus:
+
+$$
+\begin{equation}
+alpha_{l}=\displaystyle{\frac{\sum_{i=1}^{N} p(l\vert x_{i}, \Theta^{(t)})}{N}}
+\end{equation}
+$$
+
+where $p(l\vert x_{i}, \Theta_{l}^{(t)})}=\frac{p(y_{i}=l)p(x_{i}\vert y_{i}=l)}{\sum_{l}^{K}p(y_{i}=l)p(x_{i}\vert y_{i}=l)}=\frac{\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}{\sum_{l=1}^{K}\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}$
+
 
 ### 2.4 Gaussian Mixture Model
 
@@ -118,7 +128,7 @@ $$
 \end{equation}
 $$
 
-where $\displaystyle{p(l^{(t)}\vert x_{i}, \Theta^{(t)}_{l^{(t)}})=\frac{p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l^{(t)}})}{\sum_{l}^{K}}p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l})}=\frac{\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}{\sum_{k=1}^{K}\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}$
+where $p(l^{(t)}\vert x_{i}, \Theta^{(t)}_{l^{(t)}})=\frac{p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l^{(t)}})}{\sum_{l}^{K}}p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l})=\frac{\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}{\sum_{k=1}^{K}\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}$
 
 to abtain the $\mu$, we only focus on the second part:
 
