@@ -101,8 +101,6 @@ $$
 \end{equation}
 $$
 
-where $p(l\vert x_{i}, \Theta_{l}^{(t)})=\displaystyle{\frac{p(y_{i}=l)p(x_{i}\vert y_{i}=l)}{\sum_{l}^{K}p(y_{i}=l)p(x_{i}\vert y_{i}=l)}=\frac{\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}{\sum_{l=1}^{K}\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}}$
-
 
 ### 2.4 Gaussian Mixture Model
 
@@ -122,13 +120,13 @@ Q(\Theta,\Theta^{(t)}) = \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)
 \end{equation}
 $$
 
+where $p(l\vert x_{i}, \Theta_{l}^{(t)})=\displaystyle{\frac{p(y_{i}=l)p(x_{i}\vert y_{i}=l)}{\sum_{l}^{K}p(y_{i}=l)p(x_{i}\vert y_{i}=l)}=\frac{\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}{\sum_{l=1}^{K}\pi_{l}\mathcal{N}(x_{i}\vert \mu_{l},\Sigma_{l})}}$
+
 $$
 \begin{equation}
 \alpha^{(t+1)}_{l}=\frac{\sum_{i=1}^{N} p(l^{(t)}\vert x_{i}, \Theta^{(t)}_{l^{(t)}})}{N}
 \end{equation}
 $$
-
-where $p(l^{(t)}\vert x_{i}, \Theta^{(t)}_{l^{(t)}})=p(l^{(t)}\vert \Theta^{(t)}_{l^{(t)}})p(x_{i}\vert l^{(t)}, \Theta^{(t)}_{l})=\frac{\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}{\sum_{k=1}^{K}\pi^{(t)}_{k}\mathcal{N}(x\vert \mu_{k}^{(t)}, \Sigma_{k}^{(t)})}$
 
 to abtain the $\mu$, we only focus on the second part:
 
@@ -179,6 +177,46 @@ $$
 \Sigma_{l}^{(t+1)} &= \frac{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})^{T}(x_{i}-\mu_{l})}{\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})}
 \end{align}
 $$
+
+The procedure of EM for Gaussian Mixtures
+
+1. Initilize the means $\mu_{k}, \Sigma_{k}$ and mixing coefficients $\pi_{k}$, and evaluate the initial value of the log likelihood.
+
+2. **E-step** Evaluate the responsibilities using the current parameter values
+
+$$
+\begin{equation}
+\gamma(z_{nk})=p(l\vert x_{i}, \Theta_{l}^{(t)})=\displaystyle{\frac{\pi_{k}\mathcal{N}(x_{i}\vert \mu_{k},\Sigma_{k})}{\sum_{k=1}^{K}\pi_{k}\mathcal{N}(x_{i}\vert \mu_{k},\Sigma_{k})}}
+\end{equation}
+$$
+
+3. **M-step.** Re-estimate the parameters using the current responsibilities
+
+$$
+\begin{align}
+\mu_{k}^{\text(new)} &= \frac{1}{N_{k}}\displaystyle{\sum_{i=1}^{N}\gamma(z_{nk})x_{n}} \\
+\Sigma_{k}^{\text{new}}=\frac{1}{N_{k}}\displaystyle{\sum_{i=1}^{N}\gamma(z_{nk})(x_{i}-\mu_{k}^{\text{new}})(x_{i}-\mu_{k}^{\text{new}})^{T}}\\
+\pi_{k}^{\text{new}}=\frac{N_{k}}{N}
+\end{align}
+$$
+
+where
+
+$$
+\begin{equation}
+N_{k} = \displaystyle{\sum_{i=1}^{K}\gamma(z_{nk})}
+\end{equation}
+$$
+
+4. Evaluate the log likelihood.
+
+$$
+\begin{equation}
+\ln p(X\vert\mu, \Sigma,\pi)=\displaystyle{\sum_{i=1}^{N}\ln \sum_{k=1}^{K}\pi_{k}\mathcal{x_{n}\vert \mu_{k}, \Sigma_{k}}}
+\end{equation}
+$$
+
+and check for the convergence.
 
 
 
