@@ -12,7 +12,7 @@ tags:
 
 Optimal transport problem is a classical problem in mathematics area. Recently, many researchers in machine learning community pay more attention to optimal transport, because Wasserstein distance provide a good tool to measure the similarity of two distribution. Optimal transport problem has two versions: Monge's formulation and Kantorovich formulation.
 
-I utilize the math symbol in [1]. Consider two signals $I_{0}$ and $I_{1}$ defined over their support set $Omega_{0}$ and $Omega_{1}$, where $Omega_{0}, Omega_{1}\in\mathbb{R}$. $I_{0}(x)$ and $I_{1}(y)$ are denoted as signal intensities, where $I_{0}(x)\geq 0, I_{1}(y)\geq 0$ for $x\in \Omega_{0},y\in\Omega_{1}$. In addition, the total amount of signal for both signals should be equal to the same constant, i.e. $\displaystyle{\int_{\Omega_{0}}I_{0}(x)\mathrm{d}x}$. In other words, $I_{0}$ and $I_{1}$ are assumeed to be probability density functions(PDFs).
+I utilize the math symbol in [1]. Consider two signals $I_{0}$ and $I_{1}$ defined over their support set $\Omega_{0}$ and $\Omega_{1}$, where $\Omega_{0}, Omega_{1}\in\mathbb{R}$. $I_{0}(x)$ and $I_{1}(y)$ are denoted as signal intensities, where $I_{0}(x)\geq 0, I_{1}(y)\geq 0$ for $x\in \Omega_{0},y\in\Omega_{1}$. In addition, the total amount of signal for both signals should be equal to the same constant, i.e. $\displaystyle{\int_{\Omega_{0}}I_{0}(x)\mathrm{d}x}$. In other words, $I_{0}$ and $I_{1}$ are assumeed to be probability density functions(PDFs).
 
 ### 1.1 Monge Formulation
 
@@ -66,8 +66,8 @@ Kantorovich formualtion has a discrete setting, i.e., for PDFs of the form $\dis
 
 $$
 \begin{align}
-K(I_{0}, I_{1})&=\dispalystyle{\min_{\gamma}\sum_{i}\sum_{j}c(x_{i},y_{j})}\gamma_{ij}\\
-s.t. \displaytyle{\sum_{j}}\gamma_{ij}&=p_{i},\displaystyle{sum_{i}}\gamma_{ij}=q_{j} \\
+K(I_{0}, I_{1})&=\displaystyle{\min_{\gamma}\sum_{i}\sum_{j}c(x_{i},y_{j})}\gamma_{ij}\\
+s.t. \displaystyle{\sum_{j}}\gamma_{ij}&=p_{i},\displaystyle{\sum_{i}}\gamma_{ij}=q_{j} \\
 \gamma_{ij}&\geq 0, i=1,...,M,j=1,...,N
 \end{align}
 $$
