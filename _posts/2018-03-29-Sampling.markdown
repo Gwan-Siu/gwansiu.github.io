@@ -5,7 +5,7 @@ date: 2018-03-29
 author: Gwan Siu
 catalog: True
 tags:
-    - Statistics and Bayesian Analysis
+    - Machine Learning
 ---
 
 >In this article, I will discuss some sampling methods: **Inverse Samling**, **Reject-Accept Sampling**, **Important Sampling**, **Markov Chain Monte Carol(MCMC)-MH Algorithm** and **Gibbs Sampling**.
@@ -58,7 +58,7 @@ Not all the pdf has analytical CDF, for example, gaussian ditribution. In additi
 
 The basic idea is come up with von Neumann. **If you have a function you are trying to sample from, whose functional form is well known, basically accept the sample by generating a uniform random number at any $x$ and accepting it if the value is below the value of the function at that $x$.** The procedure of basic sampling is illustrated as:
 
-<img src="https://am207.github.io/2017/wiki/images/Rejection.png" width = "600" height = "400"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/00A4D982-E912-43B3-A2B6-9B3DCA126A97.png" width = "600" height = "400"/>
 
 The procedure of basic rejection sampling:
 
@@ -287,9 +287,9 @@ Or from another perspective, $\frac{f(x)}{g(x)}$ ought to be large where $h(x)$ 
 
 In detail,  We have a $f$ that we might or might not know. We have a pdf $g$ which we choose to be higher than $f$ at the points where hh has peaks. Now what we are left to do is to sample from $g$, and this will give us an oversampling at the place hh has peaks, and thus we must correct this there by multiplying by weights $w=\frac{f}{g}<1$ in thse places.
 
-Be careful to choose $g(x)$ appropriately, it should have thicker tails than $f$, or the ratio $\frac{f}{g} will be too big and count contribute too much in the tails. All of these considerations may be seen in the diagram below:
+Be careful to choose $g(x)$ appropriately, it should have thicker tails than $f$, or the ratio $\frac{f}{g}$ will be too big and count contribute too much in the tails. All of these considerations may be seen in the diagram below:
 
-<img src="https://am207.github.io/2017/wiki/images/importance.png" width = "600" height = "400"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/C681AABA-986F-4C87-9C8F-EB9566F5F689.png" width = "600" height = "400"/>
 
 Another way of seeing this whole thing is that we will draw the sample from a proposal distribution and re-weight the integral appropriately so that the expectation with respect to the correct distribution is used. And since $\frac{f}{g}$ is flatter than $f$, the variance of $h\times\frac{f}{g}$ is smaller that the variance of $h\times f$ and therefore the error will be smaller for all N.
 
@@ -358,6 +358,7 @@ plt.hist(Iis, 30, histtype='step', label='Importance Sampling')
 plt.hist(Ivmc, 30, color='r', histtype='step', label='Vanilla')
 plt.grid('on')
 plt.legend()
+
 ```
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/import-samp.png" width = "600" height = "400"/>
@@ -386,7 +387,7 @@ $$
 
 **Aperiodic:** There are no deterministic loops. This would be bad in our web example as well as we would be stuck in a loop at some pages.
 
-<img src="https://am207.github.io/2017/wiki/images/mchain2.png" width = "600" height = "400"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/0D4DDB79-114A-4DBB-BDC4-A6E16601B700.png" width = "600" height = "400"/>
 
 ### 4.3 Stationary Markov Chain
 
@@ -506,13 +507,13 @@ In generally, we want to calculate the expectation of distribution as sample ave
 
 In multiple dimensions, volumns get smaller and smaller, that's the curse of dimension. This concept can be shown as:
 
-<img src="https://am207.github.io/2017/wiki/images/cod.png" width = "600" height = "400" alt="Important Sampling"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/D5B3AE61-1E06-4445-AE57-9263315A536E.png" width = "600" height = "400" alt="Important Sampling"/>
 
 where the centre-partitions combination to an integral goes from 1/3rd to 1/27th. Now suppose the mode of the distibution is contained in this partition: then its contribution to the integral is going down with dimensions.
 
 As the centre volume decreases, the outer volume increases, but this is in distribution tails, so we dont get much of a contribution from there either:
 
-<img src="https://am207.github.io/2017/wiki/images/cod2.png" width = "600" height = "400" alt="Important Sampling"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/259532EC-97B2-4409-99FD-C2293E93D528.png" width = "600" height = "400" alt="Important Sampling"/>
 
 It is the neighborhood between these extremes, called the typical set which our sampler must explore well. And to get a good rejection sampling majorizer for this becomes hard.
 
@@ -671,9 +672,9 @@ which is the equation of stationary distribution.
 
 The big idea, then, here, as in the case of markov chains, is that the above equation can be thought of as a fixed-point integral equation, and thus we can think of an iterative process which at first does not satisy this condition but then does as time goes on and we reach stationarity.
 
-Similarly here, if we draw $y$, from the conditional $f(y|x′)$ and then $x$ again from $f(x|y)$ we will be able to get the marginal distribution of $x$. Symmetrically we can get the marginal for $y$.
+Similarly here, if we draw $y$, from the conditional $f(y\vert x)$ and then $x$ again from $f(x\vert y)$ we will be able to get the marginal distribution of $x$. Symmetrically we can get the marginal for $y$.
 
-Now, if I can draw from the $x$ marginal, and the $y|x$ conditional, i can draw from the $x,y$ joint, and I am done.
+Now, if I can draw from the $x$ marginal, and the $y\vert x$ conditional, i can draw from the $x,y$ joint, and I am done.
 
 ### 5.2 Gibbs Sampling Algorithm
 
@@ -733,5 +734,4 @@ for i in np.arange(0,numgridpoints):
 plt.contourf(xx,yy,zz)
 
 ```
-
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/gibbs.png" width = "600" height = "400"/>

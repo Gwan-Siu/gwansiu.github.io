@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Optimal Transport Problem and Wasserstein Distance"
-date:       2018-12-02 12:00:00
+date:       2018-12-06 12:00:00
 author:     "GwanSiu"
 catalog: true
 tags:
@@ -12,7 +12,7 @@ tags:
 
 Optimal transport problem is a classical problem in mathematics area. Recently, many researchers in machine learning community pay more attention to optimal transport, because Wasserstein distance provide a good tool to measure the similarity of two distribution. Optimal transport problem has two versions: Monge's formulation and Kantorovich formulation.
 
-I utilize the math symbol in [1]. Consider two signals $I_{0}$ and $I_{1}$ defined over their support set $\Omega_{0}$ and $\Omega_{1}$, where $\Omega_{0}, Omega_{1}\in\mathbb{R}$. $I_{0}(x)$ and $I_{1}(y)$ are denoted as signal intensities, where $I_{0}(x)\geq 0, I_{1}(y)\geq 0$ for $x\in \Omega_{0},y\in\Omega_{1}$. In addition, the total amount of signal for both signals should be equal to the same constant, i.e. $\displaystyle{\int_{\Omega_{0}}I_{0}(x)\mathrm{d}x}$. In other words, $I_{0}$ and $I_{1}$ are assumeed to be probability density functions(PDFs).
+I utilize the math symbol in [1]. Consider two signals $I_{0}$ and $I_{1}$ defined over their support set $\Omega_{0}$ and $\Omega_{1}$, where $\Omega_{0}, \Omega_{1}\in\mathbb{R}$. $I_{0}(x)$ and $I_{1}(y)$ are denoted as signal intensities, where $I_{0}(x)\geq 0, I_{1}(y)\geq 0$ for $x\in \Omega_{0},y\in\Omega_{1}$. In addition, the total amount of signal for both signals should be equal to the same constant, i.e. $\displaystyle{\int_{\Omega_{0}}I_{0}(x)\mathrm{d}x}$. In other words, $I_{0}$ and $I_{1}$ are assumeed to be probability density functions(PDFs).
 
 ### 1.1 Monge Formulation
 
@@ -52,7 +52,7 @@ almost everywhere, where $Df$ is Jacobian of $f$. Note that both the objective f
 
 ### 1.2 Kantorovich Formulation
 
-Kantorovich formulated the transport problem by optimizing over the joint distribution of $I_{0}$ and $I_{1}$, which is denoted as $gamma$. The physical meaning is how much mass is being moved to different coordinates, i.e., let $A\subset \Omega_{0}$ and $B\subset\Omega_{1}$. To make a distinction between a probability distribution and density function, we define a probability distribution of $I_{0}$ is $I_{0}(A)=\int_{A}I_{0}(x)\mathrm{d}x$. The quatity $\gamma(A\times B)$ tells us how much mass in set $A$ is being moving to set $B$. Thus, the MP constraint can be expressed as $\gamma(\Omega_{0}\times B)=I_{1}(B)$ and $\gamma(A\times \Omega_{1})=I_{0}(A)$. 
+Kantorovich formulated the transport problem by optimizing over the joint distribution of $I_{0}$ and $I_{1}$, which is denoted as $\gamma$. The physical meaning is how much mass is being moved to different coordinates, i.e., let $A\subset \Omega_{0}$ and $B\subset\Omega_{1}$. To make a distinction between a probability distribution and density function, we define a probability distribution of $I_{0}$ is $\displaystyle{I_{0}(A)=\int_{A}I_{0}(x)\mathrm{d}x}$. The quatity $\gamma(A\times B)$ tells us how much mass in set $A$ is being moving to set $B$. Thus, the MP constraint can be expressed as $\gamma(\Omega_{0}\times B)=I_{1}(B)$ and $\gamma(A\times \Omega_{1})=I_{0}(A)$. 
 
 The Kantorovich formulation can be written as
 
@@ -96,7 +96,32 @@ $$
 \end{equation}
 $$
 
-For $p=1$, the p-Wasserstein metric is known as the Monge-Rubinstein metric or the Earth mover's distance. For p-Wasserstein metric in one dimension, the optimal map has a closed form solution. We define $F_{i}$ be the cumulative distribution function of $I_{i}$ for $i=0,1$, i.e.,
+For $p=1$, the p-Wasserstein metric is known as the Monge-Rubinstein metric or the Earth mover's distance. 
+
+
+### 2.2 Earth Mover's Distance 
+
+**Background of Earth Mover's Distance(EMD):** Earth Mover's Dsitance is the discrete version of Kantorovich formulation. We assume two distributions $p_{r}$ and $p_{g}$ are considered as two different heaps of a certain amount of earth, then the EMD is to meansure the minimal total amount of work it moves one heap into the other. The formulation is
+
+$$
+\begin{align}
+\displaystyle{\text{EMD}(p_{r}, p_{g}) &= \inf_{\gamma\in\prod}\sum_{x,y}\Vert x-y\Vert\gamma(x,y)=\inf_{\gamma\in\prod}\mathbb{E}_{(x,y)\sim\prod}\Vert x-y\Vert} \\
+s.t.\diaplaystyle{\sum_{x}\gamma(x,y)=p_{r}(y),\quad\sum_{y}\gamma(x,y)=p_{g}(x)}
+\end{align}
+$$
+
+where $\gamma(x,y)$ is called optimal tranport plan, and it states that how amount of the earth we distribute from location $x$ to location $y$. $\prod(p_{r},p_{g})$ is the joint distribution of $p_{r}$ and $p_{g}$. We can set $\Gamma=\gamma(x,y)$, and $D=\Vert x-y\Vert$. We can rewrite the formulation:
+
+$$
+\begin{equation}
+\text{EMD}(p_{r}, p_{g}) &=\inf_{\gamma\prod}\<\Gamma, D\>_{F}
+\end{equation}
+$$
+
+where $<,>_{F}$ is Forbenius inner product. It's classical linear programming problem, more detail can see [2](https://vincentherrmann.github.io/blog/wasserstein/).
+
+
+For p-Wasserstein metric in one dimension, the optimal map has a closed form solution. We define $F_{i}$ be the cumulative distribution function of $I_{i}$ for $i=0,1$, i.e.,
 
 $$
 \begin{equation}
@@ -129,7 +154,7 @@ $$
 $$
 
 
-### 2.2 Sliced-Wasserstein Metric
+### 2.3 Sliced-Wasserstein Metric
 
 The idea behind the sliced-Wasserstein metric is to first obtain a set of 1-D respresentations for a higher-dimensional probability distribution through projection, and then calculate the distance between two distributions as a functional on the Wasserstein distance of their 1-D respresentations. In this sense, the distance is obtained by solving several 1-D optimal transport problems, which have closed-form solutions.
 
@@ -159,3 +184,4 @@ where $p\geq 1$, and $W_{p}$ is the p-Wasserstein metric, which, for 1-D PDFs,$\
 **Reference**
 
 [1]. Kolouri S, Park S R, Thorpe M, et al. Optimal mass transport: Signal processing and machine-learning applications[J]. IEEE Signal Processing Magazine, 2017, 34(4): 43-59.
+[2]. [Wasserstein GAN and the Kantorovich-Rubinstein Duality](https://vincentherrmann.github.io/blog/wasserstein/)

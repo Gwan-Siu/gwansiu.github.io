@@ -5,101 +5,99 @@ date: 2018-03-29
 author: Gwan Siu
 catalog: True
 tags:
-    - Statistics and Bayesian Analysis
+    - Machine Learning
 ---
 
 ## 1. What's variational inference?
 
-Variational inference is an approximate technique, which is widely used in inference problem in modern statistic. As we all know, inferene problem is especially important in Bayesian statistics, which frames all inference about unknown quntities as a calculation about the posterior. In facr, posterior is usually intractable in modern Bayesian statistics. In order to sovle this kind of problem, Monte Carlo Markov Chain(MCMC) and variational inference are two main methods. MCMC is a technique of sampling, for example, Metropli-Hast algorithm and gibbs sampling, and variational inference(VI) turns inference into optimization problems. 
+Representation, learning, and inference are 3 cores problem of machine learning. For statistic inference, it involves finding the approxiate model and parameters to represent the distribution given observed variables. In other work, given complete data $x$ and $y$ and unknown parameter $\theta$, this is classical parameter estimation problem in ML area. Usually, we adopt maximum likelihood estimation(MLE):
 
-The core idea of VI is to posit a family of distribution and then to find the member of that family which is close to the target, where closeness is measured using the Kullback-Leibler divergence.
-
-### 1.1 Core idea of variational inference
-
-Suppose observed data $X$ and its latent variables $Z$, the prior of latent variables is $p(z)$ and the data likelihood is $p(x\vert z)$, in many situation, we want to inference latent variables $Z$ through posterior $p(z\vert x)$. In fact, the posterior is intractble due to the normalization term, where we have to integration over all latent variable $Z$. 
-
-In this case, MCMC is usually adopted as an approximate computation for posterior inference. However in many situations, like when large data sets are involved or if the model is too complex, more faster approximate techniques is necessary, and VI is another strong alternative.
-
-As in EM, we start by writing the full-data likelihood:
-
-$$
-\begin{align*}
-p(x,z) = p(z)p(x\vert z)\\
-p(z\vert x) = \frac{p(x,z)}{p(x)}
-\end{align*}
-$$
-
-The difference with EM is that we view $z$ as parameters, not just specific parameters such as cluster membership or missing data.
-
-Thus, we posit a family of approximate distribution $D$ over latent variables. We then try to find the member of family that minimizes the Kullback-Leibler divergence to the true posterior. This turns inference problem to optimization algorithm. 
-
-$$
-q^{*}(z) = \arg \min_{q(z)\in D} D_{KL}(q(z)\vert\vert p(z\vert x))
-$$
-
-The figure below shows the core idea of VI: to approximate posterior $p(z\vert x)$ with $q(z)$. We optimize $q(z)$ for minimal value of KL divergence.
-
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/VI.png" width = "600" height = "400"/>
-
-**Comparision of MCMC and VI**
-
-| MCMC | VI  |
-| :----------: | :---: |
-| More computationally intensive | Less intensive |
-| Gaurantess producing asymptotically exact samples from the target distribution | No such gaurantees |
-| Slower | Faster, expecially for large data sets and complex distributions |
-| Best for precise inference | Useful to explore many scenarios quickly or large data sets |
-
-### 1.2 How does variational inference work?
-
-The goal of the VI is:
-    
 $$
 \begin{equation}
-q^{*}(z) = \arg \min_{q(z)\in D}D_{KL}(q(z)\vert \vert p(z\vert x))
+\theta^{\ast}=\arg\max_{\theta}p(x\vert y;\theta)
 \end{equation}
 $$
 
-In fact, to minimize the $D_{KL}(q(z)\vert \vert p(z\vert x))$ is equivalent to maximize ELBO.
+in many real situations, we are given imcomplete data, i.e., only data $x$, in this case, latent variables $z$ are introduced. For example, in gassian mixture model, we introduce $z_{i}$ to indicate the underlying gaussian distribution. Thus, the overall formulation is changed
 
 $$
-\begin{aligned}
-D_{KL} &= \mathbb{E}_{q(z)}[\log q(z)] -\mathbb{E}_{q(z)}[\log p(z\vert x)] \\
-&= \mathbb{E}_{q(z)}[\log q(z)]-\mathbb{E}_{q(z)}[\log p(x,z)] + \mathbb{E}_{q(z)}[\log p(x)] \\
-\Rightarrow \log p(x) &= \mathbb{E}_{q(z)}[\log p(x,z)] -\mathbb{E}_{q(z)}[\log q(z)] + D_{KL}(q(z)\vert \vert p(z\vert x))  \\
-\log p(x) &= \mathrm{ELBO}(q)+ D_{KL}(q(z)\vert \vert p(z\vert x))
-\end{aligned}
+\begin{equation}
+\displaystyle{p(x;\theta)=\int_{z}p(x,z;\theta)\mathrm{d}z}
+\end{equation}
 $$
 
-where $\mathrm{ELBO}(q)= \mathbb{E}_{q(z)}[\log p(x,z)] -\mathbb{E}_{q(z)}[\log q(z)]$, which is called evidence lower bound, and $\mathbb{E}_{q(z)}[\log p(x)] =\log p(x)$  because $p(x)$ is independent with $q(z)$. 
+in fact, this integration usually is high-dimensional integration, which is intractable. It means that extract inference is impossible in this case. Therefore, we need to introduce approximate inference techniques in this case. Samling-based algorithms and variation-based algorithms are two kinds of approximate inference algorithms in modern bayesian statistics. 
 
-The figure is like the one in EM, but the difference with EM is the likelihood $\ln p(X\vert\theta)$ is fixed. The goal of VI is to minimize the KL divergence of $q$ and $p$, thus it's equivalent to maximize the ELBO $\mathcal{L}(q,\theta)$.
-
-<img src="https://am207.github.io/2017/wiki/images/klsplitup.png" width = "600" height = "400"/>
+In this article, we mainly focus on variational inference(VI). **The core idea of VI is to posit a family of distribution and then to find the member of that family which is close to the target, where closeness is measured using the Kullback-Leibler divergence.**
 
 
-Therefore, we can turn our goal to an optimization problem: maximize $\mathrm{ELBO}$ is equivalent to minimize the DL divergence. Our objective function is $\mathrm{ELBO}$:
+In my previous article-[EM](http://gwansiu.com/2018/11/21/Expectation-Maximization/), we can see that data likelihood can be decomposed into evidence lower bound and KL divergence:
+
+$$
+\begin{equation}
+\mathcal{L}(\theta)=\mathcal{F}(q,\theta)+\text{KL}(q(z),p(z\vert x;\theta))
+\end{equation}
+$$
+
+where $\mathcal{F}(q,\theta)$ is evidence lower bound for marginal likelihood due to $\text{KL}(q(z),p(z\vert x;\theta))$ is non-negative.
+
+$$
+\begin{equation}
+\mathcal{L}(\theta)\geq \mathcal{F}(q,\theta)
+\end{equation}
+$$
+
+Instead of maximize marginal likelihood directly, EM algorithm and variational inference maximize the lower bound.
 
 $$
 \begin{align}
-\mathrm{ELBO} &= \mathbb{E}_{q(z)}[\log p(x,z)] - \mathbb{E}_{q(z)}[\log q(z)] \\
-&= \mathbb{E}_{q(z)}[\log p(x\vert z)]+\mathbb{E}_{q(z)}[\log p(z)]-\mathbb{E}_{q(z)}[\log q(z)] \\
-&= \mathbb{E}_{q(z)}[\log p(x\vert z)]-D_{KL}(q(z)\vert p(z))
+\mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z} \\
+&=\mathbb{E}_{q(z)}\[\ln\frac{p(x,z;\theta)}{q(z)}\] \\
+&=\mathbb{E}_{q(z)}\[\ln\frac{p(x\vert z;\theta)p(z;\theta)}{q(z)}\] \\
+&=\mathbb{E}_{q(z)}\[\ln p(x\vert z)\] - \text{KL}(q(z),p(z;\theta))
 \end{align}
 $$
 
-1. The first term is the expectation of the data likelihood and thus $\mathrm{ELBO}$ encourage distributions put their mass on configurations of latent variables that explain observed data. 
-2. The second term is the negative KL divergence between the variational distribution and the prior, so the $\mathrm{ELBO}$ force $q(z)$ to close to the prior $p(z)$.
+1. The first term is the expectation of the data likelihood and thus $\mathcal{F}(q,\theta)$ encourage distributions put their mass on configurations of latent variables that explain observed data. 
+2. The second term is the negative KL divergence between the variational distribution and the prior, so the $\mathcal{F}(q,\theta)$ force $q(z)$ to close to the prior $p(z)$.
 
-**Hence, maximize** $\mathrm{ELBO}$ ** means to balance the likelihood and prior.**
+**Hence, maximize** $\mathcal{F}(q,\theta)$ ** means to balance the likelihood and prior.**
 
-## 2. Mean-field Theory
+## 2. Expectation-Maximization
 
-In the section 1, we know the core idea of VI and know the goal of VI is to maximize the $\mathrm{ELBO}$. The sucessive question is how to choose the proposed family of distribution. Intuitively, the complexity of family of distributions we choose directly determine the complexity of the optimization problem. 
+In EM framework, we assume $q(z)=p(z\vert x;\theta^{old})$. The ELBO becomes:
 
-**The more flexibility in the family of distributions, the closer the approximation and the harder the optimization.**
+$$
+\begin{align}
+\mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z} \\
+&= \displaystyle{\int q(z)\ln p(x,z;\theta)\mathrm{d}z - \int q(z)\ln q(z)}
+&= \displaystyle{\int p(z\vert x;\theta^{old})\ln p(x,z;\theta)\mathrm{d}z - \int p(z\vert x;\theta^{old})\ln p(z\vert x;\theta^{old})} \\
+&= Q(\theta, \theta^{old})-H(q)
+\end{align} 
+$$
 
-The priciple that we choose the family of distribution is **mean-field theory**.  **What's the mean-field theory?** the latent variables are mutually independent and each governed by a distinct factor in the variational distribution. A generic member of the mean-field variational family is given by the below equation-
+where $H(q)$ is the entropy of $z$ given $x$. It is constant w.r.t $\theta$ and thus we will not take it into account when we maximize ELBO. The EM algorithm is sufficient to maximize $Q(\theta, \theta^{old})$
+
+**E-step:** maximize $\mathcal{F}(q,\theta)$ w.r.t distribution over hidden variables given the parameters:
+
+$$
+\begin{align}
+&q^{(t+1)} =\arg\max_{q(z)} \mathcal{F}(q(z), \theta^{(t)}) \\
+&\rightarrow p(z\vert x;\theta^{old})
+\end{align}
+$$
+
+**M-step:** maximize $\mathcal{F}(q,\theta)$ w.r.t the parameters given the hidden distribution
+
+$$
+\begin{equation}
+\int p(z\vert x;\theta^{old})\ln p(x,z;\theta)\mathrm{d}z
+\end{equation}
+$$
+
+## 3. Mean Field Theory
+
+In EM framework, $q(z)=p(z\vert x;\theta^{old})$ is computed by iterative method. It means that we can find a analytical solution of $p(x\vert x;\theta^{old})$, this is possible for simple modles but can not be generalized to complex models. Instead, we approximate the posterior distribuiton by a family of simple dsitributions. 
 
 $$
 \begin{equation}
@@ -107,68 +105,48 @@ q(z) = \prod_{j=1}^{m}q(z_{j})
 \end{equation}
 $$
 
-the latent variable in mean-field theory is mutually independent, so it cannot capture the correlation in the original space. Once the latent variable of the posterior is dependent, the mean-field approximate will be affected. The example is below:
+we assume the latent variables are mutually independent and each governed by a distinct factor in the variational distribution， i.e. $z_{i}\perp z_{j}$, for $i\neq j$. This is called `mean-field theory`.
 
-<img src="http://7xpqrs.com1.z0.glb.clouddn.com/Fu9ZVDbU07MHvRwdhShbD7NisdZ4" width = "600" height = "400"/>
 
-**Notice that we are not making any comment about the conditional independence or lack thereof of posterior parameters. We are merely saying we will find new functions of these parameters such that we can multiply these functions to construct an approximate posterior.**
+## 4. Coodinate Ascent Variational Inference(CAVI)
 
-### 3. CAVI Algorithm
+In this part, I will compbined with mean-field theory and talk about how ELBO is maximize. One latent variabe posterior $q(z_{i})$ is updated by the rest latent variables $i\neq j$. Here, I will talk about CAVI algorithm. Let $q(z)=\prod_{i}q(z_{i})$. Then, the EBLO becomes:
 
-Now, we have goal(maximize $\mathrm{ELBO}$) and choose mean-field family of distribution $q(z)=\prod_{i=1}^{M} q(z_{i})$. **The next question is how to maximize $\mathrm{ELBO}$?** At this time, coordinate ascent variational inference(CAVI) algorithm is introduced.
+$$
+\begin{align}
+\mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z
+&= \displaystyle{\int \prod_{i}q(z_{i})\ln p(x,z;\theta)\mathrm{d}z-\int \prod_{i}q(z_{i})\ln q(z)\mathrm{d}z} \\
+&= \displaystyle{\int q(z_{j})\int \prod_{i\neq j}q(z_{i})\ln p(x,z;\theta)\prod_{i\neq j}\mathrm{d}z_{i}\mathrm{d}z_{j}- \sum_{i\neq j}\intq(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}}\\
+&=\display{\int q_{j}\ln (\frac{\text{exp}(\mathbb{E}\[\ln p(x,z;\theta)\])}{q(z_{j})})\mathrm{d}z_{j}-\sum_{i\neq j}\intq(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}}} \\
+&=\dislaystyle{\int q(z_{j}\ln \frac{\hat{p}(z_{i\neqj})}{q(z_{j})})\mathrm{d}z_{j}+H(z_{i\neq j})} +c \\
+&=-\text{KL}(q(z_{j}),\hat{p}(z_{i\neqj}))++H(z_{i\neq j})} +c
+\end{align}
+$$
+
+Since KL divergence is non-negative, thus, ELBO is maximized when $\text{KL}(q(z_{j}),\hat{p}(z_{i\neqj}))=0$, i.e.
+
+$$
+\begin{equation}
+q(z_{j}) = \hat{p}(z_{i\neqj})= \frac{1}{Z}\text{exp}(\mathbb{E}\[\ln p(x,z;\theta)\]_{i\neq j})
+\end{equation}
+$$
+
+Similarly, in variational EM:
+
+**E-step:** $q^{\ast}=\frac{1}{Z}\text{exp}(\mathbb{E}\[\ln p(x,z;\theta)\]_{i\neq j})$
+
+$$
+\begin{equation}
+q(z) = \prod_{i}q(z_{i})
+\end{equation}
+$$
+
+**M-step:** maximize the $\mathcal{F}(q,\theta)$.
 
 The figure below is the process of CAVI algorithm:
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/CAVI.png" width = "600" height = "400"/>
 
-First of all, we compute the optimal distribution $q_{i}$:
-    
-$$
-\begin{align}
-q &= \mathbb{E}[p(\cdot)] \\
-&= exp(\log \mathbb{E}[p(\cdot)]) \\
-&\approx exp(\log \mathbb{E}[p(\cdot)]-Var(p(\cdot))/(2\ast \mathbb{E}[p(\cdot)]^{2}) \\
-&= exp(\log \mathbb{E}[p(\cdot)])\ast exp(h(p(\cdot))) \\
-&< exp(\log \mathbb{E}[p(\cdot)])
-\end{align}
-$$
-
-Apply second order Taylor expansion, we have $q=exp(\log \mathbb{E}[p(\cdot)])\ast exp(h(p(\cdot)))$, and $q^{\ast}_{j}(z_{j})=\mathbb{E}[p(z_{j}\vert z_{-j}, x)]$, hence $q_{j}$ is propotional to the log conditional expectation:
-
-$$
-\begin{equation}
-q_{j}^{\ast}(z_{j}) \propto exp(\mathbb{E}_{-j}[\log p(z_{j}\vert z_{-j},x)])
-\end{equation}
-$$
-
-Due to that the latent variable are multually independent, the RHS can be rewritten as:
-
-$$
-\begin{align}
-\mathbb{E}_{-j}[\log p(z_{j}\vert z_{-j}, x)] &= \mathbb{E}_{-j}[\log \frac{p(z_{j}, z_{-j}\vert x)}{p(z_{-j})}] \\
-&= \mathbb{E}_{-j}[\log p(z_{j}, z_{-j}\vert x)]-E_{-j}[\log p(z_{-j})] \\
-&= \mathbb{E}_{-j}[\log p(z_{j}, z_{-j}, x)] - \mathbb{E}[\log p(z_{-j})]-E_{-j}[\log p(x)] \\
-&= \mathbb{E}_{-j}[\log p(z_{j}, z_{-j}, z)-const]
-\end{align}
-$$
-
-Hence, we can conclude that once we know the log expectation of joint distribution, we obatain the optimal variational distribution $q_{j}^{\ast}$:
-
-$$
-\begin{align}
-q_{j}^{\ast} &\propto exp(\mathbb{E}[\log p(z_{j}, z_{-j}, x)]-const) \\
-q_{j}^{\ast}(z_{j}) &\propto exp(\mathbb{E}_{-j}[\log p(z_{j}, z_{-j}, x)])
-\end{align}
-$$
-
-最后，在平均场变分分布族的假设下，ELBO可以被分解为对每一个隐变量zj的函数。根据隐变量分解后的ELBO中，利用q分布的平均场性质，第一项将联合概率的期望迭代求出，第二项分解了变分分布的期望。当我们最大化qj时，也就最大化了分解后的ELBO。
-
-$$
-\begin{align}
-\mathrm{ELBO}(q) &= \mathbb{E}_{q(z)}[\log p(z,x)] - \mathbb{E}_{q(z)}[\log q(z)] \\
-\mathrm{ELBO}(q_{j}) &= \mathbb{E}_{j}[\mathbb{E}_{-j}[p(z_{j},, z_{-j}, x)]]- \mathbb{E}_{j}[\log q_{j}(z_{j})] + const
-\end{align}
-$$
 
 ## 4. Variational inference and GMM
 
@@ -269,6 +247,18 @@ The algorithm of GMM and CAVI is below:
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/EM_and_VI/image/GMMCAVI.png" width = "600" height = "400"/>
 
+
+## 5. Comparision of MCMC and VI
+
+| MCMC | VI  |
+| :----------: | :---: |
+| More computationally intensive | Less intensive |
+| Gaurantess producing asymptotically exact samples from the target distribution | No such gaurantees |
+| Slower | Faster, expecially for large data sets and complex distributions |
+| Best for precise inference | Useful to explore many scenarios quickly or large data sets |
+
+
 Reference
 
 1. [AM207-Lecture-Variational-Inference](https://am207.github.io/2017/lectures/lecture24.html)
+2. [Expectation Maximization and Variational Inference (Part 1)](https://chrischoy.github.io/research/Expectation-Maximization-and-Variational-Inference/)

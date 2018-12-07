@@ -1,0 +1,62 @@
+---
+layout:     post
+title:      "Latent Dirichlet Allocation(LDA)"
+date:       2018-12-06 12:00:00
+author:     "GwanSiu"
+catalog: true
+tags:
+    - Machine Learning
+---
+
+## 1. Introduction to Latent Dirichlet Allocation(LDA)
+
+Latent Dirichlet Allocation(LDA) is widely used topic model in NLP area, which is also the simplest topic model. LDA is a generative model, and the key intuition behind LDA is that document can obtains multiple topics or the document is defined over a distribution topic, rather than a single topic. Thus, LDA is an **admiture** model, which is different from miture model, i.e. gausssian mixture model(GMM). In GMM, one sample definitely come from one underlying gaussian distribution. But in LDA, one sample is possible come from different underlyding gaussian distribution. Figure 1 show the dfference between mixture model and admiture model.
+
+
+Usually, generative process defines a joint distribution over both the observed and hidden variables. Given observed variables, we can inference the conditional distribution of hidden variables by bayes rule, and this conditional distribution is called posterior distribution.
+
+
+In LDA, the observed variable are the words of the documents; the hidden variables are the topic structure. The computational problem of LDA is to compute the hidden structure from given documents, which is equivalent to compute the posterior distribution, i.e. the conditional distribution of hidden variables given documents.
+
+Assume we have K topics denotes $\phi_{k}$, where each $\phi_{k}$ is a distribution over a fixed vocabulary. The topic proportion for the $d$-th document are $\theta_{d}$, where each $\theta_{d,k}$ is the topic proportion for the $k$-th topic in the $d$-th document. The topic assignments for the $d$-th document $d$ are $z_{d}$, where $z_{d,n}$ is the topic assignment for the $n$-th word in document $d$. The observed word of the document $d$ is $w_{d}$, where $w_{d,n}$ is the $n$-th word in the document $d$.
+
+The generative formulation of LDA is defined as the joint distribution of the hidden variables and observed variables
+
+$$
+\begin{equation}
+p(\beta,\theta,z,w)=\prod_{i=1}^{K}p(\beta_{i})\prod_{d=1}^{D}p(\theta_{i})(\prod_{n=1}^{N}p(z_{d,n}\vert\theta_{d}))p(w_{d,n}\vert\beta_{i},z_{d,n})
+\end{equation}
+$$
+
+we can see that the topic assignment $z_{d,n}$ depends on the per-document topic proportions $\theta_{d}$, and the observed word $w_{d,n}$ depends on the topic assignment $z_{d,n}$ and all the topics $\beta_{i}$, for $i=1,...,K$.
+Due to this dependent relationship, we can draw the probabilitic graph model for LDA:
+
+
+To remenber, one of our goal is to find the hidden structure given observed variables. Thus, we need to compute the posterior distribution
+
+$$
+\begin{equation}
+p(\beta,\theta, z\vert w)=\frac{p(\beta,\theta, z, w)}{p(w)}
+\end{equation}
+$$
+
+the numerator is joint distributino of hidden and observed variables, which can be easily computed, but the denumerator is the marginal distribution of the observed variables, which is the probability of all documents under any topics. In orther words, we should sum up the joint distribution over every possible topics. In fact, the possible topic structure is exponentially grow, and thus to compute this marginal distribution is very hard.
+
+In order to compute the posterior distribution of LDA, we adopt Sampling-based algorithm, such as gibbs sampling, or variational inference method, such variational EM. 
+
+
+## 2. Learning and Inference of LDA
+
+### 2.1 Gibbs sampling for LDA
+
+### 2.2 Variational inference for LDA
+
+## 3. Extension of LDA
+
+There are 3 assumptions behind LDA: (1) the "bags of words" assumption, that the order of the words in the documents does not matter; (2) the order of document does not matter, it means that the topic of document is time-invariant, i.e., topic is not changes with time; (3) the number of topics is assumed known and fixed.
+
+### 3.1 Correlated Topic Models
+
+### 3.2 Dynamic Topic Models
+
+### 3.3 Polyingual Topic Models

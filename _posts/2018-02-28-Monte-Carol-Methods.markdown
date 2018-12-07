@@ -5,7 +5,7 @@ date: 2018-03-29
 author: Gwan Siu
 catalog: True
 tags:
-    - Statistics and Bayesian Analysis
+    - Machine Learning
 ---
 
 > In this article, I discuss Monte Carol Methods in 4 points: (1). The definition of Monte Carol Methods is given. (2). Why we need Monte Carol Methods? (3). The relationship between Law of Large Number, Center Limit Theorem and Monte Carol Methods. (4) What's the applications of Monte Carol Methods?
