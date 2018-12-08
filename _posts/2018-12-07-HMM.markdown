@@ -107,7 +107,7 @@ which is the probability of being in state $i$ and being in state $j$ at time $t
 
 $$
 \begin{equaiton}
-\xi_{ij}(t)=\frac{p(y_{t}=i,y_{t+1}=j, X\vert\lambda)}{p(X\vert\lambda)}=\frac{\alpha_{i}(t)a_{ij}b_{j}(x_{t+1})\beta_{j}(t+1)}{\sum_{i=1}^{K}\sum_{j}^{K}\alpha_{i}(t)a_{ij}b_{j}(x_{t+1})\beta_{j}(t+1)}
+\xi_{ij}(t)=\frac{p(y_{t}=i,y_{t+1}=j, X \vert \lambda)}{p(X \vert \lambda)}
 \end{equation}
 $$
 
@@ -115,7 +115,7 @@ or
 
 $$
 \begin{equaiton}
-\xi_{ij}(t)=\frac{p(y_{t}=i, y_{t+1}=j, X\vert\lambda)}{p(X\vert\lambda)}=\frac{y_{i}(t)a_{ij}b_{j}(x_{t+1})\beta_{j}(t+1)}{\beta_{i}(t)}
+\xi_{ij}(t)=\frac{p(y_{t}=i, y_{t+1}=j, X \vert \lambda)}{p(X \vert \lambda)}=\frac{y_{i}(t)a_{ij}b_{j}(x_{t+1})\beta_{j}(t+1)}{\beta_{i}(t)}
 \end{equation}
 $$
 
