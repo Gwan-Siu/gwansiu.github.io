@@ -1,0 +1,201 @@
+---
+layout:     post
+title:      "Hidden Markov Model"
+date:       2018-12-07 12:00:00
+author:     "GwanSiu"
+catalog: true
+tags:
+    - Machine Learning
+---
+
+## 1. Introduction to Hidden Markov Model
+
+In the previous post, naive bayes and gaussian mixture model have been discussed. In naive bayes, we assume all observed data come from one possible latent distribution. Different from naive bayes, gaussian mixture model(GMM) assume all obeserved data come from several latent distribution, and the key point is that one data sample is only possible belong to one latent distribution. In this article, hidden markov model(HMM) is discussed, in which all obeserved data come from several latent distribution, but data samples of the same value may possible belong to different latent distribution. We can consider underlying states in GMM are static, but the underlying states in HMM are dynamic. The figure 1 is shown the difference between them.
+
+
+In fact, HMM is considered as a generative model as well as a sequential model. Thus, the formulation of HMM is a joint distribution of observed data and latent variables.
+
+$$
+\begin{align}
+\displaystyle{p(X,Y)&=\prod_{t=1}^{T}p(x_{t}\vert y_{t})p(y_{t}\vert y_{t-1})} \\
+&=\displaystyle{\prod_{t=1}^{T}A_{y_{t},x_{t}}}B_{y_{t-1},y_{t}}
+\end{align}
+$$
+
+where $X$ is observed data, and $Y$ denote underlying state.$A$ is the omission matrix, $B$ is the transition matrix. The parameter of HMM is $\lambda=(A,B,\pi)$.
+
+## 2. 3 Basic Problems of Hidden Markov Model
+
+1. **Evaluation Problem**
+  - What is the probability that a particular sequence data is produced by a particular model?(the forward-backward algorithm)
+
+2. **Decoding Problem**
+  - Given a sequence data and a model, what is the most likely latent states that produced this sequence data?(Viterbi algorithm)
+
+3. **Training Problem**
+  - Given a model structure and a set of sequence data, find the model that best fit the data. (MLE, Viterbi training, forward-backward algorithm)
+
+## 3. Forward-Backward Algorithm(Baum Welch Algorithm)
+
+In the forward procedure, we define
+
+$$
+\begin{equation}
+alpha_{i}(t) = p(x_{1},...,x_{t}, y_{t}=i\vert \lambda)
+\end{equation}
+$$
+
+which is the probability of seeing the partial sequence $x_{1},...,x_{t}$ and ending up in state $i$ at time $t$. The recursion processs can be
+
+1. $\alpha_{i}(1)=\pi_{i}b_{i}(x_{1})$
+2. $\alpha_{j}(t+1)=[\sum_{i=1}^{K}\alpha_{i}(t)a_{ij}]b_{j}(x_{t+1})$
+3. $p(X\vert \lambda)=\sum_{i=1}^{K}\alpha_{i}(T)$
+
+The backward procedure is defined similarly:
+
+$$
+\begin{equation}
+\beta_{i}(t) = p(x_{t+1},...,x_{T},\vert y_{T}=i \lambda)
+\end{equation}
+$$
+
+which is the probability of the ending partial sequence $x_{t+1},...,x_{T}$ given that started at state $i$ in time T. The Recursion procedure is
+
+1. $\beta_{i}(T)=1$
+2. $\beta_{i}(t)=\sum_{j=1}^{K}a_{ij}b_{j}\beta_{j}(t+1)$
+3. $p(X\vert lambda)=\sum_{i=1}^{N}\beta_{i}(1)\pi_{i}(1)b_{i}(x_{1})$
+
+Now, we define
+
+$$
+\begin{equation}
+\gamma_{i}(t)=p(y_{t}=i\vert X,\lambda)
+\end{equation}
+$$
+
+which is the probability of being in state $i$ at time $t$ for the state sequence $X$. Note that:
+
+$$
+\begin{equation}
+p(y_{t}=i\vert X, \lambda)=\frac{p(X,y_{t}=i\vert \lambda)}{p(X\vert \lambda)}=\frac{p(X,y_{t}=i\vert \lambda}{\sum_{j=1}^{K}p(X,y_{t}=j\vert \lambda)}
+\end{equation}
+$$
+
+due to the Markov conditional independence
+
+$$
+\alpha_{i}(t)\beta_{i}(t)=p(x_{1},...,x_{t},y_{t}=i\vert \lambda)p(x_{t+1},...,x_{T}\vert y_{t}=i,\lambda)=p(X,y_{t}=i\vert\lambda)
+$$
+
+Thus, we can rewrite the formulation of $\gamma_{i}(t)$:
+
+$$
+\begin{equation}
+\gamma_{i}(t)=\frac{\alpha_{i}(t)\beta_{i}(t)}{\sum_{j=1}^{K}\alpha_{j}(t)\beta_{j}(t)}
+\end{equation}
+$$
+
+Now, we define 
+
+$$
+\begin{equation}
+\xi_{ij}(t)=p(y_{t}=i,y_{t+1}=j\vert X,\lambda)
+\end{equation}
+$$
+
+which is the probability of being in state $i$ and being in state $j$ at time $t+1$. The formulation of $\xi_{ij}$ can be rewrite
+
+$$
+\begin{equaiton}
+\xi_{ij}(t)=\frac{p(y_{t}=i,y_{t+1}=j, X\vert\lambda)}{p(X\vert\lamda)}=\frac{\alpha_{i}(t)a_{ij}b_{j}(x_{t+1})\beta_{j}(t+1)}{\sum_{i=1}^{K}\sum_{j}^{K}\alpha_{i}(t)a_{ij}b_{j}(x_{t+1})\beta_{j}(t+1)}
+\end{equation}
+$$
+
+or
+
+$$
+\begin{equaiton}
+\xi_{ij}(t)=\frac{p(y_{t}=i,y_{t+1}=j, X\vert\lambda)}{p(X\vert\lamda)}=\frac{y_{i}(t)a_{ij}b_{j}(x_{t+1})\beta_{j}(t+1)}{\beta_{i}(t)}
+\end{equation}
+$$
+
+to be note that 
+
+$$
+\begin{equation}
+\sum_{t}\gamma_{i}(t) &=\sum_{t}\mathbb{E}\[I_{t}(i)\] =\mathbb{E}\[\sum_{t}I_{t}(i)\] \\
+\sum_{t}\xi_{ij}(t) = \sum_{t}\mathbb{E}\[I_{t}(i,j)\]=\mathbb{E}\[\sum_{t}I_{t}(i,j)\]
+\end{equation}
+$$
+
+where $I_{t}(i)$ is an indicator random variable that is 1 when we are in state $i$ at time $t$, and $I_{t}(i,j)$ is a random variable that is 1 when we move from state $i$ to state $j$ after time $t$.
+
+## 4. Viterbi Algorithm
+
+## 5. EM Algorithm
+
+In this session, we adopt EM algorithm to estimate new parameters for the HMM given old parameters and data. The relative frequence can be used to update parameters:
+
+We define
+
+$$
+\begin{equation}
+\hat{pi}_{i} = \gamma_{i}(1)
+\end{equation}
+$$
+
+is the expectation relative frequency spent in state $i$ at time 1.
+
+$$
+\begin{equation}
+\hat{a}_{ij}=\frac{\sum_{t=1}^{T-1}\xi_{ij}(t)}{\sum_{t}^{T-1}\gamma_{i}(t)}
+\end{equation}
+$$
+
+is the expected number of transitions from state $i$ to state $j$ relative to the expected total number of transitions away from state $i$.
+
+For discrete distribution, we have
+
+$$
+\begin{equation}
+\hat{b}_{i}(k)=\frac{\sum_{t=1}^{T}\delta_{x_{t},v_{k}}\gamma_{i}(t)}{\sum_{t=1}^{T}\gamma_{i}(t)}
+\end{equation}
+$$
+
+is the expected number of times the output observations have been equal to $v_{k}$ while in state $i$ relative to the expected total number of times in state $i$.
+
+For gaussian mixturex, we define the probability that the $l$-th component of the $i$-th mixture generated observation $x_{t}$ as 
+
+$$
+\begin{equation}
+\gamma_{il}(t) = \gamma_{i}(t)\frac{c_{il}b_{il}(x_{t})}{b_{i}(x_{t})}=p(y_{t}=i, x_{it}=l\vert\lambda,X)
+\end{equation}
+$$
+
+where $x_{it}$ is a random variable indicating the mixture component at time $t$ for state $i$.
+
+In GMM, the update equaiton for this case are
+
+$$
+\begin{align}
+c_{il} &= \frac{\sum_{t=1}^{T}\gamma_{il}(t)}{\sum_{t=1}^{T}\gamma_{i}(t)} \\
+\mu_{il} &= \frac{\sum_{t=1}^{T}\gamma_{il}(t)x_{t}}{\sum_{t=1}^{T}\gamma_{il}} \\
+\Sigma_{il} = \frac{\sum_{t=1}^{T}\gamma_{il}(t)(x_{t}-\mu_{il})(x_{t}-\mu_{il})^{T}}{\sum_{t=1}^{T}\gamma_{il}(t)}
+\end{align}
+$$
+
+When there are $E$ observation sequences the $e$-th being of length $T_{e}$, the update equations become:
+
+$$
+\begin{align}
+\pi_{i} &= \frac{\sum_{e=1}^{E}\gamma_{i}^{e}(t)}{E} \\
+c_{il} &= \frac{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\gamma_{il}^{e}(t)}{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\gamma_{i}^{e}(t)} \\
+\mu_{il} = \frac{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\gamma_{il}^{e}(t)x_{t}^{e}}{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\gamma_{il}^{e}(t)} \\ 
+\Sigma_{il} &= \frac{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\gamma_{il}^{e}(t)(x_{t}^{e}-\mu_{il})(x_{t}^{e}-\mu_{il})^{T}}{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\gamma_{il}^{e}(t)} \\
+a_{ij} &= \frac{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\xi_{ij}^{e}(t)}{\sum_{e=1}^{E}\sum_{t=1}^{T_{e}}\gamma_{i}^{e}(t)}
+\end{align}
+$$
+
+
+
+## 6. Conditional Random Field
