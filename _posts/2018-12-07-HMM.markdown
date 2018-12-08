@@ -107,7 +107,7 @@ which is the probability of being in state $i$ and being in state $j$ at time $t
 
 $$
 \begin{equaiton}
-\xi_{ij}(t)=\frac{p(y_{t}=i,y_{t+1}=j, X \vert \lambda)}{p(X \vert \lambda)}
+\xi_{ij}(t)=
 \end{equation}
 $$
 
