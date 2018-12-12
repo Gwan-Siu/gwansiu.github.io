@@ -107,7 +107,7 @@ x_{t}&=Ax_{t-1}+B+\omega,\quad \omega\sim\mathcal{N}(0,Q_{t}) \\
 $$
 
 $$
-\begin{algorithmn}
+\begin{align}
 y_{t}&=Hx_{t}+\nu_{t},\quad \nu_{t}\sim\mathcal{N}(0,R_{t})\\
 \Rightarrow y_{t}&=Hx_{t}+\nu_{t} \\
 &=H(A\mathbb{E}[x_{t-1}] + A\nabla x_{t-1} +\omega_{t}) +\nu_{t}\\
@@ -191,6 +191,6 @@ where $p(u)\sim\mathcal{N}(\mu_{u},\Sigma_{u})$ and $p(v)\sim\mathcal{N}(\mu_{v}
 
 
 ## Reference
-[1]. Faragher R. Understanding the basis of the Kalman filter via a simple and intuitive derivation[J]. IEEE Signal processing magazine, 2012, 29(5): 128-132.
+[1]. Faragher R. Understanding the basis of the Kalman filter via a simple and intuitive derivation[J]. IEEE Signal processing magazine, 2012, 29(5): 128-132. 
 [2]. Lecture-Kalman filter, Richard Xu.
 [3].
