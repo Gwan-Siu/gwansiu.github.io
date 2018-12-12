@@ -101,13 +101,13 @@ $$
 \begin{align}
 x_{t}&=Ax_{t-1}+B+\omega,\quad \omega\sim\mathcal{N}(0,Q_{t}) \\
 \Rightarrow x_{t}&=A(\nabla x_{t-1}+\mathbb{E}[x_{t-1}]) +\omega_{t} \\
-&=A\mathbb{E}[x_{t-1}] + A\nabla x_{t-1} +\omega_{t} \\
+&=A\mathbb{E}[x_{\tau-1}] + A\nabla x_{t-1} +\omega_{t} \\
 &=A\mathbb{E}[x_{t-1}] + \nabla x_{t}
 \end{align}
 $$
 
 $$
-\begin{algin}
+\begin{algorithmn}
 y_{t}&=Hx_{t}+\nu_{t},\quad \nu_{t}\sim\mathcal{N}(0,R_{t})\\
 \Rightarrow y_{t}&=Hx_{t}+\nu_{t} \\
 &=H(A\mathbb{E}[x_{t-1}] + A\nabla x_{t-1} +\omega_{t}) +\nu_{t}\\
@@ -131,7 +131,7 @@ $$
 \begin{align}
 \mathbb{E}[(\nabla x)(\nabla x)^{T}]&=\mathbb{E}[(A\nabla x_{t-1} +\omega_{t})(A\nabla x_{t-1} +\omega_{t})^{T}]\\
 &=A\hat{\Sigma}_{t-1}A^{T} + Q_{t} \\
-&=\bar{\Sigma}_{t}
+&=\bar{\Sigma}_{t} \\
 \mathbb{E}[(\nabla y)(\nabla x)^{T}]&=\mathbb{E}[(HA\nabla x_{t-1} +H\omega_{t} +\nu_{t})(A\nabla x_{t-1} +\omega_{t})^{T}]\\
 &=H(A\hat{\Sigma}_{t-1}A^{T} + Q_{t}) \\
 &=H\bar{\Sigma}_{t}\\
@@ -146,7 +146,7 @@ thus we can obtain that
 
 $$
 \begin{equation}
-p(x_{t},y_{t}\vert y_{1},...,y_{t-1})\sim\mathcal{N}(\hat{mu}_{t},\hat{\Sigma}_{t})
+p(x_{t},y_{t}\vert y_{1},...,y_{t-1})\sim\mathcal{N}(\hat{\mu}_{t},\hat{\Sigma}_{t})
 \end{equation}
 $$
 
@@ -159,7 +159,7 @@ A\mathbb{E}[x_{t-1}]\\
 HA\mathbb{E}[x_{t-1}]
 \end{matrix}
 \right]
-\end{euqation}
+\end{equation}
 $$
 
 $$
