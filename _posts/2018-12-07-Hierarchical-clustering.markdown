@@ -71,4 +71,4 @@ Top-up clustering is opposite to bottom-up clustering. It starts with a single g
 ## Reference
 
 [1] Robert C. Machine learning, a probabilistic perspective[J]. 2014.
-[2] 
+[2] [Lecture:Clustering and Distance Metrics, 10701-Introduction to machine learning, Eric Xing](http://www.cs.cmu.edu/~mgormley/courses/10701-f16/slides/lecture15-clustering.pdf)
