@@ -182,8 +182,105 @@ $$
 
 where $p(u)\sim\mathcal{N}(\mu_{u},\Sigma_{u})$ and $p(v)\sim\mathcal{N}(\mu_{v},\Sigma_{v})$.
 
+from the analysis of conditonal gaussian distribution, we have:
+
+$$
+\begin{align}
+\mathbb{E}[p(x_{t}\vert y_{1},...,y_{t})] &=\hat{\mu}\\
+&=\mu_{u}+\Sigma_{uv}\Sigma_{vv}^{-1}(v-\mu_{v}) \\
+&=\mathbb{E}[x_{t}] + \mathbb{E}[\nabla x_{t}(\nabla y_{t})^{T}]\mathbb{E}[\nabla y_{t}(\nabla y_{t})^{T}]^{-1}(y_{t}-\mathbb{E}[y_{t}]) \\
+&=A\hat{\mu}_{t-1}+\bar{\Sigma}_{t}^{T}H(H\bar{\Sigma}_{t}H^{T}+R_{t})^{-1}(y_{t}-HA\hat{\mu}_{t-1})} \\
+\mathbb{COV}[p(x_{t}\vert y_{1},...,y_{t})]&=\hat{\Sigma_{t}} \\
+&=\mathbb{E}[\nabla x_{t}(\nabla x_{t})^{T}]-\mathbb{E}[\nabla x_{t}(\nabla y_{t})^{T}]\mathbb{E}[\nabla y_{t}(\nabla y_{t})^{T}]^{-1}\mathbb{E}[\nabla y_{t}(\nabla x_{t})^{T}] \\
+&=\bar{\Sigma}_{t}-\bar{\Sigma}_{t}H^{T}(H(\bar{\Sigma}_{t})H^{T}+R_{t})^{-1}H\bar{\Sigma}_{t} \\
+&=(I-KH)\bar{\Sigma}_{t}
+\end{align}
+$$
+
+## 4. Extended Kalman Filter(non-linear gaussian system)
+
+Kalman filter: linear gaussian dynamic system
+
+$$
+\begin{align}
+x_{t}&=Ax_{t-1} + B +\omega\quad\omega\sim\mathcal{N}(0,Q_{t})\\
+y_{t}&=Hx_{t}+\nu\quad\nu\sim\mathcal{N}(0,R_{t})
+\end{align}
+$$
+
+Extended kalman filter: non-linear gaussian dynamic system
+
+$$
+\begin{align}
+x_{t}&=F(x_{t-1})+\omega_{t}\quad\omega_{t}\sim\mathcal{N}(0,Q_{t})\\
+y_{t}&=H(x_{t-1})+\nu_{t}\quad\nu_{t}\sim\mathcal{N}(0,R_{T})
+\end{align}
+$$
+
+we expand $F(x_{t-1})$ around a particular point $x_{t-1}^{p}$:
+
+$$
+\begin{equation}
+x_{t}=F(x_{t-1}^{p}) + F^{\prime}(x_{t-1}^{p})(x_{t-1}-x_{t-1}^{p}) + \Omega(x_{t-1}^{p}) +\omega_{t}
+\end{equation}
+$$
+
+where $\Omega(x_{t-1}^{p})$ is higher order term, let $J_{p}=F^{\prime}(x_{t-1}^{p})$:
+
+$$
+\begin{align}
+x_{t}&=J_{p}x_{t-1}+(F(x_{t-1}^{p})-J_{p}x_{t-1}^{p})+ \Omega(x_{t-1}^{p}) +\omega_{t}\\
+&\approx Ax_{t-1} + B + \omega_{t}
+\end{align}
+$$
+
+### 4.1 Transition probability-extended kalman filter
+
+kalman filter: $x_{t}=Ax_{t-1}+\omega_{t}\quad\omega_{t}\sim\mathcal{N}(B,Q_{t})$
+
+**Mean:** $\bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=A\hat{\mu_{t-1}}+B$
+
+**Covariance**$\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=A\hat{\Sigma}_{t-1}A^{T}+Q_{t}$
 
 
+Extended kalman filter: $x_{t}\approx Ax_{t-1} + \omega_{t}\quad \omega_{t}\sim\mathcal{N}((F(x_{t-1}^{p})-J_{p}x_{t-1}^{p}), Q_{t})$.
+
+**Mean:** $\bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=J_{p}x_{t-1}+(F(x_{t-1}^{p})-J_{p}x_{t-1}^{p})$
+
+**Covariance:** $\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=J_{p}\hat{\Sigma}_{t-1}J_{p}^{T}+Q_{t}$
+
+because $x_{t-1}^{p}$ is arbitray point in time $t-1$, we can set $x_{t-1}^{p}=\hat{\mu}_{t-1}$ and simplified the formulation
+
+**Mean:** $\bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=J_{p}x_{t-1}+(F(\hat{\mu}_{t-1})-J_{p}\hat{\mu}_{t-1})$
+
+**Covariance:** $\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=F^{\prime}(\hat{\mu}_{t-1})\hat{\Sigma}_{t-1}F^{\prime}(\hat{\mu}_{t-1})^{T}+Q_{t}$
+
+### 4.2 Measurement probability-extended kalman filter
+
+**Measurement Equation:** $y_{t}=H(x_{t})+\nu_{t}\quad \nu_{t}\sim\mathcal{N}(0,R_{t})$
+
+$$
+\begin{equation}
+y_{t}=H(x_{t}^{p}) + H^{\prime}(x_{t}^{p})(x_{t}-x_{t}^{p})+\Omega + \nu_{t}
+\end{equation}
+$$
+
+let $J_{p}=H^{\prime}(x_{t}^{p})$:
+
+$$
+\begin{align}
+y_{t} &= H(x_{t}^{p}) + J_{p}(x_{t}-x_{t}^{p})+\Omega+\nu_{t} \\
+&=H(\bar{x}_{t}) + J_{p}(x_{t}-\bar{x}_{t}) + \nu_{t},\quad x_{t}^{p}=\bar{x}_{t} 
+\end{align}
+$$
+
+thus, we have
+
+$$
+\begin{equation}
+\underbrace{y_{t}-H(\bar{x}_{t})+J_{p}\bar{x}_{t}}_{\mathbb{Y}_{t}_}\approx \underbrace{J_{p}x_{t}}_{H}+\nu_{t}
+\end{equation}
+$$
 
 
 
