@@ -238,27 +238,63 @@ $$
 
 kalman filter: $x_{t}=Ax_{t-1}+\omega_{t}\quad\omega_{t}\sim\mathcal{N}(B,Q_{t})$
 
-**Mean:** $\bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=A\hat{\mu}_{t-1}+B$
+**Mean:** 
 
-**Covariance** $\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=A\hat{\Sigma}_{t-1}A^{T}+Q_{t}$
+$$
+\begin{equation}
+\bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=A\hat{\mu}_{t-1}+B
+\end{equation}
+$$
+
+**Covariance** 
+
+$$
+\begin{equation}
+\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=A\hat{\Sigma}_{t-1}A^{T}+Q_{t}
+\end{equation}
+$$
 
 
-Extended kalman filter: $x_{t}\approx Ax_{t-1} + \omega_{t}\quad \omega_{t}\sim\mathcal{N}((F(x_{t-1}^{p})-J_{p}x_{t-1}^{p}), Q_{t})$.
+Extended kalman filter: 
+
+$$
+\begin{equation}
+x_{t}\approx Ax_{t-1} + \omega_{t}\quad \omega_{t}\sim\mathcal{N}((F(x_{t-1}^{p})-J_{p}x_{t-1}^{p}), Q_{t})
+\end{equation}
+$$
 
 **Mean:** 
+
 $$
 \begin{equation}
 \bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=J_{p}x_{t-1}+(F(x_{t-1}^{p})-J_{p}x_{t-1}^{p})
 \end{equation}
 $$
 
-**Covariance:** $\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=J_{p}\hat{\Sigma}_{t-1}J_{p}^{T}+Q_{t}$
+**Covariance:** 
+
+$$
+\begin{equation}
+\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=J_{p}\hat{\Sigma}_{t-1}J_{p}^{T}+Q_{t}
+\end{equation}
+$$
 
 because $x_{t-1}^{p}$ is arbitray point in time $t-1$, we can set $x_{t-1}^{p}=\hat{\mu}_{t-1}$ and simplified the formulation
 
-**Mean:** $\bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=J_{p}x_{t-1}+(F(\hat{\mu}_{t-1})-J_{p}\hat{\mu}_{t-1})$
+**Mean:** 
 
-**Covariance:** $\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=F^{\prime}(\hat{\mu}_{t-1})\hat{\Sigma}_{t-1}F^{\prime}(\hat{\mu}_{t-1})^{T}+Q_{t}$
+$$
+\begin{equation}\bar{\mu}_{t}=\mathbb{E}[x_{t}\vert y_{1},...,y_{t-1}]=J_{p}x_{t-1}+(F(\hat{\mu}_{t-1})-J_{p}\hat{\mu}_{t-1})
+\end{equation}
+$$
+
+**Covariance:** 
+
+$$
+\begin{equation}
+\bar{\Sigma}_{t}=\mathbb{E}[(\nabla x_{t})(\nabla x_{t})^{T}]=F^{\prime}(\hat{\mu}_{t-1})\hat{\Sigma}_{t-1}F^{\prime}(\hat{\mu}_{t-1})^{T}+Q_{t}
+\end{equation}
+$$
 
 ### 4.2 Measurement probability-extended kalman filter
 
@@ -283,7 +319,7 @@ thus, we have
 
 $$
 \begin{equation}
-\underbrace{y_{t}-H(\bar{x}_{t})+J_{p}\bar{x}_{t}}_{\mathbb{Y}_{t}_}\approx \underbrace{J_{p}x_{t}}_{H}+\nu_{t}
+\underbrace{y_{t}-H(\bar{x}_{t})+J_{p}\bar{x}_{t}}_{\mathbb{Y}_{t}}\approx \underbrace{J_{p}x_{t}}_{H}+\nu_{t}
 \end{equation}
 $$
 
@@ -293,6 +329,6 @@ $$
 
 
 ## Reference
-[1]. Faragher R. Understanding the basis of the Kalman filter via a simple and intuitive derivation[J]. IEEE Signal processing magazine, 2012, 29(5): 128-132. 
+[1]. Faragher R. Understanding the basis of the Kalman filter via a simple and intuitive derivation[J]. IEEE Signal processing magazine, 2012, 29(5): 128-132.
+
 [2]. Lecture-Kalman filter, Richard Xu.
-[3].
