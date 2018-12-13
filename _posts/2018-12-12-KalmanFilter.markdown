@@ -129,9 +129,7 @@ to derive the covariance, we assume $\mathcal{COV}(x_{t-1},\omega_{t})=0,\mathca
 
 $$
 \begin{align}
-\mathbb{E}[(\nabla x)(\nabla x)^{T}]&=\mathbb{E}[(A\nabla x_{t-1} +\omega_{t})(A\nabla x_{t-1} +\omega_{t})^{T}] \\
-&=A\hat{\Sigma}_{t-1}A^{T} + Q_{t} \\
-&=\bar{\Sigma}_{t} \\
+\mathbb{E}[(\nabla x)(\nabla x)^{T}]&=\mathbb{E}[(A\nabla x_{t-1} +\omega_{t})(A\nabla x_{t-1} +\omega_{t})^{T}]
 \end{align}
 $$
 
