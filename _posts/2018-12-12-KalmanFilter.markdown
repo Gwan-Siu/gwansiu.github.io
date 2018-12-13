@@ -129,7 +129,17 @@ to derive the covariance, we assume $\mathcal{COV}(x_{t-1},\omega_{t})=0,\mathca
 
 $$
 \begin{align}
-\mathbb{E}[(\nabla x)(\nabla x)^{T}]&=\mathbb{E}[(A\nabla x_{t-1} +\omega_{t})(A\nabla x_{t-1} +\omega_{t})^{T}]
+\mathbb{E}[(\nabla x)(\nabla x)^{T}]&=\mathbb{E}[(A\nabla x_{t-1} +\omega_{t})(A\nabla x_{t-1} +\omega_{t})^{T}] \\
+&=A\hat{\Sigma}_{t-1}A^{T} + Q_{t} \\
+&=\bar{\Sigma}_{t} \\
+
+\mathbb{E}[(\nabla y)(\nabla x)^{T}]&=\mathbb{E}[(HA\nabla x_{t-1} +H\omega_{t} +\nu_{t})(A\nabla x_{t-1} +\omega_{t})^{T}] \\
+&=H(A\hat{\Sigma}_{t-1}A^{T} + Q_{t}) \\
+&=H\bar{\Sigma}_{t} \\
+\mathbb{E}[(\nabla x)(\nabla y)^{T}]&=\bar{\Sigma}_{t}H^{T} \\
+\mathbb{E}[(\nabla y)(\nabla y)^{T}]&=\mathbb{E}[(HA\nabla x_{t-1} +H\omega_{t} +\nu_{t})(HA\nabla x_{t-1} +H\omega_{t} +\nu_{t})^{T}] \\
+&=H(A\nabla x_{t-1} +\omega_{t})H^{T}+R_{T} \\
+&=H\bar{\Sigma}_{t}H^{T}+R_{T}
 \end{align}
 $$
 
@@ -180,11 +190,7 @@ $$
 \mathbb{E}[p(x_{t}\vert y_{1},...,y_{t})] &=\hat{\mu} \\
 &=\mu_{u}+\Sigma_{uv}\Sigma_{vv}^{-1}(v-\mu_{v}) \\
 &=\mathbb{E}[x_{t}] + \mathbb{E}[\nabla x_{t}(\nabla y_{t})^{T}]\mathbb{E}[\nabla y_{t}(\nabla y_{t})^{T}]^{-1}(y_{t}-\mathbb{E}[y_{t}]) \\
-&=A\hat{\mu}_{t-1}+\bar{\Sigma}_{t}^{T}H(H\bar{\Sigma}_{t}H^{T}+R_{t})^{-1}(y_{t}-HA\hat{\mu}_{t-1})} \\
-\mathbb{COV}[p(x_{t}\vert y_{1},...,y_{t})]&=\hat{\Sigma}_{t} \\
-&=\mathbb{E}[\nabla x_{t}(\nabla x_{t})^{T}]-\mathbb{E}[\nabla x_{t}(\nabla y_{t})^{T}]\mathbb{E}[\nabla y_{t}(\nabla y_{t})^{T}]^{-1}\mathbb{E}[\nabla y_{t}(\nabla x_{t})^{T}] \\
-&=\bar{\Sigma}_{t}-\bar{\Sigma}_{t}H^{T}(H(\bar{\Sigma}_{t})H^{T}+R_{t})^{-1}H\bar{\Sigma}_{t} \\
-&=(I-KH)\bar{\Sigma}_{t}
+&=A\hat{\mu}_{t-1}+\bar{\Sigma}_{t}^{T}H(H\bar{\Sigma}_{t}H^{T}+R_{t})^{-1}(y_{t}-HA\hat{\mu}_{t-1})}
 \end{align}
 $$
 
