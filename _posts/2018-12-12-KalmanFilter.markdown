@@ -188,9 +188,7 @@ from the analysis of conditonal gaussian distribution, we have:
 $$
 \begin{align}
 \mathbb{E}[p(x_{t}\vert y_{1},...,y_{t})] &=\hat{\mu} \\
-&=\mu_{u}+\Sigma_{uv}\Sigma_{vv}^{-1}(v-\mu_{v}) \\
-&=\mathbb{E}[x_{t}] + \mathbb{E}[\nabla x_{t}(\nabla y_{t})^{T}]\mathbb{E}[\nabla y_{t}(\nabla y_{t})^{T}]^{-1}(y_{t}-\mathbb{E}[y_{t}]) \\
-&=A\hat{\mu}_{t-1}+\bar{\Sigma}_{t}^{T}H(H\bar{\Sigma}_{t}H^{T}+R_{t})^{-1}(y_{t}-HA\hat{\mu}_{t-1})}
+&=\mu_{u}+\Sigma_{uv}\Sigma_{vv}^{-1}(v-\mu_{v})
 \end{align}
 $$
 
