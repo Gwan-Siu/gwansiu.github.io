@@ -20,7 +20,7 @@ Given data $X=(x_{1},x_{2},...,x_{n}), \forall i\leq n, x_{i}\in \mathbb{R}^{D}$
 
 $$
 \begin{equation}
-\arg\max_{W}\Vert(\hat{x}-\mu})\Vert^{2}
+\arg\max_{W}\Vert(\hat{x}-\mu)\Vert^{2}
 \end{equation}
 $$
 
@@ -28,7 +28,7 @@ where $\mu=W\bar{x}=W(\frac{1}{N}\displaystyle{\sum_{1}^{N}x_{n}})$. Thus, we ha
 
 $$
 \begin{align}
-\Vert(\hat{x}-\mu})\Vert^{2}&=\frac{1}{N}\displaystyle{\sum_{1}^{N}}(Wx_{n}-W\bar{x})^{2} \\
+\Vert(\hat{x}-\mu)\Vert^{2}&=\frac{1}{N}\displaystyle{\sum_{1}^{N}}(Wx_{n}-W\bar{x})^{2} \\
 &=W^{T}SW
 \end{align}
 $$
