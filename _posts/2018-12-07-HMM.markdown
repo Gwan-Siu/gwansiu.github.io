@@ -132,6 +132,8 @@ where $I_{t}(i)$ is an indicator random variable that is 1 when we are in state 
 
 ## 4. Viterbi Algorithm
 
+Viterbi algorithm mainly focus on decoding problem.
+
 ## 5. EM Algorithm
 
 In this session, we adopt EM algorithm to estimate new parameters for the HMM given old parameters and data. The relative frequence can be used to update parameters:
