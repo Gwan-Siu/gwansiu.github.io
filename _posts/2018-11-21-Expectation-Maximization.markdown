@@ -146,16 +146,18 @@ $$
 L &=\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log(p(x_{i}\vert y_{i}, \theta_{y_{i}})) \\
 &= \sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})[\frac{1}{2}\log((2\pi)^{d}\vert\Sigma\vert^{-1})+(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l}))] \\
 &=\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log((2\pi)^{d}) +\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log\vert\Sigma\vert^{-1} \\
-&- \frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l}\Sigma^{-1}_{l}(x_{i}-\mu_{l})
+&- \frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})(x_{i}-\mu_{l})\Sigma^{-1}_{l}(x_{i}-\mu_{l})\\
+&= \frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log((2\pi)^{d}) +\frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)})\log\vert\Sigma\vert^{-1} \\
+&- \frac{1}{2}\sum_{i=1}^{N}\sum_{l=1}^{K}p(l\vert x_{i}, \Theta^{(t)}) \text{tr}(\Sigma^{-1}_{l}N_{l,i})
 \end{align}
 $$
 
-Take the derivative respect to $\Sigma^{-1}$, and we have:
+where $N_{l,i}=(x_{i}-\mu)(x_{i}-\mu)^{T}$Take the derivative respect to $\Sigma^{-1}$, and we have:
 
 $$
 \begin{align}
-&=\frac{1}{2}\sum_{i=1}^{N}p(l\vert x_{i}, Theta^{(t)})(2\Sigma_{l}-\text{diag}(\Sigma_{l})-\frac{1}{2}\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(2N_{l,i}-\text{diag}(N_{l,i}))) \\
-&=\frac{1}{2}\sum_{i=1}^{N}p(l\vert x_{i}, Theta^{(t)})(2M_{l,i}-\text{diag}(M_{l,i})) \\
+&=\frac{1}{2}\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(2\Sigma_{l}-\text{diag}(\Sigma_{l}))-\frac{1}{2}\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(2N_{l,i}-\text{diag}(N_{l,i}))) \\
+&=\frac{1}{2}\sum_{i=1}^{N}p(l\vert x_{i}, \Theta^{(t)})(2M_{l,i}-\text{diag}(M_{l,i})) \\
 &= 2S-\text{diag}(S)
 \end{align}
 $$
@@ -220,7 +222,7 @@ and check for the convergence.
 
 
 
-### 2.4 Another View of EM Algorithm
+### 2.5 Another View of EM Algorithm
 
 
 Given observed variable $x$, unobserved variable(latent variable) $z$ and model paramters $\theta$, what we want is maximize likelihood w.r.t $\theta$:
@@ -304,6 +306,51 @@ $$
 $$
 
 GMM is a problem of discrete latent variable. EM algoeirhm is a generalized maximimum likelihood estimation in latent variable models.
+
+
+## Appendix
+
+the property of trace
+
+##
+\begin{align}
+\text{tr}(A+B)&=\text{tr}(A)+\text{tr}(B)\\
+\text{tr}(AB)&=\text{tr}(BA) \\
+\text{tr}(AB)&=\sum_{i}x_{i}^{T}Ax_{i} \text{ where }B=\sum_{i}x_{i}x_{i}^{T}
+\end{align}
+##
+
+$\vert A\vert$  inicates the determinant of a matrix, and that $\vert A^{-1}\vert = 1/\vert A \vert$.
+
+Matrix derivative, $\displaystyle{\frac{\partial x^{T}Ax}{x}}=(A+A^{T})x$.
+
+If $A$ is the symmetrix matrix
+
+$$
+\begin{equation}
+\frac{\partial A}{\partial a_{i,j}}=\begin{cases}
+A_{i,j}&\quad \text{if } i=j \\
+2A_{i,j}&\quad \text{if }i\neq = j
+\end{cases}
+\end{equation}
+$$
+
+where $A_{ij}$ is the $i,j$-th cofactor of A.  we can see that in log-space
+
+$$
+\begin{equation}
+\frac{\partial \log \vert A\vert}{\partial A}=2A^{-1}-\text{diag}(A^{-1})
+\end{equation}
+$$
+
+by the definition of the inverse of a matrix. Finally, it can be shown that
+
+$$
+\begin{equation}
+\frac{\partial \text{tr}(AB)}{\partial A} = B+ B^{T}- \text{Diag}(B)
+\end{equation}
+$$
+
 
 
 

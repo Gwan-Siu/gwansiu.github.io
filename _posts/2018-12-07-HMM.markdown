@@ -41,7 +41,7 @@ In the forward procedure, we define
 
 $$
 \begin{equation}
-alpha_{i}(t) = p(x_{1},...,x_{t}, y_{t}=i\vert \lambda)
+\alpha_{i}(t) = p(x_{1},...,x_{t}, y_{t}=i\vert \lambda)
 \end{equation}
 $$
 
@@ -135,7 +135,7 @@ where $I_{t}(i)$ is an indicator random variable that is 1 when we are in state 
 Viterbi algorithm compute the most probable latent state given a observed sequence, i.e., it can compute
 
 $$
-\begin{align}
+\begin{equation}
 z^{\prime}=\arg\max_{z_{1},...,z_{T}} p(z_{1},...,z_{T}, y_{1},...,y_{T})
 \end{equation}
 $$
@@ -153,6 +153,9 @@ $$
 
 thus, we can see that the recursion procedure
 
+1. Base: $\omega_{0}(\text{START})=1$
+2. Recursion: $\omega_{t}(k)=\max_{s}p(y_{t}\vert z_{t}=k)\omega_{t-1}(s)p(z_{t}=k\vert z_{t-1}=s)$ 
+
 ## 5. EM Algorithm
 
 In this session, we adopt EM algorithm to estimate new parameters for the HMM given old parameters and data. The relative frequence can be used to update parameters:
@@ -161,7 +164,7 @@ We define
 
 $$
 \begin{equation}
-\hat{pi}_{i} = \gamma_{i}(1)
+\hat{p}_{i} = \gamma_{i}(1)
 \end{equation}
 $$
 

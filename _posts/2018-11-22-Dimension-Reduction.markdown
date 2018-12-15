@@ -143,7 +143,7 @@ where $z, x\in\mathbb{R}^{D\times1}$, $\epsilon is 'isotropic gaussian' with var
 
 $$
 \begin{equation}
-p(x)\int p(x\vert z)p(z)\mathrm{d}z
+p(x)=\int p(x\vert z)p(z)\mathrm{d}z
 \end{equation}
 $$
 
@@ -186,7 +186,7 @@ $$
 
 and hence is dependent of $R$. Thus there is a whole family of matrices $\hat{W}$ all of which can give the same result.
 
-Besides the distribution $p(x)$, we will also require the posterior distribution $p(z\vert x)$, and is given by:
+under the framework of linear gaussian system, the posterior distribution $p(z\vert x)$ also is gaussian distribution, and is given by:
 
 $$
 \begin{equation}
@@ -203,60 +203,117 @@ the likelihood $p(x)$ is governed by the parameters $\mu, W$ and $\sigma^{2}$. O
 $$
 \begin{align}
 \ln p(X\vert \mu, W,\sigma)&=\displaystyle{\sum_{i=1}^{N}}\ln p(x_{i}\vert \mu, W, \sigma) \\
+&= \display{-\frac{ND}{2}\ln (2\pi) -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\sum_{i=1}^{N}(x_{i}-\mu)^{T}C^{-1}(x_{n}-\mu)}
 &= -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\displaystyle{\sum_{i=1}^{N}}x_{i}^{T}C^{-1}x_{i} \\
 &=-\frac{N}{2}\ln \vert C\vert +\text{tr}(C^{-1}\Sigma)
 \end{align}
 $$
 
-where $C=WW^{t}+\sigma^{2}I$ and $S=\frac{1}{N}\displaystyle{\sum_{i=1}^{N}x_{i}x_{i}^{T}}=\frac{1}{N}X^{T}X$. The maxima of the log-likelihood are given by:
+we set the derivative of the log likelihood with respect to $\mu$ equal to zero gives the expected result $\mu=\bar{x}$ where $\bar{x}$ is the mean of data, and back-substituting the formulation\
 
 $$
 \begin{equation}
-\hat{W} = V(\Lambda-\sigma^{2}I)^{\frac{1}{2}}R
+\ln p(X\vert W,\mu,\sigma^{2}) = -\frac{N}{2}(D\ln (2\pi)+\ln\vert C\vert +\test{Tr}(C^{-1}S))
 \end{equation}
 $$
 
-where $R$ is an arbitrary $L\times L$ orthogonal matrix, $V$ is the $D\times L$ matrix whose colummns are the first $L$ eigenvectors of $S$, and $\Lambda$ is the corresponding diagonal matrix of eigenvalues. Withoud  loss the generality, we can set $R=I$. Furthermore, the MLE of the noise variance is given by:
+where $C=WW^{t}+\sigma^{2}I$ and $S=\frac{1}{N}\displaystyle{\sum_{i=1}^{N}x_{i}x_{i}^{T}}=\frac{1}{N}X^{T}X$. 
+
+Maximize with respect to $W$ and $\sigma$ ande we have the exact closed-form solution
 
 $$
 \begin{equation}
-\hat{\sigma}^{2}=\frac{1}{D-L} \displaystyle{\sum_{j=L+1}^{D}\lambda_{j}}
+W_{ML} = U_{M}(L_{M}-\sigma^{2}I)^{\frac{1}{2}}R
+\end{equation}
+$$
+
+where $U_{M}$ is the $D\times M$ matrix whose colummns are the first $M$ eigenvectors of data covariance matrix $S$, and $\Lambda$ is the corresponding diagonal matrix $M\times M$ of eigenvalues, and $R$ is an arbitrary $M\times M$ orthogonal matrix, $R$ is an arbitrary $L\times L$ orthogonal matrix. Withoud  loss the generality, we can set $R=I$, we can see that the columns of $W$ are the principle component eigenvectors scaled by the variance parameters $\lambda_{i}-\sigma^{2}$. Furthermore, the MLE of the noise variance is given by:
+
+$$
+\begin{equation}
+\sigma^{2}_{ML}=\frac{1}{D-L} \displaystyle{\sum_{j=L+1}^{D}\lambda_{j}}
 \end{equation}
 $$
 
 which is the average variance associated with the discarded dimensions.
 
-thus, as $\sigma^{2}\rightarrow 0$, we have $\hat{W}\rightarrow V$, as in principle PCA. What about \hat{Z}? The posterior can be easily calculated:
+when $M=D$, there is no reduction of dimensionality, then $U_{M}=U,L_{M}=L$, and we make use of the orthogonality properties $UU^{T}=I$ and $RR^{T}=I$, we can see that the covariance $C$ of the marginal distribution for $x$ becomes
 
 $$
 \begin{equation}
-p(z_{i}\vert x_{i}, \hat{\theta}) = \mathcal{N}(z_{i}\vert \hat{F}^{-1}\hat{W}^{T}x_{i}, \sigma^{2}\hat{F}^{-1})
+C=U(L-\sigma^{2}I)^{1/2}RR^{T}(L-\sigma^{2}I)^{1/2}U^{T}+\sigma^{2}I=ULU^{T}=S
 \end{equation}
 $$
 
-where $\hat{F}=\hat{W}^{T}W+\sigma^{2}I$, in contrast to $C=WW^{t}+\sigma^{2}I$. Hence, as $\sigma^{2}\rightarrow 0$, we find $\hat{W}\rightarrow V,\hat{F}\rightarrow I$ and $\hat{z}_{i}\rightarrow V^{T}x_{i}$. Thus the posterior mean is obtained by an orthogonal projection of the data onto the column space of $V$, as in classical PCA.
+thus, we can obtain the standard maximum likelihood solution for an unconstrained Gaussian distribution in which the covariance matrix is given by the sample covariance.
+
+Given the point $x$ in data space, we can find the corresponding point in latent space by
+
+$$
+\begin{equation}
+p(z\vert x)=\mathcal{N}(z\vert M^{-1}W^{T}(x-\mu), \sigma^{2}M^{-1})
+\end{equation}
+$$
+
+the mean is given by:
+
+$$
+\begin{equation}
+mathbb{E}[z\vert x] = M^{-1}W_{ML}^{T}(x-\bar{x})
+\end{equation}
+$$
+
+where $M=WW^{T} + \sigma^{2}I$. Back project to data space by $W\mathbb{E}[z\vert x] +\mu$. When $\lim \sigma\rightarrow 0$, then the posterior mean reduces to
+
+$$
+\begin{equation}
+(W_{ML}^{T}W_{ML})^{-1}W_{ML}^{T}(x-\bar{x})
+\end{equation}
+$$
+
+
 
 ### 3.3 EM for PPCA
 
-PPCA is a generative model having latent variables. We can apply EM algorithm for PPCA.
+PPCA is a generative model having latent variables. We can apply EM algorithm for PPCA. Firstly, we take the expectation of the complete-data log likelihood and take its expectation with respect to the posterior distribution of the latent distribition evaluated using "old" parameters values. Secondly, maximization of this expected complete-data log likelihood and we update the "new" parameters.
 
-Let $\hat{Z}$ is $L\times N$ matrix storing the posterior means along its columns. Similarly, let $\hat{X}=X^{T}$ store the original data along its columns. When $\sigma^{2}=0$, we have:
-
-The E-step:
+the complete-log data likelihood:
 
 $$
 \begin{equation}
-\hat{Z} = (W^{T}W)^{-1}W^{T}\hat{X}
+\ln p(X,Z\vert \mu, W, \sigma^{2}) = \sum_{i=1}^{N}(\ln p(x_{i}\vert z_{i}) + \ln p(z_{n}))
 \end{equation}
 $$
 
-The M-step:
+taking the expectation with respect to the posterior distribution over the latent variables, we obtain
 
 $$
-\begin{equation}
-W=\hat{X}\hat{Z}^{T}(\hat{Z}\hat{Z}^{T})^{-1}
-\end{equation}
+\begin{align}
+\mathbb{E}[\ln p(X,Z\vert \mu, W, \sigma^{2})] = -\sum_{i=1}^{N}(\frac{D}{2}\ln(2\pi\sigma^{2})+\frac{1}{2}\text{Tr}(\mathbb{E}[z_{n}z_{n}^{T}])+\frac{1}{2\sigma^{2}}\Vert x_{i}-\mu\Vert^{2} \\
+&-\frac{1}{\sigma^{2}}\mathbb{E}[z_{n}]^{T}W^{T}(x_{i}-\mu)+\frac{1}{2\sigma^{2}}\text{Tr}(\mathbb{E}[z_{n}z_{n}^{T}]W^{T}W))
+\end{align}
 $$
+
+
+The E-step, we use old parameter to evaluate:
+
+$$
+\begin{align}
+\mathbb{E}[z_{n}] &= M^{-1}W^{T}(x_{i}-\mu) \\
+\mathbb{E}[z_{n}z_{n}^{T}] &= \sigma^{2}M^{-1} + \mathbb{E}[z_{n}]\mathbb{E}[z_{n}]^{T}
+\end{align}
+$$
+
+The M-step, we maximize with respect to $W$ and $\sigma$, keeping the posterior statistics fixed
+
+$$
+\begin{align}
+W_{new} &= [\sum_{i=1}^{N}(x_{i}-\bar{x})\mathbb{E}[z_{n}]^{T}][\sum_{i=1}^{N}\mathbb{E}[z_{n}z_{n}]]^{-1} \\
+\sigma_{new}^{2} &= \frac{1}{ND}\sum_{i=1}^{N}(\Vert x_{i}-\bar{x}\Vert^{2} -2\mathbb{E}[z_{n}]^{T}W_{new}^{T}(x_{n}-\bar{x})+\text{Tr}(\mathbb{E}[z_{n}z_{n}^{T}]W_{new}^{T}W_{new}^{T}))
+\end{align}
+$$
+
+EM algorithm can be more computational efficient than conventional PCA in high-dimensional space. Conventional PCA takes $O(D^{3})$ computaion due to the eigendecomposition of the covariance matrix. In EM algorithm, we only take $O(MD^{2})$ because we are usually interested in first largest M dimension. 
 
 ## 4. Generalized PPCA-Factor analysis and Kernel PCA
 
