@@ -203,17 +203,17 @@ the likelihood $p(x)$ is governed by the parameters $\mu, W$ and $\sigma^{2}$. O
 $$
 \begin{align}
 \ln p(X\vert \mu, W,\sigma)&=\displaystyle{\sum_{i=1}^{N}}\ln p(x_{i}\vert \mu, W, \sigma) \\
-&= \display{-\frac{ND}{2}\ln (2\pi) -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\sum_{i=1}^{N}(x_{i}-\mu)^{T}C^{-1}(x_{n}-\mu)}
+&= \displaystyle{-\frac{ND}{2}\ln (2\pi) -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\sum_{i=1}^{N}(x_{i}-\mu)^{T}C^{-1}(x_{n}-\mu)}
 &= -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\displaystyle{\sum_{i=1}^{N}}x_{i}^{T}C^{-1}x_{i} \\
 &=-\frac{N}{2}\ln \vert C\vert +\text{tr}(C^{-1}\Sigma)
 \end{align}
 $$
 
-we set the derivative of the log likelihood with respect to $\mu$ equal to zero gives the expected result $\mu=\bar{x}$ where $\bar{x}$ is the mean of data, and back-substituting the formulation\
+we set the derivative of the log likelihood with respect to $\mu$ equal to zero gives the expected result $\mu=\bar{x}$ where $\bar{x}$ is the mean of data, and back-substituting the formulation
 
 $$
 \begin{equation}
-\ln p(X\vert W,\mu,\sigma^{2}) = -\frac{N}{2}(D\ln (2\pi)+\ln\vert C\vert +\test{Tr}(C^{-1}S))
+\ln p(X\vert W,\mu,\sigma^{2}) = -\frac{N}{2}(D\ln (2\pi)+\ln\vert C\vert +\text{Tr}(C^{-1}S))
 \end{equation}
 $$
 
@@ -259,7 +259,7 @@ the mean is given by:
 
 $$
 \begin{equation}
-mathbb{E}[z\vert x] = M^{-1}W_{ML}^{T}(x-\bar{x})
+\mathbb{E}[z\vert x] = M^{-1}W_{ML}^{T}(x-\bar{x})
 \end{equation}
 $$
 
@@ -289,7 +289,7 @@ taking the expectation with respect to the posterior distribution over the laten
 
 $$
 \begin{align}
-\mathbb{E}[\ln p(X,Z\vert \mu, W, \sigma^{2})] = -\sum_{i=1}^{N}(\frac{D}{2}\ln(2\pi\sigma^{2})+\frac{1}{2}\text{Tr}(\mathbb{E}[z_{n}z_{n}^{T}])+\frac{1}{2\sigma^{2}}\Vert x_{i}-\mu\Vert^{2} \\
+\mathbb{E}[\ln p(X,Z\vert \mu, W, \sigma^{2})] &= -\sum_{i=1}^{N}(\frac{D}{2}\ln(2\pi\sigma^{2})+\frac{1}{2}\text{Tr}(\mathbb{E}[z_{n}z_{n}^{T}])+\frac{1}{2\sigma^{2}}\Vert x_{i}-\mu\Vert^{2} \\
 &-\frac{1}{\sigma^{2}}\mathbb{E}[z_{n}]^{T}W^{T}(x_{i}-\mu)+\frac{1}{2\sigma^{2}}\text{Tr}(\mathbb{E}[z_{n}z_{n}^{T}]W^{T}W))
 \end{align}
 $$
