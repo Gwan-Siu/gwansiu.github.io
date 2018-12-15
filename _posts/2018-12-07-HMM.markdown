@@ -132,7 +132,26 @@ where $I_{t}(i)$ is an indicator random variable that is 1 when we are in state 
 
 ## 4. Viterbi Algorithm
 
-Viterbi algorithm mainly focus on decoding problem.
+Viterbi algorithm compute the most probable latent state given a observed sequence, i.e., it can compute
+
+$$
+\begin{align}
+z^{\prime}=\arg\max_{z_{1},...,z_{T}} p(z_{1},...,z_{T}, y_{1},...,y_{T})
+\end{equation}
+$$
+
+assume we have T state, in each state, the latent variable has k values, we can see
+
+$$
+\begin{align}
+\omega_{T}(k) &= \max_{z_{1},...,z_{T}} p(z_{1},...,z_{T}=k, y_{1},...,y_{T}) \\
+&= \max_{z_{1},...,z_{T}} p(z_{1},...,z_{T-1}, y_{1},...,y_{T-1})p(y_{T}, z_{T}=k\vert z_{1},...,z_{T-1}, y_{1},...,y_{T-1})\\
+&= \max_{z_{1},...,z_{T}} \omega_{T-1}(k) p(y_{T}\vert z_{1},...,z_{T-1},z_{T}=k, y_{1},...,y_{T-1})p(z_{T}=k\vert z_{1},...,z_{T-1}, y_{1},...,y_{T-1}) \\
+&= \max_{k} p(y_{T}\vert z_{T}=k)\omega_{T-1}(s)p(z_{T}=k\vert z_{T-1}=s)
+\end{align}
+$$
+
+thus, we can see that the recursion procedure
 
 ## 5. EM Algorithm
 
