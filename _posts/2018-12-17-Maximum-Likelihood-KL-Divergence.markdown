@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Maximum Likelihood and KL Divergence"
-date:       2018-10-27 12:00:00
+date:       2018-12-27 12:00:00
 author:     "GwanSiu"
 catalog: true
 tags:
@@ -23,7 +23,7 @@ suppose we have $N$ samples from $p_{data}$, i.e. $x\sim p_{data}$, then based o
 
 $$
 \begin{equation}
--\mathbb{E}_{x\sim p_{data}}[\log p_{\theta}] = -\lim_{N\rightasrrow\infty}\frac{1}{N}\log p_{\theta}
+-\mathbb{E}_{x\sim p_{data}}[\log p_{\theta}] = -\lim_{N\rightarrow\infty}\frac{1}{N}\log p_{\theta}
 \end{equation}
 $$
 
@@ -54,7 +54,7 @@ $D_{KL}(p_{\theta}\Arrowvert p_{data})$ is defined and finite only if the suppor
 
 1. Minimize $D_{KL}(p_{\theta}\Arrowvert p_{data})$ is to force the support of model distribution contains all example. it penalizes the model that assign a low probability mass to data sample, and likely finds a model $p_{\theta}$ that cover all modes of $p_{data}$, at the cost of placing probability mass where $p_{data}$ has none. 
 
-2. Minimize $D_{KL}(p_{\theta}\Arrowvert p_{data})$ ensure that the support of model distribution contains the support of empirical data distribution, which is a set of $p_{data}$. It penalizes model for generating implausible data, in other words, minimize $D_{KL}(p_{\theta}\Arrowvert p_{data})$ is mode searching, the optimal $p_{\tehta}$ typically concentrate around the largest mode of $p_{\data}$, at the cost of ignoring the smaller mode of $p_{data}$.
+2. Minimize $D_{KL}(p_{\theta}\Arrowvert p_{data})$ ensure that the support of model distribution contains the support of empirical data distribution, which is a set of $p_{data}$. It penalizes model for generating implausible data, in other words, minimize $D_{KL}(p_{\theta}\Arrowvert p_{data})$ is mode searching, the optimal $p_{\theta}$ typically concentrate around the largest mode of $p_{data}$, at the cost of ignoring the smaller mode of $p_{data}$.
 
 
 We assume we try to model a muitlmodal $P$ with simpler, unitmodel  model $Q$, we show that figure A is the mutimodel $P$, and $B$ is the result of minimizing $D_{KL}(p_{\theta}\Arrowvert p_{data})$ and the output of minimizing $D_{KL}(p_{data}\Arrowvert p_{\theta})$.
