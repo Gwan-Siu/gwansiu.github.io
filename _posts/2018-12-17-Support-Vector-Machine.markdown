@@ -10,12 +10,12 @@ tags:
 
 ## 1. Support Vector Machine
 
-Let's consider two classes classification problem, and there are two point sets, each of which is $N$ point. One set of points lie in a hyperplane $H_{1}:\boldsymbol{x}_{i}\boldsymbol{w}+b=1$. Another set of points lie in a hyperplane $H_{2}:\boldsymbol{x}_{i}\boldsymbol{w}+b=-1$, where $\boldsymbol{w}$ is normal vector and the perpendicular distance from the origin are $\frac{\vert 1-b\vert}{\Arrowvert \boldsymbold{w}\Arrowvert}$ and $\frac{\vert -1-b\vert}{\boldsymbold{\Arrowvert w\Arrowvert}}$. $d_{+}(d_{-})$ denotes the shorest distance from the separating hyperplane to the closest positive(negative) example. Thus, $d_{+}=d_{-}=\frac{1}{\Arrowvert w\Arrowvert}$ and the margin between these 2 hyperplanes is $\frac{2}{\Arrowvert w\Arrowvert}$. Support vector machine(SVM) simply seeks for the largest margin, for simplication, we firstly consider linear separable case, and the formulation of linear separable SVM is
+Let's consider two classes classification problem, and there are two point sets, each of which is $N$ point. One set of points lie in a hyperplane $H_{1}:\boldsymbol{x}_{i}\boldsymbol{w}+b=1$. Another set of points lie in a hyperplane $H_{2}:\boldsymbol{x}_{i}\boldsymbol{w}+b=-1$, where $\boldsymbol{w}$ is normal vector and the perpendicular distance from the origin are $\frac{\vert 1-b\vert}{\Arrowvert \boldsymbol{w}\Arrowvert}$ and $\frac{\vert -1-b\vert}{\boldsymbol{\Arrowvert w\Arrowvert}}$. $d_{+}(d_{-})$ denotes the shorest distance from the separating hyperplane to the closest positive(negative) example. Thus, $d_{+}=d_{-}=\frac{1}{\Arrowvert w\Arrowvert}$ and the margin between these 2 hyperplanes is $\frac{2}{\Arrowvert w\Arrowvert}$. Support vector machine(SVM) simply seeks for the largest margin, for simplication, we firstly consider linear separable case, and the formulation of linear separable SVM is
 
 $$
 \begin{align}
-&\max_{\boldsymbold{w},b} \frac{2}{\Arrowvert w\Arrowvert} \\
-&\textbf{s.t. } y_{i}(\boldsymbold{w}\boldsymbold{x}+b) \geq 1
+&\max_{\boldsymbol{w},b} \frac{2}{\Arrowvert w\Arrowvert} \\
+&\textbf{s.t. } y_{i}(\boldsymbol{w}\boldsymbol{x}+b) \geq 1
 \end{align}
 $$
 
@@ -23,8 +23,8 @@ we can rewrite the above formulation
 
 $$
 \begin{align}
-&\max_{\boldsymbold{w},b} \frac{1}{2}\Arrowvert w\Arrowvert \\
-&\textbf{s.t. } y_{i}(\boldsymbold{w}\boldsymbold{x}+b) \geq 1
+&\max_{\boldsymbol{w},b} \frac{1}{2}\Arrowvert w\Arrowvert \\
+&\textbf{s.t. } y_{i}(\boldsymbol{w}\boldsymbol{x}+b) \geq 1
 \end{align}
 $$
 
@@ -32,7 +32,7 @@ in the case of constrint optimization problem, we solve it by its dual form, and
 
 $$
 \begin{align}
-\mathcal{L}(\boldsymbold{w}, b, \alpha) &= \frac{1}{2}\Arrowvert \boldsymbold{w}\Arrowvert^{2} + \displaystyle{\sum_{i=1}^{N}}\alpha_{i}(1-y_{i}(\boldsymbold{w}\boldsymbold{x}+b)) \\
+\mathcal{L}(\boldsymbol{w}, b, \alpha) &= \frac{1}{2}\Arrowvert \boldsymbol{w}\Arrowvert^{2} + \displaystyle{\sum_{i=1}^{N}}\alpha_{i}(1-y_{i}(\boldsymbol{w}\boldsymbol{x}+b)) \\
 &s.t. \alpha_{i}\geq 0, \text{for} i=1,...,n
 \end{align}
 $$
@@ -41,7 +41,7 @@ the primal problem is
 
 $$
 \begin{equation}
-\min_{\boldsymbold{w}}\max_{\alpha\geq 0} \mathccal{L}(\boldsymbold{w}, \alpha)
+\min_{\boldsymbol{w}}\max_{\alpha\geq 0} \mathccal{L}(\boldsymbol{w}, \alpha)
 \end{equation}
 $$
 
@@ -49,7 +49,7 @@ and the dual problem is
 
 $$
 \begin{equation}
-\max_{\alpha\geq 0}\min_{\boldsymbold{w}} \mathccal{L}(\boldsymbold{w}, \alpha)
+\max_{\alpha\geq 0}\min_{\boldsymbol{w}} \mathccal{L}(\boldsymbol{w}, \alpha)
 \end{equation}
 $$
 
@@ -57,11 +57,11 @@ the weakly duality theorem is
 
 $$
 \begin{equation}
-d^{\ast}= \max_{\alpha\geq 0}\min_{\boldsymbold{w}} \mathccal{L}(\boldsymbold{w}, \alpha) \leq \min_{\boldsymbold{w}}\max_{\alpha\geq 0} \mathccal{L}(\boldsymbold{w}, \alpha)=p^{\ast}
+d^{\ast}= \max_{\alpha\geq 0}\min_{\boldsymbol{w}} \mathccal{L}(\boldsymbol{w}, \alpha) \leq \min_{\boldsymbol{w}}\max_{\alpha\geq 0} \mathccal{L}(\boldsymbol{w}, \alpha)=p^{\ast}
 \end{equation}
 $$
 
-because the objective function is convex, we have strong duality theorem that iff there exist a saddle point of $\mathccal{L}(\boldsymbold{w}, \alpha)$, then
+because the objective function is convex, we have strong duality theorem that iff there exist a saddle point of $\mathccal{L}(\boldsymbol{w}, \alpha)$, then
 
 $$
 \begin{equation}
@@ -69,13 +69,13 @@ d^{\ast} =d^{\ast}
 \end{equation}
 $$
 
-if there exist a saddle point of $\mathccal{L}(\boldsymbold{w}, \alpha)$, then the saddle point satisfies the "Karush-Kuhn-Tucker"(KKT) conditions:
+if there exist a saddle point of $\mathccal{L}(\boldsymbol{w}, \alpha)$, then the saddle point satisfies the "Karush-Kuhn-Tucker"(KKT) conditions:
 
 $$
 \begin{align}
-\frac{\partial\mathcal{L}}{\partial \boldsymbold{w}}&=0, \text{ for }i=1,...,N \\
+\frac{\partial\mathcal{L}}{\partial \boldsymbol{w}}&=0, \text{ for }i=1,...,N \\
 \frac{\partial\mathcal{L}}{\beta_{i}}&=0, \text{ for }i=1,...,N \\
-\alpha_{i}g_{i}(\boldsymbold{w})&=0, \text{ for }i=1,...,N \text{ Complementary slackness}
+\alpha_{i}g_{i}(\boldsymbol{w})&=0, \text{ for }i=1,...,N \text{ Complementary slackness}
 g_{i}(\bioldsymbold{w}) &\leq 0, \text{ for }i=1,...,N \text{ Primal feasibility}
 \alpha_{i} &\geq 0, \text{ for } i=1,...,N \text{ Dual feasibility}
 \end{align}
@@ -85,8 +85,8 @@ Back to the dual form of SVM, we have
 
 $$
 \begin{align}
-\frac{\partial\mathcal{L}}{\partial \boldsymbold{w}}&=\boldsymbold{w}-\displaystyle{\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i}} \\
-\Rightarrow& \boldsymbold{w}=\displaystyle{\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i}} \\
+\frac{\partial\mathcal{L}}{\partial \boldsymbol{w}}&=\boldsymbol{w}-\displaystyle{\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i}} \\
+\Rightarrow& \boldsymbol{w}=\displaystyle{\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i}} \\
 \frac{\partial\mathcal{L}}{\partial b}=\displaystyle{\sum_{i=1}^{N}\alpha_{i}y_{i}}=0
 \end{align}
 $$
@@ -101,11 +101,11 @@ s.t. &\alpha_{i} \geq 0, \text{ for } i=1,...,N \\
 \end{align}
 $$
 
-Once we have the Lagrance multipliers ${\alpha_{i}}$, we can decide the parameter vector $\boldsymbold{w}$ as a linear combination of small data points.
+Once we have the Lagrance multipliers ${\alpha_{i}}$, we can decide the parameter vector $\boldsymbol{w}$ as a linear combination of small data points.
 
 $$
 \begin{equation}
-\boldsymbold{w}=\sum_{i\in SV}\alpha_{i}y_{i}x_{i}
+\boldsymbol{w}=\sum_{i\in SV}\alpha_{i}y_{i}x_{i}
 \end{equation}
 $$
 
@@ -123,8 +123,8 @@ For non-linear separable problems, we allow "error" $\xi_{i}$ in classification,
 
 $$
 \begin{align}
-&\max_{\boldsymbold{w},b} \frac{1}{2}\Arrowvert w\Arrowvert +C\sum_{i=1}^{N}\xi_{i} \\
-&\textbf{s.t. } y_{i}(\boldsymbold{w}\boldsymbold{x}+b) \geq 1 \\
+&\max_{\boldsymbol{w},b} \frac{1}{2}\Arrowvert w\Arrowvert +C\sum_{i=1}^{N}\xi_{i} \\
+&\textbf{s.t. } y_{i}(\boldsymbol{w}\boldsymbol{x}+b) \geq 1 \\
 \xi_{i}\geq 0, \text{ for }i=1,...,N
 \end{align}
 $$
