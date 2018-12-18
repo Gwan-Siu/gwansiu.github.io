@@ -182,7 +182,82 @@ K(x,x^{\prime}) = \text{exp}(-\frac{1}{2}\Arrowvert x-x^{\prime}\Arrowvert^{2})
 \end{equation}
 $$ 
 
-## 3. Max-margin Learning
+## 3. Maximum Entropy Discrimination
+
+Maximum entropy discrimination is built on the topic of model selection followed the maximum entropy principle. The idea is followed: the difference between generative model and dicriminant model depending on the estimation criterion used for adjusting the model parameters and structure. Generative approaches rely on a full joint probability distribuition over examples and class label, while discriminative methods only model the conditional relation of a label given the example is relevant(or model a decision boudary directly). We interprete the posterior probability of a label given example as a parametric decision boundary, that is the bayes predictor
+
+$$
+\begin{equation}
+h_{1}(x;p(w))=\arg\max_{y\in \gamma(x)}\int p(w)f(x,y;w)\mathrm{d}w
+\end{equation}
+$$
+
+specifically, we adopt the maximum entropy principle that we want to select the best model that the model with largest entropy given our observed data.
+
+**Maximum Entropy Dicriminantion**
+
+Given data set $\mathcal{D}={(x_{i}, y_{i})}_{i=1}^{N}$, find
+
+$$
+\begin{align}
+Q_{ME} &= \arg\max H(Q) \\
+s.t. & y_{i}(f(x_{i}))_{ME}\geq \xi_{i}, \forall i\\
+&\xi_{i}\geq,\forall i
+\end{align}
+$$
+
+however, the overall ME formulation hold a strict assumption that the training examples can be separated with the specified margin. This assumption may be violated in practice. In additon, the prior may prefer to some parameter values over others, this requires us to incorporate a prior distribution $Q_{0}(f)$. we instead to minimize relative entropy discrimination
+
+$$
+\begin{align}
+Q_{MRE} &=\arg\min KL(Q\Arrowvert Q_{0}) + U(\xi) \\
+s.t. & y_{i}(f(x_{i}))_{ME}\geq \xi_{i}, \forall i\\
+&\xi_{i}\geq,\forall i
+\end{align}
+$$
+
+$Q_{MRE}$ is a copnvex problem, and thus there exists an unique solution. Also, we have a theorem
+
+
+the posterior distribution:
+
+$$
+\begin{equation}
+Q_{MRE} = \frac{1}{Z(\alpha)} Q_{0}(w)\displaystyle{exp{\sum_{i=1}^{N}\alpha_{i}y_{i}f(x_{i};w)}}
+\end{equation}
+$$
+
+Dual Optimization problem:
+
+$$
+\begin{align}
+\max_{\alpha}& -\log Z(\alpha)-U^{\ast}(\alpha) \\
+s.t.& \alpha_{i}(y)\geq 0, \forall i
+\end{algin}
+$$
+
+$U^{\ast}(\alpha)$ is the conjugate of the $U(\cdot)$, i.e. $U^{\ast}(\alpha)=\sup_{\xi}(\sum_{i,y}\alpha_{i}(y)\xi_{i}-U(\xi))$
+
+
+where $\alpha_{i}\geq 0$ are Lagrange multipliers. The idea is very similar to support vector in SVM.
+
+We can find $Q_{M}$: start with $\alpha_{i}=0$ and follow gradient of unsatisfied constraints, iterative ascent on $J(\alpha)$ until convergence.
+
+**Example on SVM**
+
+For $f(x)=w^{T}x+b, Q_{0}(w)=\mathcal{N}(0, I), Q_{0}(b)=\text{non-informative prior}$, the Lagrange multipliers $\alpha$ are obtained by maximizing $J(\alpha)$ subject to $0\leq \alpha_{t}\leq C$ and $\sum_{t}\alpha_{t}y_{t}=0$, where
+
+$$
+\begin{equation}
+J(\alpha) = \sum_{t} [\alpha_{t} + \log (1-\frac{a_{t}}{C})] -\frac{1}{2}\sum_{s,t}\alpha_{s}\alpha_{t}y_{s}y_{t}x_{s}^{T}x_{t} 
+\end{equation}
+$$ 
+
+- Separable $\Rightarrow$  SVM recovered exactly
+- Inseparable $\Rightarrow$ SVM recovered with different misclassification penalty
+
+
+## 4. Max-margin Learning
 
 
 ## Reference
