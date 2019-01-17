@@ -114,8 +114,8 @@ In this part, I will compbined with mean-field theory and talk about how ELBO is
 
 $$
 \begin{align}
-\mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z \\
-&= \displaystyle{\int \prod_{i}q(z_{i})\ln p(x,z;\theta)\mathrm{d}z-\int \prod_{i}q(z_{i})\ln q(z)\mathrm{d}z}
+\mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z} \\
+&= \displaystyle{\int \prod_{i} q(z_{i}) \ln p(x,z;\theta) \mathrm{d}z-\int \prod_{i} q(z_{i}) \ln q(z)\mathrm{d}z}
 \end{align}
 $$
 
