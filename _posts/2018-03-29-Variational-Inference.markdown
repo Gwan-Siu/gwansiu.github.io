@@ -70,7 +70,7 @@ In EM framework, we assume $q(z)=p(z\vert x;\theta^{old})$. The ELBO becomes:
 $$
 \begin{align}
 \mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z} \\
-&= \displaystyle{\int q(z)\ln p(x,z;\theta)\mathrm{d}z - \int q(z)\ln q(z)}
+&= \displaystyle{\int q(z)\ln p(x,z;\theta)\mathrm{d}z - \int q(z)\ln q(z)} \\
 &= \displaystyle{\int p(z\vert x;\theta^{old})\ln p(x,z;\theta)\mathrm{d}z - \int p(z\vert x;\theta^{old})\ln p(z\vert x;\theta^{old})} \\
 &= Q(\theta, \theta^{old})-H(q)
 \end{align} 
@@ -116,24 +116,24 @@ $$
 \begin{align}
 \mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z
 &= \displaystyle{\int \prod_{i}q(z_{i})\ln p(x,z;\theta)\mathrm{d}z-\int \prod_{i}q(z_{i})\ln q(z)\mathrm{d}z} \\
-&= \displaystyle{\int q(z_{j})\int \prod_{i\neq j}q(z_{i})\ln p(x,z;\theta)\prod_{i\neq j}\mathrm{d}z_{i}\mathrm{d}z_{j}- \sum_{i\neq j}\intq(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}}\\
-&=\display{\int q_{j}\ln (\frac{\text{exp}(\mathbb{E}\[\ln p(x,z;\theta)\])}{q(z_{j})})\mathrm{d}z_{j}-\sum_{i\neq j}\intq(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}}} \\
-&=\dislaystyle{\int q(z_{j}\ln \frac{\hat{p}(z_{i\neqj})}{q(z_{j})})\mathrm{d}z_{j}+H(z_{i\neq j})} +c \\
-&=-\text{KL}(q(z_{j}),\hat{p}(z_{i\neqj}))++H(z_{i\neq j})} +c
+&= \displaystyle{\int q(z_{j})\int \prod_{i\neq j}q(z_{i})\ln p(x,z;\theta)\prod_{i\neq j}\mathrm{d}z_{i}\mathrm{d}z_{j}- \sum_{i\neq j}\int q(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}}\\
+&=\displaystyle{\int q_{j}\ln (\frac{\text{exp}(\mathbb{E}[\ln p(x,z;\theta)])}{q(z_{j})})\mathrm{d}z_{j}-\sum_{i\neq j}\int q(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}} \\
+&=\dislaystyle{\int q(z_{j}\ln \frac{\hat{p}(z_{i\neq j})}{q(z_{j})})\mathrm{d}z_{j}+H(z_{i\neq j})} +c \\
+&=-\text{KL}(q(z_{j}),\hat{p}(z_{i\neq j}))++H(z_{i\neq j})} +c
 \end{align}
 $$
 
-Since KL divergence is non-negative, thus, ELBO is maximized when $\text{KL}(q(z_{j}),\hat{p}(z_{i\neqj}))=0$, i.e.
+Since KL divergence is non-negative, thus, ELBO is maximized when $\text{KL}(q(z_{j}),\hat{p}(z_{i\neq j}))=0$, i.e.
 
 $$
 \begin{equation}
-q(z_{j}) = \hat{p}(z_{i\neqj})= \frac{1}{Z}\text{exp}(\mathbb{E}\[\ln p(x,z;\theta)\]_{i\neq j})
+q(z_{j}) = \hat{p}(z_{i\neq j})= \frac{1}{Z}\text{exp}(\mathbb{E}[\ln p(x,z;\theta)]_{i\neq j})
 \end{equation}
 $$
 
 Similarly, in variational EM:
 
-**E-step:** $q^{\ast}=\frac{1}{Z}\text{exp}(\mathbb{E}\[\ln p(x,z;\theta)\]_{i\neq j})$
+**E-step:** $q^{\ast}=\frac{1}{Z}\text{exp}(\mathbb{E}[\ln p(x,z;\theta)]_{i\neq j})$
 
 $$
 \begin{equation}
