@@ -52,9 +52,9 @@ Instead of maximize marginal likelihood directly, EM algorithm and variational i
 $$
 \begin{align}
 \mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z} \\
-&=\mathbb{E}_{q(z)}\[\ln\frac{p(x,z;\theta)}{q(z)}\] \\
-&=\mathbb{E}_{q(z)}\[\ln\frac{p(x\vert z;\theta)p(z;\theta)}{q(z)}\] \\
-&=\mathbb{E}_{q(z)}\[\ln p(x\vert z)\] - \text{KL}(q(z),p(z;\theta))
+&=\mathbb{E}_{q(z)}\big[\ln\frac{p(x,z;\theta)}{q(z)}\big] \\
+&=\mathbb{E}_{q(z)}\big[\ln\frac{p(x\vert z;\theta)p(z;\theta)}{q(z)}\big] \\
+&=\mathbb{E}_{q(z)}\big[\ln p(x\vert z)\big] - \text{KL}\big(q(z),p(z;\theta)\big)
 \end{align}
 $$
 
