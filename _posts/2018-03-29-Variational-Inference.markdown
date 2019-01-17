@@ -115,7 +115,11 @@ In this part, I will compbined with mean-field theory and talk about how ELBO is
 $$
 \begin{align}
 \mathcal{F}(q,\theta) &= \displaystyle{\int q(z)\ln\frac{p(x,z;\theta)}{q(z)}\mathrm{d}z} \\
-&= \displaystyle{\int \prod_{i} q(z_{i}) \ln p(x,z;\theta) \mathrm{d}z-\int \prod_{i} q(z_{i}) \ln q(z)\mathrm{d}z}
+&= \displaystyle{\int \prod_{i} q(z_{i}) \ln p(x,z;\theta) \mathrm{d}z-\int \prod_{i} q(z_{i}) \ln q(z)\mathrm{d}z} \\
+&= \displaystyle{\int q(z_{j})\int \prod_{i\neq j}q(z_{i})\ln p(x,z;\theta)\prod_{i\neq j}\mathrm{d}z_{i}\mathrm{d}z_{j}- \sum_{i\neq j}\int q(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}}
+&=\displaystyle{\int q_{j}\ln (\frac{\text{exp}(\mathbb{E}[\ln p(x,z;\theta)])}{q(z_{j})})\mathrm{d}z_{j}-\sum_{i\neq j}\int q(z_{i})\ln q(z_{i})\mathrm{d}z_{i} - \int q(z_{j})\ln q(z_{j})\mathrm{d}z_{j}} \\
+&=\dislaystyle{\int q(z_{j}\ln \frac{\hat{p}(z_{i\neq j})}{q(z_{j})})\mathrm{d}z_{j}+H(z_{i\neq j})} +c \\
+&=-\text{KL}(q(z_{j}),\hat{p}(z_{i\neq j}))++H(z_{i\neq j})} +c
 \end{align}
 $$
 
