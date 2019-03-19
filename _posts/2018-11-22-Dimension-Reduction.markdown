@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Dimension Reduction"
+title:      "Dimension Reduction:PCA, FA, and ICA"
 date:       2018-10-27 12:00:00
 author:     "GwanSiu"
 catalog: true
@@ -9,14 +9,14 @@ tags:
 ---
 
 ## 1. Introduction
-
-In this article, I will talk about dimension reduction algorithm, which is a hot topic in the community of both machine learning and representation learning. The structure of this article is arranged as followed: In session 2, I will begin the story with principle component analysis(PCA) algorithm, which is one of very famous dimension reduction algprithm. After that, I will talk about the relation between PCA and SVD decomposition. In session 3, I will talk about PCA under probabilistic framework, which is called probabilistic PCA(PPCA). In session 4, factor analysis as well as kernel PCA are briefly introduced, both of which are variants of PPCA.  In session 5, independent component analysis(ICA) is dicussed, which is different from all algorithm discussed in above sessions, because it is based on non-gaussian prior.
+ 
+Dimension reduction algorithms are one of hot topic in machine learning and representation learning, and some of them, such as principle component analysis (PCA), factor analysis (FA) and independent component analysis (ICA), will be discussed in this article. The structure of this article is arranged as followed: In session 2, principle component analysis(PCA) algorithm will be discussed, which is one of very famous dimension reduction algprithm. In session 3, PCA will be analysed under the probabilistic framework, which is called probabilistic PCA (PPCA). In session 4, kernel PCA are briefly introduced, one of which is the variant of PPCA. In session 5, factor analysis is introduced. In session 6, independent component analysis(ICA) is dicussed, which is different from all algorithm discussed in above sessions, because it is based on non-gaussian prior.
 
 ## 2. Principle Component Anlysis(PCA)
 
 ### 2.1 Standard PCA
 
-Given data $X=(x_{1},x_{2},...,x_{n}), \forall i\leq n, x_{i}\in \mathbb{R}^{D}$, our goal is to project the data onto a $M$ dimensional space, where $M\leq D$, while maximizing the variance of the projected data. At this time, we assume M is given for simplication.(in practise, we can choose M according to our applications). We define the projection matrix $W\in\mathbb{R}^{D\times M}$, so the projected data $x_{n}$ is $\hat{x}_{n}=Wx_{n}$. To maximize the covariance of projected data is:
+Given data $X=(x_{1},x_{2},...,x_{n}), \forall i\leq n, x_{i}\in \mathbb{R}^{D}$, our goal is to project the data onto a $M$ dimensional space, where $M\leq D$, while maximizing the variance of the projected data. At this time, we assume M is given for simplication.(in practise, we can choose M according to our applications). We define the projection matrix $W\in\mathbb{R}^{D\times M}$, so the projected data $x_{n}$ is $\hat{x}_{n} = Wx_{n}$. To maximize the covariance of projected data is:
 
 $$
 \begin{equation}
@@ -53,7 +53,7 @@ and so the variance will be maximized when we set $w_{i}$ equal to the eigenvect
 
 ### 2.2 PCA and SVD Desomposition
 
-SVD is a generalized version of eigen decomposition. In contrast to eigen decomposition which requires decomposed matrix is a square matrix, SVD decomposition can be applied for any matrix.
+SVD is a generalized version of eigen decomposition. Instead of eigen decomposition, which requires decomposed matrix is a square matrix, SVD decomposition can be applied for any matrix. In addition, the computational complexity of eigen decomposition is $O(n^{3})$.
 
 $$
 \begin{equation}
@@ -67,11 +67,11 @@ Due to at most $r=\min(N,D)$ non-zero singular values, we can truncated matrix $
 
 $$
 \begin{equation}
-X = \hat{U}{S}{V}^{T}
+X = \hat{U}\hat{S}\hat{V}^{T}
 \end{equation}
 $$
 
-where $\hat{U}\in\mathbb{R}^{N\times r}$, $S\in\mathbb{R}^{r\times r}$, $V\in\mathbb{R}^{r\times D}$, and $X\in\mathbb{R}^{N\times D}$. The time complexity of truncated SVD is $\mathcal{O}(ND\min(N,D))$. Truncated SVD also can be considered as $r$ rank approximation.
+where $\hat{U}\in\mathbb{R}^{N\times r}$, $\hat{S}\in\mathbb{R}^{r\times r}$, $\hat{V}\in\mathbb{R}^{r\times D}$, and $X\in\mathbb{R}^{N\times D}$. The time complexity of truncated SVD is $\mathcal{O}(ND\min(N,D))$. Truncated SVD also can be considered as $r$ rank approximation.
 
 For connection between eigenvector and singular vectors is the following. For an arbitrary matrix $X$, if $X=USV^{T}$, we have:
 
@@ -98,7 +98,7 @@ XX^{T}&=USV^{T}VS^{T}U^{T}=UDU^{T} \\
 \end{align}
 $$
 
-so the eigenvetors of $XX^{T}$ are the left sigular vectors of $X$, i.e. $U$, and the eigenvalues of $XX^{T}$ are equal to the squared singular value of $X$, i.e. $D$. Thus, we can summarize all this as follows:
+**so the eigenvetors of** $XX^{T}$ (Covariance matrix S) **are the left sigular vectors of** $X$, i.e. $U$, and the eigenvalues of $XX^{T}$ are equal to the squared singular value of $X$, i.e. $D$. Thus, we can summarize all this as follows:
 
 $$
 \begin{equation}
@@ -106,7 +106,7 @@ U=\text{evec}(XX^{T})\quad V=\text{evec}(X^{T}X)\quad S=\text{eval}(X^{T}X)=\tex
 \end{equation}
 $$
 
-Back to the PCA. Let $X=USV^{T}$ be truncated SVD of $X$. We know that projected $\hat{W}=V$, and that $Z=X\hat{W}$, so:
+Back to the PCA. Let $X=\hat{U}\hat{S}\hat{V}^{T}$ be truncated SVD of $X$. We know that projected $\hat{W}=V$, and that $Z=X\hat{W}$, so:
 
 $$
 \begin{equation}
@@ -131,6 +131,10 @@ this is exactly the same as truncated SVD.
 
 In this part, we view PCA from generative model viewpoint in which a sampled value of the observed variable is obtained by firstly choosing a value for latent variable in latent space and then sampling the observed variable conditioned on this latent value.**Differnet from conventional PCA, PPCA is based on the a mapping from latent space to data space**. Intuitively, we can consider $p(x)$ as being defined by taking an isotropic Gaussian "spray can" and moving it across the principle subspace spraying Gaussian ink with density determined by $\sigma^{2}$ and weighted by the prior distribution.
 
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/PPCA.png" width = "600" height = "400"/> 
+
+
 Specifically, we assume observed data $x$ is a linear transform of latent variable $z$ plus additive gaussian 'noise', so that:
 
 $$
@@ -139,7 +143,7 @@ x=Wz+\mu+\epsilon
 \end{equation}
 $$
 
-where $z, x\in\mathbb{R}^{D\times1}$, $\epsilon is 'isotropic gaussian' with variance \sigma, \epsilon\in\mathbb{R}^{D}$. The likelihood of $p(x)$ is given by:
+where $z, x\in\mathbb{R}^{D\times1}$, $\epsilon \text{is 'isotropic gaussian' with variance} \sigma, \epsilon\in\mathbb{R}^{D}$. The likelihood of $p(x)$ is given by:
 
 $$
 \begin{equation}
@@ -203,7 +207,7 @@ the likelihood $p(x)$ is governed by the parameters $\mu, W$ and $\sigma^{2}$. O
 $$
 \begin{align}
 \ln p(X\vert \mu, W,\sigma)&=\displaystyle{\sum_{i=1}^{N}}\ln p(x_{i}\vert \mu, W, \sigma) \\
-&= \displaystyle{-\frac{ND}{2}\ln (2\pi) -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\sum_{i=1}^{N}(x_{i}-\mu)^{T}C^{-1}(x_{n}-\mu)}
+&= \displaystyle{-\frac{ND}{2}\ln (2\pi) -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\sum_{i=1}^{N}(x_{i}-\mu)^{T}C^{-1}(x_{n}-\mu)} \\
 &= -\frac{N}{2}\ln\vert C\vert -\frac{1}{2}\displaystyle{\sum_{i=1}^{N}}x_{i}^{T}C^{-1}x_{i} \\
 &=-\frac{N}{2}\ln \vert C\vert +\text{tr}(C^{-1}\Sigma)
 \end{align}
@@ -315,9 +319,51 @@ $$
 
 EM algorithm can be more computational efficient than conventional PCA in high-dimensional space. Conventional PCA takes $O(D^{3})$ computaion due to the eigendecomposition of the covariance matrix. In EM algorithm, we only take $O(MD^{2})$ because we are usually interested in first largest M dimension. 
 
-## 4. Generalized PPCA-Factor analysis and Kernel PCA
+### 3.4 Analysis of PPCA
 
-## 5. Independent Component Analysis(ICA)
+One problem of mixture model with discrete latent variables is that they only use a single latent varible or K latent variables to generate observations, this assumption of discrete latent varibales set the limitation in its representational power. The latent space of PPCA assumed is a continuous space rather than a discrete sapce, because latent variables of PPCA follow Gaussian distribution.
+
+## 4. Kernal PCA
+
+
+## 5. Factor Analysis (FA)
+
+PPCA is a special case of factor analysis, the covariance matrix of factor analysis is a semi-positive and sysmmetry matrix instead of a indentity matrix, which is used in PPCA. Usually, we assume that the obtained data is sufficient and we can easily apply multiple-Gaussian structure in the data. In other words, we consider our training data $m$ is much larger than the dimension $n$. If the number of training data $m$ is much less than the dimension $n$.  In such a problem, it might be
+difficult to model the data even with a single Gaussian, much less a mixture of Gaussian. Specifically, since the m data points span only a low-dimensional subspace of $\mathbb{R}^{n}$, if we model the data as Gaussian, and estimate the mean and covariance using the usual maximum likelihood estimators,
+
+$$
+\begin{align}
+\mu &= \frac{1}{m}\sum_{i=1}^{m}x^{(i)} \
+\SIgma &= \frac{1}{m}\sum_{i=1}^{m}(x^{(i)}-\mu)(x^{(i)}-\mu)^{T}
+\end{align}
+$$
+
+we would find that the matric $\Sigma$ is singular. This means that $\Sigma^{-1}$ does not exist, and $1/\vert \Sigma\vert^{1/2}=1/0$. But both of these terms are needed in computing the usual density of a multivariate Gaussian distribution. Another way of stating this difficulty is that maximum likelihood estimates of the parameters result in a Gaussian that places all of its probability in the affine space spanned by the data (M-projection), and this corresponds to a singular covariance matrix. The number of unkown parameters of a covariance matrix $\Sigma$ (off-diagonal) is $\frac{N(n-1)}{2}$, if we were fitting a full, uncontraint covariance matrix $\Sigma$ to data, it was necessary that $m\geq n+1$ in order for the maximum likelihood estimate of $\Sigma$ not be singular. 
+
+Therefore, we need to set some contraints for covariance matrix $\Sigma$ in order to estimate it under likelihood framework.
+
+- 1. The covariance matrix $\Sigma$ is diagonal
+
+$$
+\begin{equation}
+\Sigma_{jj} = \frac{1}{m}\sum_{i=1}^{m}(x_{j}^{i}-\mu_{j})^{2}
+\end{equation}
+$$
+
+Thus, $\Sigma_{jj}$ is just the empirical estimate of the covariance of the $j-th$ coordinate of the data. Recall that the contours of a Gaussian density are ellipses. A diagonal $\Sigma$ corresponds to a Gaussian where the major axes of these ellipses are axisaligned.
+
+- 2. we may place a further restriction on the covariance matrix that not only must it be diagonal, but its diagonal entries must all be equal. In this setting, we have $\Sigma=\sigma I$ where $\sigma^{2}$ is the parameter under our control. The maximum likelihood estimate of $\sigma^{2}$ can be found to be:
+
+$$
+\begin{equation}
+\sigma^{2} = \frac{1}{mn}\sum_{j=1}^{n}\sum_{i=1}^{m}(x_{j}^{(i)}-\mu_{j})^{2}
+\end{equation}
+$$
+
+This model corresponds to using Gaussians whose densities have contours that are circles. With these two contraints, FA model is PPCA.
+
+## 6. Independent Component Analysis (ICA)
+
 
 
 
