@@ -334,7 +334,7 @@ difficult to model the data even with a single Gaussian, much less a mixture of 
 $$
 \begin{align}
 \mu &= \frac{1}{m}\sum_{i=1}^{m}x^{(i)} \
-\SIgma &= \frac{1}{m}\sum_{i=1}^{m}(x^{(i)}-\mu)(x^{(i)}-\mu)^{T}
+\Sigma &= \frac{1}{m}\sum_{i=1}^{m}(x^{(i)}-\mu)(x^{(i)}-\mu)^{T}
 \end{align}
 $$
 
