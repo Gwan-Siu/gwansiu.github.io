@@ -128,6 +128,7 @@ $$
 \end{equation}
 $$
 
+
 **Theorem:** If $Y=r(X)$, then $\mathbb{E}_{f}[Y]=\int r(x)f(x)dx$.
 
 *(Application: Probability as expectation):*If $A$ be an event and let $r(x)=I_{A}(x)$(Indicator for event A).
@@ -213,3 +214,7 @@ for some function of interest $f : X \rightarrow R^{n_{f}}$ integrable with resp
 3. *Optimisation.* The goal of optimisation is to extract the solution that minimises some objective function from a large set of feasible solutions. In fact, this set can be continuous and unbounded. In general, it is too computationally expensive to compare all the solutions to find out which one is optimal.
  
 4. *Penalised likelihood model selection.* This task typically involves two steps. First, one finds the maximum likelihood (ML) estimates for each model separately. Then one uses a penalisation term (for example MDL, BIC or AIC) to select one of the models. The problem with this approach is that the initial set of models can be very large. Moreover, many of those models are of not interest and, therefore, computing resources are wasted.
+
+# Reference
+
+[1] Andrieu, C., De Freitas, N., Doucet, A. and Jordan, M.I., 2003. An introduction to MCMC for machine learning. Machine learning, 50(1-2), pp.5-43.

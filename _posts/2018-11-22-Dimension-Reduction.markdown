@@ -333,7 +333,7 @@ difficult to model the data even with a single Gaussian, much less a mixture of 
 
 $$
 \begin{align}
-\mu &= \frac{1}{m}\sum_{i=1}^{m}x^{(i)} \
+\mu &= \frac{1}{m}\sum_{i=1}^{m}x^{(i)} \\
 \Sigma &= \frac{1}{m}\sum_{i=1}^{m}(x^{(i)}-\mu)(x^{(i)}-\mu)^{T}
 \end{align}
 $$
@@ -342,7 +342,7 @@ we would find that the matric $\Sigma$ is singular. This means that $\Sigma^{-1}
 
 Therefore, we need to set some contraints for covariance matrix $\Sigma$ in order to estimate it under likelihood framework.
 
-- 1. The covariance matrix $\Sigma$ is diagonal
+1. The covariance matrix $\Sigma$ is diagonal
 
 $$
 \begin{equation}
@@ -352,7 +352,7 @@ $$
 
 Thus, $\Sigma_{jj}$ is just the empirical estimate of the covariance of the $j-th$ coordinate of the data. Recall that the contours of a Gaussian density are ellipses. A diagonal $\Sigma$ corresponds to a Gaussian where the major axes of these ellipses are axisaligned.
 
-- 2. we may place a further restriction on the covariance matrix that not only must it be diagonal, but its diagonal entries must all be equal. In this setting, we have $\Sigma=\sigma I$ where $\sigma^{2}$ is the parameter under our control. The maximum likelihood estimate of $\sigma^{2}$ can be found to be:
+2. we may place a further restriction on the covariance matrix that not only must it be diagonal, but its diagonal entries must all be equal. In this setting, we have $\Sigma=\sigma I$ where $\sigma^{2}$ is the parameter under our control. The maximum likelihood estimate of $\sigma^{2}$ can be found to be:
 
 $$
 \begin{equation}
