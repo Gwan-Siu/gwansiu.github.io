@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Markov Chain Monte Carol (MCMC)
-date: 2018-04-05
+date: 2019-04-05
 author: Gwan Siu
 catalog: True
 tags:
@@ -52,7 +52,7 @@ MCMC algorithms provides adaptive proposals probability.
 
 $$
 \begin{equation}
-T(x_{n+1}=x\vert x_{1},x_{2},...,x_{n})=T(x_{n+1}=x\vert x_{n})
+T(x_{n}=x\vert x_{1},x_{2},...,x_{n-1})=T(x_{n}=x\vert x_{n-1})
 \end{equation}
 $$
 
@@ -64,53 +64,35 @@ the probability of the next step only depends on the current state.
 We study homogenous Markov Chains, in which the transition kernel $P(x_{n}=x\vert x_{n-1})$ is fixed with time. To emphasize this, we will call the kernel $T(x^{\prime}\vert x)$, where $x$ is the previous state and $x^{\prime}$ is the next state.
 
 
-### 4.2 Some Markov Chains
+### 2.2 Markov Chains Concepts
 
-**Homogenous Markov Chain:** A chain is homogeneous at step $t$ if the transition probabilities are independent of tt. Thus the evolution of the Markov chain only depends on the previous state with a fixed transition matrix.
+- **Probability distribution over states:** $\pi^{(t)}$ is a distribution over the state of system $x$, at time $t$.
+  - When dealing with $MCs$, the system can't be considered as being in one state, but having a distribution over states.
+  - For graphical models, $x$ represent **all** variabls.
+- **Transition:** recall that states transition from $x^{(t)}$ to $x^{(t+1)}$ according to the transition kernel $T(x^{\prime}\vert x)$.
+  - We can also define the entire distribution: $\pi^{(t+1)}(x^{\prime})=\sum_{x}\pi^{(t)}(x)T(x^{\prime}\vert x)$.
+  - At time $t$, state $x$ has probability mass $x^{(t)}(x)$. The transition probability redistributes this mass to other state $x^{\prime}$
+- **Stationary distributions:** $\pi^{(t)}(x)$ is stationary if it does not change under the transition kernel: $\pi(x^{\prime})=\sum_{x}\pi(x)T(x^{\prime}\vert x)$, for all $x^{\prime}$.
+ - **Irreducible:** an MC is irreducible if you can get from any state $x$ to any other state $x^{\prime}$ with probability $> 0$ in a finite number of steps, i.e. there are no unreachable parts of the state space.
+ - **Aperiodic:** an MC is aperiodic if you can return to any state $x$ at any time. (There are no deterministic loops). Periodic MCs have states that need $\geq 2$ time steps to return to (cycles).
 
-**Irreducible Markov Chain:** Every state is accessible in a finite number of steps from another state. That is, there are no absorbing states. In other words, one eventually gets everywhere in the chain.(*example:* Consider as an example surfing the web. We do want to reach all parts of the web so we dont want to be trapped into an subset.)
+ - **Reversible (detailed balance):** an MC is reversible if there exists a distribution $\pi(x)$ such that the detailed balance condition is satisfied: $\pi(x^{\prime})T(x\vert x^{\prime})=\pi(x)T(x^{\prime}\vert x)$ with probability of $x^{\prime}\rightarrow x$ is the same as $x\rightarrow x^{\prime}$. 
+   - Reversible MCs always have a stationary distribution. 
+   **Proof:**
 
-**Recurrent:** States visited repeatedly are recurrent: positive recurrent if time-to-return is bounded and null recurrent otherwise. Harris recurrent if all states are visited infinitely often as $t\rightarrow \infty$.
-
-**Aperiodic:** There are no deterministic loops. This would be bad in our web example as well as we would be stuck in a loop at some pages.
+   $$
+   \begin{equation}
+   \begin{split}
+   \pi(x^{\prime})T(x\vert x^{\prime}) &= \pi(x)T(x^{\prime}\vert x) \\
+   sum_{x}\pi(x^{\prime})T(x\vert x^{\prime}) &= \sum_{x}\pi(x)T(x^{\prime}\vert x) \\
+   \pi(x^{\prime})\sum_{x}T(x\vert x^{\prime}) &= \sum_{x}\pi(x)T(x^{\prime}\vert x) \\
+   \pi(x^{\prime}) &= \sum_{x} \pi(x)T(x^{\prime}\vert x)
+   \end{split}
+   \end
+   $$
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/0D4DDB79-114A-4DBB-BDC4-A6E16601B700.png" width = "600" height = "400"/>
 
-### 4.3 Stationary Markov Chain
-
-**(Formal Definition of Stationarity):** A staionary Markov Chain produces the same marginal distribution when multiplied by the transition matrix. That is 
-
-$$
-\begin{equation}
-sT = s \text{ or }\sum_{i}s_{i}T_{ij}=s_{j}
-\end{equation}
-$$
-
-In the case of continuous state space, which are the ones we encounter in sampling, if the transition kernel T is defined so that
-
-$$
-\begin{equation}
-\int dx_{i}s(x_{i})T(x_{i+1}\vert x_{i})=s(x_{i+1})
-\end{equation}
-$$
-
-then 
-
-$$
-\begin{equation}
-\int dxs(x)T(y\vert x)=s(y)
-\end{equation}
-$$
-
-**Ergodicity**: Aperiodic, irreducible, positive Harris recurrent markov chains are ergodic, that is, in the limit of infinite (many) steps, the marginal distribution of the chain is the same(the probability of all state remain stable, nonzero and is independent with the initial position). This means that if we take largely spaced about samples from a stationary markov chain, we can draw independent samples.
-
-$$
-\begin{equation}
-\int g(x)f(x)dx=\frac{1}{N}\sum_{j=B+1}^{B+N}g(x_{j})
-\end{equation}
-$$
-
-Here B is called the burin (which comes from the approach to stationarity after a while) and T is called the thinning (which comes from ergodicity). So we have this “ergodic” law of large numbers.
 
 ([摘抄慕课网笔记](https://mooc.guokr.com/note/15627/))在满足一定条件的情况下，马尔可夫过程将收敛至一个均衡。这是一个统计均衡，在每种状态下的概率是固定不变的，但事物将依旧在各个状态间转移。
 
@@ -168,25 +150,35 @@ plt.ylim([0, 1]);
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/mcmc-recure.png" width = "600" height = "400"/>
 
-### 4.3 Markov Chain and Monte Carol Methods
-
-A irreducible (goes everywhere) and aperiodic (no cycles) markov chain will converge to a stationary markov chain. It is the marginal distribution of this chain that we want to sample from, and which we do in metropolis (and for that matter, in simulated annealing).
-
-As we can see above, to find stationary distribution, we need to solve an eigenvector proble. This can be hard.
-
-However, A sufficient, but not necessary, condition to ensure that s(x)s(x) is the desired stationary distribution is the already seen reversibility condition, also known as detailed balance:
-
-$$
-\begin{equation}
-\int dxs(x)t(y\vert x)=s(y)\int dxT(x\vert y)
-\end{equation}
-$$
-
-which gives back us back the stationarity condition from above.
-
-Thus we want to design us samplers which satisfy detail balance.
 
 ### 4.4 Metropolis Hasting Algorithm(MH Algorithm)
+
+
+**the idea of MH algorithm**
+
+1. Draws a sample $x^{\prime}$ from $Q(x^{\prime}\vert x)$, where $x$ is the previous sample.
+2. The new sample $x^{\prime}$ is accepted with the probability $A(x^{\prime}\vert x)=\min (1, \frac{P(x^{\prime})Q(x\vert x^{\prime})}{P(x)Q(x^{\prime}\vert x)})$
+ - $A(x^{\prime}\vert x)$ is like a ratio of importance sampling weights
+ - $\frac{P(x^{\prime})}{Q(x^{\prime}\vert x)}$ is the important weight for $x^{\prime}$, $\frac{P(x)}{Q(x\vert x^{\prime})}$ is the important weight for $x$.
+ - We divide the important weight for $x^{\prime}$ by that of $x$.
+ - Notice that we only need to compute $\frac{P(x^{\prime})}{P(x)}$ rather than $P(x^{\prime})$ or $P(x)$ separately, so we don't need to know the normalizer.
+ - $A(x^{\prime}\vert x)$ ensures that, after sufficiently many draws, our samples will come from the true distribution $P(x)$.
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/MH.png" width = "600" height = "400"/>
+
+To verify the detail balance condition:
+
+$$
+\begin{aligned}
+s(x^{*})q(x^{*}\vert x)\alpha(x^{*},x) &= s(x^{*})q(x^{*}\vert x)\min(1,\frac{s(x^{*})q(x\vert x^{*})}{s(x)q(x^{*}\vert x)}) \\
+&= \min(s(x)q(x^{*}\vert x), s(x^{*})q(x\vert x^{*})) \\
+&= s(x)q(x\vert x^{*})\min(1,\frac{s(x)q(x^{*}\vert x)}{s(x^{*})q(x\vert x^{*})}) \\
+&= s(x)q(x\vert x^{*})\alpha(x,x^{*})
+\end{aligned}
+$$
+
+
+
 
 **(why do we need Metropolis Hasting Algorithm?)** We've learnt how to do the inverse transform and how to use rejection sampling with a majority function. So why do we use these methods to sample a ditribution? ** inefficient as dimensions increased.** In other words, dimension curse. **How do we understand this point?**
 
@@ -204,40 +196,15 @@ As the centre volume decreases, the outer volume increases, but this is in distr
 
 It is the neighborhood between these extremes, called the typical set which our sampler must explore well. And to get a good rejection sampling majorizer for this becomes hard.
 
-**The idea of MH Algorithm**
+**Limitation of MH**
 
-1. Use a proposal distribution to propose s step
-2. Then we calculate the pdf at that step, and compare it to the one at that previous step.
-3. If the probability increased we accept. If the probability decreased, we accept the some of time, based on the ratio of the new probability to the old one.
-4. We accumulate our samplees, as we now trying to sample a distribution.
+Although MH eventually converges to the true distribution $P(x)$, we have no gaurantees as to when this will occur.
 
-**MH Algorithm**
+- MH HAS A "burn-in" period: an initial number of samples are thrown away because they are not from the true distribution.
+  - The "burn-in" period represents the un-converged part of the Markov Chain.
+  - Knowing when to halt burin-in is an part. We will look at some techniques later in this lecture.
 
-1. initialize $x^{(0)}$.
-2. Draw $\mu \sim U(0,1)$.
-3. Draw propose $x^{(\ast)} \sim q(x^{(\ast)}\vert x)$.
-4. If $\mu<\min(1, \frac{s(x^{(\ast)})q(x\vert x^{(\ast)})}{s(x)q(x^{(\ast)}\vert x)})$, $x^{(i+1)}=x^{(\ast)}$. Else, $x^{(i+1)}=x$
-5. back step 2 for loop.
 
-**Why does MH algorithm work?**
-
-To prove if MH algorithm work is to prove MH algorithm satisfied detail balance condition.
-
-Transition Kernel $K(x\rightarrow x^{\ast})$ includes the joint density of the following:
-
-  1. Propose $x^{(\ast)}$ from the $q(x^{(\ast)} \vert x)$.
-  2. the accept $x^{(\ast)}$ with the ratio $\alpha(x^{(\ast)}, x)=\min(1,\frac{s(x^{(\ast)})q(x\vert x^{(\ast)})}{s(x)q(x^{(\ast)}\vert x)})$
-
-To verify the detail balance condition:
-
-$$
-\begin{aligned}
-s(x^{*})q(x^{*}\vert x)\alpha(x^{*},x) &= s(x^{*})q(x^{*}\vert x)\min(1,\frac{s(x^{*})q(x\vert x^{*})}{s(x)q(x^{*}\vert x)}) \\
-&= \min(s(x)q(x^{*}\vert x), s(x^{*})q(x\vert x^{*})) \\
-&= s(x)q(x\vert x^{*})\min(1,\frac{s(x)q(x^{*}\vert x)}{s(x^{*})q(x\vert x^{*})}) \\
-&= s(x)q(x\vert x^{*})\alpha(x,x^{*})
-\end{aligned}
-$$
 
 **Code of Metropolis Hasting Algorithm**
 
@@ -309,99 +276,75 @@ print("starting point was ", x_init)
 
 ### 5.1 The idea of Gibbs Sampling
 
-The idea of gibbs as a markov chain in which the transition matrix can be obtained as the kernel of the an integral fixed point equation by sampling alternatively from two conditionals.
+Gibbs sampling is an Markov Chain Monte Carlo algorithms that samples each random variables of a graphical, one at a tiem. It is a special case of the Metropolis-Hasting algorithm, which performs a biased random walk to explore distribution. It is assumed that $P(x)$ is too complex while $P(x_{i}\vert x_{-i})$ is tractable to work with.
+
+**Algorithm**
+
+1. Let $x_{1},...,x_{n}$ be the variables of the graphical model for which we are estimate the distrition.
+2. Initialize starting values for $x_{1},...,x_{n}$.
+3. At time step $t$:
+   - Pick an arbitrary ordering of $x_{1},\cdots, x_{n}$ (this can be arbitrary or random).
+   - For each $x_{i}$ in the order: Sample $x_{i}^{t}\sim P(x_{i}\vert x_{-i})$, where $x_{i}$ is updated immediately by $x_{i}^{t}$ (the new value will be used for the next sampling)
+4. Repeat until convergence.
 
 Gibbs determined the energy states of gases at equilibrium by cycling through all the particles, drawing from each one of them conditionally given the enerygy levels of the others, taking the time average. 
 
-Now, suppose you have a density function of two variables $(x,y)$. You wish to sample from this density.
-
-The definition of the X marginal is 
+**How do we compute the conditional probability** $P(x_{i}\vert x_{-i})$? **(With Markov Blankets)**
 
 $$
 \begin{equation}
-f_{X}(x)=\int f_{XY}(x,y)dy
+P(x_{i}\vert x_{-i}) = P(x_{i}\vert MB(x_{i}))
 \end{equation}
 $$
 
-We reformulate the above formula:
 
-$$
-\begin{equation}
-f_{X}(x)=\int f_{XY}(x,y)dy=\int f(x\vert y)f(y)dy=\int f(x\vert y)dy\int f(y\vert x^{'})f(x^{'})dx^{'}
-\end{equation}
-$$
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/gibbs_graphical_model.png" width = "600" height = "400"/>
 
-Thus
+For a Bayesian Network, the Markov Blanket of $x$ is the set of parents, children and co-parents.
+For a Markov Random Field, the Markov Blanket of $x$ is its immediate neighbors.
 
-$$
-\begin{equation}
-f(x)=\int h(x,x^{'})f(x^{'})dx^{'}
-\end{equation}
-$$
+**A 2D Example**
 
-where
+The following figure illustrates Gibbs Sampling on two variables $(x_{1},x_{2})=x$.
 
-$$
-\begin{equation}
-h(x,x^{'})=\int f(x\vert y)f(y\vert x^{'})dy
-\end{equation}
-$$
 
-Now consider an iterative scheme in which the “transition kernel” $h(x,x′)$ is used to create a proposal for metropolis-hastings moves. This looks like:
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/2D_Gibbs.png" width = "600" height = "400"/>
 
-$$
-\begin{equation}
-f(x_{t})=\int h(x_{t},x_{t-1})f(x_{t-1})dx_{t-1}
-\end{equation}
-$$
+On each iteration, we start from the current state $x^{(t)}$ and $x_{1}$ is sampled from conditional density $P(x_{1}\vert x_{2})$, with $x_{2}$ fixed to $x_{2}^{(t)}$. Then $x_{2}$ is sampled from conditional density $P(x_{2}\vert x_{1})$, with $x_{1}$ fixed with $x_{1}^{(t+1)}$. This gives $x^{(t+1)}$ and completes the iteration.
 
-which is the equation of stationary distribution.
-
-The big idea, then, here, as in the case of markov chains, is that the above equation can be thought of as a fixed-point integral equation, and thus we can think of an iterative process which at first does not satisy this condition but then does as time goes on and we reach stationarity.
-
-Similarly here, if we draw $y$, from the conditional $f(y\vert x)$ and then $x$ again from $f(x\vert y)$ we will be able to get the marginal distribution of $x$. Symmetrically we can get the marginal for $y$.
-
-Now, if I can draw from the $x$ marginal, and the $y\vert x$ conditional, i can draw from the $x,y$ joint, and I am done.
-
-### 5.2 Gibbs Sampling Algorithm
-
-- Given a string sampling $(x_{1},y_{1},z_{1})^{T}$.
-- You want to sample: ${(x_{2},y_{2},z_{2})^{T}, (x_{3},y_{3},z_{3})^{T},...,(x_{N},y_{N},z_{N})^{T}}\sim P(x,y,z)$.
-- Then the algorithm goes:
-
-$$
-\begin{aligned}
-x_{2}&\sim P(x\vert y_{1},z_{1}) \\
-y_{2}&\sim P(y\vert x_{2},z_{1}) \\
-z_{2}&\sim P(z\vert y_{2},x_{2}) \\
-&... \\
-x_{3}&\sim P(x\vert y_{2},z_{2}) \\
-y_{3}&\sim P(y\vert x_{3},z_{2}) \\
-z_{3}&\sim P(z\vert x_{3},y_{3}) \\
-\end{aligned}
-$$
 
 ### 5.3 Gibbs and MH Algorithm
 
-Gibbs is the extension of MH Algorithm in high dimension and also is a special case of MH Algorithm without rejection. I will show you the proof.
+Gibbs is the extension or a special case of MH Algorithm in high-dimensional space with accepted rate 1. 
 
-Look at the M-H acceptance ratio:
-
-- Let **x**=$x_{1},...,x_{D}$.
-- When sampling $k$th component, $q_{k}(x^{*}\vert x)=\pi(x_{k}^{*}\vert x_{-k})$.
-- When sampling $k$th component, $x^{*}_{-k}=x_{-k}$.
+The Gibbs Sampling proposal distribution is
 
 $$
 \begin{equation}
-\frac{\pi(x^{*})q(x\vert x^{*})}{\pi(x)q(x^{*}\vert x)}= \frac{\pi(x^{*})q_{k}(x\vert x^{*}_{-k})}{\pi(x)q(x^{*}_{k}\vert x_{-k})} = \frac{\pi(x^{*}\vert x^{*}_{-k})q_{k}(x\vert x^{*}_{-k})}{\pi(x_{k}\vert x_{-k})q(x^{*}_{k}\vert x_{-k})}=1
+Q(x^{\prime}_{i}, x_{-i}\vert x_{i}, x_{-i}) = P(x^{\prime}_{i} \vert x_{-i})
 \end{equation}
 $$
+
+Applying Metropolis-Hastings to this proposal, we find that samples are always accepted
+
+$$
+\begin{equation}
+\begin{split}
+A(x_{i}^{\prime}, x_{-i}\vert x_{i}, x_{-i}) &=\min (1, \frac{P(x^{\prime}_{i}, x_{-i})Q(x_{i}, x_{-i}\vert x_{i}^{\prime}, x_{-i})}{P(x_{i}, x_{-i})Q(x_{i}^{\prime}, x_{-i}\vert x_{i}, x_{-i})}) \\
+&= \min(1, \frac{p(x_{i}^{\prime})P(x_{i}\vert x_{-i})}{P(x_{i},x_{-i})P(x^{\prime}_{i}\vert x_{-i})}) \\
+&=\min(1, \frac{P(x_{i}^{\prime}\vert x_{-i})P(x_{-i})P(x_{i}\vert x_{-i})}{P(x_{i}\vert x_{-i})P(x_{-i})P(x_{i}^{\prime}\vert x_{-i})}) \\
+&=\min(1, 1) \\
+&=1
+\end{split}
+\end{equation}
+$$
+
 
 **Code of Gibbs sampling**
 
 $$
 \begin{equation}
-f(x,y)=x^{2}\text{exp}(-xy^{2}-y^{2}-2*y-4*x)
+f(x,y)=x^{2}\text{exp}(-xy^{2}-y^{2}-2\*y-4\*x)
 \end{equation}
 $$
 
