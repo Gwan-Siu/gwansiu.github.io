@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sampling-Inverse sampling, Reject-accept sampling and MCMC
+title: Sampling Methods
 date: 2018-03-29
 author: Gwan Siu
 catalog: True
@@ -8,11 +8,34 @@ tags:
     - Machine Learning
 ---
 
->In this article, I will discuss some sampling methods: **Inverse Samling**, **Reject-Accept Sampling**, **Important Sampling**, **Markov Chain Monte Carol(MCMC)-MH Algorithm** and **Gibbs Sampling**.
+## 1.Introduction
 
-**Why do we need sampling?** Sampling is the key issue of Monte Carol method, a better sampling approach can help us obtain a better result in term of accuracy and time in practise. For example, density estimation is hot topic in statistics all the time.(**Why？** Because we can calculate expectation, variation and other property related to pdf once we know some information on pdf.) The easies way to get a pdf of random variable $X$ is to inverse CDF.
+>In this article, I will discuss some sampling methods: **Inverse Samling**, **Reject-Accept Sampling**, **Important Sampling**, and its application partical filter.
 
-## 1. Inverse sampling
+**Why do we need sampling?**  In many inference tasks (such as computing marginal probability $P(x)$, computing the partition function $A(\theta)$, or find the expectation of arbitrary function), we are interested in quatities that in a sense sum over the configuration of a true distribution
+
+$$
+\begin{equation}
+E_{p}(f(x)) = \int f(x)p(x)\mathrm{d}x
+\end{equation}
+$$
+
+In such problems, true distribution in closed-form is hard to be obtained and this integral operator in high-dimensional space is intractable. However, if we can sample from this distribution, approximate inference is possible by using a sample-based method of $p(x)$ because large number theory. Here, we have $N$ sample from the true distribution and the expectation of this true distribution can be approximated by
+
+$$
+\begin{equation}
+E_{p}(f(x))=\frac{1}{N}\sum_{n}f(x_{n})
+\end{equation}
+$$
+
+this is essentail idea behind of the Monte Carol, which gives us a stochastic representation of a potentially complex function. This representation can then be used to compute the marginals and expectations in which we are interested. Actually, the approximate are asymptotically exact (they get close to the true $E_{p}[f(x)]$ as $N\rightarrow \infty$), and flexible for any distribution. However, there are key non-trival challenges that must be overcome:
+
+1. How exactly do we draw from them from complex distributions?
+2. Not all samples are equally useful.
+3. How do we knwo we've draw enough samples.
+
+
+## 2. Inverse sampling (naive)
 
 The idea behind inverse sampling is very ituitive: to transform uniform samples into samples from a different distribution. That is, by somehow drawing from an uniform distribution(because CDF is range from 0 to 1), we make it possible to draw from the other distribution. The procedure of inverse sampling is illustrated as:
 
@@ -56,18 +79,20 @@ Not all the pdf has analytical CDF, for example, gaussian ditribution. In additi
 
 ### 2.1 Basic Rejection Sampling
 
-The basic idea is come up with von Neumann. **If you have a function you are trying to sample from, whose functional form is well known, basically accept the sample by generating a uniform random number at any $x$ and accepting it if the value is below the value of the function at that $x$.** The procedure of basic sampling is illustrated as:
+The basic idea is come up with von Neumann. **If you have a complex function $p(x)$ you are trying to sample from, whose maximum value and minimum value are knowbm, basically accept the sample by generating a uniform random number at any $x$ and the range of $p(x)$, and accepting it if the value is below the value of the function at that $x$.** The procedure of basic sampling is illustrated as:
+
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/00A4D982-E912-43B3-A2B6-9B3DCA126A97.png" width = "600" height = "400"/>
+
 
 The procedure of basic rejection sampling:
 
 1. Draw $x$ uniformly from $[x_{min}, x_{max}]$.
 2. Draw $y$ uniformly from $[0, y_{max}]$.
-3. If $y<f(x)$, accept. Else, reject.
+3. If $y\leq f(x)$, accept. Else, reject.
 4. Repeat.
 
-**The intuitive explaination:** This works as more samples will be accepted in the regions of $x$-space where the function $f$ is higher: indeed they will be accepted in the ratio of the height of the function at any given $x$ to $y_{max}$.  **From the perspective of probability interpretation,**the accept-to-total ratio reflects the probability mass in each x silver. 
+**The intuitive explaination:** This works as more samples will be accepted in the regions of $x$-space where the function $f$ is higher: indeed they will be accepted in the ratio of the height of the function at any given $x$ to $y_{max}$.  **From the perspective of probability interpretation,** the accept-to-total ratio reflects the probability mass in each x silver. 
 
 **Code of Basic Rejection Sampling**
 
@@ -116,36 +141,48 @@ plt.legend()
 
 ### 2.2 Modified Reject Sampling
 
-The basic rejection sampling has determinstic limitation(**low acceptance rate**):
-    
-For basic rejection sampling, we need know the supremum of function we want to sample from. In practice, it is hard to evaluate the function on interest domain and find a tight bound for this function. Furthermore, even if you find a tight bound for this function, you may abserve that the accept rate is very low, epescially in low density regions.
+Low accetance rate is one deterministic limitation of basic rejectioin sampling. Now let's consider a case where
 
-In order to overcome low acceptance rate while preserving the simplicity of rejection sampling, **proposal density** $g(x)$ is introduced. This proposal density $g(x)$ is commom density function $f^{'}(x)$ with a scaling factor $M$. (**Why? Because it is impossible to find a density function always above another density function. The integration of density function is always equal to 1. $\int p(x) dx=1$**) The reason we introduce proposal density function is to increase acceptance rate, but this is not the only way to do so.
+- The **target distribution** $p(x)$ is difficult to sample from.
+- The **unnormalized distribution** $\hat{p}(x)=\frac{1}{Z}p(x)$ is easy to evaluate. Note that this alone does not make $p(x)$ amensable to sampling.
+- The **proposal distribution** $q(x)$ is a distribution that we can easily sample from (e.g. uniform or normal)
+- $k$ is chosen constant such that $kq(x)\geq \hat{p}(x)$ for all $x$. This is called the comparison function.
 
-The proposal density must has the following charicteristics:
+**Procedure**
 
-1. $g(x)$ is easy to sample and calculate pdf
-2. the range of M is $[0, \infty]$ so that $Mg(x)>f(x)$ in your entire interest domain.
-3. ideally g(x) will be somewhat close to $f(x)$ so that you will sample more in high density regions and much less in low density region.
+1. Sample $x_{0}$ from $q(x)$.
+2. Sample a number $\mu_{0}$ from the uniform distribution over $[0, kq(x_{0})]$
+3. Reject the sample if $\mu_{0}>\hat{p}(x_{0})$ and retain the sample otherwise.
 
-Obviously, the optimal value of $M$ is the supremum over your domain of interest of $\frac{f}{g}$. At that position x, the acceptance rate is  1. Ideally, the value of $M$ should be as close as to 1, since the acceptance rate is $\frac{1}{M}$. In other words, proposl density function $g(x)$ should be as indentical as $f(x)$.
+Note that the probability of accepting sample $x_{0}$ is $\frac{\hat{p}(x_{0})}{kq(x_{0})}$. Pictorially for a univariate case, this process is akin to sampling uniformly any point in the area under the $kq(x)$ curve and accepting only if it does not land in the gray region.
 
-The proportion of samples from $g(x)$ that are accept at each position $x$ and then average over $x$:
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/reject_sample.png" width = "600" height = "400"/>
+
+
+**Correctness**
+
+Formally show that this procedure samples correctly from $p(x)$. Firstm we observe that the procedure selects a particular $x$ with density proportional to $q(x)\cdot \frac{\hat{p}(x)}{kq(x)}$. Then, the sampling mechanism generates samples according to  a distribution $p_{s}(x)$ which is equal to
 
 $$
-\begin{equation}
-\int dxg(x)\text{prop}(x)=\int dxg(x)\frac{f(x)}{Mg(x)}=\frac{1}{M}\int dxf(x)=\frac{1}{M}
-\end{equation}
+\begin{align}
+p_{s}(x) &= \frac{q(x)\frac{\hat{p}(x)}{kq(x)}}{\int q(x)\frac{\hat{p}(x)}{kq(x)}\mathrm{d}x} \\
+&=\frac{\hat{p}(x)}{\int \hat{p}(x)\mathrm{d}x} \\
+&=p(x)
+\end{align}
 $$
 
-**The procedure of modified rejection sampling is:**
+**Limitation**
 
-1. Draw $x$ from your proposal distribution $g(x)$.
-2. Draw $y$ uniformly from $[0, 1]$.
-3. If $y<\frac{f(x)}{Mg(x)}$, accept the sample, otherwhile, reject the sample.
-4. Repeat the procedure.
+If the proposal distribution $q(x)$ is not chosen well (i.e. differs greatly from $p(x)$), then even an optimally chosen $k$ can result tin a huge rejection region. This implies a large waste of samples that will be rejected. Even if distributions seem similar, in high dimensions this rejection volumn can be very large. For example, $d-$dimensional gaussians
 
-<img src="https://am207.github.io/2017/wiki/images/rejsteroid.png" width = "600" height = "400"/>
+$$
+\begin{align}
+Q&\sim N(\mu, \sigma_{q}^{2/d}) \\
+P&\sim N(\mu, \sigma_{p}^{2/d})
+\end{align}
+$$
+
+for $d=1000$ and $\sigma_{q}$ only 1 percent bigger than $\sigma_{p}$ result in an acceptance rate of only $\approx \frac{1}{2000}$. One potential way to fix this is to use adaptive rejection sampling, which covers $\tilde{p}$ with an envelope of piecewise functions instead of one proposal distribution $q$ but this gets rather complicated.
 
 **The code of modified rejection sampling**
 
@@ -209,7 +246,87 @@ plt.legend()
 
 ## 3. Important Sampling
 
-**Different from reject sampling, import sampling does not has any rejection action. To replace with rejection action, important sampling adopt the approach of weighted sample.** In detail, we want to draw sample from $h(x)$, where a function whose integral or expectation we desire, is large. In the case of expecation, it would indeed be even better to draw more samples where $h(x)f(x)$ is large, where $f(x)$ is the pdf we are calculating the integral with respect to. I will show how importan sampling work below:
+**Different from reject sampling, import sampling does not has any rejection action. To replace with rejection action, important sampling adopt the approach of weighted sample.**  Specifically, suppose we want to evaluate expectations using samplings from a complicated probability distribution. We assume that
+
+- $p(x)$ is hard to sample from but easy to evaluate
+- $q(x)$ is easy to sample from
+- $f(x)$ is a function we want to evaluate in expectation: $E_{p}[f(x)]$
+- $q(x)>0$ whenever $p(x)>0$ or $q$ dominates $p$.
+
+**Procedure (unnormalized important sampling)**
+
+1. Draw $M$ samples $x_{m}$ from $q(x)$.
+2. Determine weights $w_{m}$ for samples equal to the likelihood ratio $w_{m}=\frac{p(x_{m})}{q(x_{m})}$
+3. Compute expectation as:
+
+$$
+\begin{equation}
+E_{p}[f(x)] = \frac{1}{M}\sum_{m}f(x_{m})w_{m}
+\end{equation}
+$$
+
+We call it unnormalized because these weights are likelihood are likelihood ratios, so there is no reason that they need to sum to 1. However, it gives us a first approximation to the true distribution.
+
+Note that this does not give us sample from the target distribution but we can prove corretness for the expected value estimate
+
+$$
+\begin{equation}
+\begin{split}
+E_{p}[f(x)] &=\int f(x)p(x)\mathrm{d}x \\
+&=\int f(x)\frac{p(x)}{q(x)}q(x)\mathrm{d}x \\
+&\sim \frac{1}{M}\sum_{m}f(x_{m})\frac{p(x_{m})}{q(x_{m})} \\
+&=\frac{1}{M}\sum_{m}f(x_{m})w_{m}
+\end{split}
+\end{equation}
+$$
+
+The key step is that third equality where we can approximate the integral assuming $x_{m}$ are drawn from $q(x)$ which they acyually are in the procedure.
+
+**Normalized important sampling**
+
+Here we no longer assume that we know $p(x)$ and instead only know it up to a constant factor $\hat{p}(x)=\alpha p(x)$. This is a common situation, such as when we want a conditional probability when we know the joint $p(x, e)$ but not the marginal $p(e)$. In this case, the samplilng procedure is
+
+**Procedure**
+
+1. Draw $M$ samples $x_{m}$ from $q(x)$.
+2. Calculate ratios $r_{m}$ for samples equal to $r_{m}=\frac{\hat{p}(x_{m})}{q(x_{m})}$.
+3. Compute expectation as 
+
+$$
+\begin{equation}
+E_{p}[f(x)]=\frac{\sum_{m}f(x_{m})r_{m}}{\sum_{m}r_{m}}
+\end{equation}
+$$
+
+We observe first that
+
+$$
+\begin{equation}
+\begin{split}
+E_{p}[r(x)] &= \int \frac{\hat{p}(x)}{q(x)}q(x)\mathrm{d}x \\
+&=\int \hat{p}(x)\mathrm{d}x \\
+&=\alpha
+\end{split}
+\end{equation}
+$$
+
+$$
+\begin{equation}
+\begin{split}
+E_{p}[f(x)] &= \int f(x)p(x)\mathrm{d}x \\
+&=\frac{1}{\alpha}\int f(x)\frac{\hat{p}(x)}{q(x)}q(x)\mathrm{d}x \\
+&=\frac{\int f(x)r(x)q(x)\mathrm{d}x}{\int r(x)q(x)\mathrm{d}x} \\
+&\sim \frac{\sum_{m} f(x_{m})r_{m}}{\sum_{m}r_{m}} \\
+&\sum_{m}f(x_{m})w_{m}
+\end{split}
+\end{equation}
+$$
+
+
+
+
+
+In detail, we want to draw sample from $h(x)$, where a function whose integral or expectation we desire, is large. In the case of expecation, it would indeed be even better to draw more samples where $h(x)f(x)$ is large, where $f(x)$ is the pdf we are calculating the integral with respect to. I will show how importan sampling work below:
 
 **Why improtant?** Often, in the computation of an expectation or other integral, the integrand has a very small value on a dominant fraction of the whole integration volume. If the points are chosen evenly in the integration volume, the small minority of the points close to the ‘peak’ give the dominant contribution to the integral.
 
