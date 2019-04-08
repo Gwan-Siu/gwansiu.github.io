@@ -88,7 +88,7 @@ We study homogenous Markov Chains, in which the transition kernel $P(x_{n}=x\ver
    \pi(x^{\prime})\sum_{x}T(x\vert x^{\prime}) &= \sum_{x}\pi(x)T(x^{\prime}\vert x) \\
    \pi(x^{\prime}) &= \sum_{x} \pi(x)T(x^{\prime}\vert x)
    \end{split}
-   \end
+   \end{equation}
    $$
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/0D4DDB79-114A-4DBB-BDC4-A6E16601B700.png" width = "600" height = "400"/>
@@ -344,7 +344,7 @@ $$
 
 $$
 \begin{equation}
-f(x,y)=x^{2}\text{exp}(-xy^{2}-y^{2}-2\*y-4\*x)
+f(x,y)=x^{2}\text{exp}(-xy^{2}-y^{2}-2*y-4*x)
 \end{equation}
 $$
 
