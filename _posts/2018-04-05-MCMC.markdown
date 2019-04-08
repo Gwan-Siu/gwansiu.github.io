@@ -84,7 +84,7 @@ We study homogenous Markov Chains, in which the transition kernel $P(x_{n}=x\ver
    \begin{equation}
    \begin{split}
    \pi(x^{\prime})T(x\vert x^{\prime}) &= \pi(x)T(x^{\prime}\vert x) \\
-   sum_{x}\pi(x^{\prime})T(x\vert x^{\prime}) &= \sum_{x}\pi(x)T(x^{\prime}\vert x) \\
+   \sum_{x}\pi(x^{\prime})T(x\vert x^{\prime}) &= \sum_{x}\pi(x)T(x^{\prime}\vert x) \\
    \pi(x^{\prime})\sum_{x}T(x\vert x^{\prime}) &= \sum_{x}\pi(x)T(x^{\prime}\vert x) \\
    \pi(x^{\prime}) &= \sum_{x} \pi(x)T(x^{\prime}\vert x)
    \end{split}
@@ -151,7 +151,7 @@ plt.ylim([0, 1]);
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/mcmc-recure.png" width = "600" height = "400"/>
 
 
-### 4.4 Metropolis Hasting Algorithm(MH Algorithm)
+### 2.3 Metropolis Hasting Algorithm(MH Algorithm)
 
 
 **the idea of MH algorithm**
@@ -272,9 +272,7 @@ print("starting point was ", x_init)
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/mh-1.png" width = "600" height = "400"/>
 
-## 5. Gibbs Sampling
-
-### 5.1 The idea of Gibbs Sampling
+### 2.4 Gibbs Sampling
 
 Gibbs sampling is an Markov Chain Monte Carlo algorithms that samples each random variables of a graphical, one at a tiem. It is a special case of the Metropolis-Hasting algorithm, which performs a biased random walk to explore distribution. It is assumed that $P(x)$ is too complex while $P(x_{i}\vert x_{-i})$ is tractable to work with.
 
@@ -313,7 +311,7 @@ The following figure illustrates Gibbs Sampling on two variables $(x_{1},x_{2})=
 On each iteration, we start from the current state $x^{(t)}$ and $x_{1}$ is sampled from conditional density $P(x_{1}\vert x_{2})$, with $x_{2}$ fixed to $x_{2}^{(t)}$. Then $x_{2}$ is sampled from conditional density $P(x_{2}\vert x_{1})$, with $x_{1}$ fixed with $x_{1}^{(t+1)}$. This gives $x^{(t+1)}$ and completes the iteration.
 
 
-### 5.3 Gibbs and MH Algorithm
+### 2.5 Gibbs and MH Algorithm
 
 Gibbs is the extension or a special case of MH Algorithm in high-dimensional space with accepted rate 1. 
 
@@ -348,20 +346,150 @@ f(x,y)=x^{2}\text{exp}(-xy^{2}-y^{2}-2*y-4*x)
 \end{equation}
 $$
 
-```python
+## 3. Pratial Aspects of MCMC
 
-func = lambda x,y: x**2*np.exp( -x*y**2 - y**2 + 2*y - 4*x )
+(1). **How do we know if our proposal is any good? (Monitor the acceptance rate:)**
 
-numgridpoints=400
-x = np.linspace(0,2,numgridpoints)
-y = np.linspace(-1,2.5,numgridpoints)
-xx,yy = np.meshgrid(x,y)
-zz = np.zeros((numgridpoints,numgridpoints))
-for i in np.arange(0,numgridpoints):
-    for j in np.arange(0,numgridpoints):
-        zz[i,j]=func(xx[i,j],yy[i,j])
-        
-plt.contourf(xx,yy,zz)
+Choosing the proposal is a tradeoff. The ‘narrow’, low-variance proposals have high acceptance, but may take many iterations to explore $P(x)$ fully because the proposed $x$ are too close. The ‘wide’, high-variance proposals have the potential to explore much of $P(x)$, but many proposals are rejected which slows down the sampler.
 
-```
-<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Monte%20Carol%20Method/image/gibbs.png" width = "600" height = "400"/>
+A good $Q(x^{\prime}\vert x)$ proposes distant samples $x^{\prime}$ with a sufficiently high acceptance rate.
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/MCMC_step_size.png" width = "600" height = "400"/>
+
+
+Acceptance rate is the fraction of samples that MH accepts. A general guideline is proposals should have ~0.5 acceptance rate. If both $P(x)$ and $Q(x^{\prime}\vert x)$ are Gaussian, the optimal rate is $\sim 0.45$ for $D=1$ dimension and approaches $\sim 0.23$ as $D$ tends to infinity.
+
+
+(2). **How do we know if our proposal is any good? – Autocorrelation function:**
+
+MCMC chains always show autocorrelation (AC), because we are using the previous example to define the transition of the next example. (Note: AC means that adjacent samples in time are highly correlated.) We quantify AC with the autocorrelation fucntion of an r.v.x:
+
+$$
+\begin{equation}
+R_{x})(k)  = \frac{\sum_{t=1}^{n-k}(x_{t}-\bar{x})(x_{t+k}-\bar{x})}{\sum_{t=1}^{n-k}(x_{t}-\bar{x})^{2}}
+\end{equation}
+$$
+
+The first-order AC $R_{x}(1)$ can be used to estimate the Sample size inflation Factor (SSIF):
+
+$$
+\begin{equation}
+s_{x} = \frac{1+R_{x}}{1-R_{x}}
+\end{equation}
+$$
+
+If we took $n$ samples with SSIF $s_{x}$, then the effective sample size is $\frac{n}{s_{x}}$. High autocorrelation leads to smaller effective sample size. We want proposals $Q(x^{\prime}\vert x)$ with low correlation.
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/MCMC_autocorrelation.png" width = "600" height = "400"/>
+
+(3). **How do we know when to stop burn-in? – Plot the sample values vs time**
+
+We can monitor convergence by plotting samples (of r.v.s) from multiple MH runs (chains). (Note: In practice, when people do MCMC, they usually start with multiple MCMC chains rather than one MCMC). If the chains are well-mixed (left), they are probably converged. If the chains are poorly-mixed (right), we should continue burn-in.
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/mcmc_mix_up.png" width = "600" height = "400"/>
+
+(4). **How do we know when to stop burn-in? – Plot the log-likelihood vs time**
+
+Many graphical models are high-dimensional, so it is hard to visualize all r.v. chains at once. Instead, we can plot the complete log-likelihood vs. time. The complete log-likelihood is an r.v. that depends on all model r.v.s. Generall, the log-likelihood will climb, then eventually plateau.
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/mcmc_plot_likelihood.png" width = "600" height = "400"/>
+
+
+## 4. Hamilton Monte Carlo
+
+One of the struggle people had in all vanilla MCMC methods is so called random walk behavior, which is caused by the proposed distribution. However, we want to propose prefered biased samples. How to impose the derivative (maybe likelihood function) into the proposal in a mathematically elegent fashion had became an important question.
+
+### 4.1 Hamliton System
+
+Hamilton system is defined:
+
+$$
+\begin{equation}
+H(p, x) = U(x) + K(p)
+\end{equation}
+$$
+
+where $x$ is the position vector, $p$ is the momentum vector. $U(x)$ is the potential energy and $K(p)$ stands for kinetic energy. One of key property of Hamilton system is 
+
+$$
+\begin{equation}
+\begin{split}
+\frac{\mathrm{d}x_{i}}{\mathrm{d}r} &= \frac{\partial H}{\partial p_{i}} \\
+\frac{\mathrm{d}p_{i}}{\mathrm{d}t} &= -\frac{\partial H}{\partial x_{i}}
+\end{split}
+\end{equation}
+$$
+
+when we want to sample a target distribution, we can leverage on gradient methods by introducing more variables to an auxilliary distribution, $P_{H}(x, p)=\frac{e^{-E(x)-K(p)}}{Z_{h}}$. Thus, using Hamilton, we are able to define the change of state v.s. the gradient of a loss function over the change.
+
+(1). **How to update: Euler’s Method**
+
+There are multiple way to compute the $\delta$  in the state as a function of teh gradient. The Euler’s Method directly estabilsh the change in $p$  (momentum), and $q$  (position) as a function of the loss.
+
+$$
+\begin{equation}
+\begin{split}
+p_{i}(t+\epsilon) &= p_{i}(t) + \epsilon\frac{\mathrm{d}p_{i}}{\mathrm{d}t}(t) = p_{i}(t) -\epsilon \frac{\partial U}{\parital q_{i}}(q(t)) \\
+q_{i}(t+\epsilon) &= q_{i}(t) +\epsilon \frac{\mathrm{d}q_{i}}{\mathrm{d}t}(t) = q_{i}(t) + \epsilon \frac{p_{i}(t)}{m_{i}}
+\end{split}
+\end{equation}
+
+
+(2). **How to update: Leapfrog Method**
+
+Leapfrog Method is prefered, because it alternates between the $p$ and $q$ to calculate the updates in a very controlled fashion. So behaviors like over shooting and under shooting can be avoided.
+
+$$
+\begin{equation}
+\begin{split}
+p_{i}(t+\epsilon /2) &= p_{i}(t) -(\epsilon/2)\frac{\partial U}{\parital q_{i}}(q(t)) \\
+q_{i}(t+\epsilon) &= q_{i}(t) +\epsilon \frac{p_{i}(t+\epsilon/2)}{m_{i}} \\
+p_{i}(t+\epsilon) &= p_{i}(t+\epsilon/2) -(\epsilon/2)\frac{\partial U}{\partial q_{i}}(q(t+\epsilon))
+\end{split}
+\end{equation}
+$$
+
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/other/HMC.png" width = "600" height = "400"/>
+
+### 4.2 MCMC from Hamiltonian Dynamics
+
+Let $q$ be variable of interest, $p$ is introduced as an auxiliary random variable in order to define the Hamiltonian.
+
+$$
+\begin{equation}
+P(p,q) = \frac{1}{Z}\text{exp}(-U(q)/T)\text{exp}(-K(p)/TY)
+\end{equation}
+$$
+
+where $U(q)=-\log[\pi(q)L(q\vert D)]$ and $K(p)=\sum_{i=1}^{d}\frac{p_{i}^{2}}{2m_{i}}$. Here  it is a Bayesian setting where we have both the distribution of hidden states or the states of interest and also conditioned from priors. $U(q) = -\log [\pi (q) L(q\vert D)]$ connects to the likelihhod, the gradient of which is not directly involved in the proposal of next qq . Then a accept/ reject critera is built based on the change of the Hamiltonian.
+
+### 4.3 Langevin Dynamics
+
+Langevin Dynamics is special case of Hamiltonian. Instead of doing Leapfrog, Langevin does a more sophiscated update based on second-order updates of the sampling states.
+
+$$
+\begin{equation}
+q^{\ast}_{i} =q_{i} -\frac{\epsilon^{2}}{2}\frac{\partial U}{\parital q_{i}}(q) + \epsilon p_{i}
+\end{equation}
+$$
+
+$p_{i}^{\ast}=p_{i} - \frac{\epsilon}{2}\frac{\partial U}{\partial q_{i}}(q)-\frac{\epsilon}{2}\frac{\partial U}{\partial q_{i}}(q^{\ast})$.Even for a strange distribution with constrains on regions, this augmented optimization methods still deal with it.
+
+## 5. Summary
+
+### 5.1  Summary on MCMC
+- Markov Chain Monte Carlo methods use adaptive proposal $Q(x^{\prime}\vert x)$ to sample from the true distribution $P(x)$.
+- Metropolis-Hasting allows you to specify any proposal $Q(x^{\prime}\vert x)$. Though choosing a good $Q(x^{\prime}\vert x)$ carefully.
+- Gibbs sampling sets the proposal $Q(x^{\prime}\vert x)$ to the conditional distribution $P(x^{\prime}\vert x)$:
+  1. Acceptance rate is 1.
+  2. high acceptance rate entails slow exploration.
+  3. In fact, there are better MCCM algorithms for certain models.
+
+- Knowing when to halt burn-in state.
+
+### 5.2 Summary on HMC
+
+- Using Hamiltonian, we are able to define the change of state v.s. the gradient of a loss function over the change.
+- Hamiltonian Mento Carlo can improve acceptence rate and give better mixing by incorporating optimization based approaches to generate better proposals.
+- Stochastic variants can be used to improve performance in large dataset scenarios.
+- Hamiltonnian Mento Carlo may not be used for discrete variable
