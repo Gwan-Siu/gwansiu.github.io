@@ -19,7 +19,7 @@ $$
 \begin{equation}
 \begin{split}
 D_{KL}(P(X)\Arrowvert Q_{\theta}(X)) &= \int P(X)\log \frac{P(X)}{Q_{\theta}(X)}\mathrm{d}x \\
-&=\mathbb{E}_{x\sim P(X)}\[\log\frac{P(X)}{Q_{\theta}(X)}\]
+&=\mathbb{E}_{x\sim P(X)}[\log\frac{P(X)}{Q_{\theta}(X)}]
 \end{split}
 \end{equation}
 $$
@@ -33,12 +33,8 @@ The range of KL divergence is $\[0,\infty\]$. In order for KL divergence to be f
 As I mentioned earlier, the KL divergence is not symmetric measure. Thus, from optimization perspective, minimize $D_{KL}(Q_{\theta\Arrowvert P})$ and minimize $D_{KL}(P\Arrowvert Q_{\theta})$ has different physical meanings.
 
 **Note:**
-$$
-\begin{itemize}
-    \item Forward KL divergence:$D_{KL}(P\Arrowvert Q_{\theta})$ **Mean-seeking behavior, inclusive (more principle because approximates the full distribution)**
-    \item Reversed KL divergence: $D_{KL}(Q_{\theta}\Arrowvert P)$ **Mode seeking, exclusive**.
-\end{itemize}
-$$
+- Forward KL divergence:$D_{KL}(P\Arrowvert Q_{\theta})$ **Mean-seeking behavior, inclusive (more principle because approximates the full distribution)**
+- Reversed KL divergence: $D_{KL}(Q_{\theta}\Arrowvert P)$ **Mode seeking, exclusive**.
 
 ## 2. Forward KL
 
