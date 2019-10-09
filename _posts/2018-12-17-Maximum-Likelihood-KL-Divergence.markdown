@@ -24,9 +24,9 @@ D_{KL}(P(X)\Arrowvert Q_{\theta}(X)) &= \int P(X)\log \frac{P(X)}{Q_{\theta}(X)}
 \end{equation}
 $$
 
-KL divergence is not symmetric, i.e. $D_{KL}(Q_{\theta\Arrowvert P})\neq D_{KL}(P\Arrowvert Q_{\theta})$. Therefore, KL divergence is not a well-defined measure. If $P$ and $Q_{\theta}$ are exact the same, i.e. $P=Q_{\theta}$, then $D_{KL}(Q_{\theta\Arrowvert P})\neq D_{KL}(P\Arrowvert Q_{\theta})=0$. 
+KL divergence is not symmetric, i.e. $D_{KL}(Q_{\theta\Arrowvert P})\neq D_{KL}(P\Arrowvert Q_{\theta})$. Therefore, KL divergence is not a well-defined measure. If $P$ and $Q_{\theta}$ are exact the same, i.e. $P=Q_{\theta}$, then $D_{KL}(Q_{\theta\Arrowvert P})= D_{KL}(P\Arrowvert Q_{\theta})=0$. 
 
-The range of KL divergence is $\[0,\infty\]$. In order for KL divergence to be finite, e.g. $D_{KL}(P\Arrowvert Q_{\theta})$, the support of $P$ needs to be contained in the support of $Q_{\theta}$. If a point $x$ exists with $Q(x)=0$ but $P(x)>0$, then $D_{KL}(P\Arrowvert Q_{\theta})=\infty$.
+The range of KL divergence is $[0,\infty]$. In order for KL divergence to be finite, e.g. $D_{KL}(P\Arrowvert Q_{\theta})$, the support of $P$ needs to be contained in the support of $Q_{\theta}$. If a point $x$ exists with $Q(x)=0$ but $P(x)>0$, then $D_{KL}(P\Arrowvert Q_{\theta})=\infty$.
 
 
 ### 1.2 Forward and Reverse KL
