@@ -95,10 +95,12 @@ friends: [
     #     href: "http://su.gallery/"
     # },{
         title: "K_Augus",
-        href: "https://jiqiujia.github.io/",
-        title: "Liwen",
-        href: "https://liwen.site/"
-    }
+        href: "https://jiqiujia.github.io/"
+    },
+    {
+    title: "Liwen",
+    href: "https://liwen.site/"
+}
     ]
 
 
