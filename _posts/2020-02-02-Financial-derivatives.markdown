@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "金融衍生工具与金融市场机制理论”
+title:      "金融衍生工具与金融市场机制理论"
 date:       2020-02-02 20:30:00
 author:     "GwanSiu"
 catalog: true
@@ -194,7 +194,7 @@ $(10000000+12632.5)\times(1+4.375\%\times 92/360)=10124579.29$
 - 在收益相同的情况下，选择风险最小的项目去投资。
 
 **资产组合的预期收益率:** $\mathbb{E}(r_{p})=\sum_{i=1}^{n}\mathbb{E}(r_{i})w_{i}$
-**资产组合的风险度量:** $\sigma_{p}^{2}=sum_{i=1}^{n}w_{i}^{2}\simga_{i}^{2}+2\sum_{0\leq i<j<n}w_{i}w_{j}\simga_{i}\sigma_{j}\ro_{ij}$
+**资产组合的风险度量:** $\sigma_{p}^{2}=\sum_{i=1}^{n}w_{i}^{2}\sigma_{i}^{2}+2\sum_{0\leq i<j<n}w_{i}w_{j}\sigma_{i}\sigma_{j}\rho_{ij}$
 
 
 
