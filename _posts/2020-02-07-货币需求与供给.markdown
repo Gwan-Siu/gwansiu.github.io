@@ -49,7 +49,7 @@ tags:
 **主要观点:** 在货币经济条件下，人们持有货币是为了与商品相交换，因此货币在一定时期内的支付总额与商品的交易总额一定相等，即**买方价值等于卖方价值**，由此的处理交易方程式:
 
 $$
-\begin{equatiton}
+\begin{equation}
 \text{(买方)}MV=PT\text{(卖方)}
 \end{equation}
 $$
@@ -59,7 +59,7 @@ $$
 $$
 \begin{equation}
 MV=PV\text{(名义国民收入)}
-\end{eqauttion}
+\end{eqaution}
 $$
 
 特点:
@@ -200,13 +200,13 @@ C=\sqrt{\frac{2bY}{r}}
 
 **假设:** 预防性货币需求主要取决于未来的不确定性，该模型假定，收支相抵的净支出服从以零为中心的某种概率分布，$\sigma$为净支出的标准差。通过设定适当的风险概率，从而推导出立方根定律率的预防性货币需求公式。
 
-设$X$为入不敷出的数额，并为正态分布，且均值为零,方差为$\sigma^{2}$。$\epsilon$ 为个人持有的预防性货币余额，设为$L_{12}$。考虑最谨慎的情形，$P(X\geq L_{12})=\frac{\simga^{2}}{L_{12}}$, 即入不敷出的数额大于期初持有的预防性货币余额的概率等于$\frac{\sigma^{2}}{L_{12}^{2}}$, 也就是说存在$\frac{\sigma^{2}}{L_{12}}$的概率需要将非现金资产转换为现金，并发生相应的转换成本。因此，转换概率为: $\frac{\sigma^{2}}{L_{12}^{2}}$
+设$X$为入不敷出的数额，并为正态分布，且均值为零,方差为$\sigma^{2}$。$\epsilon$ 为个人持有的预防性货币余额，设为$L_{12}$。考虑最谨慎的情形，$P(X\geq L_{12})=\frac{\sigma^{2}}{L_{12}}$, 即入不敷出的数额大于期初持有的预防性货币余额的概率等于$\frac{\sigma^{2}}{L_{12}^{2}}$, 也就是说存在$\frac{\sigma^{2}}{L_{12}}$的概率需要将非现金资产转换为现金，并发生相应的转换成本。因此，转换概率为: $\frac{\sigma^{2}}{L_{12}^{2}}$
 
-设$r$代表利率，$L_{12}$代表预防性现金平均持有额，则该机会成本就是$L_{12}\cdot r$, 而转换成本: 设$b$为每次将非现金资产转换成现金的手续费，由于转换概率为$\simga^{2}/L_{12}^{2}$。因此，转换成本为: $\frac{\sigma^{2}}{L_{12}^{2}}\time b$, 则总成本为:
+设$r$代表利率，$L_{12}$代表预防性现金平均持有额，则该机会成本就是$L_{12}\cdot r$, 而转换成本: 设$b$为每次将非现金资产转换成现金的手续费，由于转换概率为$\sigma^{2}/L_{12}^{2}$。因此，转换成本为: $\frac{\sigma^{2}}{L_{12}^{2}}\time b$, 则总成本为:
 
 $$
 \begin{equation}
-TC=r\time L_{12} + \frac{\sigma^{2}}{L_{12}^{2}}\time b
+TC=r\times L_{12} + \frac{\sigma^{2}}{L_{12}^{2}}\times b
 \end{equation}
 $$
 
@@ -302,9 +302,9 @@ $$
 
 <img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E8%B4%A7%E5%B8%81%E6%94%BE%E5%A4%A71.png" width = "600" height = "400"/>
 
-<img src="https://github.com/Gwan-Siu/BlogCode/blob/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E8%B4%A7%E5%B8%81%E6%94%BE%E5%A4%A72.png" width = "600" height = "400"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E8%B4%A7%E5%B8%81%E6%94%BE%E5%A4%A72.png" width = "600" height = "400"/>
 
-<img src="https://github.com/Gwan-Siu/BlogCode/blob/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E8%B4%A7%E5%B8%81%E6%94%BE%E5%A4%A73.png" width = "600" height = "400"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E8%B4%A7%E5%B8%81%E6%94%BE%E5%A4%A73.png" width = "600" height = "400"/>
 
 - 3. 存款乘数与制约存款创造的因素: 超额准备金不等于零，现金漏损不等于零，定期存款不等于零，设超额准备金率$2%$.
 
@@ -330,9 +330,9 @@ $$
     - **央行的再贴现政策影响借入准备金供给的变化**
     - 准备金的需求 = 法定存款金 + 超额准备金
 
-<img src="https://github.com/Gwan-Siu/BlogCode/blob/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E4%B8%AD%E5%A4%AE%E9%93%B6%E8%A1%8C%E4%BE%9B%E7%BB%991.png" width = "600" height = "400"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E4%B8%AD%E5%A4%AE%E9%93%B6%E8%A1%8C%E4%BE%9B%E7%BB%991.png" width = "600" height = "400"/>
 
-<img src="https://github.com/Gwan-Siu/BlogCode/blob/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E4%B8%AD%E5%A4%AE%E9%93%B6%E8%A1%8C%E4%BE%9B%E7%BB%992.png" width = "600" height = "400"/>
+<img src="https://raw.githubusercontent.com/Gwan-Siu/BlogCode/master/Finance_Economics/%E8%B4%A7%E5%B8%81%E9%87%91%E8%9E%8D%E5%AD%A6_%E5%AF%B9%E5%A4%96%E8%B4%B8%E6%98%93/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E9%9C%80%E6%B1%82/%E4%B8%AD%E5%A4%AE%E9%93%B6%E8%A1%8C%E4%BE%9B%E7%BB%992.png" width = "600" height = "400"/>
     
 **公开市场操作对银行同业拆借利率的影响**。 公开市场操作可以影响准备金市场的供求，从而影响同业拆解利率发生相应变动的。一般地，当同业拆借利率高于超额准备金利率时，同业拆借利率低于公开市场买入会导致存款混呗金供给量增加(非借入准备金增加)，使得同业拆借利率下降。反之亦然。 但是，同业拆借利率等于超额准备金存款利率时，央行的公开市场操作对同业拆借利率无影响，因此，同业拆借市场出现了"流动性陷阱"。无论央行在公开市场上买入量多大，都不会导致同业拆借利率下降，从而公开市场操作失效，即: 央行对准备金支付的利息率是同业拆借利率变动的下限。
 
@@ -371,7 +371,7 @@ $$
 
 (1). 漏现比率等于流通中现金(C)与支票存款(D)之间的比值，即$c=\frac{C}{D}$; (2). 定期存款(T)与活期存款的比率$t=\frac{T}{D}$; (3). 银行持有的准备金为$R$, 其中，超额准备金率为$e$；(4). 活期存款法定准备金率为$r_{d}$, 定期存款的法定准备金率为$r_{t}$.
 
-根据定义: $B=C+R,Ms=C+D$。显然，总准备金$R$等于活期存款的法定准备金$D\times r_{d}$和定期存款的法定准备金$t\times r_{t}$以及超额准备金$D\times e$之和，即:$R=D\tiems r_{d}+t\times r_{t}\times D + D\times e=(r_{d}+r_{t}\times t+e+c)D$.
+根据定义: $B=C+R,Ms=C+D$。显然，总准备金$R$等于活期存款的法定准备金$D\times r_{d}$和定期存款的法定准备金$t\times r_{t}$以及超额准备金$D\times e$之和，即:$R=D\times r_{d}+t\times r_{t}\times D + D\times e=(r_{d}+r_{t}\times t+e+c)D$.
 
 有:$m=\frac{M_{s}}{B}=\frac{C+D}{C+R}=\frac{(1+c)D}{(r_{d}+r_{t}\times t+e+c)D}=\frac{1+c}{r_{d}+r_{t}\times t+e+c}$
 
