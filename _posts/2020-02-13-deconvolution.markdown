@@ -166,19 +166,19 @@ $$
 \begin{equation}
 \begin{split}
 D_{x}x =\text{vec}(d_{x}\ast x),&\quad d_{x} = 
-left(\begin{array}{ccc}
+left(\begin{matrix}
 0& 0& 0 \\
 0& -1& 1 \\
 0& 0& 0
-\end{array}\right) 
+\end{matrix}\right) 
 \\
 
-D_{y}x = \text{vec}(d_{y}\ast x),&\quad d_{y} = \left\begin{array}{ccc}
+D_{y}x = \text{vec}(d_{y}\ast x),&\quad d_{y} = \left\begin{matrix}
 0 & 0& 0 \\
 0 & -1& 0 \\
 0 & 1& 0
 
-\end{array}\right)
+\end{matrix}\right)
 \end{split}
 \end{equation}
 $$
@@ -304,10 +304,10 @@ In isotropic case, the sum of $\ell_{2}$-norms is used to approximate to the hor
 
 $$
 \begin{equation}
-\Gamma(x) = \lambda\Arrowvert z\Arrowvert_{2,1}=\lambda\sum_{i=1}^{M}\left\Arrowvert \begin{array}
+\Gamma(x) = \lambda\Arrowvert z\Arrowvert_{2,1}=\lambda\sum_{i=1}^{M}\left\Arrowvert \begin{matrix}
 (D_{x}x)_{i} \\
 (D_{y}y)_{i}
-\end{array}
+\end{matrix}
 \right\Arrowvert_{2}
 \end{equation}
 $$
@@ -319,26 +319,28 @@ The deconvolution problem with an isotropic TV prior is formulated in ADMM notat
 $$
 \begin{equation}
 \begin{split}
-\min_{x}&\, \underbrace{\frac{1}{2}\Arrowvert Cx-b\Arrowvert_{2}^{2}}_{f(x)} + \underbrace{\lambda\sum_{i=1}^{M}\Arrowvert \begin{array}
+\min_{x}&\, \underbrace{\frac{1}{2}\Arrowvert Cx-b\Arrowvert_{2}^{2}}_{f(x)} + \underbrace{\lambda\sum_{i=1}^{M}\Arrowvert \begin{matrix}
 z_{i} \\
 z_{i+M}
-\end{array}
+\end{matrix}
 Arrowvert_{2}}_{g(z)} \\
 s.t.&\, Dx-z=0
 \end{split}
 \end{equation}
 $$
 
-where $z_{i}$ is the $i$-th element of $z$. For $1\leq i\leq M$, it is meant to represent the finite differences approximattion in horizontal direction, $(D_{x}x)_{i}$, and for $M+1\leq i\leq 2M$, the finite differences approximation in vertical direction, $(D_{y}x)_{i}$. Notice that if the $\ell_{2}$-norm in $g(z)$ with the $\ell_{1}$-norm, then we get $\sum_{i=1}^{M}\Arrowvert(z_{i}, z_{i+M})\Arrowvert_{1}$ which reduces to $\Arrowvert z\Arrowvert_{1}$ and we recover the anisotropic case.
+where $z_{i}$ is the $i$-th element of $z$. For $1\leq i\leq M$, it is meant to represent the finite differences approximattion in horizontal direction, $(D_{x}x)_{i}$, and for $M+1\leq i\leq 2M$, 
+
+the finite differences approximation in vertical direction, $(D_{y}x)_{i}$. Notice that if the $\ell_{2}$-norm in $g(z)$ with the $\ell_{1}$-norm, then we get $\sum_{i=1}^{M}\Arrowvert(z_{i}, z_{i+M})\Arrowvert_{1}$ which reduces to $\Arrowvert z\Arrowvert_{1}$ and we recover the anisotropic case.
 
 The way to update $x$ and $\mu$ are the same as above, and the only change is the $z$-update, which is 
 
 $$
 \begin{equation}
-z\leftarrow prox_{g,\rho}(v)=\arg\min_{z}\lambda\sum_{i=1}^{M}\Arrowvert\left\begin{array}{ccc}
+z\leftarrow prox_{g,\rho}(v)=\arg\min_{z}\lambda\sum_{i=1}^{M}\Arrowvert\left\begin{matrix}
 z_{i} \\
 z_{i+M}
-\end{array}\right\Arrowvert
+\end{matrix}\right\Arrowvert
 +\frac{\rho}{2}\left\Arrowvert v-z\right\Arrowvert_{2}^{2}\, v=Dx+\mu
 \end{equation}
 $$
@@ -347,14 +349,14 @@ The corresponding proximal operator of $g(z)$, the group lasso, is block soft th
 
 $$
 \begin{equation}
-\left(\begin{array}
+\left(\begin{matrix}
 z_{i} \\
 z_{i+M}
-\end{array}\right)
-\leftarrow \mathcal{S}_{\lambda/\rho}\left(\begin{array}
+\end{matrix}\right)
+\leftarrow \mathcal{S}_{\lambda/\rho}\left(\begin{matrix}
 v_{i} \\
 v_{i+M}
-\end{array} \right)\, i\leq i\leq M
+\end{matrix} \right)\, i\leq i\leq M
 \end{equation}
 $$
 $\mathcal{S}_{\kappa}$ being the vector soft thresholding operator.
