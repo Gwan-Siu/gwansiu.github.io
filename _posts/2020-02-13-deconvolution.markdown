@@ -323,15 +323,17 @@ $$
 z_{i} \\
 z_{i+M}
 \end{matrix}
-Arrowvert_{2}}_{g(z)} \\
+\Arrowvert_{2}}_{g(z)} \\
 s.t.&\, Dx-z=0
 \end{split}
 \end{equation}
 $$
 
-where $z_{i}$ is the $i$-th element of $z$. For $1\leq i\leq M$, it is meant to represent the finite differences approximattion in horizontal direction, $(D_{x}x)_{i}$, and for $M+1\leq i\leq 2M$, 
+where $z_{i}$ is the $i$-th element of $z$. For $1\leq i\leq M$, it is meant to represent the finite differences approximattion in horizontal direction, $\(D_{x}x\)_{i}$, and for $M+1 \leq i \leq 2M$, 
 
-the finite differences approximation in vertical direction, $(D_{y}x)_{i}$. Notice that if the $\ell_{2}$-norm in $g(z)$ with the $\ell_{1}$-norm, then we get $\sum_{i=1}^{M}\Arrowvert(z_{i}, z_{i+M})\Arrowvert_{1}$ which reduces to $\Arrowvert z\Arrowvert_{1}$ and we recover the anisotropic case.
+the finite differences approximation in vertical direction, $\(D_{y} x\)_{i}$. Notice that if the $\l_{2}$-norm in $g(z)$ with the $l_{1}$-norm, 
+
+then we get $\sum_{i=1}^{M} \Arrowvert(z_{i}, z_{i+M})\Arrowvert_{1}$ which reduces to $\Arrowvert z\Arrowvert_{1}$ and we recover the anisotropic case.
 
 The way to update $x$ and $\mu$ are the same as above, and the only change is the $z$-update, which is 
 
@@ -359,6 +361,7 @@ v_{i+M}
 \end{matrix} \right)\, i\leq i\leq M
 \end{equation}
 $$
+
 $\mathcal{S}_{\kappa}$ being the vector soft thresholding operator.
 
 
