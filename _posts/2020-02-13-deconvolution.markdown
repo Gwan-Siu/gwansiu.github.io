@@ -166,14 +166,14 @@ $$
 \begin{equation}
 \begin{split}
 D_{x}x =\text{vec}(d_{x}\ast x),&\quad d_{x} = 
-left(\begin{matrix}
+\left(\begin{matrix}
 0& 0& 0 \\
 0& -1& 1 \\
 0& 0& 0
 \end{matrix}\right) 
 \\
 
-D_{y}x = \text{vec}(d_{y}\ast x),&\quad d_{y} = \left\begin{matrix}
+D_{y}x = \text{vec}(d_{y}\ast x),&\quad d_{y} = \left(\begin{matrix}
 0 & 0& 0 \\
 0 & -1& 0 \\
 0 & 1& 0
@@ -337,7 +337,7 @@ The way to update $x$ and $\mu$ are the same as above, and the only change is th
 
 $$
 \begin{equation}
-z\leftarrow prox_{g,\rho}(v)=\arg\min_{z}\lambda\sum_{i=1}^{M}\Arrowvert\left\begin{matrix}
+z\leftarrow prox_{g,\rho}(v)=\arg\min_{z}\lambda\sum_{i=1}^{M}\left\Arrowvert\begin{matrix}
 z_{i} \\
 z_{i+M}
 \end{matrix}\right\Arrowvert
