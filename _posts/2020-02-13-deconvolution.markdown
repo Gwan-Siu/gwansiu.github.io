@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Deconvolution"
+title:      "Computational Photography--Deconvolution"
 date:       2020-02-13 12:00:00
 author:     "GwanSiu"
 catalog: true
@@ -319,21 +319,17 @@ The deconvolution problem with an isotropic TV prior is formulated in ADMM notat
 $$
 \begin{equation}
 \begin{split}
-\min_{x}&\, \underbrace{\frac{1}{2}\Arrowvert Cx-b\Arrowvert_{2}^{2}}_{f(x)} + \underbrace{\lambda\sum_{i=1}^{M}\Arrowvert \begin{matrix}
+\min_{x}&\, \underbrace{\frac{1}{2}\Arrowvert Cx-b\Arrowvert_{2}^{2}}_{f(x)} + \underbrace{\lambda\sum_{i=1}^{M}\left\Arrowvert \left(\begin{matrix}
 z_{i} \\
 z_{i+M}
 \end{matrix}
-\Arrowvert_{2}}_{g(z)} \\
+\right)\Arrowvert_{2}}_{g(z)} \\
 s.t.&\, Dx-z=0
 \end{split}
 \end{equation}
 $$
 
-where $z_{i}$ is the $i$-th element of $z$. For $1\leq i\leq M$, it is meant to represent the finite differences approximattion in horizontal direction, $\(D_{x}x\)_{i}$, and for $M+1 \leq i \leq 2M$, 
-
-the finite differences approximation in vertical direction, $\(D_{y} x\)_{i}$. Notice that if the $\l_{2}$-norm in $g(z)$ with the $l_{1}$-norm, 
-
-then we get $\sum_{i=1}^{M} \Arrowvert(z_{i}, z_{i+M})\Arrowvert_{1}$ which reduces to $\Arrowvert z\Arrowvert_{1}$ and we recover the anisotropic case.
+where $z_{i}$ is the $i$-th element of $z$. For $1\leq i\leq M$, it is meant to represent the finite differences approximattion in horizontal direction, $\(D_{x}x\)_{i}$, and for $M+1 \leq i \leq 2M$, the finite differences approximation in vertical direction, $D_{y} x_{i}$. Notice that if the $\l_{2}\text{-norm in} g(z)\text{ with the }l_{1}$-norm, then we get $\sum_{i=1}^{M} \Arrowvert(z_{i}, z_{i+M})\Arrowvert_{1}$ which reduces to $\Arrowvert z\Arrowvert_{1}$ and we recover the anisotropic case.
 
 The way to update $x$ and $\mu$ are the same as above, and the only change is the $z$-update, which is 
 
