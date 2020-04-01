@@ -120,7 +120,7 @@ Apply inverse kernel and do not divide by zero
 
 $$
 \begin{equation}
-\bar{x} = \mathcal{F}^{-1}\lbrace\frac{\vert F(c)\vert^{2}}{\vert F(c)\vert^{2} + 1/SNR(\omega)}\cdot \frac{\mathcal{F}(Y)}{\mathcal{C}} \rbrace
+\bar{x} = \mathcal{F}^{-1}\lbrace\frac{\vert F(b)\vert^{2}}{\vert F(b)\vert^{2} + 1/SNR(\omega)}\cdot \frac{\mathcal{F}(Y)}{B} \rbrace
 \end{equation}
 $$
 
