@@ -90,7 +90,7 @@ Expand the squares:
 
 $$
 \begin{equation}
-\min_{H} \Arrowvert 1 - HC\Arrowvert \mathbb{E}[\Arrowvert X\Arrowvert^{2}] - 2(1 - HC)\mathbb{E}[XN] + \Arrowvert H\Arrowvert^{2}\mathbb{E}[\Arrowvert N\Arrowvert^{2}]
+\min_{H} \Arrowvert 1 - HB\Arrowvert \mathbb{E}[\Arrowvert X\Arrowvert^{2}] - 2(1 - HB)\mathbb{E}[XN] + \Arrowvert H\Arrowvert^{2}\mathbb{E}[\Arrowvert N\Arrowvert^{2}]
 \end{equation}
 $$
 
@@ -101,7 +101,7 @@ Simplify:
 
 $$
 \begin{equation}
-\min_{H}\, \Arrowvert 1 - HC\Arrowvert^{2} \mathbb{E}[\Arrowvert X\Arrowvert^{2}] + \Arrowvert H\Arrowvert^{2}\mathbb{E}[\Arrowvert N\Arrowvert^{2}]
+\min_{H}\, \Arrowvert 1 - HB\Arrowvert^{2} \mathbb{E}[\Arrowvert X\Arrowvert^{2}] + \Arrowvert H\Arrowvert^{2}\mathbb{E}[\Arrowvert N\Arrowvert^{2}]
 \end{equation}
 $$
 
@@ -110,8 +110,8 @@ To solve this problem, take it detivative with respect to $H$ and set it to zero
 $$
 \begin{equation}
 \begin{split}
-H &= \frac{C\mathbb{E}[\Arrowvert X\Arrowvert^{2}]}{C^{2}\mathbb{E}[\Arrowvert X\Arrowvert^{2}] + \mathbb{E}[\Arrowvert N\Arrowvert^{2}]} \\
-&= \frac{C}{C+\frac{\mathbb{E}[\Arrowvert N\Arrowvert^{2}]}{\mathbb{E}[\Arrowvert X\Arrowvert^{2}]}}
+H &= \frac{B\mathbb{E}[\Arrowvert X\Arrowvert^{2}]}{C^{2}\mathbb{E}[\Arrowvert X\Arrowvert^{2}] + \mathbb{E}[\Arrowvert N\Arrowvert^{2}]} \\
+&= \frac{B}{B+\frac{\mathbb{E}[\Arrowvert N\Arrowvert^{2}]}{\mathbb{E}[\Arrowvert X\Arrowvert^{2}]}}
 \end{split}
 \end{equation}
 $$
@@ -154,11 +154,11 @@ A general formulation for the image reconstruction is
 
 $$
 \begin{equation}
-\min_{x}\,\frac{1}{2}\Arrowvert Cx-b\Arrowvert^{2} + \Gamma(x)
+\min_{x}\,\frac{1}{2}\Arrowvert c\ast x-b\Arrowvert^{2} + \Gamma(x)
 \end{equation}
 $$
 
-where $x\in\mathbb{R}^{N}$ is a vector of unknown image, $b\in\mathbb{R}^{M}$ is the vectorized measurements, e.g. observed blurry image, and $B\in \mathbb{R}^{N\times M}$ is convolution matrix. Note: the convolution matrix $B$ is a circulant Toeplitz matrix, it means that its eigenvaluess are the Fourier transform of $c$. $\Gamma(x)$ denotes the prior term.
+where $x\in\mathbb{R}^{N}$ is a vector of unknown image, $b\in\mathbb{R}^{M}$ is the vectorized measurements, e.g. observed blurry image, and $c\in \mathbb{R}^{N\times M}$ is convolution matrix. Note: the convolution matrix $c$ is a circulant Toeplitz matrix, it means that its eigenvaluess are the Fourier transform of $c$. $\Gamma(x)$ denotes the prior term.
 
 Take an example of the gradient regularization. Generally, for the anisotropic case, the regularizer is modeled as $\Gamma(x)=\lambda\Arrowvert Dx\Arrowvert_{p}$, with $D=[D_{x}^{T}, D_{y}^{T}]^{T}$. $D\in\mathbb{R}^{2M\times N}$ represents the finite differences approximation of the horizontal and vertical image gradients:
 
