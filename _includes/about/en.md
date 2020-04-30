@@ -6,7 +6,7 @@
 
 ## About me
 
-My name is Xiao Jun(肖均). I obtained my BSc degree from Guangdong University of Technology, and MSc degree with distinction from HongKong Polytechnic University. Now, I am a Phd candidate in the Hong Kong Polytechnic University. My interesting research areas are statisctical learning, image restoration and enhancement, deep generative models.
+My name is Xiao Jun(肖均). I obtained my BSc degree from Guangdong University of Technology, and MSc degree with distinction from the Hong Kong Polytechnic University. Now, I am a Phd candidate in the Hong Kong Polytechnic University. My interesting research areas are statisctical learning, image restoration and enhancement, deep generative models.
 
 ## Publications
 
