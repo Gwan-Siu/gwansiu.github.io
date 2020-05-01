@@ -10,11 +10,10 @@ tags:
 
 > Linear regression is an old topic in the machine learning community, and this topic has been studied by researchers for the past decades. In this post, I will highlight some kerypoints on regression models. Specifically, I will begin with the univariate regression model, and consider it as the basic block to build the multiple regression model.
 
-$\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in \mathbb{R}^{n}$
 
 # 1. The univariate regression
 
-Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in \mathbb{R}^{n}$, and measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n}\in \mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
+Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, 
 
 $$
 \begin{equation}
