@@ -11,7 +11,7 @@ tags:
 > Linear regression is an old topic in the machine learning community, and this topic has been studied by researchers for the past decades. In this post, I will highlight some kerypoints on regression models. Specifically, I will begin with the univariate regression model, and consider it as the basic block to build the multiple regression model.
 
 # 1. The univariate regression
-Suppose that we have a dataset $\mathcal{D}={x_{i},、y_{i}}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in\mathbb{R}^{n}$, and measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n}\in\mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
+Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in\mathbb{R}^{n}$, and measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n}\in\mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
 
 $$
 \begin{equation}
@@ -118,7 +118,7 @@ $$
 
 $$
 \begin{equation}
-\frac{\partial L(\mathbf{\beta})}{\parital \mathbf{\beta}} = \frac{1}{n}\mathbf{X}^{T}(\mathbf{X}\mathbf{\beta}-\mathbf{Y})
+\frac{\partial L(\mathbf{\beta})}{\partial \mathbf{\beta}} = \frac{1}{n}\mathbf{X}^{T}(\mathbf{X}\mathbf{\beta}-\mathbf{Y})
 \end{equation}
 $$
 
@@ -351,7 +351,7 @@ $$
 \begin{split}
 Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}[[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}][(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}]^{T}] \\
 &= \mathbb{E}[(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]\\
-&=(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
+&=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
 &= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
 &= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}
 \end{split}
