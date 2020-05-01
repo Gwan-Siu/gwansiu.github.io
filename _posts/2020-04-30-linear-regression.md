@@ -12,7 +12,7 @@ tags:
 
 # 1. The univariate regression
 
-Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, 
+Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in\mathbb{R}^{n}$,
 
 $$
 \begin{equation}
@@ -417,7 +417,7 @@ frac{1}{n}\sum_{i=1}^{n}Var(x_{i}^{T}\beta) &= \frac{1}{n}trace(Var(\mathbf{X}\h
 &=\frac{1}{n}trace(Var(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}))\quad (H=\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}) \\
 &=\frac{1}{n}trace(\mathbf{H}\sigma^{2}\mathbf{I}\mathbf{H}) \\
 &=\frac{\sigma^{2}}{n}trace(\mathbf{H}) \\
-&=\frac{\sigma^{2}}{n}trace(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})\mathbf{X}^{T})\\
+&=\frac{\sigma^{2}}{n}trace(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T})\\
 &=\frac{\sigma^{2}}{n}p
 \end{split}
 \end{equation}
