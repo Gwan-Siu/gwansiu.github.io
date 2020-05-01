@@ -11,7 +11,7 @@ tags:
 > Linear regression is an old topic in the machine learning community, and this topic has been studied by researchers for the past decades. In this post, I will highlight some kerypoints on regression models. Specifically, I will begin with the univariate regression model, and consider it as the basic block to build the multiple regression model.
 
 # 1. The univariate regression
-Suppose that we have a dataset $\mathcal{D}=\{x_{i},、y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in\mathbb{R}^{n}$, and measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n)\in\mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
+Suppose that we have a dataset $\mathcal{D}={x_{i},、y_{i}}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a n-dimension vector, i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in\mathbb{R}^{n}$, and measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n}\in\mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
 
 $$
 \begin{equation}
@@ -19,7 +19,7 @@ $$
 \end{equation},
 $$
 
-where $\beta^{\ast}\in \mathbb{R}$ is the ground-truth coefficient, which is unknown, and $\mathbf{\epsilon}=(\epsilon_{1}, \epsilon_{2},\cdots, \epsilon_{n})\in\mathbb{R}^{n}$ is the noise term, and $\mathbb{E}[\epsilon_{i}]=0, \text{Var}(\epsilon_{i})=\sigma^{2}, \forall i$, $\text{Cov}(x_{i}, x_{j})=0,\text{for } i\neq j$. T
+where $\beta^{\ast}\in \mathbb{R}$ is the ground-truth coefficient, which is unknown, and $\mathbf{\epsilon}=(\epsilon_{1}, \epsilon_{2},\cdots, \epsilon_{n})\in\mathbb{R}^{n}$ is the noise term, and $\mathbb{E}[\epsilon_{i}]=0, \text{Var}(\epsilon_{i})=\sigma^{2}, \forall i$, $\text{Cov}(x_{i}, x_{j})=0,\text{for } i\neq j$. 
 
 
 Our goal is to estimate the coefficient in the underlying model, and we commonly use the least mean square estimator(LMSE). We formulate it as follows:
@@ -79,17 +79,17 @@ $$
 
 In the univariate regression, the dimension $d$ of data we cconsider is just 1. In this session, we consider high dimensional data, i.e. $d>1$, and use the univariate regression model as the basic block to further develop the multivariate regression model.
 
-Assume that there is a dataset $D=\{(\mathbf{x}_{i},y_{i})\}_{i=1}^{n}$ with $n$ data points, where $y_{i}\in\mathbb{R},\mathbf{x}_{i}\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_{i}$. $\mathbf{X}=\[\mathbf{1}, \mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}\]\in\mathbb{R}^{n\times(p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^{n}$ of all 1s to the matrix X) and $\mathbf{Y}=\[y_{1},y_{2},\cdots,y_{n}\]\in\mathbb{R}^{n\times 1}$. Additionally, the columns of $\mathbf{X}$ are linear independent, and rank($\mathbf{X}$)=p (assume $n>> p$).
+Assume that there is a dataset $D=\{(\mathbf{x}_{i},y_{i})\}_{i=1}^{n}$ with $n$ data points, where $y_{i}\in\mathbb{R},\mathbf{x}_{i}\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_{i}$. $\mathbf{X}=[\mathbf{1}, \mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}]\in\mathbb{R}^{n\times(p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^{n}$ of all 1s to the matrix X) and $\mathbf{Y}=\[y_{1},y_{2},\cdots,y_{n}\]\in\mathbb{R}^{n\times 1}$. Additionally, the columns of $\mathbf{X}$ are linear independent, and rank($\mathbf{X}$)=p (assume $n>> p$).
 
 The underlying linear model is
 
 $$
 \begin{equation}
-\mathbf{Y} = \mathbf{X}\methbf{\beta}^{\ast} +\mathbf{\epsilon}
+\mathbf{Y} = \mathbf{X}\mathbf{\beta}^{\ast} +\mathbf{\epsilon}
 \end{equation}
 $$
 
-where $\mathbf{\beta}^{\ast}=(\beta_{0},\beta_{1},\cdots, \beta_{p})\in\mathbb{R}^{(p+1)\times 1}$ is the ground-truth coefficient. The error term $\mathbf{\epsilon}=(\epsilon_{1},\cdots, \epsilon_{n})\in\mathbb{R}^{n}$ are as before (i.e. satisfying $\mathbb{E}\[\mathbf{\epsilon}\]=0$ and $Cov(\mathbf{\epsilon})=\simga^{2}I$).
+where $\mathbf{\beta}^{\ast}=(\beta_{0},\beta_{1},\cdots, \beta_{p})\in\mathbb{R}^{(p+1)\times 1}$ is the ground-truth coefficient. The error term $\mathbf{\epsilon}=(\epsilon_{1},\cdots, \epsilon_{n})\in\mathbb{R}^{n}$ are as before (i.e. satisfying $\mathbb{E}\[\mathbf{\epsilon}\]=0$ and $Cov(\mathbf{\epsilon})=\sigma^{2}I$).
 
 As before, we aims to estimate $\mathbf{\beta}^{\ast}$ by applying LMSE, and solve the the following optimization problem,
 
@@ -106,15 +106,15 @@ there are two ways to estimate $\mathbf{\beta}$, i.e. iterative undated schedule
 **Learning as optimization**
 let $L(\mathbf{\beta}) = \frac{1}{n}\Arrowvert \mathbf{Y}-\mathbf{X}\mathbf{\beta}\Arrowvert^{2}$
 
-- 1. update rule:
+1. update rule:
 
 $$
 \begin{equation}
-\mathbf{\beta}_{t+1} = \mathbf{\beta}_{t}+\alpha \frac{\partial L(\mathbf{\beta})}{\parital \mathbf{\beta}}
+\mathbf{\beta}_{t+1} = \mathbf{\beta}_{t}+\alpha \frac{\partial L(\mathbf{\beta})}{\partial \mathbf{\beta}}
 \end{equation}
 $$
 
-- 2. The gradient is
+2. The gradient is
 
 $$
 \begin{equation}
@@ -140,7 +140,7 @@ $$
 \end{equation}
 $$
 
-- 1. In the analitical form, to solve the LMSE problem requires the inverse of $\mathbf{X}^{T}\mathbf{X}$. To be noted that we assume that *the columns of $\mathbf{X}$ are linear independent*, and thus the matrix $\mathbf{X}^{T}\mathbf{X}$ is a full-rank matrix. The inverse exist. Moreover, the second-order derivative $\frac{\partial^{2}L(\mathbf{\beta})}{\partail \mathbf{\beta}\parital \mathbf{\beta}^{T}}=\mathbf{X}^{T}\mathbf{X}$ is posive-definite, and the solution $\hat{\mathbf{\beta}}$ is unique.
+- 1. In the analitical form, to solve the LMSE problem requires the inverse of $\mathbf{X}^{T}\mathbf{X}$. To be noted that we assume that *the columns of $\mathbf{X}$ are linear independent*, and thus the matrix $\mathbf{X}^{T}\mathbf{X}$ is a full-rank matrix. The inverse exist. Moreover, the second-order derivative $\frac{\partial^{2}L(\mathbf{\beta})}{\partial \mathbf{\beta}\partial \mathbf{\beta}^{T}}=\mathbf{X}^{T}\mathbf{X}$ is posive-definite, and the solution $\hat{\mathbf{\beta}}$ is unique.
 
 - 2. Both Iterative updated schedule and analitcal can obtain the solution. How to choose the learning schedule in real applications? Well, in the analitical form, it requires the inverse of matrix. The complexity of obtaining the inverse matrix is $O(p^{3})$ in general. When $p$ is very large, e.g. high-dimensional data, analytical form solution is much more expensive. In fact, it can be improved by some techniques, e.g. QR decompositon, etc., but this content beyond the scope of this post, and is not discussed.  
 
@@ -152,7 +152,7 @@ $$
 
 $$
 \begin{equation}
-span{\nu_{1},\cdots,\nu_{k}}=\{\alpha_{1}\nu_{1}+\cdtos+\alpha_{k}\nu_{k}:\alpha_{1},\cdots,\alpha_{k}\in\mathbb{R}\}=col(V)
+span{\nu_{1},\cdots,\nu_{k}}=\{\alpha_{1}\nu_{1}+\cdots+\alpha_{k}\nu_{k}:\alpha_{1},\cdots,\alpha_{k}\in\mathbb{R}\}=col(V)
 \end{equation}
 $$
 
@@ -300,7 +300,7 @@ $$
 \begin{equation}
 \begin{split}
 MSE(\hat{\beta}) &= \mathbb{E}[(\hat{\mathbf{\beta}}-\beta)^{2}] \\
-&= Var(\hat{\mathbf{\beta}})+ (\mathbb{E}\[\hat{\mathbf{\beta}}\]-\mathbf{\beta})^{2} \\
+&= Var(\hat{\mathbf{\beta}})+ (\mathbb{E}[\hat{\mathbf{\beta}}]-\mathbf{\beta})^{2} \\
 &= Var(\hat{\mathbf{\beta}}+0\,(unbiased)
 \end{split}
 \end{equation}
@@ -336,8 +336,8 @@ $$
 \begin{split}
 Var(\hat{\mathbf{\beta}}) &= Var((\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}) \\
 &= Var((\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}(\mathbf{X}\mathbf{\beta}+\mathbf{\epsilon})) \\
-Var((\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}\mathbf{\beta}+\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) \\
-\mathbf{\beta} + Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon})\quad (\text{Since } \mathbf{\beta}\text{ is treated as a constant in the frequentist approach.})
+&=Var((\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}\mathbf{\beta}+\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) \\
+&=\mathbf{\beta} + Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon})\quad (\text{Since } \mathbf{\beta}\text{ is treated as a constant in the frequentist approach.})
 \end{split}
 \end{equation}
 $$
@@ -349,11 +349,11 @@ Since $\mathbb{E}\[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon
 $$
 \begin{equation}
 \begin{split}
-Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}\[\[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\]\[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\]^{T}\] \\
+Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}[[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}][(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}]^{T}] \\
 &= \mathbb{E}[(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]\\
 &=(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
-&= \simga^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
-&= \simga^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}
+&= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
+&= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}
 \end{split}
 \end{equation}
 $$
@@ -368,15 +368,15 @@ Question: how does the prediction error(PE) relate to the mean square error (MSE
 $$
 \begin{equation}
 \begin{split}
-PE(\hat{f}(x_{0})) &= \mathbb{E}\[(y_{0}-\hat{f}(x_{0}))^{2}\] \\
-&= \mathbb{E}\[(y_{0}-f(x_{0})+f(x_{0})-\hat{f}(x_{0}))^{2}\] \\
-&= \mathbb{E}\[(y_{0}-f(x_{0}))^{2}\]+\mathbb{E}\[(f(x_{0})-\hat{f}(x_{0}))^{2}\] +2\mathbb{E}\[(y_{0}-f(x_{0}))(f(x_{0})-\hat{f}(x_{0}))\] \\
+PE(\hat{f}(x_{0})) &= \mathbb{E}[(y_{0}-\hat{f}(x_{0}))^{2}] \\
+&= \mathbb{E}[(y_{0}-f(x_{0})+f(x_{0})-\hat{f}(x_{0}))^{2}] \\
+&= \mathbb{E}[(y_{0}-f(x_{0}))^{2}]+\mathbb{E}[(f(x_{0})-\hat{f}(x_{0}))^{2}] +2\mathbb{E}[(y_{0}-f(x_{0}))(f(x_{0})-\hat{f}(x_{0}))] \\
 &=\sigma^{2}+MSE(\hat{f}(x_{0}))
 \end{split}
 \end{equation}
 $$
 
-since $\mathbb{E}\[(y_{0}-f(x_{0}))\]=0$, and $MSE(\hat{f}(x_{0}))=\[Bias(\hat{f}(x_{0}))\]^{2}+Var(\hat{f}(x_{0}))$, we look at the PE and MSE across all the input $\mathbf{x}_{1},\cdots,\mathbf{x}_{n}$., and we have
+since $\mathbb{E}[(y_{0}-f(x_{0}))]=0$, and $MSE(\hat{f}(x_{0}))=[Bias(\hat{f}(x_{0}))]^{2}+Var(\hat{f}(x_{0}))$, we look at the PE and MSE across all the input $\mathbf{x}_{1},\cdots,\mathbf{x}_{n}$., and we have
 
 $$
 \begin{equation}
@@ -402,7 +402,7 @@ $$
 \begin{equation}
 \begin{split}
 PE(\hat{f})&=\sigma^{2}+\frac{1}{n}\sum_{i=1}^{n}[Bias(x_{i}^{T}\beta)]^{2}+\frac{1}{n}\sum_{i=1}^{n}Var(x_{i}^{T}\beta) \\
-&= \sigma^{2} + 0 + \frac{p\simga^{2}}{n}
+&= \sigma^{2} + 0 + \frac{p\sigma^{2}}{n}
 \end{split}
 \end{equation}
 $$
@@ -413,7 +413,7 @@ $$
 \begin{equation}
 \begin{split}
 frac{1}{n}\sum_{i=1}^{n}Var(x_{i}^{T}\beta) &= \frac{1}{n}trace(Var(\mathbf{X}\hat{\beta})) \\
-&=\frac{1}{n}trace(Var(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbfr{X}^{T}\mathbf{y}))\quad (H=\mathbf{X}^{T}\mathbf{X})^{-1}\mathbfr{X}^{T}) \\
+&=\frac{1}{n}trace(Var(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}))\quad (H=\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}) \\
 &=\frac{1}{n}trace(\mathbf{H}\sigma^{2}\mathbf{I}\mathbf{H}) \\
 &=\frac{\sigma^{2}}{n}trace(\mathbf{H}) \\
 &=\frac{\sigma^{2}}{n}trace(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})\mathbf{X}^{T})\\
