@@ -13,9 +13,9 @@ tags:
 
 # 1. The univariate regression
 
-Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a $n \text{ dimensional vector, i.e. }\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in \mathbb{R}^{n}$, 
+Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a $n$ dimensional vector, 
 
-and the measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n})\in \mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
+i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in \mathbb{R}^{n}$, and the measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n})\in \mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
 
 $$
 \begin{equation}
@@ -83,7 +83,9 @@ $$
 
 In the univariate regression, the dimension $d$ of data we cconsider is just 1. In this session, we consider high dimensional data, i.e. $d>1$, and use the univariate regression model as the basic block to further develop the multivariate regression model.
 
-Assume that there is a dataset $D=\{(\mathbf{x}_{i},y_{i})\}_{i=1}^{n}$ with $n$ data points, where $y_{i}\in\mathbb{R},\mathbf{x}_{i}\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_{i}$. $\mathbf{X}=[\mathbf{1}, \mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}]\in\mathbb{R}^{n\times(p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^{n}$ of all 1s to the matrix X) and $\mathbf{Y}=[y_{1},y_{2},\cdots,y_{n}]\in\mathbb{R}^{n\times 1}$. Additionally, the columns of $\mathbf{X}$ are linear independent, and rank($\mathbf{X}$)=p (assume $n>> p$).
+Assume that there is a dataset $D=\{(\mathbf{x}_{i},y_{i})\}_{i=1}^{n}$ with $n$ data points, where $y_{i}\in\mathbb{R},\mathbf{x}_{i}\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_{i}, \mathbf{X}=[\mathbf{1}, \mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}]\in\mathbb{R}^{n\times(p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^{n}$ of all 1s to the matrix X) and $\mathbf{Y}=[y_{1},y_{2},\cdots,y_{n}]\in\mathbb{R}^{n\times 1}$. 
+
+Additionally, the columns of $\mathbf{X}$ are linear independent, and rank($\mathbf{X}$)=p (assume $n>> p$).
 
 The underlying linear model is
 
