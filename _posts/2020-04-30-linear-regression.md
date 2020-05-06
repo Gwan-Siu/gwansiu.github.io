@@ -13,10 +13,8 @@ tags:
 
 # 1. The univariate regression
 
-Suppose that we have a dataset $\mathcal{D}=\{x_i, y_i\}_{i=1}^n\}$ with $n$ samples, where observation $\mathbf{y}$ is a $n$ dimensional vector, 
-i.e. $\mathbf{y}=(y_1, y_2, \cdots, y_n)\in \mathbb{R}^{n}$, and the measurement $\mathbf{x}$ is also a n-dimension vector, 
-
-i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n})\in \mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
+Suppose that we have a dataset $\mathcal{D}=\{x_i, y_i\}_{i=1}^n$ with $n$ samples, where observation $\mathbf{y}$ is a $n$ dimensional vector, 
+i.e. $\mathbf{y}=(y_1, y_2, \cdots, y_n)\in \mathbb{R}^n$, and the measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_1, x_2, \cdots, x_n)\in \mathbb{R}^n$. We additionally assume that obseravation and measurement can be modeled as 
 
 $$
 \begin{equation}
@@ -84,11 +82,9 @@ $$
 
 In the univariate regression, the dimension $d$ of data we cconsider is just 1. In this session, we consider high dimensional data, i.e. $d>1$, and use the univariate regression model as the basic block to further develop the multivariate regression model.
 
-Assume that there is a dataset $D=\{(\mathbf{x}_{i},y_{i})\}_{i=1}^{n}$ with $n$ data points, 
+Assume that there is a dataset $D=\{(\mathbf{x}_i,y_i)\}_{i=1}^n$ with $n$ data points, where $y_i\in\mathbb{R},\mathbf{x}_i\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]\in\mathbb{R}^{n\times(p+1)}$ 
 
-where $y_{i}\in\mathbb{R},\mathbf{x}_{i}\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_{i}, \mathbf{X}=[\mathbf{1}, \mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}]\in\mathbb{R}^{n\times(p+1)}$ 
-
-(For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^{n}$ of all 1s to the matrix X) and $\mathbf{Y}=[y_{1},y_{2},\cdots,y_{n}]\in\mathbb{R}^{n\times 1}$. 
+(For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^n$ of all 1s to the matrix X) and $\mathbf{Y}=[y_1,y_2,\cdots,y_n]\in\mathbb{R}^{n\times 1}$. 
 
 Additionally, the columns of $\mathbf{X}$ are linear independent, and rank($\mathbf{X}$)=p (assume $n>> p$).
 
@@ -192,7 +188,7 @@ so the residual $\mathbf{r}$ is orthongonal to any $\mathbf{\nu}\in col(\mathbf{
 
 Moreover, the projection map $P_{L}$ onto any linear subspace $L\subseteq\mathbb{R}^{n}$ is always non-expensive, that is, for any points $\mathbf{x,z}\in\mathbb{R}^{n}$, we have $\Arrowvert P_{L}x-P_{L}z\Arrowvert_{2}\leq \Arrowvert x-z\Arrowvert_{2}$.
 
-Therefore, if $\mathbf{y}_{1},\mathbf{y}_{2}\in\mathbb{R}^{n}$, and $\hat{\mathbf{y}}_{1},\hat{\mathbf{y}}_{2}\in\mathbb{R}^{n}$ are regression fit, then
+Therefore, if $\mathbf{y}_1,\mathbf{y}_2 \in \mathbb{R}^n$, and $\hat{\mathbf{y}}_{1},\hat{\mathbf{y}}_{2} \in \mathbb{R}^{n}$ are regression fit, then
 
 $$
 \begin{equation}
@@ -217,7 +213,7 @@ Q: Is $\hat{\mathbf{y}}$ still the projection of $\mathbf{y}$ onto the column sp
 
 We hold the orthogonality assumption in the above assumption. In the rest part, we go further to explain why we need this. 
 
-In the univariate linear regression, let's consider the simplest the coefficients of $\mathbf{y}\in\mathbb{R}^{n}$ on a single predictor $\mathbf{x}\in\mathbb{R}^{n}$ as 
+In the univariate linear regression, let's consider the simplest the coefficients of $\mathbf{y} \in \mathbb{R}^n$ on a single predictor $\mathbf{x} \in \mathbb{R}^n$ as 
 
 $$
 \begin{equation}
