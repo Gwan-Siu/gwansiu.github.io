@@ -82,7 +82,7 @@ $$
 
 In the univariate regression, the dimension $d$ of data we cconsider is just 1. In this session, we consider high dimensional data, i.e. $d>1$, and use the univariate regression model as the basic block to further develop the multivariate regression model.
 
-Assume that there is a dataset $D=(\mathbf{x}_i,y_i)_{i=1}^n$ with $n$ data points, where $y_i\in\mathbb{R},\mathbf{x}_i \i n\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n] \in \mathbb{R}^{n\times(p+1)}$ 
+Assume that there is a dataset $D=(\mathbf{x}_i,y_i)_{i=1}^n$ with $n$ data points, where $y_i \in \mathbb{R}, \mathbf{x}_i \in \mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n] \in \mathbb{R}^{n \times (p+1)}$ 
 
 (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^n$ of all 1s to the matrix X) and $\mathbf{Y}=[y_1,y_2,\cdots,y_n]\in\mathbb{R}^{n\times 1}$. 
 
@@ -153,7 +153,7 @@ $$
 
 # 3. More perspectives on linear regression
 
-**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^{T})^{-1}\mathbf{X}$, the linear regression fit $\hat{y}\in\mathbb{R}^{n}$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span{\mathbf{x}_{1},\cdots,\mathbf{x}_{n}}=col(\mathbf{X})\subset \mathbb{R}^{n}$
+**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^T)^{-1}\mathbf{X}$, the linear regression fit $\hat{y} \in \mathbb{R}^n$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span{\mathbf{x}_1,\cdots,\mathbf{x}_n}=col(\mathbf{X})\subset \mathbb{R}^n$
 
 > Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span(\nu_1,\cdots, \nu_k)$ for some $\nu_1,\cdots,\nu_k \in \mathbb{R}^n$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
 
@@ -256,7 +256,7 @@ $$
 We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^n$ on $\mathbf{X}=[\mathbf{x}_1,\cdots,\mathbf{x}_p]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
 
 1. Let $\mathbf{z}_1=\mathbf{x}_1$.
-2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j$ onto $\mathbf{z}_1,\cdots, \mathbf{z}_{j-1}$ to get coefficients $\hat{\gamma}_{jk}=\frac{<\mathbf{z}_k, \mathbf{x}_j>}{\Arrowvert \mathbf{x}_j\Arrowvert^2_2}$ for $k=1,\cdots,j-1$, and residual vector
+2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j$ onto $\mathbf{z}_1, \cdots, \mathbf{z}_{j-1}$ to get coefficients $\hat{\gamma}_{jk}=\frac{<\mathbf{z}_k, \mathbf{x}_j > }{\Arrowvert \mathbf{x}_j\Arrowvert_{2}^{2}}$ for $k=1,\cdots,j-1$, and residual vector
 
 $$
 \begin{equation}
@@ -360,7 +360,7 @@ Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}
 &= \mathbb{E}[(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]\\
 &=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
 &= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
-&= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}
+&= \sigma^{2} \mathbf{X}^{T}\mathbf{X})^{-1}
 \end{split}
 \end{equation}
 $$
