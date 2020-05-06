@@ -254,9 +254,7 @@ $$
 We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^n$ on $\mathbf{X}=[\mathbf{x}_1,\cdots,\mathbf{x}_p]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
 
 1. Let $\mathbf{z}_1=\mathbf{x}_1$.
-2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j \text{ onto } \mathbf{z}_1, \cdots, \mathbf{z}_j-1$, 
-
-to get coefficients $\hat{\gamma}_{jk} = \frac{\langle\mathbf{z}_k, \mathbf{x}_j \rangle}{\Arrowvert\mathbf{x}_j \Arrowvert_2^2}$ for $k=1,\cdots,j-1$, and residual vector
+2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j \text{ onto } \mathbf{z}_1, \cdots, \mathbf{z}_{j-1}$, to get coefficients $\hat{\gamma}_{jk} = \frac{\langle\mathbf{z}_k, \mathbf{x}_j \rangle}{\Arrowvert\mathbf{x}_j \Arrowvert_2^2}$ for $k=1,\cdots,j-1$, and residual vector
 
 $$
 \begin{equation}
