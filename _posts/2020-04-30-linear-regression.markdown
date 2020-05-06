@@ -82,9 +82,7 @@ $$
 
 In the univariate regression, the dimension $d$ of data we cconsider is just 1. In this session, we consider high dimensional data, i.e. $d>1$, and use the univariate regression model as the basic block to further develop the multivariate regression model.
 
-Assume that there is a dataset $D=(\mathbf{x}_i,y_i)_{i=1}^n$ with $n$ data points, where $y_i \in \mathbb{R}, \mathbf{x}_i \in \mathbb{R}^{p\times 1}$. 
-
-Let $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n] \in \mathbb{R}^{n \times (p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^n$ of all 1s to the matrix X) and $\mathbf{Y}=[y_1,y_2,\cdots,y_n]\in\mathbb{R}^{n\times 1}$. 
+Assume that there is a dataset $D=(\mathbf{x}_i,y_i)_{i=1}^n$ with $n$ data points, where $y_i \in \mathbb{R}, \mathbf{x}_i \in \mathbb{R}^{p\times 1}$. Let $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n] \in \mathbb{R}^{n \times (p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^n$ of all 1s to the matrix X) and $\mathbf{Y}=[y_1,y_2,\cdots,y_n]\in\mathbb{R}^{n\times 1}$. 
 
 Additionally, the columns of $\mathbf{X}$ are linear independent, and rank($\mathbf{X}$)=p (assume $n>> p$).
 
