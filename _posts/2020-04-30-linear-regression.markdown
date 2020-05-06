@@ -290,14 +290,14 @@ $$
 
 so if $\mathbf{x}_{j}$ is highly correlated, its regression coefficients will likely be not significant,(because Z-score is small).
 
-## 3.4 Shortcomings of regression
+## 4.4 Shortcomings of regression
 
 - 1. Predicitve ability: the linear regression model do not predict well, especially when $p$ is large.
 - 2. Interpretative ability: in some case, we need to select a smaller subset that have strongest effects on the output.
 
-# 4. More perspectives on linear regression
+# 5. More perspectives on linear regression
 
-## 4.1. The Gauss-Markov theorem
+## 5.1. The Gauss-Markov theorem
 
 The Gauss-markov theorem states that ordinary least square estimation has the smallest mean squared error of all linear estimations with no bias. (To be noted: smallest MSE within the class of linear unbiased setimator.)
 
@@ -360,13 +360,13 @@ Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}
 &= \mathbb{E}[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]\\
 &=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
 &= \sigma^{2} \mathbf{X}^{=T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
-&= \sigma^{2} \mathbf{X}^{T}\mathbf{X})^{-1}
+&= \sigma^{2} (\mathbf{X}^{T}\mathbf{X})^{-1}
 \end{split}
 \end{equation}
 $$
 
 
-## 4.2 Prediction error and mean squre error
+## 5.2 Prediction error and mean squre error
 
 Suppose that we use $\hat{f}$ to predict $f$,  we would like to predict $y_{0}$ via $\hat{f}(x_{0})$.
 
