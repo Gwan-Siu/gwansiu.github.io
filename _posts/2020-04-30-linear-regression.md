@@ -153,7 +153,7 @@ $$
 
 # 3. More perspectives on linear regression
 
-**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^T)^{-1}\mathbf{X}$, the linear regression fit $\hat{y} \in \mathbb{R}^n$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span{\mathbf{x}_1,\cdots,\mathbf{x}_n}=col(\mathbf{X})\subset \mathbb{R}^n$
+**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^T)^{-1}\mathbf{X}$, the linear regression fit $\hat{y} \in \mathbb{R}^n$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span\{\mathbf{x}_1,\cdots,\mathbf{x}_n\}=col(\mathbf{X})\subset \mathbb{R}^n$
 
 > Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span(\nu_1,\cdots, \nu_k)$ for some $\nu_1,\cdots,\nu_k \in \mathbb{R}^n$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
 
@@ -256,7 +256,7 @@ $$
 We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^n$ on $\mathbf{X}=[\mathbf{x}_1,\cdots,\mathbf{x}_p]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
 
 1. Let $\mathbf{z}_1=\mathbf{x}_1$.
-2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j$ onto $\mathbf{z}_1, \cdots, \mathbf{z}_{j-1}$ to get coefficients $\hat{\gamma}_{jk}=\frac{<\mathbf{z}_k, \mathbf{x}_j > }{\Arrowvert \mathbf{x}_j\Arrowvert_{2}^{2}}$ for $k=1,\cdots,j-1$, and residual vector
+2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j \text{ onto } \mathbf{z}_1, \cdots, \mathbf{z}_{j-1}$ to get coefficients $\hat{\gamma}_{jk}=\frac{< \mathbf{z}_k, \mathbf{x}_j > }{\Arrowvert \mathbf{x}_j \Arrowvert_{2}^{2}}$ for $k=1,\cdots,j-1$, and residual vector
 
 $$
 \begin{equation}
@@ -266,7 +266,7 @@ $$
 
 3. Regress $\mathbf{y}$ on $\mathbf{z}_p$ to get the coefficient $\hat{\beta}_p$
 
-***Claim:* the output $\hat{\beta}$ of this algorithm is exactly the coefficient in the multivariate linear regression of $\mathbf{y}$ on $\mathbf{x}_{1},\cdots,\mathbf{x}_p$.
+**Claim:** the output $\hat{\beta}$ of this algorithm is exactly the coefficient in the multivariate linear regression of $\mathbf{y}$ on $\mathbf{x}_{1},\cdots,\mathbf{x}_p$.
 
 ## 4.3. Correlated data and variance inflation
 
@@ -357,10 +357,7 @@ $$
 \begin{equation}
 \begin{split}
 Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}[[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}][(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}]^{T}] \\
-&= \mathbb{E}[(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]\\
-&=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
-&= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
-&= \sigma^{2} \mathbf{X}^{T}\mathbf{X})^{-1}
+&= \mathbb{E}[(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]
 \end{split}
 \end{equation}
 $$
@@ -383,7 +380,7 @@ PE(\hat{f}(x_{0})) &= \mathbb{E}[(y_{0}-\hat{f}(x_{0}))^{2}] \\
 \end{equation}
 $$
 
-since $\mathbb{E}[(y_{0}-f(x_{0}))]=0$, and $MSE(\hat{f}(x_{0}))=[Bias(\hat{f}(x_{0}))]^{2}+Var(\hat{f}(x_{0}))$, we look at the PE and MSE across all the input $\mathbf{x}_{1},\cdots,\mathbf{x}_{n}$., and we have
+since $\mathbb{E}[(y_{0}-f(x_{0}))]=0$, and $MSE(\hat{f}(x_{0}))=[Bias(\hat{f}(x_{0}))]^{2}+Var(\hat{f}(x_{0}))$, we look at the PE and MSE across all the input $\mathbf{x}_1, \ldots,\mathbf{x}_n$., and we have
 
 $$
 \begin{equation}
@@ -419,7 +416,7 @@ how to derive the last term?
 $$
 \begin{equation}
 \begin{split}
-frac{1}{n}\sum_{i=1}^{n}Var(x_{i}^{T}\beta) &= \frac{1}{n}trace(Var(\mathbf{X}\hat{\beta})) \\
+\frac{1}{n}\sum_{i=1}^{n}Var(x_{i}^{T}\beta) &= \frac{1}{n}trace(Var(\mathbf{X}\hat{\beta})) \\
 &=\frac{1}{n}trace(Var(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}))\quad (H=\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}) \\
 &=\frac{1}{n}trace(\mathbf{H}\sigma^{2}\mathbf{I}\mathbf{H}) \\
 &=\frac{\sigma^{2}}{n}trace(\mathbf{H}) \\
