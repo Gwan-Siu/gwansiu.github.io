@@ -155,7 +155,7 @@ $$
 
 **Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^{T})^{-1}\mathbf{X}$, the linear regression fit $\hat{y}\in\mathbb{R}^{n}$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span{\mathbf{x}_{1},\cdots,\mathbf{x}_{n}}=col(\mathbf{X})\subset \mathbb{R}^{n}$
 
-> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span\{\nu_1,\cdots, \nu_k\}$ for some $\nu_1,\cdots,\nu_k \in \mathbb{R}^n$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
+> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span(\nu_1,\cdots, \nu_k)$ for some $\nu_1,\cdots,\nu_k \in \mathbb{R}^n$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
 
 $$
 \begin{equation}
@@ -207,9 +207,9 @@ Q: Is $\hat{\mathbf{y}}$ still the projection of $\mathbf{y}$ onto the column sp
 - the features are typically reduced by filtering.
 - filtering is controlled by regularization.
 
-# 3. Connection between the univariate regression and multivariate regression
+# 4. Connection between the univariate regression and multivariate regression
 
-## 3.1 Univariate regression review
+## 4.1 Univariate regression review
 
 We hold the orthogonality assumption in the above assumption. In the rest part, we go further to explain why we need this. 
 
@@ -221,7 +221,7 @@ $$
 \end{equation}
 $$
 
-Given $p$ predictor variable $\mathbf{x}_{1},\cdots,\mathbf{x}_{p}\in\mathbb{R}^{n}$, the univariate linear regression coefficients of $\mathbf{y}$ on $\mathbf{x}_{i}$ is 
+Given $p$ predictor variable $\mathbf{x}_1, \cdots, \mathbf{x}_p \in \mathbb{R}^n$, the univariate linear regression coefficients of $\mathbf{y}$ on $\mathbf{x}_i$ is 
 
 $$
 \begin{equation}
@@ -229,7 +229,7 @@ $$
 \end{equation}
 $$
 
-Note: if $\mathbf{x}_{1},\cdots,\mathbf{x}_{p}$ are orthogonal, we can estimate $\beta_{j}$ in the multivariate regression in terms of $\mathbf{y}$ on $\mathbf{x}_{j}$ only.
+Note: if $\mathbf{x}_1,\cdots,\mathbf{x}_p$ are orthogonal, we can estimate $\beta_j$ in the multivariate regression in terms of $\mathbf{y}$ on $\mathbf{x}_j$ only.
 
 Next, we consider the intercept term, the coefficient of $\mathbb{x}$ can obtained by implementing two steps:
 
@@ -251,12 +251,12 @@ $$
 \end{equation}
 $$
 
-## 3.2 Multivariate regression by orthogonalization
+## 4.2 Multivariate regression by orthogonalization
 
-We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^{n}$ on $\mathbf{X}=\[\mathbf{x}_{1},\cdots,\mathbf{x}_{p}\]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
+We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^n$ on $\mathbf{X}=[\mathbf{x}_1,\cdots,\mathbf{x}_p]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
 
-- 1. Let $\mathbf{z}_{1}=\mathbf{x}_{1}$.
-- 2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_{j}$ onto $\mathbf{z}_{1},\cdots,\mathbf{z}_{j-1}$ to get coefficients $\hat{\gamma}_{jk}=\frac{<\mathbf{z}_{k}, \mathbf{x}_{j}>}{\Arrowvert \mathbf{x}_{j}\Arrowvert^{2}_{2}}$ for $k=1,\cdots,j-1$, and residual vector
+1. Let $\mathbf{z}_1=\mathbf{x}_1$.
+2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j$ onto $\mathbf{z}_1,\cdots, \mathbf{z}_{j-1}$ to get coefficients $\hat{\gamma}_{jk}=\frac{<\mathbf{z}_k, \mathbf{x}_j>}{\Arrowvert \mathbf{x}_j\Arrowvert^2_2}$ for $k=1,\cdots,j-1$, and residual vector
 
 $$
 \begin{equation}
@@ -264,13 +264,13 @@ $$
 \end{equation}
 $$
 
-- 3. Regress $\mathbf{y}$ on $\mathbf{z}_{p}$ to get the coefficient $\hat{\beta}_{p}$
+3. Regress $\mathbf{y}$ on $\mathbf{z}_p$ to get the coefficient $\hat{\beta}_p$
 
-***Claim:* the output $\hat{\beta}$ of this algorithm is exactly the coefficient in the multivariate linear regression of $\mathbf{y}$ on $\mathbf{x}_{1},\cdots,\mathbf{x}_{p}$.
+***Claim:* the output $\hat{\beta}$ of this algorithm is exactly the coefficient in the multivariate linear regression of $\mathbf{y}$ on $\mathbf{x}_{1},\cdots,\mathbf{x}_p$.
 
-## 3.3. Correlated data and variance inflation
+## 4.3. Correlated data and variance inflation
 
-Suppose $\mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}$ are correlated, this make the predicted coefficient $\hat{\mathbf{\beta}}_{j}=\frac{<\mathbf{z}_{j}, \mathbf{y}>}{\Arrowvert \mathbf{z}_{j}\Arrowvert_{2}^{2}}$ unstable, as the denominator is very small. 
+Suppose $\mathbf{x}_1,\mathbf{x}_2,\cdots, \mathbf{x}_n$ are correlated, this make the predicted coefficient $\hat{\mathbf{\beta}}_j=\frac{<\mathbf{z}_j, \mathbf{y}>}{\Arrowvert \mathbf{z}_j \Arrowvert_2^2}$ unstable, as the denominator is very small. 
 
 We can explicit compute the variance of the $j$-th multiple regression:
 
@@ -308,7 +308,7 @@ $$
 \begin{split}
 MSE(\hat{\beta}) &= \mathbb{E}[(\hat{\mathbf{\beta}}-\beta)^{2}] \\
 &= Var(\hat{\mathbf{\beta}})+ (\mathbb{E}[\hat{\mathbf{\beta}}]-\mathbf{\beta})^{2} \\
-&= Var(\hat{\mathbf{\beta}}+0\,(unbiased)
+&= Var(\hat{\mathbf{\beta}})+0\,(unbiased)
 \end{split}
 \end{equation}
 $$
