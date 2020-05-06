@@ -154,11 +154,11 @@ $$
 
 **Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^{T})^{-1}\mathbf{X}$, the linear regression fit $\hat{y}\in\mathbb{R}^{n}$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span{\mathbf{x}_{1},\cdots,\mathbf{x}_{n}}=col(\mathbf{X})\subset \mathbb{R}^{n}$
 
-> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span\{\nu_{1},\cdots, \nu_{k}}$ for some $\nu_{1},\cdots,\nu_{k}\in\mathbb{R}^{n}$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
+> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span\{\nu_{1},\cdots, \nu_{k}\}$ for some $\nu_{1},\cdots,\nu_{k}\in\mathbb{R}^{n}$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
 
 $$
 \begin{equation}
-span{\nu_{1},\cdots,\nu_{k}}=\{\alpha_{1}\nu_{1}+\cdots+\alpha_{k}\nu_{k}:\alpha_{1},\cdots,\alpha_{k}\in\mathbb{R}\}=col(V)
+span\{\nu_{1},\cdots,\nu_{k}\}=\{\alpha_{1}\nu_{1}+\cdots+\alpha_{k}\nu_{k}:\alpha_{1},\cdots,\alpha_{k}\in\mathbb{R}\}=col(V)
 \end{equation}
 $$
 
@@ -169,7 +169,7 @@ $$
 - $P_{L}x = x$ for all $x\in L$, and
 - $P_{L}x = 0$ for all $x\perp L$.
 
-For any subspace $L\subseteq \mathbb{R}^{n}$, its orthogonal complement is $L^{\perp}=\{\mathbf{x}\in\mathbb{R}^{n}:\mathbf{x}\perp L\}={\mathbf{x}\in\mathbb{R}^{n}:\mathbf{x}\perp\mathbf{\nu} for any \mathbf{\nu}\in L}$.
+For any subspace $L\subseteq \mathbb{R}^{n}$, its orthogonal complement is $L^{\perp}=\{\mathbf{x}\in\mathbb{R}^{n}:\mathbf{x}\perp L\}=\{\mathbf{x}\in\mathbb{R}^{n}:\mathbf{x}\perp\mathbf{\nu} for any \mathbf{\nu}\in L\}$.
 
 Fact: $P_{L}+P_{L^{\perp}}=I$, so that $P_{L^{T}}=I-P_{L}$.
 
