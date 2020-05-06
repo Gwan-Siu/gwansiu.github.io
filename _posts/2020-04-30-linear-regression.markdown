@@ -151,7 +151,7 @@ $$
 
 # 3. More perspectives on linear regression
 
-**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^T)^{-1}\mathbf{X}$, the linear regression fit $\hat{y} \in \mathbb{R}^n$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span\{\mathbf{x}_1,\cdots,\mathbf{x}_n\}=col(\mathbf{X})\subset \mathbb{R}^n$
+**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^T)^{-1}\mathbf{X}$, the linear regression fit $\hat{y} \in \mathbb{R}^n$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span(\mathbf{x}_1,\cdots,\mathbf{x}_n)=col(\mathbf{X})\subset \mathbb{R}^n$
 
 > Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span(\nu_1,\cdots, \nu_k)$ for some $\nu_1,\cdots,\nu_k \in \mathbb{R}^n$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
 
@@ -254,7 +254,9 @@ $$
 We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^n$ on $\mathbf{X}=[\mathbf{x}_1,\cdots,\mathbf{x}_p]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
 
 1. Let $\mathbf{z}_1=\mathbf{x}_1$.
-2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_{j} \text{ onto } \mathbf{z}_1, \cdots, \mathbf{z}_{j-1}$, to get coefficients $\hat{\gamma}_{jk} = \frac{\angle\mathbf{z}_{k}, \mathbf{x}_{j} \angle}{\Arrowvert\mathbf{x}_{j} \Arrowvert_{2}^{2}}$ for $k=1,\cdots,j-1$, and residual vector
+2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j \text{ onto } \mathbf{z}_1, \cdots, \mathbf{z}_{j-1}$, 
+
+to get coefficients $\hat{\gamma}_{jk} = \frac{\angle\mathbf{z}_k, \mathbf{x}_j \angle}{\Arrowvert\mathbf{x}_j \Arrowvert_2^2}$ for $k=1,\cdots,j-1$, and residual vector
 
 $$
 \begin{equation}
@@ -354,9 +356,7 @@ Since $\mathbb{E}\[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon
 $$
 \begin{equation}
 \begin{split}
-Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}[[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}][(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}]^{T}] \\
-&= \mathbb{E}[(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]\\
-&=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}
+Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}[[(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}][(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}]^{T}]
 \end{split}
 \end{equation}
 $$
