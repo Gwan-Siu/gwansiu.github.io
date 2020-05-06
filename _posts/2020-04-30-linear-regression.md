@@ -13,7 +13,7 @@ tags:
 
 # 1. The univariate regression
 
-Suppose that we have a dataset $\mathcal{D}=\{x_i, y_i\}_{i=1}^n$ with $n$ samples, where observation $\mathbf{y}$ is a $n$ dimensional vector, 
+Suppose that we have a dataset $\mathcal{D}=(x_i, y_i)_{i=1}^n$ with $n$ samples, where observation $\mathbf{y}$ is a $n$ dimensional vector, 
 i.e. $\mathbf{y}=(y_1, y_2, \cdots, y_n)\in \mathbb{R}^n$, and the measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_1, x_2, \cdots, x_n)\in \mathbb{R}^n$. We additionally assume that obseravation and measurement can be modeled as 
 
 $$
@@ -82,7 +82,7 @@ $$
 
 In the univariate regression, the dimension $d$ of data we cconsider is just 1. In this session, we consider high dimensional data, i.e. $d>1$, and use the univariate regression model as the basic block to further develop the multivariate regression model.
 
-Assume that there is a dataset $D=\{(\mathbf{x}_i,y_i)\}_{i=1}^n$ with $n$ data points, where $y_i\in\mathbb{R},\mathbf{x}_i\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]\in\mathbb{R}^{n\times(p+1)}$ 
+Assume that there is a dataset $D=(\mathbf{x}_i,y_i)_{i=1}^n$ with $n$ data points, where $y_i\in\mathbb{R},\mathbf{x}_i \i n\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n] \in \mathbb{R}^{n\times(p+1)}$ 
 
 (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^n$ of all 1s to the matrix X) and $\mathbf{Y}=[y_1,y_2,\cdots,y_n]\in\mathbb{R}^{n\times 1}$. 
 
@@ -155,7 +155,7 @@ $$
 
 **Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^{T})^{-1}\mathbf{X}$, the linear regression fit $\hat{y}\in\mathbb{R}^{n}$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span{\mathbf{x}_{1},\cdots,\mathbf{x}_{n}}=col(\mathbf{X})\subset \mathbb{R}^{n}$
 
-> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span\{\nu_{1},\cdots, \nu_{k}\}$ for some $\nu_{1},\cdots,\nu_{k}\in\mathbb{R}^{n}$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
+> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span\{\nu_1,\cdots, \nu_k\}$ for some $\nu_1,\cdots,\nu_k \in \mathbb{R}^n$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
 
 $$
 \begin{equation}
@@ -188,7 +188,7 @@ so the residual $\mathbf{r}$ is orthongonal to any $\mathbf{\nu}\in col(\mathbf{
 
 Moreover, the projection map $P_{L}$ onto any linear subspace $L\subseteq\mathbb{R}^{n}$ is always non-expensive, that is, for any points $\mathbf{x,z}\in\mathbb{R}^{n}$, we have $\Arrowvert P_{L}x-P_{L}z\Arrowvert_{2}\leq \Arrowvert x-z\Arrowvert_{2}$.
 
-Therefore, if $\mathbf{y}_1,\mathbf{y}_2 \in \mathbb{R}^n$, and $\hat{\mathbf{y}}_{1},\hat{\mathbf{y}}_{2} \in \mathbb{R}^{n}$ are regression fit, then
+Therefore, if $\mathbf{y}_1,\mathbf{y}_2 \in \mathbb{R}^n$, and $\hat{\mathbf{y}}_1, \hat{\mathbf{y}}_2 \in \mathbb{R}^n$ are regression fit, then
 
 $$
 \begin{equation}
