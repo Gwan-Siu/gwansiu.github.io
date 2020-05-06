@@ -13,9 +13,8 @@ tags:
 
 # 1. The univariate regression
 
-Suppose that we have a dataset $\mathcal{D}=\{x_{i}, y_{i}\}_{i=1}^{n}$ with $n$ samples, where observation $\mathbf{y}$ is a $n$ dimensional vector, 
-
-i.e. $\mathbf{y}=(y_{1}, y_{2}, \cdots, y_{n})\in \mathbb{R}^{n}$, and the measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_{1}, x_{2}, \cdots, x_{n})\in \mathbb{R}^{n}$. We additionally assume that obseravation and measurement can be modeled as 
+Suppose that we have a dataset $\mathcal{D}=(x_i, y_i)_{i=1}^n$ with $n$ samples, where observation $\mathbf{y}$ is a $n$ dimensional vector, 
+i.e. $\mathbf{y}=(y_1, y_2, \cdots, y_n)\in \mathbb{R}^n$, and the measurement $\mathbf{x}$ is also a n-dimension vector, i.e. $\mathbf{x}=(x_1, x_2, \cdots, x_n)\in \mathbb{R}^n$. We additionally assume that obseravation and measurement can be modeled as 
 
 $$
 \begin{equation}
@@ -38,7 +37,7 @@ To obtain the optimal $\hat{\beta}$, we take the derivative of Eq.(2), and set t
 
 $$
 \begin{equation}
-	\hat{\beta} = \frac{\sum_{i=1}^{n}x_{i}y_{i}}{\sum_{i=1}^{n}x_{i}^{2}} =\frac{\mathbf{x}^{T}\mathbf{y}}{\Arrowvert \mathbf{x}\Arrowvert^{2}}.
+    \hat{\beta} = \frac{\sum_{i=1}^{n}x_{i}y_{i}}{\sum_{i=1}^{n}x_{i}^{2}} =\frac{\mathbf{x}^{T}\mathbf{y}}{\Arrowvert \mathbf{x}\Arrowvert^{2}}.
 \end{equation}
 $$
 
@@ -73,7 +72,7 @@ note that
 
 $$
 \begin{equation}
-\hat{\beta}_{1}=\frac{cov(\mathbf{x},\mathbf{y})}{var(\mathbf{x})}=cov(\mathbf{x},\mathbf{y})\sqrt{\frac{var{y}}{var(x)}}
+\hat{\beta}_{1}=\frac{cov(\mathbf{x},\mathbf{y})}{var(\mathbf{x})}=cov(\mathbf{x},\mathbf{y})\sqrt{\frac{var(y)}{var(x)}}
 \end{equation}
 $$
 
@@ -83,7 +82,9 @@ $$
 
 In the univariate regression, the dimension $d$ of data we cconsider is just 1. In this session, we consider high dimensional data, i.e. $d>1$, and use the univariate regression model as the basic block to further develop the multivariate regression model.
 
-Assume that there is a dataset $D=\{(\mathbf{x}_{i},y_{i})\}_{i=1}^{n}$ with $n$ data points, where $y_{i}\in\mathbb{R},\mathbf{x}_{i}\in\mathbb{R}^{p\times 1}$. $p$ denotes the dimension of each sample $\mathbf{x}_{i}, \mathbf{X}=[\mathbf{1}, \mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}]\in\mathbb{R}^{n\times(p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^{n}$ of all 1s to the matrix X) and $\mathbf{Y}=[y_{1},y_{2},\cdots,y_{n}]\in\mathbb{R}^{n\times 1}$. 
+Assume that there is a dataset $D=(\mathbf{x}_i,y_i)_{i=1}^n$ with $n$ data points, where $y_i \in \mathbb{R}, \mathbf{x}_i \in \mathbb{R}^{p\times 1}$. 
+
+Let $p$ denotes the dimension of each sample $\mathbf{x}_i, \mathbf{X}=[\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n] \in \mathbb{R}^{n \times (p+1)}$ (For an intercept term, we can just append a column $\mathbf{1}\in\mathbb{R}^n$ of all 1s to the matrix X) and $\mathbf{Y}=[y_1,y_2,\cdots,y_n]\in\mathbb{R}^{n\times 1}$. 
 
 Additionally, the columns of $\mathbf{X}$ are linear independent, and rank($\mathbf{X}$)=p (assume $n>> p$).
 
@@ -152,9 +153,9 @@ $$
 
 # 3. More perspectives on linear regression
 
-**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^{T})^{-1}\mathbf{X}$, the linear regression fit $\hat{y}\in\mathbb{R}^{n}$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span{\mathbf{x}_{1},\cdots,\mathbf{x}_{n}}=col(\mathbf{X})\subset \mathbb{R}^{n}$
+**Geometry interpretion:** let $\mathbf{H}=\mathbf{X}(\mathbf{X}\mathbf{X}^T)^{-1}\mathbf{X}$, the linear regression fit $\hat{y} \in \mathbb{R}^n$ is exactly projection of $\mathbf{y}\in\mathbb{R}^{n}$ onto the linear subspace $span\{\mathbf{x}_1,\cdots,\mathbf{x}_n\}=col(\mathbf{X})\subset \mathbb{R}^n$
 
-> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span\{\nu_{1},\cdots, \nu_{k}\}$ for some $\nu_{1},\cdots,\nu_{k}\in\mathbb{R}^{n}$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
+> Let $L\subset \mathbb{R}^{n}$ be a linear subspace, i.e. $L=span(\nu_1,\cdots, \nu_k)$ for some $\nu_1,\cdots,\nu_k \in \mathbb{R}^n$. If $V\in\mathbb{R}^{n\times k}$ contains $\nu_{1},\cdots,\nu_{k}$ on its columns, then
 
 $$
 \begin{equation}
@@ -183,11 +184,11 @@ $$
 \end{equation}
 $$
 
-so the residual $\mathbf{r}$ is orthongonal to any $\mathbf{\nu}\in col(\mathbf{X})$. In particular, the residual $\mathbf{r}$ is orthogonal to each of $\mathbf{x}_{1},\cdots,\mathbf{x}_{n}$.
+so the residual $\mathbf{r}$ is orthongonal to any $\mathbf{\nu}\in col(\mathbf{X})$. In particular, the residual $\mathbf{r}$ is orthogonal to each of $\mathbf{x_{1}},\cdots,\mathbf{x_{n}}$.
 
 Moreover, the projection map $P_{L}$ onto any linear subspace $L\subseteq\mathbb{R}^{n}$ is always non-expensive, that is, for any points $\mathbf{x,z}\in\mathbb{R}^{n}$, we have $\Arrowvert P_{L}x-P_{L}z\Arrowvert_{2}\leq \Arrowvert x-z\Arrowvert_{2}$.
 
-Therefore, if $\mathbf{y}_{1},\mathbf{y}_{2}\in\mathbb{R}^{n}$, and $\hat{\mathbf{y}}_{1},\hat{\mathbf{y}}_{2}\in\mathbb{R}^{n}$ are regression fit, then
+Therefore, if $\mathbf{y}_1,\mathbf{y}_2 \in \mathbb{R}^n$, and $\hat{\mathbf{y}}_1, \hat{\mathbf{y}}_2 \in \mathbb{R}^n$ are regression fit, then
 
 $$
 \begin{equation}
@@ -206,13 +207,13 @@ Q: Is $\hat{\mathbf{y}}$ still the projection of $\mathbf{y}$ onto the column sp
 - the features are typically reduced by filtering.
 - filtering is controlled by regularization.
 
-# 3. Connection between the univariate regression and multivariate regression
+# 4. Connection between the univariate regression and multivariate regression
 
-## 3.1 Univariate regression review
+## 4.1 Univariate regression review
 
 We hold the orthogonality assumption in the above assumption. In the rest part, we go further to explain why we need this. 
 
-In the univariate linear regression, let's consider the simplest the coefficients of $\mathbf{y}\in\mathbb{R}^{n}$ on a single predictor $\mathbf{x}\in\mathbb{R}^{n}$ as 
+In the univariate linear regression, let's consider the simplest the coefficients of $\mathbf{y} \in \mathbb{R}^n$ on a single predictor $\mathbf{x} \in \mathbb{R}^n$ as 
 
 $$
 \begin{equation}
@@ -220,7 +221,7 @@ $$
 \end{equation}
 $$
 
-Given $p$ predictor variable $\mathbf{x}_{1},\cdots,\mathbf{x}_{p}\in\mathbb{R}^{n}$, the univariate linear regression coefficients of $\mathbf{y}$ on $\mathbf{x}_{i}$ is 
+Given $p$ predictor variable $\mathbf{x}_1, \cdots, \mathbf{x}_p \in \mathbb{R}^n$, the univariate linear regression coefficients of $\mathbf{y}$ on $\mathbf{x}_i$ is 
 
 $$
 \begin{equation}
@@ -228,7 +229,7 @@ $$
 \end{equation}
 $$
 
-Note: if $\mathbf{x}_{1},\cdots,\mathbf{x}_{p}$ are orthogonal, we can estimate $\beta_{j}$ in the multivariate regression in terms of $\mathbf{y}$ on $\mathbf{x}_{j}$ only.
+Note: if $\mathbf{x}_1,\cdots,\mathbf{x}_p$ are orthogonal, we can estimate $\beta_j$ in the multivariate regression in terms of $\mathbf{y}$ on $\mathbf{x}_j$ only.
 
 Next, we consider the intercept term, the coefficient of $\mathbb{x}$ can obtained by implementing two steps:
 
@@ -250,12 +251,14 @@ $$
 \end{equation}
 $$
 
-## 3.2 Multivariate regression by orthogonalization
+## 4.2 Multivariate regression by orthogonalization
 
-We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^{n}$ on $\mathbf{X}=\[\mathbf{x}_{1},\cdots,\mathbf{x}_{p}\]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
+We can extend this idea to multivariate linear regression of $\mathbf{y}\in\mathbb{R}^n$ on $\mathbf{X}=[\mathbf{x}_1,\cdots,\mathbf{x}_p]\in\mathbb{R}^{N\times p}$. Consider the p-step procedure:
 
-- 1. Let $\mathbf{z}_{1}=\mathbf{x}_{1}$.
-- 2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_{j}$ onto $\mathbf{z}_{1},\cdots,\mathbf{z}_{j-1}$ to get coefficients $\hat{\gamma}_{jk}=\frac{<\mathbf{z}_{k}, \mathbf{x}_{j}>}{\Arrowvert \mathbf{x}_{j}\Arrowvert^{2}_{2}}$ for $k=1,\cdots,j-1$, and residual vector
+1. Let $\mathbf{z}_1=\mathbf{x}_1$.
+2. (Normalization): For $j=2,\cdots,p$, regress $\mathbf{x}_j \text{ onto } \mathbf{z}_1, \cdots, \mathbf{z}_{j-1}$ 
+
+to get coefficients $\hat{\gamma}_{jk}=\frac{< \mathbf{z}_k, \mathbf{x}_j > }{\Arrowvert \mathbf{x}_{j} \Arrowvert_{2}^{2}}$ for $k=1,\cdots,j-1$, and residual vector
 
 $$
 \begin{equation}
@@ -263,13 +266,13 @@ $$
 \end{equation}
 $$
 
-- 3. Regress $\mathbf{y}$ on $\mathbf{z}_{p}$ to get the coefficient $\hat{\beta}_{p}$
+3. Regress $\mathbf{y}$ on $\mathbf{z}_p$ to get the coefficient $\hat{\beta}_p$
 
-***Claim:* the output $\hat{\beta}$ of this algorithm is exactly the coefficient in the multivariate linear regression of $\mathbf{y}$ on $\mathbf{x}_{1},\cdots,\mathbf{x}_{p}$.
+**Claim:** the output $\hat{\beta}$ of this algorithm is exactly the coefficient in the multivariate linear regression of $\mathbf{y}$ on $\mathbf{x}_{1},\cdots,\mathbf{x}_p$.
 
-## 3.3. Correlated data and variance inflation
+## 4.3. Correlated data and variance inflation
 
-Suppose $\mathbf{x}_{1},\mathbf{x}_{2},\cdots,\mathbf{x}_{n}$ are correlated, this make the predicted coefficient $\hat{\mathbf{\beta}}_{j}=\frac{<\mathbf{z}_{j}, \mathbf{y}>}{\Arrowvert \mathbf{z}_{j}\Arrowvert_{2}^{2}}$ unstable, as the denominator is very small. 
+Suppose $\mathbf{x}_1,\mathbf{x}_2,\cdots, \mathbf{x}_n$ are correlated, this make the predicted coefficient $\hat{\mathbf{\beta}}_j=\frac{<\mathbf{z}_j, \mathbf{y}>}{\Arrowvert \mathbf{z}_j \Arrowvert_2^2}$ unstable, as the denominator is very small. 
 
 We can explicit compute the variance of the $j$-th multiple regression:
 
@@ -307,7 +310,7 @@ $$
 \begin{split}
 MSE(\hat{\beta}) &= \mathbb{E}[(\hat{\mathbf{\beta}}-\beta)^{2}] \\
 &= Var(\hat{\mathbf{\beta}})+ (\mathbb{E}[\hat{\mathbf{\beta}}]-\mathbf{\beta})^{2} \\
-&= Var(\hat{\mathbf{\beta}}+0\,(unbiased)
+&= Var(\hat{\mathbf{\beta}})+0\,(unbiased)
 \end{split}
 \end{equation}
 $$
@@ -359,7 +362,7 @@ Var(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}) &= \mathbb{E}
 &= \mathbb{E}[(\mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{\epsilon}\mathbf{\epsilon}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}]\\
 &=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbb{E}[\mathbf{\epsilon}\mathbf{\epsilon}^{T}]\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
 &= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1} \\
-&= \sigma^{2} \mathbf{X}^\{T}\mathbf{X})^{-1}
+&= \sigma^{2} \mathbf{X}^{T}\mathbf{X})^{-1}
 \end{split}
 \end{equation}
 $$
@@ -382,7 +385,7 @@ PE(\hat{f}(x_{0})) &= \mathbb{E}[(y_{0}-\hat{f}(x_{0}))^{2}] \\
 \end{equation}
 $$
 
-since $\mathbb{E}[(y_{0}-f(x_{0}))]=0$, and $MSE(\hat{f}(x_{0}))=[Bias(\hat{f}(x_{0}))]^{2}+Var(\hat{f}(x_{0}))$, we look at the PE and MSE across all the input $\mathbf{x}_{1},\cdots,\mathbf{x}_{n}$., and we have
+since $\mathbb{E}[(y_{0}-f(x_{0}))]=0$, and $MSE(\hat{f}(x_{0}))=[Bias(\hat{f}(x_{0}))]^{2}+Var(\hat{f}(x_{0}))$, we look at the PE and MSE across all the input $\mathbf{x}_1, \ldots,\mathbf{x}_n$., and we have
 
 $$
 \begin{equation}
@@ -418,7 +421,7 @@ how to derive the last term?
 $$
 \begin{equation}
 \begin{split}
-frac{1}{n}\sum_{i=1}^{n}Var(x_{i}^{T}\beta) &= \frac{1}{n}trace(Var(\mathbf{X}\hat{\beta})) \\
+\frac{1}{n}\sum_{i=1}^{n}Var(x_{i}^{T}\beta) &= \frac{1}{n}trace(Var(\mathbf{X}\hat{\beta})) \\
 &=\frac{1}{n}trace(Var(\mathbf{X}(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}))\quad (H=\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}) \\
 &=\frac{1}{n}trace(\mathbf{H}\sigma^{2}\mathbf{I}\mathbf{H}) \\
 &=\frac{\sigma^{2}}{n}trace(\mathbf{H}) \\
