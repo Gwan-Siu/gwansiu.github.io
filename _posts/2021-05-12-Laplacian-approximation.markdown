@@ -48,17 +48,17 @@ It is found that the term $h(x_{0})$ does not depend on $x$, so that it can be p
 
 $$
 \begin{equation}
-\displaystyle{\int_{a}^{b}}\exp(h(x))\mathrm{d}x \approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}\exp(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}})\mathrm{d}x.
+\displaystyle{\int_{a}^{b}}\exp(h(x))\mathrm{d}x \approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}\exp\left(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}}\right)\mathrm{d}x.
 \end{equation}
 $$
 
-It is observed that the term $\displaystyle{\int_{a}^{b}}\exp(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}})\mathrm{d}x$ is proportional to a Gaussian distribution with the mean $x_{0}$ and the variance $-h^{\prime\prime}(x_{0})^{-1}$.
+It is observed that the term $\displaystyle{\int_{a}^{b}}\exp\left(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}\right)\mathrm{d}x$ is proportional to a Gaussian distribution with the mean $x_{0}$ and the variance $-h^{\prime\prime}(x_{0})^{-1}$.
 
 Let $\Phi(x\vert \mu, \sigma^{2})$ be a cumulative function for a Gaussian distribution $\mathcal{N}(x\vert \mu, \sigma^{2})$ with the mean $\mu$ and the variance $\sigma^{2}$. We can re-write Eq.(5) as follows:
 
 $$
 \begin{align}
-\displaystyle{\int_{a}^{b}\exp(h(x))}\mathrm{d}x &\approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}\exp(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}})\mathrm{d}x \\
+\displaystyle{\int_{a}^{b}\exp(h(x))}\mathrm{d}x &\approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}\exp\left(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}}\right)\mathrm{d}x \\
 &=\exp(h(x_{0}))\sqrt{\frac{2\pi}{-h^{\prime\prime}(x_{0})}}\left[\Phi(b\vert x_{0}, -h^{\prime\prime}(x_{0})^{-1}) - \Phi(a\vert x_{0}, -h^{\prime\prime}(x_{0})^{-1})\right] 
 \end{align}
 $$
@@ -72,8 +72,8 @@ In machine learning, we usually need to compute the mean of a posterior distribu
 $$
 \begin{align}
 \mathbb{E}[\theta] &= \displaystyle{\int}\theta p(\theta\vert x)\mathrm{d}\theta \\
-&= \frac{\displaystyle{\int}\theta p(x\vert \theta)p(\theta)\mathrm{d}x}{\int p(x\vert \theta)p(\theta)\mathrm{d}\theta} \\
-&= \frac{\displaystyle{\int}\theta \exp\left(\log(p(x\vert \theta)p(\theta))\right)\mathrm{d}\theta}{\displaystyle{\int} \epx\left(\log(p(x\vert \theta)p(\theta))\right)\mathrm{d}\theta}
+&= \frac{\displaystyle{\int}\theta p(x\vert \theta)p(\theta)\mathrm{d}x}{\displaystyle{\int} p(x\vert \theta)p(\theta)\mathrm{d}\theta} \\
+&= \frac{\displaystyle{\int}\theta \exp\left(\log(p(x\vert \theta)p(\theta))\right)\mathrm{d}\theta}{\displaystyle{\int} \exp\left(\log(p(x\vert \theta)p(\theta))\right)\mathrm{d}\theta}
 \end{align}
 $$
 
@@ -81,11 +81,11 @@ Let $h(\theta)=\log(p(x\vert \theta)p(\theta))$, and the function $\log(\cdot)$ 
 
 $$
 \begin{align}
-\displaystyle{\int}\theta p(\theta\vert y)\mathrm{d}\theta &= \frac{\displaystyle{\int} \theta\exp(h(\hat{\theta})+\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}{\int \exp(h(\hat{\theta})+\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}, \\
+\displaystyle{\int}\theta p(\theta\vert y)\mathrm{d}\theta &= \frac{\displaystyle{\int} \theta\exp(h(\hat{\theta})+\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}{\displaystyle{\int} \exp(h(\hat{\theta})+\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}, \\
 
-&=\frac{\displaystyle{\int} \theta\exp(\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}{\int \exp(\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}, \\
+&=\frac{\displaystyle{\int} \theta\exp(\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}{\displaystyle{\int} \exp(\frac{1}{2}h^{\prime\prime}(\hat{\theta})(\theta-\hat{\theta})^{2})\mathrm{d}\theta}, \\
 
-&= \frac{\displaystyle{\int} \theta \sqrt{ \frac{2\pi}{-h^{\prime\prime}(\hat{\theta})}} \mathcal{N}(\theta)\vert \hat{\theta}, -h^{\prime\prime}(\hat{\theta})^{-1} \mathrm{d}\theta }{ \int \sqrt{ \frac{2\pi}{-h^{\prime\prime}(\hat{\theta})}} \mathcal{N}(\theta)\vert \hat{\theta}, -h^{\prime\prime}(\hat{\theta})^{-1} \mathrm{d}\theta }, \\
+&= \frac{\displaystyle{\int} \theta \sqrt{ \frac{2\pi}{-h^{\prime\prime}(\hat{\theta})}} \mathcal{N}(\theta)\vert \hat{\theta}, -h^{\prime\prime}(\hat{\theta})^{-1} \mathrm{d}\theta }{ \displaystyle{\int} \sqrt{ \frac{2\pi}{-h^{\prime\prime}(\hat{\theta})}} \mathcal{N}(\theta)\vert \hat{\theta}, -h^{\prime\prime}(\hat{\theta})^{-1} \mathrm{d}\theta }, \\
 
 &= \hat{\theta}.
 \end{align}
