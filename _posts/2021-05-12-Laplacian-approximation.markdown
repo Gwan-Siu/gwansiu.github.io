@@ -48,7 +48,7 @@ It is found that the term $h(x_{0})$ does not depend on $x$, so that it can be p
 
 $$
 \begin{equation}
-\displaystyle{\int_{a}^{b}}\exp(h(x))\mathrm{d}x \approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}\exp\left(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}}\right)\mathrm{d}x.
+\displaystyle{\int_{a}^{b}}\exp(h(x))\mathrm{d}x \approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}}\exp\left(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}}\right)\mathrm{d}x.
 \end{equation}
 $$
 
@@ -58,7 +58,7 @@ Let $\Phi(x\vert \mu, \sigma^{2})$ be a cumulative function for a Gaussian distr
 
 $$
 \begin{align}
-\displaystyle{\int_{a}^{b}\exp(h(x))}\mathrm{d}x &\approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}\exp\left(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}}\right)\mathrm{d}x \\
+\displaystyle{\int_{a}^{b}\exp(h(x))}\mathrm{d}x &\approx \exp(h(x_{0})) \displaystyle{\int_{a}^{b}}\exp\left(-\frac{1}{2}\frac{(x-x_{0})^{2}}{-h^{\prime\prime}(x_{0})^{-1}}}\right)\mathrm{d}x \\
 &=\exp(h(x_{0}))\sqrt{\frac{2\pi}{-h^{\prime\prime}(x_{0})}}\left[\Phi(b\vert x_{0}, -h^{\prime\prime}(x_{0})^{-1}) - \Phi(a\vert x_{0}, -h^{\prime\prime}(x_{0})^{-1})\right] 
 \end{align}
 $$

@@ -1,14 +1,14 @@
 ---
 layout: page
-title: "About"
-description: "Resume"
+title: "About Me"
+description: ""
 header-img: "img/about-bg.jpg"
 ---
 
 <!-- Language Selector -->
 <select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0"> 英文 English </option>   
-    <option value="1" selected> 中文 Chinese </option>
+    <option value="0" selected> 英文 English </option>   
+    <option value="1"> 中文 Chinese </option>
 </select>
 
 <!-- English Version -->
@@ -42,6 +42,7 @@ header-img: "img/about-bg.jpg"
             $select.selectedIndex = 0;
             $en.style.display = "block";
             $zh.style.display = "none";
+        
         // zh by default
         }else{
             // not trigger onChange, otherwise cause a loop call.

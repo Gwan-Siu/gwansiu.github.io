@@ -1,5 +1,3 @@
-
-
 > Out of the comfort zone.
 > Open minds, shape the future. 
 > Extensive reading, critical thinking, coding and fittness.
