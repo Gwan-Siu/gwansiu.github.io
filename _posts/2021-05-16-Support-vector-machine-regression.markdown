@@ -14,7 +14,7 @@ We have discussed the support vector machine (SVM) and its application in classi
 
 ## 2. From Ridge Regression to SVM Regression 
 
-We assume that there are $N$ observed data samples. Let $x_{i} \in \mathbb{R}^{d}$ denote the feature vector of the $i$-th observed data, and $y_{i}\in \mathbb{R}$ is the corresponding target value. In ridge regression, the objective function is a regularized function, which is defined as follows:
+We assume that there are $N$ observed data samples. Let $\mathbf{x_{i}} \in \mathbb{R}^{d}$ denote the feature vector of the $i$-th observed data, and $y_{i}\in \mathbb{R}$ is the corresponding target value. In ridge regression, the objective function is a regularized function, which is defined as follows:
 
 $$
 \begin{equation}
