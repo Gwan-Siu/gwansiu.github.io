@@ -114,10 +114,12 @@ $$
 
 As observed, 
 
-- A coefficient $\alpha_{i}$ can only be nonzero if $\epsilon + \xi_{i}+f(\mathbf{x}_{i}) - t_{i}=0$, which implies that data point either lies on the upper boundary of the $\epsilon$-tube ($\xi_{i}=0$) or lies above the upper boundary $(\xi_{i} > 0)$. 
+- A coefficient $\alpha_{i}$ can only be nonzero if $\epsilon + \xi_{i}+f(\mathbf{x}_{i}) - t_{i}=0$, 
+- which implies that data point either lies on the upper boundary of the $\epsilon$-tube ($\xi_{i}=0$) or lies above the upper boundary $(\xi_{i} > 0)$. 
 - Similarly, a nonzero value for $\hat{\alpha}_{i}$ implies $\epsilon + \hat{\xi}_{i} - f(\mathbf{x}_{i}) + t_{i} = 0$, and such points must lie either on or below the lower boundary of the $\epislon$-tube. 
 - Futhermore, the two constraints $\epsilon + \xi_{i} + f(\mathbf{x}_{i}) - t_{i} = 0$ and $\epsilon + \hat{\xi}_{i} - f(\mathbf{x}_{i}) + t_{i} = 0$ are incompatible. 
-- We can find that $\xi_{i}$ and $\hat{\xi}_{i}$ are nonnegative while $\epsilon$ is strictly positive, and for every data point $\mathbf{x}_{i}$, either $\alpha_{i}$ and $\hat{\alpha}_{i}$ must be zero.
+- We can find that $\xi_{i}$ and $\hat{\xi}_{i}$ are nonnegative while $\epsilon$ is strictly positive, 
+- and for every data point $\mathbf{x}_{i}$, either $\alpha_{i}$ and $\hat{\alpha}_{i}$ must be zero.
 
 In the infernce stage, we can predict a new data point $\mathbf{x}^{test}$ through
 
