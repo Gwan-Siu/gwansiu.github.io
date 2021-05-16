@@ -94,7 +94,11 @@ $$
 It is found that the Laplacian approximation to the posterior mean is the posterior mode. **Laplacian approximation works well when the posterior distribution is unimodal and relatively symmetric around the model.** Intuitively, if the mass of the posterior distribution mainly concentrates around $\hat{\theta}$, the approximation will be better.
 
 
+## Reference
 
+All materials of this post come from the reference shown as follows:
+
+[1] [https://bookdown.org/rdpeng/advstatcomp/laplace-approximation.html](https://bookdown.org/rdpeng/advstatcomp/laplace-approximation.html)
 
 
 

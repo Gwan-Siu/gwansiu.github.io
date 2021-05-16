@@ -1,20 +1,17 @@
-> Out of the comfort zone.
-> Open minds, shape the future. 
-> Extensive reading, critical thinking, coding and fittness.
+> This post has two version, i.e. English version and Chinese version. You can click the button and choose the version for you convenience.
 
-## About Me
+My name is Xiao Jun (肖均). I am a third-year Ph.D. student in the department of electronic and information engineering, the Hong Kong Polytechnic Unversity, supervised by [Prof. Kenneth K. M. Lam](http://www.eie.polyu.edu.hk/~enkmlam/). My research interests include machine learning, image enhancement, and image restoration. I received my MSc degree (supervised by [Prof. Kenneth K. M. Lam](http://www.eie.polyu.edu.hk/~enkmlam/)) with distinction from the department of electronic and information engineering, the Hong Kong Polytechnic Unversity, in 2018. Before that, I obtained the BSc degree from the Guangdong University of Technology, supervised by [Prof. Wing-Kuen Ling](https://scholar.google.com/citations?user=OofKJWMAAAAJ&hl=en), in 2016. 
 
-我叫肖均，现在是香港理工大学电子资讯工程系的3年级博士研究生，导师是[Prof. Kenneth K. M. Lam](Prof. Kenneth K. M. Lam), 主要研究领域包括机器学习，图像处理以及计算机视觉，对人工智能技术发展以及产品 落地工程化解决方案有浓厚兴趣, 曾在多本学术期刊杂志以及学术会议(ICASSP,ICIP)上发表过论文超过10篇。
 
 ## Publications
 
-[1] **Jun Xiao**, Rui zhao, Kin-Man Lam, et al, Bayesian Sparse Hierarchical Model for Image Denoising", submitted to Signal Processing: Image Communication, 2021. (Under Review).
+[1] **Jun Xiao**, Tianshan Liu, Rui Zhao, Kin-Man Lam,``Balanced Distortion and Perception in Single-Image Super-Resolution Based on Optimal Transport in Wavelet Domain", sumitted to Neuracomputing, 2021. (Under review)
 
-[2] **Jun Xiao**, Tianshan Liu, Rui Zhao, Kin-Man Lam,``Balanced Distortion and Perception in Single-Image Super-Resolution Based on Optimal Transport in Wavelet Domain", sumitted to Neuracomputing, 2021. (Under review)
+[1] **Jun Xiao**, Rui zhao, Kin-Man Lam, et al, ``Bayesian Sparse Hierarchical Model for Image Denoising", submitted to Signal Processing: Image Communication, 2021. 
 
 [3] **Jun Xiao**, Wenqi Jia, Kin-Man Lam,``Feature redundancy mining: Deep light-weight image super-resolution model", 2021 IEEE International Conference on Acoustics, Speech and Signal Processing. (Accepted)
 
-[4] Tianshan Liu, Rui Zhao, ##Jun Xiao##, Kin-Man Lam,``Progressive Motion Representation Distillation With Two-Branch Networks for Egocentric Activity Recognition", IEEE Signal Processing Letters, 2020.
+[4] Tianshan Liu, Rui Zhao, **Jun Xiao**, Kin-Man Lam,``Progressive Motion Representation Distillation With Two-Branch Networks for Egocentric Activity Recognition", IEEE Signal Processing Letters, 2020.
 
 [5] **Jun Xiao**, Rui Zhao, Kin-Man Lam, ``Elastic net with adaptive weight for image denoising", International Workshop on Advanced Imaging Technology (IWAIT), 2020.
 
