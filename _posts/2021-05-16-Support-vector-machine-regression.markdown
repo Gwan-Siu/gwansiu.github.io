@@ -36,7 +36,7 @@ h(x)=\begin{cases}
 \end{equation}
 $$
 
-and is illustrated in Figure 1. It is shown that the $\epsilon$-insentive error function gives zero error if the obsolute difference between the prediction $f(\mathbf{x}_{i})$ and the target $y_{i}$ is less than $\epsilon$, where $\epsilon > 0$. 
+and is illustrated in Figure 1. It is shown that the $\epsilon$-insentive error function gives zero error if the obsolute difference between the prediction $f(\mathbf{x}_{i})$ and the target $y_{i}$ is less than $\epsilon$, where $\epsilon>0$. 
 
 Therefore, we can re-write the regularized error function as follows:
 
@@ -48,7 +48,7 @@ $$
 
 where $C$ is a regularization parameter, which balances the regularized term and the $\epsilon$-insentive error function.
 
-Next, we introduce two slack variables $\xi_{i}$ and $\hat{\xi}_{i}$ for each data point $\mathbf{x}_{i}$, where $\xi_{i}>0$ corresponds to a point for which $y_{i} > f(\mathbf{x}_{i}) + \epsilon$, and $\hat{\xi}_{i}>0$ corresponds to a point for which $y_{i}< f(\mathbf{x}_{i})-\epsilon$. By introudcing the slack variables, we allow data points to lie outside the tube when the slack variables are nonzero, and hence we can derive the object function for SVM regression.
+Next, we introduce two slack variables $\xi_{i}$ and $\hat{\xi}_{i}$ for each data point $\mathbf{x}_{i}$, where $\xi_{i}>0$ corresponds to a point for which $y_{i} > f(\mathbf{x}_{i}) + \epsilon$, and $\hat{\xi}_{i}>0$ corresponds to a point for which $y_{i}<f(\mathbf{x}_{i})-\epsilon$. By introducing the slack variables, we allow data points to lie outside the tube when the slack variables are nonzero, and hence we can derive the object function for SVM regression.
 
 ## 3. The Formulation of SVM Regression
 
@@ -93,7 +93,7 @@ where $\phi(\cdot)$ denote the basis function. We use the obtained results to el
 
 $$
 \begin{align}
-\hat{L}(\bn{\alpha}, \hat{\alpha}) = &-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}(\alpha_{i} - \alpha_{j})K(\mathbf{x}_{i}, \mathbf{x}_{j}) -\epsilon \sum_{i=1}^{N}(\alpha_{i} + \hat{\alpha}_{i}) + \sum_{i=1}^{N}(\alpha_{i} - \hat{\alpha}_{i})y_{i}, \\
+\hat{L}(\mathbf{\alpha}, \hat{\alpha}) = &-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}(\alpha_{i} - \alpha_{j})K(\mathbf{x}_{i}, \mathbf{x}_{j}) -\epsilon \sum_{i=1}^{N}(\alpha_{i} + \hat{\alpha}_{i}) + \sum_{i=1}^{N}(\alpha_{i} - \hat{\alpha}_{i})y_{i}, \\
 s.t. &0\leq \alpha_{i}\leq C, i=1,\cdots, N, \\
 & 0\leq \alpha_{i} \leq C, i=1, \cdots, N.
 \end{align}
@@ -112,7 +112,12 @@ $$
 \end{align}
 $$
 
-As observed, a coefficient $\alpha_{i}$ can only be nonzero if $\epsilon + \xi_{i} + f(\mathbf{x}_{i}) - t_{i} = 0$, which implies that data point either lies on the upper boundary of the $\epsilon$-tube ($\xi_{i}=0$) or lies above the upper boundary $(\xi_{i} > 0)$. Similarly, a nonzero value for $\hat{\alpha}_{i}$ implies $\epsilon + \hat{\xi}_{i} - f(\mathbf{x}_{i}) + t_{i} = 0$, and such points must lie either on or below the lower boundary of the $\epislon$-tube. Futhermore, the two constraints $\epsilon + \xi_{i} + f(\mathbf{x}_{i}) - t_{i} = 0$ and $\epsilon + \hat{\xi}_{i} - f(\mathbf{x}_{i}) + t_{i} = 0$ are incompatible. We can find that $\xi_{i}$ and $\hat{\xi}_{i}$ are nonnegative while $\epsilon$ is strictly positive, and for every data point $\mathbf{x}_{i}$, either $\alpha_{i}$ and $\hat{\alpha}_{i}$ must be zero.
+As observed, 
+
+- A coefficient $\alpha_{i}$ can only be nonzero if $\epsilon + \xi_{i}+f(\mathbf{x}_{i}) - t_{i}=0$, which implies that data point either lies on the upper boundary of the $\epsilon$-tube ($\xi_{i}=0$) or lies above the upper boundary $(\xi_{i} > 0)$. 
+- Similarly, a nonzero value for $\hat{\alpha}_{i}$ implies $\epsilon + \hat{\xi}_{i} - f(\mathbf{x}_{i}) + t_{i} = 0$, and such points must lie either on or below the lower boundary of the $\epislon$-tube. 
+- Futhermore, the two constraints $\epsilon + \xi_{i} + f(\mathbf{x}_{i}) - t_{i} = 0$ and $\epsilon + \hat{\xi}_{i} - f(\mathbf{x}_{i}) + t_{i} = 0$ are incompatible. 
+- We can find that $\xi_{i}$ and $\hat{\xi}_{i}$ are nonnegative while $\epsilon$ is strictly positive, and for every data point $\mathbf{x}_{i}$, either $\alpha_{i}$ and $\hat{\alpha}_{i}$ must be zero.
 
 In the infernce stage, we can predict a new data point $\mathbf{x}^{test}$ through
 
