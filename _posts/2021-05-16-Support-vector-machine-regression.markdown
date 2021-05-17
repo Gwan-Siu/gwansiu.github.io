@@ -18,7 +18,7 @@ We assume that there are $N$ observed data samples. Let $\mathbf{x}^{(i)} \in \m
 
 $$
 \begin{equation}
-\frac{1}{2}\sum_{i=1}^{N}(f(\mathbf{x}^{(i)})-y_{i})^{2} + \frac{\lambda}{2}\Arrowvert \mathbf{w}\Arrowvert^{2}_{2},
+\frac{1}{2}\sum_{i=1}^{N}(f(\mathbf{x}^{(i)})-y^{(i)})^{2} + \frac{\lambda}{2}\Arrowvert \mathbf{w}\Arrowvert^{2}_{2},
 \end{equation}
 $$
 
@@ -36,19 +36,19 @@ h(x)=\begin{cases}
 \end{equation}
 $$
 
-and is illustrated in Figure 1. It is shown that the $\epsilon$-insentive error function gives zero error if the obsolute difference between the prediction $f(\mathbf{x_{i}})$ and the target $y_{i}$ is less than $\epsilon$, where $\epsilon>0$. 
+and is illustrated in Figure 1. It is shown that the $\epsilon$-insentive error function gives zero error if the obsolute difference between the prediction $f(\mathbf{x}^{(i)})$ and the target $y^{(i)}$ is less than $\epsilon$, where $\epsilon>0$. 
 
 Therefore, we can re-write the regularized error function as follows:
 
 $$
 \begin{equation}
-C\sum_{i=1}^{N}g(f(\mathbf{x}_{i})-y_{i})+\frac{1}{2}\Arrowvert \mathbf{w}\Arrowvert^{2}_{2},
+C\sum_{i=1}^{N}g(f(\mathbf{x}^{(i)})-y^{(i)})+\frac{1}{2}\Arrowvert \mathbf{w}\Arrowvert^{2}_{2},
 \end{equation}
 $$
 
 where $C$ is a regularization parameter, which balances the regularized term and the $\epsilon$-insentive error function.
 
-Next, we introduce two slack variables $\xi_{i}$ and $\hat{\xi}_{i}$ for each data point $\mathbf{x_{i}}$, where $\xi_{i}>0$ corresponds to a point for which $y_{i} > f(\mathbf{x_{i}}) + \epsilon$, and $\hat{\xi}_{i}>0$ corresponds to a point for which $y_{i}<f(\mathbf{x_{i}})-\epsilon$. By introducing the slack variables, we allow data points to lie outside the tube when the slack variables are nonzero, and hence we can derive the object function for SVM regression.
+Next, we introduce two slack variables $\xi^{(i)}$ and $\hat{\xi}^{(i)}$ for each data point $\mathbf{x}^{(i)}$, where $\xi^{(i)}>0$ corresponds to a point for which $y^{(i)} > f(\mathbf{x}^{(i)}) + \epsilon$, and $\hat{\xi}^{(i)}>0$ corresponds to a point for which $y^{(i)}<f(\mathbf{x}^{(i)})-\epsilon$. By introducing the slack variables, we allow data points to lie outside the tube when the slack variables are nonzero, and hence we can derive the object function for SVM regression.
 
 ## 3. The Formulation of SVM Regression
 
