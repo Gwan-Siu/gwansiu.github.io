@@ -56,35 +56,35 @@ The objective function of SVM for regression can be formulated as follows:
 
 $$
 \begin{align}
-C\sum_{i=1}^{N}&(\xi_{i} + \hat{\xi}_{i}) + \frac{1}{2}\Arrowvert \mathbf{w}\Arrowvert_{2}^{2}, \\
-s.t. & y_{i} \leq f(\mathbf{x}_{i}) + \epsilon + \xi_{i}, \\
-& y_{i} \geq f(\mathbf{x}_{i}) - \epsilon - \hat{\xi}_{i}, \\
-& \xi_{i}\geq 0, \hat{\xi}_{i}\geq 0.
+C\sum_{i=1}^{N}&(\xi^{(i)} + \hat{\xi}^{(i)}) + \frac{1}{2}\Arrowvert \mathbf{w}\Arrowvert_{2}^{2}, \\
+s.t. & y^{(i)} \leq f(\mathbf{x}^{(i)}) + \epsilon + \xi^{(i)}, \\
+& y^{(i)} \geq f(\mathbf{x}^{(i)}) - \epsilon - \hat{\xi}^{(i)}, \\
+& \xi^{(i)}\geq 0, \hat{\xi}^{(i)}\geq 0.
 \end{align}
 $$
 
-By introducing Lagrange multiplers $\alpha_{i}\geq 0, \mu_{i}\geq 0$ and $\hat{\mu}_{i}\geq 0$, the Lagrange function is
+By introducing Lagrange multiplers $\alpha^{(i)}\geq 0, \mu^{(i)}\geq 0$ and $\hat{\mu}^{(i)}\geq 0$, the Lagrange function is
 
 $$
 \begin{equation}
 \begin{split}
-L= &C\sum_{i=1}^{N}(\xi_{i} + \hat{\xi}_{i}) + \frac{1}{2}\Arrowvert \mathbf{w} - \sum_{i}^{N}(\mu_{i}\xi_{i} + \hat{\mu}_{i}\hat{\xi}_{i}) \\
-& -\sum_{i=1}^{N}\alpha_{i}(\epsilon + \xi_{i} + f(\mathbf{x}_{i})-y_{i}) -\sum_{i=1}^{N}\hat{\alpha}_{i}(\epsilon + \hat{\xi}_{i} - f(\mathbf{x}_{i}) + y_{i}).
+L= &C\sum_{i=1}^{N}(\xi^{(i)} + \hat{\xi}^{(i)}) + \frac{1}{2}\Arrowvert \mathbf{w} - \sum_{i}^{N}(\mu^{(i)}\xi^{(i)} + \hat{\mu}^{(i)}\hat{\xi}^{(i)}) \\
+& -\sum_{i=1}^{N}\alpha_{i}(\epsilon + \xi^{(i)} + f(\mathbf{x}^{(i)})-y^{(i)}) -\sum_{i=1}^{N}\hat{\alpha}^{(i)}(\epsilon + \hat{\xi}^{(i)} - f(\mathbf{x}^{(i)}) + y^{(i)}).
 \end{split}
 \end{equation}
 $$
 
-We take the derivative of the Lagrange function with respect to $\mathbf{w}, b, \xi$ and $\hat{\xi}_{i}$ and set it to zero, giving
+We take the derivative of the Lagrange function with respect to $\mathbf{w}, b, \xi$ and $\hat{\xi}^{(i)}$ and set it to zero, giving
 
 $$
 \begin{align}
-\frac{\partial L}{\partial \mathbf{w}} = 0 &\Rightarrow \mathbf{w} = \sum_{i=1}^{N}(\alpha_{i}-\hat{\alpha}_{i})\Phi(\mathbf{x}_{i})， \\
+\frac{\partial L}{\partial \mathbf{w}} = 0 &\Rightarrow \mathbf{w} = \sum_{i=1}^{N}(\alpha^{(i)}-\hat{\alpha}^{(i)})\Phi(\mathbf{x}^{(i)})， \\
 
-\frac{\partial L}{\partial b}=0 &\Rightarrow \sum_{i=1}^{N}(\alpha_{i} - \hat{\alpha}_{i}) = 0， \\
+\frac{\partial L}{\partial b}=0 &\Rightarrow \sum_{i=1}^{N}(\alpha^{(i)} - \hat{\alpha}^{(i)}) = 0， \\
 
-\frac{\partial L}{\partial \xi_{i}} = 0 &\Rightarrow \alpha_{i} + \mu_{i} = C， \\
+\frac{\partial L}{\partial \xi^{(i)}} = 0 &\Rightarrow \alpha^{(i)} + \mu^{(i)} = C， \\
 
-\frac{\partial L}{\partial \xi_{i}} = 0 &\Rightarrow \hat{\alpha}_{i} + \hat{\mu}_{i} = C,
+\frac{\partial L}{\partial \xi^{(i)}} = 0 &\Rightarrow \hat{\alpha}^{(i)} + \hat{\mu}^{(i)} = C,
 
 \end{align}
 $$
@@ -93,9 +93,9 @@ where $\phi(\cdot)$ denote the basis function. We use the obtained results to el
 
 $$
 \begin{align}
-\hat{L}(\mathbf{\alpha}, \hat{\alpha}) = &-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}(\alpha_{i} - \alpha_{j})K(\mathbf{x}_{i}, \mathbf{x}_{j}) -\epsilon \sum_{i=1}^{N}(\alpha_{i} + \hat{\alpha}_{i}) + \sum_{i=1}^{N}(\alpha_{i} - \hat{\alpha}_{i})y_{i}, \\
-s.t. &0\leq \alpha_{i}\leq C, i=1,\cdots, N, \\
-& 0\leq \alpha_{i} \leq C, i=1, \cdots, N.
+\hat{L}(\mathbf{\alpha}, \hat{\alpha}) = &-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}(\alpha^{(i)} - \alpha^{(j)})K(\mathbf{x}^{(i)}, \mathbf{x}^{(j)}) -\epsilon \sum_{i=1}^{N}(\alpha^{(i)} + \hat{\alpha}^{(i)}) + \sum_{i=1}^{N}(\alpha^{(i)} - \hat{\alpha}^{(i)})y^{(i)}, \\
+s.t. &0\leq \alpha^{(i)}\leq C, i=1,\cdots, N, \\
+& 0\leq \alpha^{(i)} \leq C, i=1, \cdots, N.
 \end{align}
 $$
 
@@ -105,25 +105,22 @@ We investigate more insights about this formulation through KKT condition, which
 
 $$
 \begin{align}
-\alpha_{i} (\epsilon + \xi_{i} + f(\mathbf{x}_{i}) - y_{i}) &=0, \\
-\hat{\alpha}_{i} (\epsilon + \xi_{i} - f(\mathbf{x}_{i}) + y_{i}) &= 0, \\
-(C- \alpha_{i})\xi_{i} &= 0, \\
-(C - \hat{\alpha}_{i}) &= 0.
+\alpha^{(i)} (\epsilon + \xi^{(i)} + f(\mathbf{x}^{(i)}) - y^{(i)}) &=0, \\
+\hat{\alpha}^{(i)} (\epsilon + \xi^{(i)} - f(\mathbf{x}^{(i)}) + y^{(i)}) &= 0, \\
+(C- \alpha^{(i)})\xi^{(i)} &= 0, \\
+(C - \hat{\alpha}^{(i)}) &= 0.
 \end{align}
 $$
 
 As observed, 
 
-- A coefficient $\alpha_{i}$ can only be nonzero if $\epsilon + \xi_{i}+f(\mathbf{x_{i}}) - t_{i}=0$, which implies that data point either lies on the upper boundary of the $\epsilon$-tube ($\xi_{i}=0$) or lies above the upper boundary $(\xi_{i} > 0)$. 
-- Similarly, a nonzero value for $\hat{\alpha}_{i}$ implies $\epsilon + \hat{\xi}_{i} - f(\mathbf{x_{i}}) + t_{i} = 0$, and such points must lie either on or below the lower boundary of the $\epislon$-tube. 
-- Futhermore, the two constraints $\epsilon + \xi_{i} + f(\mathbf{x_{i}}) - t_{i} = 0$ and $\epsilon + \hat{\xi}_{i} - f(\mathbf{x_{i}}) + t_{i} = 0$ are incompatible. 
-- We can find that $\xi_{i}$ and $\hat{\xi}_{i}$ are nonnegative while $\epsilon$ is strictly positive, and for every data point $\mathbf{x_{i}}$, either $\alpha_{i}$ and $\hat{\alpha}_{i}$ must be zero.
+- A coefficient $\alpha^{(i)}$ can only be nonzero if $\epsilon + \xi^{(i)}+f(\mathbf{x}^{(i)}) - y^{(i)}=0$, which implies that data point either lies on the upper boundary of the $\epsilon$-tube ($\xi^{(i)}=0$) or lies above the upper boundary $(\xi^{(i)} > 0)$. Similarly, a nonzero value for $\hat{\alpha}^{(i)}$ implies $\epsilon + \hat{\xi}^{(i)} - f(\mathbf{x}^{(i)}) + y^{(i)} = 0$, and such points must lie either on or below the lower boundary of the $\epislon$-tube. Futhermore, the two constraints $\epsilon + \xi^{(i)} + f(\mathbf{x}^{(i)}) - y^{(i)} = 0$ and $\epsilon + \hat{\xi}^{(i)} - f(\mathbf{x}^{(i)}) + y^{(i)} = 0$ are incompatible. We can find that $\xi^{(i)}$ and $\hat{\xi}^{(i)}$ are nonnegative while $\epsilon$ is strictly positive, and for every data point $\mathbf{x}^{(i)}$, either $\alpha^{(i)}$ and $\hat{\alpha}^{(i)}$ must be zero.
 
 In the infernce stage, we can predict a new data point $\mathbf{x}^{test}$ through
 
 $$
 \begin{equation}
-f(\mathbf{x}^{test}) = \sum_{i=1}^{N}(\alpha_{i} - \hat{\alpha}_{i})K(\mathbf{x}^{test},\mathbf{x}_{i}) + b,
+f(\mathbf{x}^{test}) = \sum_{i=1}^{N}(\alpha^{(i)} - \hat{\alpha}^{(i)})K(\mathbf{x}^{test},\mathbf{x}^{(i)}) + b,
 \end{equation}
 $$
 
@@ -131,12 +128,12 @@ where
 
 $$
 \begin{align}
-b &= y_{i} - \epsilon - \mathbf{w}^{T}\phi(\mathbf{x}_{i}) \\ 
-&=y_{i} - \epsilon - \sum_{j=1}^{N}(\alpha_{j} - \hat{\alpha}_{j})K(\mathbf{x}_{i}, \mathbf{x}_{j}).
+b &= y^{(i)} - \epsilon - \mathbf{w}^{T}\phi(\mathbf{x}^{(i)}) \\ 
+&=y^{(i)} - \epsilon - \sum_{j=1}^{N}(\alpha^{(j)} - \hat{\alpha}^{(j)})K(\mathbf{x}^{(i)}, \mathbf{x}^{(j)}).
 \end{align}
 $$
 
-The support vectors are those data points that either $\alpha_{i}\neq 0$ or $\hat{\alpha}_{i}\neq =0$.
+The support vectors are those data points that either $\alpha^{(i)}\neq 0$ or $\hat{\alpha}^{(i)}\neq =0$.
 
 ## Reference
 
